@@ -1,0 +1,165 @@
+/home/user/securedrop-workstation/builder/qubes-builder/qubes-src/builder-debian//update-local-repo.sh buster
+dpkg-scanpackages: info: Wrote 60 entries to output Packages file.
+sudo chroot /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster apt-get  update
+Get:1 file:/tmp/qubes-deb buster InRelease
+Ign:1 file:/tmp/qubes-deb buster InRelease
+Get:2 file:/tmp/qubes-deb buster Release [340 B]
+Get:2 file:/tmp/qubes-deb buster Release [340 B]
+Get:3 file:/tmp/qubes-deb buster Release.gpg
+Ign:3 file:/tmp/qubes-deb buster Release.gpg
+Get:4 file:/tmp/qubes-deb buster/main amd64 Packages [12.2 kB]
+Hit:6 https://deb.qubes-os.org/r4.0/vm buster InRelease
+Hit:5 https://cdn-aws.deb.debian.org/debian buster InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/app-linux-tor/debian/control
+dh_testdir
+dh_testroot
+dh_prep
+dh_testdir
+dh_testroot
+dh_install
+dh_installdocs
+dh_installchangelogs
+dh_compress
+dh_fixperms
+dh_installdeb
+dh_gencontrol
+dh_md5sums
+dh_builddeb
+dpkg-deb: building package 'qubes-tor-build-deps' in '../qubes-tor-build-deps_0.1.14-1_all.deb'.
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package qubes-tor-build-deps.
+(Reading database ... 41986 files and directories currently installed.)
+Preparing to unpack qubes-tor-build-deps_0.1.14-1_all.deb ...
+Unpacking qubes-tor-build-deps (0.1.14-1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+After this operation, 0 B of additional disk space will be used.
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (2: No such file or directory)
+Setting up qubes-tor-build-deps (0.1.14-1) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/..; GLOBIGNORE=qubes-tor_0.1.14*orig*; rm -f qubes-tor_0.1.14*; GLOBIGNORE=
+rm -rf /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/deb/*
+rm -rf /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/rpm/*
+rm -rf /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/debian/..; /home/user/securedrop-workstation/builder/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/debian/changelog /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/debian/changelog.copy
+mv /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/debian/changelog.copy /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/debian/changelog
+echo "Building package in /home/user/qubes-src/app-linux-tor"
+Building package in /home/user/qubes-src/app-linux-tor
+cd /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb10u "Build for buster"; debchange -t --force-distribution -r -D buster buster
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/securedrop-workstation/builder/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/debian/changelog
+find /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor \! -newer /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster su user -c 'cd /home/user/qubes-src/app-linux-tor/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package qubes-tor
+dpkg-buildpackage: info: source version 0.1.14-1+deb10u1
+dpkg-buildpackage: info: source distribution buster
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+dpkg-source: info: using options from app-linux-tor/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+ fakeroot debian/rules clean
+dh clean --with systemd
+   dh_auto_clean
+   dh_clean
+ dpkg-source -b .
+dpkg-source: info: using options from app-linux-tor/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building qubes-tor using existing ./qubes-tor_0.1.14.orig.tar.xz
+dpkg-source: info: building qubes-tor in qubes-tor_0.1.14-1+deb10u1.debian.tar.xz
+dpkg-source: info: building qubes-tor in qubes-tor_0.1.14-1+deb10u1.dsc
+ debian/rules build
+dh build --with systemd
+   dh_update_autotools_config
+   dh_auto_configure
+   dh_auto_build
+	make -j1
+make[1]: Entering directory '/home/user/qubes-src/app-linux-tor'
+Qubes addons main Makefile:
+make rpms                 <--- make all rpms and sign them
+
+make clean                <--- clean all the binary files
+make update-repo-current  <-- copy newly generated rpms to qubes yum repo
+make update-repo-current-testing <-- same, but for -current-testing repo
+make update-repo-unstable <-- same, but to -testing repo
+make update-repo-installer -- copy dom0 rpms to installer repo
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-tor'
+   dh_auto_test
+ fakeroot debian/rules binary
+dh binary --with systemd
+   dh_testroot
+   dh_prep
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/home/user/qubes-src/app-linux-tor'
+make install-deb
+make[2]: Entering directory '/home/user/qubes-src/app-linux-tor'
+install -D start_tor_proxy.sh /home/user/qubes-src/app-linux-tor/debian/qubes-tor/usr/lib/qubes-tor/start_tor_proxy.sh
+install -D torrc.tpl /home/user/qubes-src/app-linux-tor/debian/qubes-tor/usr/lib/qubes-tor/torrc.tpl
+install -D torrc /home/user/qubes-src/app-linux-tor/debian/qubes-tor/usr/lib/qubes-tor/torrc
+install -D README.md /home/user/qubes-src/app-linux-tor/debian/qubes-tor/usr/lib/qubes-tor/README
+install -D 99-qubes-tor-hook.rules /home/user/qubes-src/app-linux-tor/debian/qubes-tor/etc/udev/rules.d/99-qubes-tor-hook.rules
+install -D qubes-tor.service /home/user/qubes-src/app-linux-tor/debian/qubes-tor/lib/systemd/system/qubes-tor.service 
+install -D torproject.list /home/user/qubes-src/app-linux-tor/debian/qubes-tor/etc/apt/sources.lists.d/torproject.list
+install -D torprojectarchive.asc /home/user/qubes-src/app-linux-tor/debian/qubes-tor/usr/lib/qubes-tor/torprojectarchive.asc
+make[2]: Leaving directory '/home/user/qubes-src/app-linux-tor'
+sed -i "s/jessie//" /home/user/qubes-src/app-linux-tor/debian/qubes-tor/etc/apt/sources.lists.d/torproject.list
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-tor'
+   dh_installdocs
+   dh_installchangelogs
+   dh_systemd_enable
+   debian/rules override_dh_systemd_start
+make[1]: Entering directory '/home/user/qubes-src/app-linux-tor'
+dh_systemd_start --no-restart-on-upgrade
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-tor'
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_strip
+   dh_makeshlibs
+   dh_shlibdeps
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-tor' in '../qubes-tor_0.1.14-1+deb10u1_amd64.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../qubes-tor_0.1.14-1+deb10u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-source: info: using options from app-linux-tor/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-buildpackage: info: full upload (original source is included)
+mkdir -p /home/user/securedrop-workstation/builder/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb
+mkdir -p qubes-src/app-linux-tor/pkgs/vm-buster
+cd /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/debian/../..; \
+	cp -t /home/user/securedrop-workstation/builder/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-tor_0.1.14*.changes`
+cp -t /home/user/securedrop-workstation/builder/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb/ /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/debian/../../qubes-tor_0.1.14*.changes
+cd /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/debian/../..; \
+	mv -t /home/user/securedrop-workstation/builder/qubes-builder/qubes-src/app-linux-tor/pkgs/vm-buster  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-tor_0.1.14*.changes`
+mv -t /home/user/securedrop-workstation/builder/qubes-builder/qubes-src/app-linux-tor/pkgs/vm-buster /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-tor/debian/../../qubes-tor_0.1.14*.changes

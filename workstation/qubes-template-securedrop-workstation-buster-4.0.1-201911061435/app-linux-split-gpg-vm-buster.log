@@ -1,0 +1,209 @@
+/home/user/securedrop-workstation/builder/qubes-builder/qubes-src/builder-debian//update-local-repo.sh buster
+dpkg-scanpackages: info: Wrote 57 entries to output Packages file.
+sudo chroot /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster apt-get  update
+Get:1 file:/tmp/qubes-deb buster InRelease
+Ign:1 file:/tmp/qubes-deb buster InRelease
+Get:2 file:/tmp/qubes-deb buster Release [340 B]
+Get:2 file:/tmp/qubes-deb buster Release [340 B]
+Get:3 file:/tmp/qubes-deb buster Release.gpg
+Ign:3 file:/tmp/qubes-deb buster Release.gpg
+Get:4 file:/tmp/qubes-deb buster/main amd64 Packages [11.7 kB]
+Hit:5 https://deb.qubes-os.org/r4.0/vm buster InRelease
+Hit:6 https://cdn-aws.deb.debian.org/debian buster InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/app-linux-split-gpg/debian/control
+dh_testdir
+dh_testroot
+dh_prep
+dh_testdir
+dh_testroot
+dh_install
+dh_installdocs
+dh_installchangelogs
+dh_compress
+dh_fixperms
+dh_installdeb
+dh_gencontrol
+dh_md5sums
+dh_builddeb
+dpkg-deb: building package 'qubes-gpg-split-build-deps' in '../qubes-gpg-split-build-deps_2.0.41-1_all.deb'.
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package qubes-gpg-split-build-deps.
+(Reading database ... 41982 files and directories currently installed.)
+Preparing to unpack qubes-gpg-split-build-deps_2.0.41-1_all.deb ...
+Unpacking qubes-gpg-split-build-deps (2.0.41-1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+After this operation, 0 B of additional disk space will be used.
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (2: No such file or directory)
+Setting up qubes-gpg-split-build-deps (2.0.41-1) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/..; GLOBIGNORE=qubes-gpg-split_2.0.41*orig*; rm -f qubes-gpg-split_2.0.41*; GLOBIGNORE=
+rm -rf /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/deb/*
+rm -rf /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/rpm/*
+rm -rf /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/debian/..; /home/user/securedrop-workstation/builder/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/debian/changelog /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/debian/changelog.copy
+mv /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/debian/changelog.copy /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/debian/changelog
+echo "Building package in /home/user/qubes-src/app-linux-split-gpg"
+Building package in /home/user/qubes-src/app-linux-split-gpg
+cd /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb10u "Build for buster"; debchange -t --force-distribution -r -D buster buster
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/securedrop-workstation/builder/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/debian/changelog
+find /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg \! -newer /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster su user -c 'cd /home/user/qubes-src/app-linux-split-gpg/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package qubes-gpg-split
+dpkg-buildpackage: info: source version 2.0.41-1+deb10u1
+dpkg-buildpackage: info: source distribution buster
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+dpkg-source: info: using options from app-linux-split-gpg/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+ fakeroot debian/rules clean
+dh clean
+   dh_auto_clean
+	make -j1 clean
+make[1]: Entering directory '/home/user/qubes-src/app-linux-split-gpg'
+make -C src clean
+make[2]: Entering directory '/home/user/qubes-src/app-linux-split-gpg/src'
+rm -f *.o gpg-client gpg-server pipe-cat
+make[2]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg/src'
+make -C doc clean
+make[2]: Entering directory '/home/user/qubes-src/app-linux-split-gpg/doc'
+rm -f qubes-gpg-import-key.1.gz qubes-gpg-client-wrapper.1.gz qubes-gpg-client.1.gz
+make[2]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg/doc'
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg'
+   dh_clean
+ dpkg-source -b .
+dpkg-source: info: using options from app-linux-split-gpg/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building qubes-gpg-split using existing ./qubes-gpg-split_2.0.41.orig.tar.xz
+dpkg-source: info: building qubes-gpg-split in qubes-gpg-split_2.0.41-1+deb10u1.debian.tar.xz
+dpkg-source: info: building qubes-gpg-split in qubes-gpg-split_2.0.41-1+deb10u1.dsc
+ debian/rules build
+dh build
+   dh_update_autotools_config
+   dh_auto_configure
+   debian/rules override_dh_auto_build
+make[1]: Entering directory '/home/user/qubes-src/app-linux-split-gpg'
+dh_clean --keep
+dh_clean: dh_clean -k is deprecated; use dh_prep instead
+dh_clean: This feature will be removed in compat 12.
+make build
+make[2]: Entering directory '/home/user/qubes-src/app-linux-split-gpg'
+make -C src
+make[3]: Entering directory '/home/user/qubes-src/app-linux-split-gpg/src'
+cc -Wall -Wextra -Werror -O -g -Wdate-time -D_FORTIFY_SOURCE=2  -c -o gpg-client.o gpg-client.c
+cc -Wall -Wextra -Werror -O -g -Wdate-time -D_FORTIFY_SOURCE=2  -c -o multiplex.o multiplex.c
+cc -Wall -Wextra -Werror -O -g -Wdate-time -D_FORTIFY_SOURCE=2  -c -o gpg-common.o gpg-common.c
+cc -Wl,-z,relro  gpg-client.o multiplex.o gpg-common.o  -lpthread -o gpg-client
+cc -Wall -Wextra -Werror -O -g -Wdate-time -D_FORTIFY_SOURCE=2  -c -o gpg-server.o gpg-server.c
+cc -Wl,-z,relro  gpg-server.o multiplex.o gpg-common.o  -lpthread -o gpg-server
+cc -Wall -Wextra -Werror -O -g -Wdate-time -D_FORTIFY_SOURCE=2 -Wl,-z,relro  pipe-cat.c  -lpthread -o pipe-cat
+make[3]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg/src'
+make -C doc manpages
+make[3]: Entering directory '/home/user/qubes-src/app-linux-split-gpg/doc'
+pandoc -s -f rst -t man qubes-gpg-import-key.rst > qubes-gpg-import-key.1
+gzip -f qubes-gpg-import-key.1
+pandoc -s -f rst -t man qubes-gpg-client-wrapper.rst > qubes-gpg-client-wrapper.1
+gzip -f qubes-gpg-client-wrapper.1
+pandoc -s -f rst -t man qubes-gpg-client.rst > qubes-gpg-client.1
+gzip -f qubes-gpg-client.1
+make[3]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg/doc'
+make[2]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg'
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg'
+   dh_auto_test
+ fakeroot debian/rules binary
+dh binary
+   dh_testroot
+   dh_prep
+   dh_installdirs
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/home/user/qubes-src/app-linux-split-gpg'
+make install-vm
+make[2]: Entering directory '/home/user/qubes-src/app-linux-split-gpg'
+install -d /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/lib/qubes-gpg-split
+install -t /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/lib/qubes-gpg-split src/pipe-cat src/gpg-server
+install -D src/gpg-client /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/bin/qubes-gpg-client
+install -D gpg-client-wrapper /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/bin/qubes-gpg-client-wrapper
+install -D gpg-import-key /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/bin/qubes-gpg-import-key
+install -D qubes.Gpg.service /home/user/qubes-src/app-linux-split-gpg/debian/tmp/etc/qubes-rpc/qubes.Gpg
+install -D qubes.GpgImportKey.service /home/user/qubes-src/app-linux-split-gpg/debian/tmp/etc/qubes-rpc/qubes.GpgImportKey
+install -D qubes-gpg.sh /home/user/qubes-src/app-linux-split-gpg/debian/tmp/etc/profile.d/qubes-gpg.sh
+install -d /home/user/qubes-src/app-linux-split-gpg/debian/tmp/var/run/qubes-gpg-split
+install -D qubes-gpg-split.tmpfiles /home/user/qubes-src/app-linux-split-gpg/debian/tmp/etc/tmpfiles.d/qubes-gpg-split.conf
+make -C tests install-vm
+make[3]: Entering directory '/home/user/qubes-src/app-linux-split-gpg/tests'
+install -d /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/lib/qubes-gpg-split
+install test_*.py /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/lib/qubes-gpg-split/
+make[3]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg/tests'
+make -C doc install
+make[3]: Entering directory '/home/user/qubes-src/app-linux-split-gpg/doc'
+install -d /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/share/man/man1
+install -D qubes-gpg-import-key.1.gz qubes-gpg-client-wrapper.1.gz qubes-gpg-client.1.gz /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/share/man/man1/
+make[3]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg/doc'
+make[2]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg'
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg'
+   debian/rules override_dh_install
+make[1]: Entering directory '/home/user/qubes-src/app-linux-split-gpg'
+dh_install --fail-missing
+dh_install: Please use dh_missing --list-missing/--fail-missing instead
+dh_install: This feature will be removed in compat 12.
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg'
+   dh_installdocs
+   dh_installchangelogs
+   dh_installman
+   dh_installinit
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_strip
+   dh_makeshlibs
+   dh_shlibdeps
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-gpg-split-tests' in '../qubes-gpg-split-tests_2.0.41-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'qubes-gpg-split' in '../qubes-gpg-split_2.0.41-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'qubes-gpg-split-dbgsym' in '../qubes-gpg-split-dbgsym_2.0.41-1+deb10u1_amd64.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../qubes-gpg-split_2.0.41-1+deb10u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-source: info: using options from app-linux-split-gpg/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-buildpackage: info: full upload (original source is included)
+mkdir -p /home/user/securedrop-workstation/builder/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb
+mkdir -p qubes-src/app-linux-split-gpg/pkgs/vm-buster
+cd /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/debian/../..; \
+	cp -t /home/user/securedrop-workstation/builder/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-gpg-split_2.0.41*.changes`
+cp -t /home/user/securedrop-workstation/builder/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb/ /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/debian/../../qubes-gpg-split_2.0.41*.changes
+cd /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/debian/../..; \
+	mv -t /home/user/securedrop-workstation/builder/qubes-builder/qubes-src/app-linux-split-gpg/pkgs/vm-buster  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-gpg-split_2.0.41*.changes`
+mv -t /home/user/securedrop-workstation/builder/qubes-builder/qubes-src/app-linux-split-gpg/pkgs/vm-buster /home/user/securedrop-workstation/builder/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-split-gpg/debian/../../qubes-gpg-split_2.0.41*.changes
