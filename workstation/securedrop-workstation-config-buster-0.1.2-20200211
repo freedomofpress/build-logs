@@ -1,0 +1,120 @@
+user@builder-disposable:~/securedrop-debian-packaging$ git log
+commit 5431bb7e08da1258db7ac707de5826596351160f (HEAD -> master, origin/master, origin/HEAD)
+Merge: 4759019 7043f05
+Author: Conor Schaefer <conorsch@users.noreply.github.com>
+Date:   Tue Feb 11 10:31:29 2020 -0800
+
+    Merge pull request #140 from freedomofpress/workstation-config-ci
+    
+    securedrop-workstation-config package Makefile and CI
+
+commit 7043f05e65cb6e7a72416b3c04e52660c9fa1338 (origin/workstation-config-ci)
+Author: mickael e <mickael@freedom.press>
+Date:   Mon Feb 10 17:45:49 2020 -0500
+
+    Bump securedrop-workstation-config to 0.1.2
+    
+    This version update is due to build/ci changes
+
+commit 5890bc309f668757492b8ee90e75b0985863eccc
+Author: mickael e <mickael@freedom.press>
+Date:   Mon Feb 10 17:17:26 2020 -0500
+
+    CI: Add securedrop-workstation-config metapackage ci job
+    
+    This package is only used for the Template build process, and for now only used to pull in dependencies. Arguably could be simplified by explicitly installing as part of the template install script, but could be helpful in the future.
+    
+    Omitting nightlies of this package for simplicity, we should revisit if we make broader changes to this package.
+
+commit 86d88bf7dc6c47a2e686044ad5a79f7674a94db2
+Author: mickael e <mickael@freedom.press>
+Date:   Mon Feb 10 17:10:18 2020 -0500
+
+    Add securedrop-workstation-config Makefile target
+    
+    Builds the metapackage used for template builds
+
+commit 687f71a27887afa4a65753d248468d2acf979614
+Author: mickael e <mickael@freedom.press>
+Date:   Tue Feb 11 11:13:43 2020 -0500
+
+    securedrop-workstation-config move changelog for buster
+
+commit 47590194ddf3b73e3cadf630661c3a640daa400c
+Merge: f45b228 4e1955c
+Author: redshiftzero <jen@freedom.press>
+Date:   Tue Feb 11 10:12:17 2020 -0500
+
+    Merge pull request #142 from freedomofpress/virtualenv_strikes_back
+    
+    Fixes #141 removes upstream virtualenv from image
+
+commit 4e1955c6b8c9018945e8daa87991b67176e14630
+Author: Kushal Das <mail@kushaldas.in>
+user@builder-disposable:~/securedrop-debian-packaging$ PKG_VERSION=0.1.2 make securedrop-workstation-config 
+PKG_NAME="securedrop-workstation-config" ./scripts/build-debianpackage
+gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
+gpg: key 310F561200F4AD77: public key "SecureDrop Release Signing Key" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: Signature made Tue 04 Feb 2020 05:51:10 PM EST
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Good signature from "SecureDrop Release Signing Key" [unknown]
+gpg:                 aka "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2224 5C81 E3BA EB41 38B3  6061 310F 5612 00F4 AD77
+Checking that SHA256SUMs from mirror match signed file...  OK
+Package is a metapackage
+Building package 'securedrop-workstation-config' from version '0.1.2'...
+/home/user/debbuild/packaging/securedrop-workstation-config/
+dpkg-buildpackage: info: source package securedrop-workstation-config
+dpkg-buildpackage: info: source version 0.1.2+buster
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by SecureDrop Team <securedrop@freedom.press>
+dpkg-buildpackage: info: host architecture amd64
+ dpkg-source --before-build .
+ fakeroot debian/rules clean
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-workstation-config'
+dh clean
+   dh_clean
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-workstation-config'
+ dpkg-source -b .
+dpkg-source: warning: no source format specified in debian/source/format, see dpkg-source(1)
+dpkg-source: info: using source format '1.0'
+dpkg-source: warning: source directory 'securedrop-workstation-config' is not <sourcepackage>-<upstreamversion> 'securedrop-workstation-config-0.1.2+buster'
+dpkg-source: info: building securedrop-workstation-config in securedrop-workstation-config_0.1.2+buster.tar.gz
+dpkg-source: info: building securedrop-workstation-config in securedrop-workstation-config_0.1.2+buster.dsc
+ debian/rules build
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-workstation-config'
+dh build
+   dh_update_autotools_config
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-workstation-config'
+ fakeroot debian/rules binary
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-workstation-config'
+dh binary
+   dh_testroot
+   dh_prep
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'securedrop-workstation-config' in '../securedrop-workstation-config_0.1.2+buster_all.deb'.
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-workstation-config'
+ dpkg-genbuildinfo
+ dpkg-genchanges  >../securedrop-workstation-config_0.1.2+buster_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
+Find the .deb and other build files at /home/user/debbuild/packaging/securedrop-workstation-config
+user@builder-disposable:~/securedrop-debian-packaging$ sha256sum ~/debbuild/packaging/securedrop-workstation-config_0.1.2+buster_all.deb 
+5cdccf865d37f107d357ab7669a69b98a32bdb2756fe58b12854258525cb0f11  /home/user/debbuild/packaging/securedrop-workstation-config_0.1.2+buster_all.deb
+
