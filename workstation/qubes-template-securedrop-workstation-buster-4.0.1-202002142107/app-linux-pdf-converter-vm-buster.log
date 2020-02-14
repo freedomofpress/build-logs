@@ -1,0 +1,170 @@
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//update-local-repo.sh buster
+dpkg-scanpackages: info: Wrote 64 entries to output Packages file.
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster apt-get  update
+Get:1 file:/tmp/qubes-deb buster InRelease
+Ign:1 file:/tmp/qubes-deb buster InRelease
+Get:2 file:/tmp/qubes-deb buster Release [340 B]
+Get:2 file:/tmp/qubes-deb buster Release [340 B]
+Get:3 file:/tmp/qubes-deb buster Release.gpg
+Ign:3 file:/tmp/qubes-deb buster Release.gpg
+Get:4 file:/tmp/qubes-deb buster/main amd64 Packages [13.2 kB]
+Hit:5 https://deb.debian.org/debian buster InRelease
+Hit:6 https://deb.qubes-os.org/r4.0/vm buster InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/app-linux-pdf-converter/debian/control
+dh_testdir
+dh_testroot
+dh_prep
+dh_testdir
+dh_testroot
+dh_install
+dh_installdocs
+dh_installchangelogs
+dh_compress
+dh_fixperms
+dh_installdeb
+dh_gencontrol
+dh_md5sums
+dh_builddeb
+dpkg-deb: building package 'qubes-pdf-converter-build-deps' in '../qubes-pdf-converter-build-deps_2.1.6-1_all.deb'.
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package qubes-pdf-converter-build-deps.
+(Reading database ... 43738 files and directories currently installed.)
+Preparing to unpack qubes-pdf-converter-build-deps_2.1.6-1_all.deb ...
+Unpacking qubes-pdf-converter-build-deps (2.1.6-1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+After this operation, 0 B of additional disk space will be used.
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (2: No such file or directory)
+Setting up qubes-pdf-converter-build-deps (2.1.6-1) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/..; GLOBIGNORE=qubes-pdf-converter_2.1.6*orig*; rm -f qubes-pdf-converter_2.1.6*; GLOBIGNORE=
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/deb/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/rpm/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/debian/..; /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/debian/changelog /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/debian/changelog.copy
+mv /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/debian/changelog.copy /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/debian/changelog
+echo "Building package in /home/user/qubes-src/app-linux-pdf-converter"
+Building package in /home/user/qubes-src/app-linux-pdf-converter
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb10u "Build for buster"; debchange -t --force-distribution -r -D buster buster
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/debian/changelog
+find /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter \! -newer /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster su user -c 'cd /home/user/qubes-src/app-linux-pdf-converter/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package qubes-pdf-converter
+dpkg-buildpackage: info: source version 2.1.6-1+deb10u1
+dpkg-buildpackage: info: source distribution buster
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+dpkg-source: info: using options from app-linux-pdf-converter/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+ fakeroot debian/rules clean
+dh clean
+   dh_auto_clean
+   dh_clean
+ dpkg-source -b .
+dpkg-source: info: using options from app-linux-pdf-converter/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building qubes-pdf-converter using existing ./qubes-pdf-converter_2.1.6.orig.tar.xz
+dpkg-source: info: building qubes-pdf-converter in qubes-pdf-converter_2.1.6-1+deb10u1.debian.tar.xz
+dpkg-source: info: building qubes-pdf-converter in qubes-pdf-converter_2.1.6-1+deb10u1.dsc
+ debian/rules build
+dh build
+   dh_update_autotools_config
+   dh_auto_configure
+   dh_auto_build
+	make -j1
+make[1]: Entering directory '/home/user/qubes-src/app-linux-pdf-converter'
+Qubes addons main Makefile:
+make rpms                 <--- make rpms and sign them
+
+make clean                <--- clean all the binary files
+make update-repo-current  <-- copy newly generated rpms to qubes yum repo
+make update-repo-current-testing <-- same, but for -current-testing repo
+make update-repo-unstable <-- same, but to -testing repo
+make update-repo-installer -- copy dom0 rpms to installer repo
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-pdf-converter'
+   dh_auto_test
+ fakeroot debian/rules binary
+dh binary
+   dh_testroot
+   dh_prep
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/home/user/qubes-src/app-linux-pdf-converter'
+make install-vm
+make[2]: Entering directory '/home/user/qubes-src/app-linux-pdf-converter'
+make install -C doc
+make[3]: Entering directory '/home/user/qubes-src/app-linux-pdf-converter/doc'
+pandoc -s -f rst -t man qvm-convert-pdf.rst > qvm-convert-pdf.1
+[WARNING] Reference not found for 'trivially' at line 23 column 78
+gzip -f qvm-convert-pdf.1
+install -d /home/user/qubes-src/app-linux-pdf-converter/debian/tmp/usr/share/man/man1
+install -D qvm-convert-pdf.1.gz /home/user/qubes-src/app-linux-pdf-converter/debian/tmp/usr/share/man/man1/
+make[3]: Leaving directory '/home/user/qubes-src/app-linux-pdf-converter/doc'
+install -D -m 0644 qubes.PdfConvert /home/user/qubes-src/app-linux-pdf-converter/debian/tmp/etc/qubes-rpc/qubes.PdfConvert
+install -D qvm-convert-pdf /home/user/qubes-src/app-linux-pdf-converter/debian/tmp/usr/bin/qvm-convert-pdf
+install -D qpdf-convert-client /home/user/qubes-src/app-linux-pdf-converter/debian/tmp/usr/lib/qubes/qpdf-convert-client
+install -D qpdf-convert-server /home/user/qubes-src/app-linux-pdf-converter/debian/tmp/usr/lib/qubes/qpdf-convert-server
+install -D qvm-convert-pdf.gnome /home/user/qubes-src/app-linux-pdf-converter/debian/tmp/usr/lib/qubes/qvm-convert-pdf.gnome
+install -d /home/user/qubes-src/app-linux-pdf-converter/debian/tmp/usr/share/nautilus-python/extensions
+install -m 0755 qvm_convert_pdf_nautilus.py /home/user/qubes-src/app-linux-pdf-converter/debian/tmp/usr/share/nautilus-python/extensions
+install -d /home/user/qubes-src/app-linux-pdf-converter/debian/tmp/usr/share/kde4/services
+install -m 0644 qvm-convert-pdf.desktop /home/user/qubes-src/app-linux-pdf-converter/debian/tmp/usr/share/kde4/services
+make[2]: Leaving directory '/home/user/qubes-src/app-linux-pdf-converter'
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-pdf-converter'
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_installman
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_strip
+   dh_makeshlibs
+   dh_shlibdeps
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-pdf-converter' in '../qubes-pdf-converter_2.1.6-1+deb10u1_amd64.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../qubes-pdf-converter_2.1.6-1+deb10u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-source: info: using options from app-linux-pdf-converter/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-buildpackage: info: full upload (original source is included)
+mkdir -p /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb
+mkdir -p qubes-src/app-linux-pdf-converter/pkgs/vm-buster
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/debian/../..; \
+	cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-pdf-converter_2.1.6*.changes`
+cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb/ /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/debian/../../qubes-pdf-converter_2.1.6*.changes
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/debian/../..; \
+	mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/app-linux-pdf-converter/pkgs/vm-buster  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-pdf-converter_2.1.6*.changes`
+mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/app-linux-pdf-converter/pkgs/vm-buster /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-pdf-converter/debian/../../qubes-pdf-converter_2.1.6*.changes

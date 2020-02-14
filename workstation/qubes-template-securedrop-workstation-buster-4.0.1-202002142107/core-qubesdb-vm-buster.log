@@ -1,0 +1,370 @@
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//update-local-repo.sh buster
+dpkg-scanpackages: info: Wrote 19 entries to output Packages file.
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster apt-get  update
+Get:1 file:/tmp/qubes-deb buster InRelease
+Ign:1 file:/tmp/qubes-deb buster InRelease
+Get:2 file:/tmp/qubes-deb buster Release [339 B]
+Get:2 file:/tmp/qubes-deb buster Release [339 B]
+Get:3 file:/tmp/qubes-deb buster Release.gpg
+Ign:3 file:/tmp/qubes-deb buster Release.gpg
+Get:4 file:/tmp/qubes-deb buster/main amd64 Packages [4174 B]
+Hit:5 https://deb.debian.org/debian buster InRelease
+Hit:6 https://deb.qubes-os.org/r4.0/vm buster InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/core-qubesdb/debian/control
+dh_testdir
+dh_testroot
+dh_prep
+dh_testdir
+dh_testroot
+dh_install
+dh_installdocs
+dh_installchangelogs
+dh_compress
+dh_fixperms
+dh_installdeb
+dh_gencontrol
+dh_md5sums
+dh_builddeb
+dpkg-deb: building package 'qubesdb-build-deps' in '../qubesdb-build-deps_4.0.12-1_all.deb'.
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package qubesdb-build-deps.
+(Reading database ... 39203 files and directories currently installed.)
+Preparing to unpack qubesdb-build-deps_4.0.12-1_all.deb ...
+Unpacking qubesdb-build-deps (4.0.12-1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Correcting dependencies... Done
+The following additional packages will be installed:
+  libpython3-all-dev libpython3-dev libpython3.7 libpython3.7-dev libvchan-xen
+  libvchan-xen-dev python-all python-pkg-resources python-setuptools
+  python3-all python3-all-dev python3-dev python3.7-dev
+Suggested packages:
+  python-setuptools-doc
+The following NEW packages will be installed:
+  libpython3-all-dev libpython3-dev libpython3.7 libpython3.7-dev libvchan-xen
+  libvchan-xen-dev python-all python-pkg-resources python-setuptools
+  python3-all python3-all-dev python3-dev python3.7-dev
+0 upgraded, 13 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+Need to get 51.0 MB of archives.
+After this operation, 91.0 MB of additional disk space will be used.
+Get:1 https://deb.debian.org/debian buster/main amd64 python-all amd64 2.7.16-1 [1044 B]
+Get:2 https://deb.debian.org/debian buster/main amd64 libpython3.7 amd64 3.7.3-2+deb10u1 [1498 kB]
+Get:3 https://deb.qubes-os.org/r4.0/vm buster/main amd64 libvchan-xen amd64 4.0.7-1+deb10u1 [9552 B]
+Get:4 https://deb.qubes-os.org/r4.0/vm buster/main amd64 libvchan-xen-dev amd64 4.0.7-1+deb10u1 [5460 B]
+Get:5 https://deb.debian.org/debian buster/main amd64 libpython3.7-dev amd64 3.7.3-2+deb10u1 [48.4 MB]
+Get:6 https://deb.debian.org/debian buster/main amd64 libpython3-dev amd64 3.7.3-1 [20.1 kB]
+Get:7 https://deb.debian.org/debian buster/main amd64 libpython3-all-dev amd64 3.7.3-1 [1068 B]
+Get:8 https://deb.debian.org/debian buster/main amd64 python3-all amd64 3.7.3-1 [1068 B]
+Get:9 https://deb.debian.org/debian buster/main amd64 python3.7-dev amd64 3.7.3-2+deb10u1 [510 kB]
+Get:10 https://deb.debian.org/debian buster/main amd64 python3-dev amd64 3.7.3-1 [1264 B]
+Get:11 https://deb.debian.org/debian buster/main amd64 python3-all-dev amd64 3.7.3-1 [1064 B]
+Get:12 https://deb.debian.org/debian buster/main amd64 python-pkg-resources all 40.8.0-1 [182 kB]
+Get:13 https://deb.debian.org/debian buster/main amd64 python-setuptools all 40.8.0-1 [382 kB]
+Fetched 51.0 MB in 16s (3168 kB/s)
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (2: No such file or directory)
+Selecting previously unselected package python-all.
+(Reading database ... 39207 files and directories currently installed.)
+Preparing to unpack .../00-python-all_2.7.16-1_amd64.deb ...
+Unpacking python-all (2.7.16-1) ...
+Selecting previously unselected package libpython3.7:amd64.
+Preparing to unpack .../01-libpython3.7_3.7.3-2+deb10u1_amd64.deb ...
+Unpacking libpython3.7:amd64 (3.7.3-2+deb10u1) ...
+Selecting previously unselected package libpython3.7-dev:amd64.
+Preparing to unpack .../02-libpython3.7-dev_3.7.3-2+deb10u1_amd64.deb ...
+Unpacking libpython3.7-dev:amd64 (3.7.3-2+deb10u1) ...
+Selecting previously unselected package libpython3-dev:amd64.
+Preparing to unpack .../03-libpython3-dev_3.7.3-1_amd64.deb ...
+Unpacking libpython3-dev:amd64 (3.7.3-1) ...
+Selecting previously unselected package libpython3-all-dev:amd64.
+Preparing to unpack .../04-libpython3-all-dev_3.7.3-1_amd64.deb ...
+Unpacking libpython3-all-dev:amd64 (3.7.3-1) ...
+Selecting previously unselected package python3-all.
+Preparing to unpack .../05-python3-all_3.7.3-1_amd64.deb ...
+Unpacking python3-all (3.7.3-1) ...
+Selecting previously unselected package python3.7-dev.
+Preparing to unpack .../06-python3.7-dev_3.7.3-2+deb10u1_amd64.deb ...
+Unpacking python3.7-dev (3.7.3-2+deb10u1) ...
+Selecting previously unselected package python3-dev.
+Preparing to unpack .../07-python3-dev_3.7.3-1_amd64.deb ...
+Unpacking python3-dev (3.7.3-1) ...
+Selecting previously unselected package python3-all-dev.
+Preparing to unpack .../08-python3-all-dev_3.7.3-1_amd64.deb ...
+Unpacking python3-all-dev (3.7.3-1) ...
+Selecting previously unselected package python-pkg-resources.
+Preparing to unpack .../09-python-pkg-resources_40.8.0-1_all.deb ...
+Unpacking python-pkg-resources (40.8.0-1) ...
+Selecting previously unselected package python-setuptools.
+Preparing to unpack .../10-python-setuptools_40.8.0-1_all.deb ...
+Unpacking python-setuptools (40.8.0-1) ...
+Selecting previously unselected package libvchan-xen.
+Preparing to unpack .../11-libvchan-xen_4.0.7-1+deb10u1_amd64.deb ...
+Unpacking libvchan-xen (4.0.7-1+deb10u1) ...
+Selecting previously unselected package libvchan-xen-dev.
+Preparing to unpack .../12-libvchan-xen-dev_4.0.7-1+deb10u1_amd64.deb ...
+Unpacking libvchan-xen-dev (4.0.7-1+deb10u1) ...
+Setting up libpython3.7:amd64 (3.7.3-2+deb10u1) ...
+Setting up python-pkg-resources (40.8.0-1) ...
+Setting up libpython3.7-dev:amd64 (3.7.3-2+deb10u1) ...
+Setting up python3-all (3.7.3-1) ...
+Setting up python-all (2.7.16-1) ...
+Setting up python3.7-dev (3.7.3-2+deb10u1) ...
+Setting up python-setuptools (40.8.0-1) ...
+Setting up libvchan-xen (4.0.7-1+deb10u1) ...
+Setting up libpython3-dev:amd64 (3.7.3-1) ...
+Setting up libpython3-all-dev:amd64 (3.7.3-1) ...
+Setting up python3-dev (3.7.3-1) ...
+Setting up libvchan-xen-dev (4.0.7-1+deb10u1) ...
+Setting up python3-all-dev (3.7.3-1) ...
+Setting up qubesdb-build-deps (4.0.12-1) ...
+Processing triggers for man-db (2.8.5-2) ...
+Processing triggers for libc-bin (2.28-10) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/..; GLOBIGNORE=qubesdb_4.0.12*orig*; rm -f qubesdb_4.0.12*; GLOBIGNORE=
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/deb/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/rpm/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/debian/..; /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/debian/changelog /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/debian/changelog.copy
+mv /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/debian/changelog.copy /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/debian/changelog
+echo "Building package in /home/user/qubes-src/core-qubesdb"
+Building package in /home/user/qubes-src/core-qubesdb
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb10u "Build for buster"; debchange -t --force-distribution -r -D buster buster
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/debian/changelog
+find /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb \! -newer /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster su user -c 'cd /home/user/qubes-src/core-qubesdb/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package qubesdb
+dpkg-buildpackage: info: source version 4.0.12-1+deb10u1
+dpkg-buildpackage: info: source distribution buster
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+dpkg-source: info: using options from core-qubesdb/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-source: info: using patch list from debian/patches/series
+dpkg-source: info: applying remove-fedora-reference-from-qubes-db-unit-file.patch
+ fakeroot debian/rules clean
+dh clean --with python2,python3,systemd
+   dh_auto_clean
+	make -j1 clean
+make[1]: Entering directory '/home/user/qubes-src/core-qubesdb'
+make -C daemon clean
+make[2]: Entering directory '/home/user/qubes-src/core-qubesdb/daemon'
+rm -f *.o qubesdb-daemon
+make[2]: Leaving directory '/home/user/qubes-src/core-qubesdb/daemon'
+make -C client clean
+make[2]: Entering directory '/home/user/qubes-src/core-qubesdb/client'
+rm -f libqubesdb.so qubesdb-cmd *.o
+make[2]: Leaving directory '/home/user/qubes-src/core-qubesdb/client'
+make -C python clean
+make[2]: Entering directory '/home/user/qubes-src/core-qubesdb/python'
+rm -rf build/ *.pyc *.pyo *.o *.a *~
+make[2]: Leaving directory '/home/user/qubes-src/core-qubesdb/python'
+make[1]: Leaving directory '/home/user/qubes-src/core-qubesdb'
+   dh_clean
+ dpkg-source -b .
+dpkg-source: info: using options from core-qubesdb/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building qubesdb using existing ./qubesdb_4.0.12.orig.tar.xz
+dpkg-source: info: using patch list from debian/patches/series
+dpkg-source: info: building qubesdb in qubesdb_4.0.12-1+deb10u1.debian.tar.xz
+dpkg-source: info: building qubesdb in qubesdb_4.0.12-1+deb10u1.dsc
+ debian/rules build
+dh build --with python2,python3,systemd
+   dh_update_autotools_config
+   dh_auto_configure
+   debian/rules override_dh_auto_build
+make[1]: Entering directory '/home/user/qubes-src/core-qubesdb'
+dh_clean --keep
+dh_clean: dh_clean -k is deprecated; use dh_prep instead
+dh_clean: This feature will be removed in compat 12.
+make all
+make[2]: Entering directory '/home/user/qubes-src/core-qubesdb'
+make -C daemon
+make[3]: Entering directory '/home/user/qubes-src/core-qubesdb/daemon'
+cc -g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-qubesdb=. -fstack-protector-strong -Wformat -Werror=format-security -I../include -I. -g -Wall -Werror -pie -fPIC -O2 `pkg-config --cflags vchan-xen` `pkg-config --cflags libsystemd || pkg-config --cflags libsystemd-daemon` -DHAVE_SYSTEMD -DBACKEND_VMM_xen -Wdate-time -D_FORTIFY_SOURCE=2  -c -o db-cmds.o db-cmds.c
+cc -g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-qubesdb=. -fstack-protector-strong -Wformat -Werror=format-security -I../include -I. -g -Wall -Werror -pie -fPIC -O2 `pkg-config --cflags vchan-xen` `pkg-config --cflags libsystemd || pkg-config --cflags libsystemd-daemon` -DHAVE_SYSTEMD -DBACKEND_VMM_xen -Wdate-time -D_FORTIFY_SOURCE=2  -c -o db-daemon.o db-daemon.c
+cc -g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-qubesdb=. -fstack-protector-strong -Wformat -Werror=format-security -I../include -I. -g -Wall -Werror -pie -fPIC -O2 `pkg-config --cflags vchan-xen` `pkg-config --cflags libsystemd || pkg-config --cflags libsystemd-daemon` -DHAVE_SYSTEMD -DBACKEND_VMM_xen -Wdate-time -D_FORTIFY_SOURCE=2  -c -o db-core.o db-core.c
+cc -g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-qubesdb=. -fstack-protector-strong -Wformat -Werror=format-security -I../include -I. -g -Wall -Werror -pie -fPIC -O2 `pkg-config --cflags vchan-xen` `pkg-config --cflags libsystemd || pkg-config --cflags libsystemd-daemon` -DHAVE_SYSTEMD -DBACKEND_VMM_xen -Wdate-time -D_FORTIFY_SOURCE=2  -c -o buffer.o buffer.c
+cc -Wl,-z,relro -o qubesdb-daemon db-cmds.o db-daemon.o db-core.o buffer.o  `pkg-config --libs libsystemd || pkg-config --libs libsystemd-daemon` `pkg-config --libs vchan-xen`
+make[3]: Leaving directory '/home/user/qubes-src/core-qubesdb/daemon'
+make -C client
+make[3]: Entering directory '/home/user/qubes-src/core-qubesdb/client'
+cc -g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-qubesdb=. -fstack-protector-strong -Wformat -Werror=format-security -I../include -g -Wall -Wextra -Werror -pie -fPIC -DBACKEND_VMM_xen -Wdate-time -D_FORTIFY_SOURCE=2  -c -o qdb-client.o qdb-client.c
+cc -Wl,-z,relro -shared -o libqubesdb.so qdb-client.o 
+cc -g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-qubesdb=. -fstack-protector-strong -Wformat -Werror=format-security -I../include -g -Wall -Wextra -Werror -pie -fPIC -DBACKEND_VMM_xen -Wdate-time -D_FORTIFY_SOURCE=2  -c -o qubesdb-cmd.o qubesdb-cmd.c
+cc -Wl,-z,relro -o qubesdb-cmd qubesdb-cmd.o  -L. -lqubesdb
+make[3]: Leaving directory '/home/user/qubes-src/core-qubesdb/client'
+make -C python
+make[3]: Entering directory '/home/user/qubes-src/core-qubesdb/python'
+CC="cc" CFLAGS="-g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-qubesdb=. -fstack-protector-strong -Wformat -Werror=format-security" python setup.py build
+running build
+running build_ext
+building 'qubesdb' extension
+creating build
+creating build/temp.linux-x86_64-2.7
+cc -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fno-strict-aliasing -g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-qubesdb=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I../include -I/usr/include/python2.7 -c qubesdb.c -o build/temp.linux-x86_64-2.7/qubesdb.o -fno-strict-aliasing -Werror
+creating build/lib.linux-x86_64-2.7
+x86_64-linux-gnu-gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-z,relro -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -Wdate-time -D_FORTIFY_SOURCE=2 -g -fdebug-prefix-map=/build/python2.7-2.7.16=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro -g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-qubesdb=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 build/temp.linux-x86_64-2.7/qubesdb.o -L../client -lqubesdb -o build/lib.linux-x86_64-2.7/qubesdb.so
+make[3]: Leaving directory '/home/user/qubes-src/core-qubesdb/python'
+make[2]: Leaving directory '/home/user/qubes-src/core-qubesdb'
+for pyver in `py3versions -vr`; do \
+	make -C python PYTHON=python$pyver; \
+done
+py3versions: no X-Python3-Version in control file, using supported versions
+make[2]: Entering directory '/home/user/qubes-src/core-qubesdb/python'
+CC="cc" CFLAGS="-g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-qubesdb=. -fstack-protector-strong -Wformat -Werror=format-security" python3.7 setup.py build
+running build
+running build_ext
+building 'qubesdb' extension
+creating build/temp.linux-x86_64-3.7
+cc -DNDEBUG -g -fwrapv -O2 -Wall -g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-qubesdb=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I../include -I/usr/include/python3.7m -c qubesdb.c -o build/temp.linux-x86_64-3.7/qubesdb.o -fno-strict-aliasing -Werror
+creating build/lib.linux-x86_64-3.7
+x86_64-linux-gnu-gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,relro -g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-qubesdb=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 build/temp.linux-x86_64-3.7/qubesdb.o -L../client -lqubesdb -o build/lib.linux-x86_64-3.7/qubesdb.cpython-37m-x86_64-linux-gnu.so
+make[2]: Leaving directory '/home/user/qubes-src/core-qubesdb/python'
+make[1]: Leaving directory '/home/user/qubes-src/core-qubesdb'
+   dh_auto_test
+ fakeroot debian/rules binary
+dh binary --with python2,python3,systemd
+   dh_testroot
+   dh_prep
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/home/user/qubes-src/core-qubesdb'
+make install PYTHON=python2 DESTDIR=/home/user/qubes-src/core-qubesdb/debian/tmp PYTHON_PREFIX_ARG=--install-layout=deb LIBDIR=/usr/lib BINDIR=/usr/bin SBINDIR=/usr/sbin
+make[2]: Entering directory '/home/user/qubes-src/core-qubesdb'
+make -C daemon install
+make[3]: Entering directory '/home/user/qubes-src/core-qubesdb/daemon'
+install -d /home/user/qubes-src/core-qubesdb/debian/tmp/usr/sbin
+install qubesdb-daemon /home/user/qubes-src/core-qubesdb/debian/tmp/usr/sbin/
+make[3]: Leaving directory '/home/user/qubes-src/core-qubesdb/daemon'
+make -C client install
+make[3]: Entering directory '/home/user/qubes-src/core-qubesdb/client'
+install -d /home/user/qubes-src/core-qubesdb/debian/tmp/usr/lib
+install libqubesdb.so* /home/user/qubes-src/core-qubesdb/debian/tmp/usr/lib/
+install -d /home/user/qubes-src/core-qubesdb/debian/tmp/usr/bin
+install qubesdb-cmd /home/user/qubes-src/core-qubesdb/debian/tmp/usr/bin/
+ln -s qubesdb-cmd /home/user/qubes-src/core-qubesdb/debian/tmp/usr/bin/qubesdb-read
+ln -s qubesdb-cmd /home/user/qubes-src/core-qubesdb/debian/tmp/usr/bin/qubesdb-write
+ln -s qubesdb-cmd /home/user/qubes-src/core-qubesdb/debian/tmp/usr/bin/qubesdb-rm
+ln -s qubesdb-cmd /home/user/qubes-src/core-qubesdb/debian/tmp/usr/bin/qubesdb-multiread
+ln -s qubesdb-cmd /home/user/qubes-src/core-qubesdb/debian/tmp/usr/bin/qubesdb-list
+ln -s qubesdb-cmd /home/user/qubes-src/core-qubesdb/debian/tmp/usr/bin/qubesdb-watch
+install qubesdb-read-bool /home/user/qubes-src/core-qubesdb/debian/tmp/usr/bin/
+make[3]: Leaving directory '/home/user/qubes-src/core-qubesdb/client'
+make -C python install
+make[3]: Entering directory '/home/user/qubes-src/core-qubesdb/python'
+CC="cc" CFLAGS="-g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-qubesdb=. -fstack-protector-strong -Wformat -Werror=format-security" python2 setup.py install \
+	--install-layout=deb --root="/home/user/qubes-src/core-qubesdb/debian/tmp" --force
+running install
+running build
+running build_ext
+running install_lib
+creating /home/user/qubes-src/core-qubesdb/debian/tmp/usr/lib/python2.7
+creating /home/user/qubes-src/core-qubesdb/debian/tmp/usr/lib/python2.7/dist-packages
+copying build/lib.linux-x86_64-2.7/qubesdb.so -> /home/user/qubes-src/core-qubesdb/debian/tmp/usr/lib/python2.7/dist-packages
+running install_egg_info
+Writing /home/user/qubes-src/core-qubesdb/debian/tmp/usr/lib/python2.7/dist-packages/QubesDB-1.0.egg-info
+make[3]: Leaving directory '/home/user/qubes-src/core-qubesdb/python'
+make -C include install
+make[3]: Entering directory '/home/user/qubes-src/core-qubesdb/include'
+install -d /home/user/qubes-src/core-qubesdb/debian/tmp/usr/include
+install -m 0644 qubesdb.h /home/user/qubes-src/core-qubesdb/debian/tmp/usr/include/
+install -m 0644 qubesdb-client.h /home/user/qubes-src/core-qubesdb/debian/tmp/usr/include/
+make[3]: Leaving directory '/home/user/qubes-src/core-qubesdb/include'
+make[2]: Leaving directory '/home/user/qubes-src/core-qubesdb'
+for pyver in `py3versions -vr`; do \
+	make -C python install PYTHON=python$pyver DESTDIR=/home/user/qubes-src/core-qubesdb/debian/tmp \
+		PYTHON_PREFIX_ARG=--install-layout=deb; \
+done
+py3versions: no X-Python3-Version in control file, using supported versions
+make[2]: Entering directory '/home/user/qubes-src/core-qubesdb/python'
+CC="cc" CFLAGS="-g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-qubesdb=. -fstack-protector-strong -Wformat -Werror=format-security" python3.7 setup.py install \
+	--install-layout=deb --root="/home/user/qubes-src/core-qubesdb/debian/tmp" --force
+running install
+running build
+running build_ext
+running install_lib
+creating /home/user/qubes-src/core-qubesdb/debian/tmp/usr/lib/python3
+creating /home/user/qubes-src/core-qubesdb/debian/tmp/usr/lib/python3/dist-packages
+copying build/lib.linux-x86_64-3.7/qubesdb.cpython-37m-x86_64-linux-gnu.so -> /home/user/qubes-src/core-qubesdb/debian/tmp/usr/lib/python3/dist-packages
+running install_egg_info
+Writing /home/user/qubes-src/core-qubesdb/debian/tmp/usr/lib/python3/dist-packages/QubesDB-1.0.egg-info
+make[2]: Leaving directory '/home/user/qubes-src/core-qubesdb/python'
+mkdir -p /home/user/qubes-src/core-qubesdb/debian/tmp/lib/systemd/system
+install -p -m 644 daemon/qubes-db.service /home/user/qubes-src/core-qubesdb/debian/tmp/lib/systemd/system
+make[1]: Leaving directory '/home/user/qubes-src/core-qubesdb'
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_python2
+I: dh_python2 fs:343: renaming qubesdb.so to qubesdb.x86_64-linux-gnu.so
+   dh_python3
+   dh_systemd_enable
+   dh_systemd_start
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_strip
+   dh_makeshlibs
+   dh_shlibdeps
+dpkg-shlibdeps: warning: cannot find library libqubesdb.so needed by debian/python-qubesdb/usr/lib/python2.7/dist-packages/qubesdb.x86_64-linux-gnu.so (ELF format: 'elf64-x86-64' abi: '0201003e00000000'; RPATH: '')
+dpkg-shlibdeps: warning: cannot find library libqubesdb.so needed by debian/qubesdb/usr/bin/qubesdb-cmd (ELF format: 'elf64-x86-64' abi: '0201003e00000000'; RPATH: '')
+dpkg-shlibdeps: warning: cannot find library libqubesdb.so needed by debian/python3-qubesdb/usr/lib/python3/dist-packages/qubesdb.cpython-37m-x86_64-linux-gnu.so (ELF format: 'elf64-x86-64' abi: '0201003e00000000'; RPATH: '')
+   dh_installdeb
+   dh_gencontrol
+dpkg-gencontrol: warning: package python-qubesdb: substitution variable ${python:Versions} unused, but is defined
+dpkg-gencontrol: warning: package python-qubesdb: substitution variable ${python:Versions} unused, but is defined
+dpkg-gencontrol: warning: package python3-qubesdb: substitution variable ${python3:Versions} unused, but is defined
+dpkg-gencontrol: warning: package python3-qubesdb: substitution variable ${python3:Versions} unused, but is defined
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubesdb-dev' in '../qubesdb-dev_4.0.12-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'qubesdb' in '../qubesdb_4.0.12-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'python-qubesdb' in '../python-qubesdb_4.0.12-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'qubesdb-dbgsym' in '../qubesdb-dbgsym_4.0.12-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'python-qubesdb-dbgsym' in '../python-qubesdb-dbgsym_4.0.12-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'qubesdb-vm' in '../qubesdb-vm_4.0.12-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'python3-qubesdb' in '../python3-qubesdb_4.0.12-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'libqubesdb' in '../libqubesdb_4.0.12-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'python3-qubesdb-dbgsym' in '../python3-qubesdb-dbgsym_4.0.12-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'libqubesdb-dbgsym' in '../libqubesdb-dbgsym_4.0.12-1+deb10u1_amd64.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../qubesdb_4.0.12-1+deb10u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-source: info: using options from core-qubesdb/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-source: info: unapplying remove-fedora-reference-from-qubes-db-unit-file.patch
+dpkg-buildpackage: info: full upload (original source is included)
+mkdir -p /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb
+mkdir -p qubes-src/core-qubesdb/pkgs/vm-buster
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/debian/../..; \
+	cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubesdb_4.0.12*.changes`
+cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb/ /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/debian/../../qubesdb_4.0.12*.changes
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/debian/../..; \
+	mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/core-qubesdb/pkgs/vm-buster  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubesdb_4.0.12*.changes`
+mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/core-qubesdb/pkgs/vm-buster /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-qubesdb/debian/../../qubesdb_4.0.12*.changes
