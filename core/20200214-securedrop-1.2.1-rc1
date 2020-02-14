@@ -1,0 +1,680 @@
+user@sd-dev [(1.2.1-rc1) $] ~/src/fpf/securedrop $ git checkout 1.2.1-rc1
+HEAD is now at 5c219238a Update version to 1.2.1~rc1
+user@sd-dev [(1.2.1-rc1) $] ~/src/fpf/securedrop $ make build-debs
+Building SecureDrop Debian packages...
+WARNING: You are using pip version 19.1, however version 20.0.2 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+--> Validating schema /home/user/src/fpf/securedrop/molecule/builder-xenial/molecule.yml.
+Validation completed successfully.
+--> Validating schema /home/user/src/fpf/securedrop/molecule/libvirt-staging-xenial/molecule.yml.
+Validation completed successfully.
+--> Validating schema /home/user/src/fpf/securedrop/molecule/ansible-config/molecule.yml.
+Validation completed successfully.
+--> Validating schema /home/user/src/fpf/securedrop/molecule/vagrant-packager/molecule.yml.
+Validation completed successfully.
+--> Validating schema /home/user/src/fpf/securedrop/molecule/qubes-staging/molecule.yml.
+Validation completed successfully.
+--> Validating schema /home/user/src/fpf/securedrop/molecule/fetch-tor-packages/molecule.yml.
+Validation completed successfully.
+--> Validating schema /home/user/src/fpf/securedrop/molecule/virtualbox-staging-xenial/molecule.yml.
+Validation completed successfully.
+--> Validating schema /home/user/src/fpf/securedrop/molecule/upgrade/molecule.yml.
+Validation completed successfully.
+--> Test matrix
+
+└── builder-xenial
+    ├── destroy
+    ├── create
+    ├── converge
+    ├── verify
+    └── destroy
+
+--> Inventory /home/user/src/fpf/securedrop/molecule/builder-xenial/../../install_files/ansible-base/group_vars linked to /home/user/.cache/molecule/securedrop/builder-xenial/inventory/group_vars
+--> Scenario: 'builder-xenial'
+--> Action: 'destroy'
+
+    PLAY [Destroy] *****************************************************************
+
+    TASK [Destroy molecule instance(s)] ********************************************
+    ok: [localhost] => (item={'name': 'xenial-sd-app', 'groups': ['builders']})
+    ok: [localhost] => (item={'name': 'xenial-sd-generic-ossec-agent', 'groups': ['builders']})
+    ok: [localhost] => (item={'name': 'xenial-sd-generic-ossec-server', 'groups': ['builders']})
+    ok: [localhost] => (item={'name': 'xenial-sd-generic-ossec-agent2', 'groups': ['builders']})
+    ok: [localhost] => (item={'name': 'xenial-sd-generic-ossec-server2', 'groups': ['builders']})
+    ok: [localhost] => (item={'name': 'xenial-sd-grsec', 'groups': ['builders']})
+    ok: [localhost] => (item={'name': 'xenial-sd-config', 'groups': ['builders']})
+    ok: [localhost] => (item={'name': 'xenial-sd-keyring', 'groups': ['builders']})
+    ok: [localhost] => (item={'name': 'xenial-sd-sec-update', 'groups': ['builders']})
+    ok: [localhost] => (item={'name': 'xenial-sd-dpkg-verification', 'groups': ['testers']})
+
+    PLAY RECAP *********************************************************************
+    localhost                  : ok=1    changed=0    unreachable=0    failed=0
+
+--> Inventory /home/user/src/fpf/securedrop/molecule/builder-xenial/../../install_files/ansible-base/group_vars linked to /home/user/.cache/molecule/securedrop/builder-xenial/inventory/group_vars
+--> Scenario: 'builder-xenial'
+--> Action: 'create'
+--> Sanity checks: 'docker'
+
+    PLAY [Create] ******************************************************************
+
+    TASK [debug] *******************************************************************
+    ok: [localhost] => {
+        "msg": "Building with Docker image quay.io/freedomofpress/sd-docker-builder-xenial@sha256:1e61e825bd7bc221eacb071ae200924f99fb1728e736d9a707fd183d22f0dfcb"
+    }
+
+    TASK [Create builders] *********************************************************
+    changed: [localhost] => (item={'name': 'xenial-sd-app', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-generic-ossec-agent', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-generic-ossec-server', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-generic-ossec-agent2', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-generic-ossec-server2', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-grsec', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-config', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-keyring', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-sec-update', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-dpkg-verification', 'groups': ['testers']})
+
+    PLAY RECAP *********************************************************************
+    localhost                  : ok=2    changed=1    unreachable=0    failed=0
+
+--> Inventory /home/user/src/fpf/securedrop/molecule/builder-xenial/../../install_files/ansible-base/group_vars linked to /home/user/.cache/molecule/securedrop/builder-xenial/inventory/group_vars
+--> Scenario: 'builder-xenial'
+--> Action: 'converge'
+
+    PLAY [Build SecureDrop application Debian package from local repository.] ******
+
+    TASK [Gathering Facts] *********************************************************
+    ok: [xenial-sd-generic-ossec-server]
+    ok: [xenial-sd-config]
+    ok: [xenial-sd-generic-ossec-agent2]
+    ok: [xenial-sd-generic-ossec-agent]
+    ok: [xenial-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy install_files/securedrop-app-code to prep directory] ***
+    changed: [xenial-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy app code to prep directory under var/www/securedrop] ***
+    changed: [xenial-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy setup.py to prep directory] *****
+    changed: [xenial-sd-app]
+
+    TASK [Gathering Facts] *********************************************************
+    ok: [xenial-sd-grsec]
+    ok: [xenial-sd-generic-ossec-server2]
+    ok: [xenial-sd-sec-update]
+    ok: [xenial-sd-keyring]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy MANIFEST.in to prep directory] ***
+    changed: [xenial-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy requirements.txt to prep directory] ***
+    changed: [xenial-sd-app]
+
+    TASK [build-ossec-deb-pkg : Create src path folder] ****************************
+    changed: [xenial-sd-generic-ossec-server] => (item=/tmp/build/ossec-server)
+    ok: [xenial-sd-generic-ossec-server] => (item=/tmp/build)
+
+    TASK [build-ossec-deb-pkg : Create src path folder] ****************************
+    changed: [xenial-sd-generic-ossec-agent] => (item=/tmp/build/ossec-agent)
+
+    TASK [build-securedrop-app-code-deb-pkg : Install sass Ruby gem] ***************
+    changed: [xenial-sd-app]
+
+    TASK [build-ossec-deb-pkg : Create src path folder] ****************************
+    ok: [xenial-sd-generic-ossec-agent] => (item=/tmp/build)
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-config -> localhost]
+    ok: [xenial-sd-generic-ossec-agent2 -> localhost]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create static asset directories.] ****
+    changed: [xenial-sd-app] => (item=/tmp/securedrop-app-code_1.2.1~rc1+xenial_amd64-prep/var/www/securedrop/static/css)
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-config -> localhost]
+
+    TASK [build-generic-pkg : Reduce weird path re-usage] **************************
+    ok: [xenial-sd-generic-ossec-agent2]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create static asset directories.] ****
+    ok: [xenial-sd-app] => (item=/tmp/securedrop-app-code_1.2.1~rc1+xenial_amd64-prep/var/www/securedrop/static/gen)
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-config -> localhost]
+
+    TASK [build-generic-pkg : Ensure build directory in-place] *********************
+    ok: [xenial-sd-generic-ossec-agent2]
+
+    TASK [build-generic-pkg : Reduce weird path re-usage] **************************
+    ok: [xenial-sd-generic-ossec-server2]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create static asset directories.] ****
+    ok: [xenial-sd-app] => (item=/tmp/securedrop-app-code_1.2.1~rc1+xenial_amd64-prep/var/www/securedrop/static/.webassets-cache)
+
+    TASK [build-generic-pkg : Copy app code to build directory.] *******************
+    changed: [xenial-sd-generic-ossec-agent2]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-agent2 -> localhost]
+
+    TASK [build-generic-pkg : Ensure build directory in-place] *********************
+    ok: [xenial-sd-generic-ossec-server2]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-config -> localhost]
+
+    TASK [build-generic-pkg : Copy app code to build directory.] *******************
+    changed: [xenial-sd-generic-ossec-server2]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-server2 -> localhost]
+
+    TASK [build-securedrop-app-code-deb-pkg : Compile SASS to CSS.] ****************
+    changed: [xenial-sd-app]
+
+    TASK [build-generic-pkg : run bash script to build generic packages] ***********
+    changed: [xenial-sd-generic-ossec-agent2]
+
+    TASK [build-generic-pkg : Reduce weird path re-usage] **************************
+    ok: [xenial-sd-config]
+
+    TASK [build-securedrop-app-code-deb-pkg : Remove temporary SASS directory from package build directory.] ***
+    changed: [xenial-sd-app] => (item=sass)
+
+    TASK [build-generic-pkg : run bash script to build generic packages] ***********
+    changed: [xenial-sd-generic-ossec-server2]
+
+    TASK [build-generic-pkg : Track down package] **********************************
+    ok: [xenial-sd-generic-ossec-agent2]
+
+    TASK [build-securedrop-app-code-deb-pkg : Remove temporary SASS directory from package build directory.] ***
+    changed: [xenial-sd-app] => (item=.sass-cache)
+
+    TASK [build-generic-pkg : Ensure build directory in-place] *********************
+    ok: [xenial-sd-config]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-grsec -> localhost]
+
+    TASK [build-generic-pkg : Track down package] **********************************
+    ok: [xenial-sd-generic-ossec-server2]
+
+    TASK [build-generic-pkg : Copy app code to build directory.] *******************
+    changed: [xenial-sd-config]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-config -> localhost]
+
+    TASK [build-generic-pkg : Fetch back package] **********************************
+    changed: [xenial-sd-generic-ossec-agent2] => (item={'uid': 0, 'woth': False, 'mtime': 1581721646.107, 'inode': 419839, 'isgid': False, 'size': 3572, 'roth': True, 'isuid': False, 'isreg': True, 'pw_name': 'root', 'gid': 0, 'ischr': False, 'wusr': True, 'xoth': False, 'rusr': True, 'nlink': 1, 'issock': False, 'rgrp': True, 'gr_name': 'root', 'path': '/tmp/securedrop-ossec-agent-3.0.0+1.2.1~rc1-amd64.deb', 'xusr': False, 'atime': 1581721646.107, 'isdir': False, 'ctime': 1581721646.107, 'isblk': False, 'xgrp': False, 'dev': 86, 'wgrp': False, 'isfifo': False, 'mode': '0644', 'islnk': False})
+
+    TASK [build-generic-pkg : Fetch back package] **********************************
+    changed: [xenial-sd-generic-ossec-server2] => (item={'uid': 0, 'woth': False, 'mtime': 1581721649.936, 'inode': 419902, 'isgid': False, 'size': 6610, 'roth': True, 'isuid': False, 'isreg': True, 'pw_name': 'root', 'gid': 0, 'ischr': False, 'wusr': True, 'xoth': False, 'rusr': True, 'nlink': 1, 'issock': False, 'rgrp': True, 'gr_name': 'root', 'path': '/tmp/securedrop-ossec-server-3.0.0+1.2.1~rc1-amd64.deb', 'xusr': False, 'atime': 1581721649.936, 'isdir': False, 'ctime': 1581721649.936, 'isblk': False, 'xgrp': False, 'dev': 98, 'wgrp': False, 'isfifo': False, 'mode': '0644', 'islnk': False})
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-agent2 -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-server2 -> localhost]
+
+    TASK [build-generic-pkg : run bash script to build generic packages] ***********
+    changed: [xenial-sd-config]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-grsec -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-agent2 -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-server2 -> localhost]
+    ok: [xenial-sd-grsec -> localhost]
+
+    TASK [build-generic-pkg : Track down package] **********************************
+    ok: [xenial-sd-config]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-agent2 -> localhost]
+
+    TASK [build-generic-pkg : Reduce weird path re-usage] **************************
+    ok: [xenial-sd-grsec]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-server2 -> localhost]
+
+    TASK [build-generic-pkg : Fetch back package] **********************************
+    changed: [xenial-sd-config] => (item={'uid': 0, 'woth': False, 'mtime': 1581721662.468, 'inode': 429814, 'isgid': False, 'size': 2742, 'roth': True, 'isuid': False, 'isreg': True, 'pw_name': 'root', 'gid': 0, 'ischr': False, 'wusr': True, 'xoth': False, 'rusr': True, 'nlink': 1, 'issock': False, 'rgrp': True, 'gr_name': 'root', 'path': '/tmp/securedrop-config-0.1.3+1.2.1~rc1-amd64.deb', 'xusr': False, 'atime': 1581721662.468, 'isdir': False, 'ctime': 1581721662.468, 'isblk': False, 'xgrp': False, 'dev': 122, 'wgrp': False, 'isfifo': False, 'mode': '0644', 'islnk': False})
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-server2 -> localhost]
+
+    TASK [build-generic-pkg : Ensure build directory in-place] *********************
+    ok: [xenial-sd-grsec]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-sec-update -> localhost]
+
+    TASK [build-generic-pkg : Copy app code to build directory.] *******************
+    changed: [xenial-sd-grsec]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-keyring -> localhost]
+
+    TASK [build-ossec-deb-pkg : Install python-requests for URL fetching] **********
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-grsec -> localhost]
+
+    TASK [build-ossec-deb-pkg : Copy over current directory for repo build] ********
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-keyring -> localhost]
+    ok: [xenial-sd-sec-update -> localhost]
+
+    TASK [build-generic-pkg : Reduce weird path re-usage] **************************
+    ok: [xenial-sd-keyring]
+
+    TASK [build-ossec-deb-pkg : Install python-requests for URL fetching] **********
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : Create any necessary parent directories for jinja files] ***
+    ok: [xenial-sd-grsec] => (item={'path': '/home/user/src/fpf/securedrop/install_files/securedrop-grsec/DEBIAN/control.j2', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 501, 'inode': 1325, 'dev': 51728, 'nlink': 1, 'atime': 1581711342.538, 'mtime': 1557350093.105, 'ctime': 1557350093.105, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-ossec-deb-pkg : Include OSSEC download URLs.] **********************
+    ok: [xenial-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Copy over current directory for repo build] ********
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-sec-update -> localhost]
+
+    TASK [build-generic-pkg : Ensure build directory in-place] *********************
+    ok: [xenial-sd-keyring]
+
+    TASK [build-generic-pkg : Copy app code to build directory.] *******************
+    changed: [xenial-sd-keyring]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-keyring -> localhost]
+
+    TASK [build-ossec-deb-pkg : Include OSSEC download URLs.] **********************
+    ok: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : Template out any jinja files found and copy over] ****
+    changed: [xenial-sd-grsec] => (item={'path': '/home/user/src/fpf/securedrop/install_files/securedrop-grsec/DEBIAN/control.j2', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 501, 'inode': 1325, 'dev': 51728, 'nlink': 1, 'atime': 1581711342.538, 'mtime': 1557350093.105, 'ctime': 1557350093.105, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-ossec-deb-pkg : Download OSSEC tarball.] ***************************
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-generic-pkg : run bash script to build generic packages] ***********
+    changed: [xenial-sd-keyring]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-sec-update -> localhost]
+
+    TASK [build-generic-pkg : run bash script to build generic packages] ***********
+    changed: [xenial-sd-grsec]
+
+    TASK [build-ossec-deb-pkg : Download OSSEC tarball.] ***************************
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Download OSSEC signature.] *************************
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-generic-pkg : Track down package] **********************************
+    ok: [xenial-sd-keyring]
+
+    TASK [build-generic-pkg : Track down package] **********************************
+    ok: [xenial-sd-grsec]
+
+    TASK [build-ossec-deb-pkg : Download OSSEC signature.] *************************
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : Fetch back package] **********************************
+    changed: [xenial-sd-keyring] => (item={'uid': 0, 'woth': False, 'mtime': 1581721692.502, 'inode': 453208, 'isgid': False, 'size': 4740, 'roth': True, 'isuid': False, 'isreg': True, 'pw_name': 'root', 'gid': 0, 'ischr': False, 'wusr': True, 'xoth': False, 'rusr': True, 'nlink': 1, 'issock': False, 'rgrp': True, 'gr_name': 'root', 'path': '/tmp/securedrop-keyring-0.1.3+1.2.1~rc1-amd64.deb', 'xusr': False, 'atime': 1581721692.502, 'isdir': False, 'ctime': 1581721692.502, 'isblk': False, 'xgrp': False, 'dev': 134, 'wgrp': False, 'isfifo': False, 'mode': '0644', 'islnk': False})
+
+    TASK [build-generic-pkg : Fetch back package] **********************************
+    changed: [xenial-sd-grsec] => (item={'uid': 0, 'woth': False, 'mtime': 1581721693.721, 'inode': 453229, 'isgid': False, 'size': 2302, 'roth': True, 'isuid': False, 'isreg': True, 'pw_name': 'root', 'gid': 0, 'ischr': False, 'wusr': True, 'xoth': False, 'rusr': True, 'nlink': 1, 'issock': False, 'rgrp': True, 'gr_name': 'root', 'path': '/tmp/securedrop-grsec-4.14.154-amd64.deb', 'xusr': False, 'atime': 1581721693.721, 'isdir': False, 'ctime': 1581721693.721, 'isblk': False, 'xgrp': False, 'dev': 110, 'wgrp': False, 'isfifo': False, 'mode': '0644', 'islnk': False})
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-sec-update -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-keyring -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-grsec -> localhost]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC archive GPG key.] ***********************
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-keyring -> localhost]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC archive GPG key.] ***********************
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Import OSSEC archive GPG key.] *********************
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Import OSSEC archive GPG key.] *********************
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Verify signature of OSSEC tarball.] ****************
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Verify signature of OSSEC tarball.] ****************
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [Update apt-cache for our security checker] *******************************
+    ok: [xenial-sd-sec-update]
+
+    TASK [build-ossec-deb-pkg : Extract OSSEC source tarball.] *********************
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Extract OSSEC source tarball.] *********************
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Create /etc directory within source directory.] ****
+    ok: [xenial-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Create /etc directory within source directory.] ****
+    ok: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC preloaded vars template.] ***************
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC preloaded vars template.] ***************
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Run OSSEC installer script on extracted source.] ***
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Create OSSEC build directory.] *********************
+    changed: [xenial-sd-generic-ossec-agent] => (item=/tmp/build/ossec-agent-3.0.0-amd64)
+    changed: [xenial-sd-generic-ossec-agent] => (item=/tmp/build/ossec-agent-3.0.0-amd64/var)
+
+    TASK [build-ossec-deb-pkg : Remove client.keys to avoid overwriting existing client.keys] ***
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-securedrop-app-code-deb-pkg : Install SecureDrop Python requirements in container] ***
+    changed: [xenial-sd-app]
+
+    TASK [build-ossec-deb-pkg : Copy /var/ossec/ to OSSEC build directory.] ********
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-securedrop-app-code-deb-pkg : Compile PO to MO.] *******************
+    changed: [xenial-sd-app]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC DEBIAN package scripts to build directory.] ***
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create apparmor.d directory in prep directory] ***
+    changed: [xenial-sd-app]
+
+    TASK [build-ossec-deb-pkg : Run OSSEC installer script on extracted source.] ***
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC DEBIAN/control template to build directory.] ***
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Create OSSEC build directory.] *********************
+    changed: [xenial-sd-generic-ossec-server] => (item=/tmp/build/ossec-server-3.0.0-amd64)
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy AppArmor profiles to prep path] ***
+    changed: [xenial-sd-app] => (item=usr.sbin.tor)
+
+    TASK [build-ossec-deb-pkg : Create OSSEC build directory.] *********************
+    changed: [xenial-sd-generic-ossec-server] => (item=/tmp/build/ossec-server-3.0.0-amd64/var)
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC /usr and /etc directories to build directory.] ***
+    changed: [xenial-sd-generic-ossec-agent] => (item=etc)
+
+    TASK [build-ossec-deb-pkg : Remove client.keys to avoid overwriting existing client.keys] ***
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy AppArmor profiles to prep path] ***
+    changed: [xenial-sd-app] => (item=usr.sbin.apache2)
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC /usr and /etc directories to build directory.] ***
+    changed: [xenial-sd-generic-ossec-agent] => (item=usr)
+
+    TASK [build-ossec-deb-pkg : Copy /var/ossec/ to OSSEC build directory.] ********
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-securedrop-app-code-deb-pkg : Replace placeholder changelog to dist-specific changelog] ***
+    changed: [xenial-sd-app]
+
+    TASK [build-ossec-deb-pkg : Build SecureDrop OSSEC deb package.] ***************
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC DEBIAN package scripts to build directory.] ***
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create lib/systemd/services directory in prep directory] ***
+    changed: [xenial-sd-app]
+
+    TASK [build-ossec-deb-pkg : Delete OSSEC build directories and config files.] ***
+    changed: [xenial-sd-generic-ossec-agent] => (item=/etc/init.d/ossec)
+    changed: [xenial-sd-generic-ossec-agent] => (item=/etc/ossec-init.conf)
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC DEBIAN/control template to build directory.] ***
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy systemd service configurations to prep path] ***
+    changed: [xenial-sd-app] => (item=securedrop_rqrequeue.service)
+
+    TASK [build-ossec-deb-pkg : Delete OSSEC build directories and config files.] ***
+    changed: [xenial-sd-generic-ossec-agent] => (item=/var/ossec)
+    changed: [xenial-sd-generic-ossec-agent] => (item=/tmp/OSSEC-ARCHIVE-KEY.asc)
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC /usr and /etc directories to build directory.] ***
+    changed: [xenial-sd-generic-ossec-server] => (item=etc)
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy systemd service configurations to prep path] ***
+    changed: [xenial-sd-app] => (item=securedrop_rqworker.service)
+
+    TASK [build-ossec-deb-pkg : Fetch newly built Debian packages back to localhost.] ***
+    changed: [xenial-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-agent -> localhost]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC /usr and /etc directories to build directory.] ***
+    changed: [xenial-sd-generic-ossec-server] => (item=usr)
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-agent -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-agent -> localhost]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy systemd service configurations to prep path] ***
+    changed: [xenial-sd-app] => (item=securedrop_shredder.service)
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-agent -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-agent -> localhost]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create sdist in prep dir] ************
+    changed: [xenial-sd-app]
+
+    TASK [build-ossec-deb-pkg : Build SecureDrop OSSEC deb package.] ***************
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create build dir] ********************
+    changed: [xenial-sd-app]
+
+    TASK [build-ossec-deb-pkg : Delete OSSEC build directories and config files.] ***
+    changed: [xenial-sd-generic-ossec-server] => (item=/etc/init.d/ossec)
+    changed: [xenial-sd-generic-ossec-server] => (item=/etc/ossec-init.conf)
+    changed: [xenial-sd-generic-ossec-server] => (item=/var/ossec)
+    changed: [xenial-sd-generic-ossec-server] => (item=/tmp/OSSEC-ARCHIVE-KEY.asc)
+
+    TASK [build-ossec-deb-pkg : Fetch newly built Debian packages back to localhost.] ***
+    changed: [xenial-sd-generic-ossec-server]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-server -> localhost]
+
+    TASK [build-securedrop-app-code-deb-pkg : Extract sdist to build dir] **********
+    changed: [xenial-sd-app]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-server -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-server -> localhost]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create empty static asset directories in build dir] ***
+    changed: [xenial-sd-app] => (item=/tmp/securedrop-app-code_1.2.1~rc1+xenial_amd64/var/www/securedrop/static/gen)
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-server -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-generic-ossec-server -> localhost]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create empty static asset directories in build dir] ***
+    changed: [xenial-sd-app] => (item=/tmp/securedrop-app-code_1.2.1~rc1+xenial_amd64/var/www/securedrop/static/.webassets-cache)
+    changed: [xenial-sd-app] => (item=/tmp/securedrop-app-code_1.2.1~rc1+xenial_amd64/var/www/securedrop/.well-known/pki-validation)
+
+    TASK [build-securedrop-app-code-deb-pkg : Build securedrop-app-code Debian package] ***
+    changed: [xenial-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Find newly built Debian package] *****
+    ok: [xenial-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Fetch newly built Debian packages back to localhost] ***
+    changed: [xenial-sd-app] => (item={'uid': 0, 'woth': False, 'mtime': 1581722040.714, 'inode': 468803, 'isgid': False, 'size': 12537088, 'roth': True, 'isuid': False, 'isreg': True, 'pw_name': 'root', 'gid': 0, 'ischr': False, 'wusr': True, 'xoth': False, 'rusr': True, 'nlink': 1, 'issock': False, 'rgrp': True, 'gr_name': 'root', 'path': '/tmp/securedrop-app-code_1.2.1~rc1+xenial_amd64.deb', 'xusr': False, 'atime': 1581722040.913, 'isdir': False, 'ctime': 1581722040.714, 'isblk': False, 'xgrp': False, 'dev': 50, 'wgrp': False, 'isfifo': False, 'mode': '0644', 'islnk': False})
+    changed: [xenial-sd-app] => (item={'uid': 0, 'woth': False, 'mtime': 1581721874.006, 'inode': 434983, 'isgid': False, 'size': 1969529, 'roth': True, 'isuid': False, 'isreg': True, 'pw_name': 'root', 'gid': 0, 'ischr': False, 'wusr': True, 'xoth': False, 'rusr': True, 'nlink': 1, 'issock': False, 'rgrp': True, 'gr_name': 'root', 'path': '/tmp/securedrop-app-code_1.2.1~rc1+xenial.tar.gz', 'xusr': False, 'atime': 1581721874.02, 'isdir': False, 'ctime': 1581721874.018, 'isblk': False, 'xgrp': False, 'dev': 50, 'wgrp': False, 'isfifo': False, 'mode': '0644', 'islnk': False})
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-app -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-app -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-app -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-app -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [xenial-sd-app -> localhost]
+
+    PLAY [Give dpkg verify container access to debs] *******************************
+
+    TASK [Discover local debian build files] ***************************************
+    ok: [xenial-sd-dpkg-verification -> localhost]
+
+    TASK [Create build dir] ********************************************************
+    ok: [xenial-sd-dpkg-verification]
+
+    TASK [Drop debian files into container] ****************************************
+    changed: [xenial-sd-dpkg-verification] => (item={'path': '/home/user/src/fpf/securedrop/build/xenial/securedrop-app-code_1.2.1~rc1+xenial_amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 12537088, 'inode': 1586556, 'dev': 51728, 'nlink': 1, 'atime': 1581722045.311, 'mtime': 1581722045.302, 'ctime': 1581722045.302, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [xenial-sd-dpkg-verification] => (item={'path': '/home/user/src/fpf/securedrop/build/xenial/securedrop-keyring-0.1.3+1.2.1~rc1-amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 4740, 'inode': 1586552, 'dev': 51728, 'nlink': 1, 'atime': 1581721703.353, 'mtime': 1581721703.353, 'ctime': 1581721703.353, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [xenial-sd-dpkg-verification] => (item={'path': '/home/user/src/fpf/securedrop/build/xenial/securedrop-ossec-server-3.0.0+1.2.1~rc1-amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 6610, 'inode': 1586550, 'dev': 51728, 'nlink': 1, 'atime': 1581721659.82, 'mtime': 1581721659.82, 'ctime': 1581721659.82, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [xenial-sd-dpkg-verification] => (item={'path': '/home/user/src/fpf/securedrop/build/xenial/ossec-agent-3.0.0-amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 370580, 'inode': 1586554, 'dev': 51728, 'nlink': 1, 'atime': 1581721846.023, 'mtime': 1581721846.022, 'ctime': 1581721846.022, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [xenial-sd-dpkg-verification] => (item={'path': '/home/user/src/fpf/securedrop/build/xenial/securedrop-grsec-4.14.154-amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 2302, 'inode': 1586553, 'dev': 51728, 'nlink': 1, 'atime': 1581721704.519, 'mtime': 1581721704.519, 'ctime': 1581721704.519, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [xenial-sd-dpkg-verification] => (item={'path': '/home/user/src/fpf/securedrop/build/xenial/securedrop-ossec-agent-3.0.0+1.2.1~rc1-amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 3572, 'inode': 1586549, 'dev': 51728, 'nlink': 1, 'atime': 1581721658.234, 'mtime': 1581721658.234, 'ctime': 1581721658.234, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [xenial-sd-dpkg-verification] => (item={'path': '/home/user/src/fpf/securedrop/build/xenial/ossec-server-3.0.0-amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 729472, 'inode': 1586555, 'dev': 51728, 'nlink': 1, 'atime': 1581721864.257, 'mtime': 1581721864.256, 'ctime': 1581721864.256, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [xenial-sd-dpkg-verification] => (item={'path': '/home/user/src/fpf/securedrop/build/xenial/securedrop-config-0.1.3+1.2.1~rc1-amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 2742, 'inode': 1586551, 'dev': 51728, 'nlink': 1, 'atime': 1581721673.062, 'mtime': 1581721673.062, 'ctime': 1581721673.062, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    PLAY RECAP *********************************************************************
+    xenial-sd-app              : ok=29   changed=22   unreachable=0    failed=0
+    xenial-sd-config           : ok=12   changed=3    unreachable=0    failed=0
+    xenial-sd-dpkg-verification : ok=3    changed=1    unreachable=0    failed=0
+    xenial-sd-generic-ossec-agent : ok=28   changed=20   unreachable=0    failed=0
+    xenial-sd-generic-ossec-agent2 : ok=12   changed=3    unreachable=0    failed=0
+    xenial-sd-generic-ossec-server : ok=28   changed=20   unreachable=0    failed=0
+    xenial-sd-generic-ossec-server2 : ok=12   changed=3    unreachable=0    failed=0
+    xenial-sd-grsec            : ok=14   changed=4    unreachable=0    failed=0
+    xenial-sd-keyring          : ok=12   changed=3    unreachable=0    failed=0
+    xenial-sd-sec-update       : ok=7    changed=0    unreachable=0    failed=0
+
+--> Inventory /home/user/src/fpf/securedrop/molecule/builder-xenial/../../install_files/ansible-base/group_vars linked to /home/user/.cache/molecule/securedrop/builder-xenial/inventory/group_vars
+--> Scenario: 'builder-xenial'
+--> Action: 'verify'
+--> Executing Testinfra tests found in /home/user/src/fpf/securedrop/molecule/builder-xenial/tests//...
+    ============================= test session starts ==============================
+    platform linux -- Python 3.7.3, pytest-3.2.0, py-1.4.34, pluggy-0.4.0
+    rootdir: /home/user/src/fpf/securedrop, inifile:
+    plugins: testinfra-3.2.0, xdist-1.18.2
+gw0 [224] / gw1 [224] / gw2 [224] / gw3 [224]
+    scheduling tests via LoadScheduling
+    ................................................................................X.............................................................................................................................................F.
+    =================================== FAILURES ===================================
+    _________ test_ensure_no_updates_avail[docker://xenial-sd-sec-update] __________
+    [gw3] linux -- Python 3.7.3 /home/user/src/fpf/securedrop/.venv/bin/python3
+
+    host = <testinfra.host.Host object at 0x70a79f20fc18>
+
+        def test_ensure_no_updates_avail(host):
+            """
+                Test to make sure that there are no security-updates in the
+                base builder container.
+            """
+
+            # Filter out all the security repos to their own file
+            # without this change all the package updates appeared as if they were
+            # coming from normal ubuntu update channel (since they get posted to both)
+            host.run('egrep "^deb.*security" /etc/apt/sources.list > /tmp/sec.list')
+
+            dist_upgrade_simulate = host.run('apt-get -s dist-upgrade '
+                                             '-oDir::Etc::Sourcelist=/tmp/sec.list '
+                                             '|grep "^Inst" |grep -i security')
+
+            # If the grep was successful that means security package updates found
+            # otherwise we get a non-zero exit code so no updates needed.
+    >       assert dist_upgrade_simulate.rc != 0
+    E       assert 0 != 0
+    E        +  where 0 = CommandResult(command=b'apt-get -s dist-upgrade -oDir::Etc::Sourcelist=/tmp/sec.list |grep "^Inst" |grep -i security',...ity [amd64])\nInst linux-libc-dev [4.4.0-170.199] (4.4.0-173.203 Ubuntu:16.04/xenial-security [amd64])\n', stderr=None).rc
+
+    tests/test_security_updates.py:25: AssertionError
+    =============== 1 failed, 222 passed, 1 xpassed in 54.81 seconds ===============
+An error occurred during the test sequence action: 'verify'. Cleaning up.
+--> Inventory /home/user/src/fpf/securedrop/molecule/builder-xenial/../../install_files/ansible-base/group_vars linked to /home/user/.cache/molecule/securedrop/builder-xenial/inventory/group_vars
+--> Scenario: 'builder-xenial'
+--> Action: 'cleanup'
+Skipping, cleanup playbook not configured.
+--> Inventory /home/user/src/fpf/securedrop/molecule/builder-xenial/../../install_files/ansible-base/group_vars linked to /home/user/.cache/molecule/securedrop/builder-xenial/inventory/group_vars
+--> Scenario: 'builder-xenial'
+--> Action: 'destroy'
+
+    PLAY [Destroy] *****************************************************************
+
+    TASK [Destroy molecule instance(s)] ********************************************
+    changed: [localhost] => (item={'name': 'xenial-sd-app', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-generic-ossec-agent', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-generic-ossec-server', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-generic-ossec-agent2', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-generic-ossec-server2', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-grsec', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-config', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-keyring', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-sec-update', 'groups': ['builders']})
+    changed: [localhost] => (item={'name': 'xenial-sd-dpkg-verification', 'groups': ['testers']})
+
+    PLAY RECAP *********************************************************************
+    localhost                  : ok=1    changed=1    unreachable=0    failed=0
+
+--> Pruning extra files from scenario ephemeral directory
+make: *** [Makefile:311: build-debs] Error 1
+user@sd-dev [(1.2.1-rc1) $] ~/src/fpf/securedrop $ sha256sum build/xenial/*.deb
+716c2329a7fcc6e4933caa620eb1e07a9cabe0e3922a2cfa949387d9ceceb688  build/xenial/ossec-agent-3.0.0-amd64.deb
+aae025ca4abcdaf68101eddaed8d2aa38dab4dac9864d9f4d8432779ba728505  build/xenial/ossec-server-3.0.0-amd64.deb
+d67e361053ec36d5be9a04a711d14ef7006159dfda9c4aa1be1c6ea1f893681b  build/xenial/securedrop-app-code_1.2.1~rc1+xenial_amd64.deb
+23c308c4992a6a519ff4ee102ada038448dfd9d05911f65040de6c930f1eb992  build/xenial/securedrop-config-0.1.3+1.2.1~rc1-amd64.deb
+744846ec017cade0365cc4ccfb842a20b64064e929339ee627215ee463e14a64  build/xenial/securedrop-grsec-4.14.154-amd64.deb
+50cedc6d2d31a5f67280eda0415dfe02a8c7f9d8d98a4a87cb2c64abf9dd52aa  build/xenial/securedrop-keyring-0.1.3+1.2.1~rc1-amd64.deb
+25d5c47f5f4ce9755aa77d88ed223e99b3922006b5da9cfffa55900390386729  build/xenial/securedrop-ossec-agent-3.0.0+1.2.1~rc1-amd64.deb
+4ddedc980bf2bacb9ffdf372432743c37644a7e07cbf2624d9d0f4ff82462b7f  build/xenial/securedrop-ossec-server-3.0.0+1.2.1~rc1-amd64.deb
+user@sd-dev [(1.2.1-rc1) $] ~/src/fpf/securedrop $
