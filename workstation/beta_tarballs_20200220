@@ -1,0 +1,432 @@
+user@build-feb21:~/securedrop-debian-packaging$ cd ~/securedrop-proxy
+user@build-feb21:~/securedrop-proxy$ git checkout 0.2.0
+Note: checking out '0.2.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 70eae01 securedrop-proxy 0.2.0
+user@build-feb21:~/securedrop-proxy$ git tag -v
+user@build-feb21:~/securedrop-proxy$ git tag -v 0.2.0
+object 70eae01e899fcfeb77ddcad34c4d85216cc7b778
+type commit
+tag 0.2.0
+tagger redshiftzero <jen@freedom.press> 1582216729 -0500
+
+securedrop-proxy 0.2.0
+gpg: keybox '/home/user/.gnupg/pubring.kbx' created
+gpg: Signature made Thu 20 Feb 2020 11:41:50 AM EST
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Can't check signature: No public key
+user@build-feb21:~/securedrop-proxy$ gpg --recv-key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
+gpg: key 310F561200F4AD77: public key "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+user@build-feb21:~/securedrop-proxy$ git tag -v 0.2.0
+object 70eae01e899fcfeb77ddcad34c4d85216cc7b778
+type commit
+tag 0.2.0
+tagger redshiftzero <jen@freedom.press> 1582216729 -0500
+
+securedrop-proxy 0.2.0
+gpg: Signature made Thu 20 Feb 2020 11:41:50 AM EST
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Good signature from "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2224 5C81 E3BA EB41 38B3  6061 310F 5612 00F4 AD77
+user@build-feb21:~/securedrop-proxy$ python3 setup.py sdist
+Warning: 'classifiers' should be a list, got type 'tuple'
+running sdist
+running egg_info
+creating securedrop_proxy.egg-info
+writing securedrop_proxy.egg-info/PKG-INFO
+writing dependency_links to securedrop_proxy.egg-info/dependency_links.txt
+writing entry points to securedrop_proxy.egg-info/entry_points.txt
+writing requirements to securedrop_proxy.egg-info/requires.txt
+writing top-level names to securedrop_proxy.egg-info/top_level.txt
+writing manifest file 'securedrop_proxy.egg-info/SOURCES.txt'
+reading manifest file 'securedrop_proxy.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+writing manifest file 'securedrop_proxy.egg-info/SOURCES.txt'
+running check
+creating securedrop-proxy-0.2.0
+creating securedrop-proxy-0.2.0/qubes
+creating securedrop-proxy-0.2.0/securedrop_proxy
+creating securedrop-proxy-0.2.0/securedrop_proxy.egg-info
+copying files to securedrop-proxy-0.2.0...
+copying LICENSE -> securedrop-proxy-0.2.0
+copying MANIFEST.in -> securedrop-proxy-0.2.0
+copying README.md -> securedrop-proxy-0.2.0
+copying build-requirements.txt -> securedrop-proxy-0.2.0
+copying changelog.md -> securedrop-proxy-0.2.0
+copying config-example.yaml -> securedrop-proxy-0.2.0
+copying requirements.txt -> securedrop-proxy-0.2.0
+copying setup.cfg -> securedrop-proxy-0.2.0
+copying setup.py -> securedrop-proxy-0.2.0
+copying qubes/securedrop.Proxy -> securedrop-proxy-0.2.0/qubes
+copying securedrop_proxy/VERSION -> securedrop-proxy-0.2.0/securedrop_proxy
+copying securedrop_proxy/__init__.py -> securedrop-proxy-0.2.0/securedrop_proxy
+copying securedrop_proxy/entrypoint.py -> securedrop-proxy-0.2.0/securedrop_proxy
+copying securedrop_proxy/main.py -> securedrop-proxy-0.2.0/securedrop_proxy
+copying securedrop_proxy/proxy.py -> securedrop-proxy-0.2.0/securedrop_proxy
+copying securedrop_proxy/version.py -> securedrop-proxy-0.2.0/securedrop_proxy
+copying securedrop_proxy.egg-info/PKG-INFO -> securedrop-proxy-0.2.0/securedrop_proxy.egg-info
+copying securedrop_proxy.egg-info/SOURCES.txt -> securedrop-proxy-0.2.0/securedrop_proxy.egg-info
+copying securedrop_proxy.egg-info/dependency_links.txt -> securedrop-proxy-0.2.0/securedrop_proxy.egg-info
+copying securedrop_proxy.egg-info/entry_points.txt -> securedrop-proxy-0.2.0/securedrop_proxy.egg-info
+copying securedrop_proxy.egg-info/requires.txt -> securedrop-proxy-0.2.0/securedrop_proxy.egg-info
+copying securedrop_proxy.egg-info/top_level.txt -> securedrop-proxy-0.2.0/securedrop_proxy.egg-info
+Writing securedrop-proxy-0.2.0/setup.cfg
+creating dist
+Creating tar archive
+removing 'securedrop-proxy-0.2.0' (and everything under it)
+user@build-feb21:~/securedrop-proxy$ ls dist/securedrop-proxy-0.2.0.tar.gz 
+dist/securedrop-proxy-0.2.0.tar.gz
+user@build-feb21:~/securedrop-proxy$ shasum -a 256 dist/securedrop-proxy-0.2.0.tar.gz 
+bb2377e4d4ab2fe49051d70491eb7b39dc0947d619aaf029f0bd2f2fabe2a4f7  dist/securedrop-proxy-0.2.0.tar.gz
+user@build-feb21:~/securedrop-proxy$ cd ../securedrop-export/
+user@build-feb21:~/securedrop-export$ git checkout 0.2.0
+Note: checking out '0.2.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at d991b4f securedrop-export 0.2.0
+user@build-feb21:~/securedrop-export$ git tag -v 0.2.0
+object d991b4f3c14902b84d24a5e15c35f10ea6964bc1
+type commit
+tag 0.2.0
+tagger redshiftzero <jen@freedom.press> 1582303202 -0500
+
+securedrop-export 0.2.0
+gpg: Signature made Fri 21 Feb 2020 11:42:17 AM EST
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Good signature from "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2224 5C81 E3BA EB41 38B3  6061 310F 5612 00F4 AD77
+user@build-feb21:~/securedrop-export$ python3 setup.py sdist
+Warning: 'classifiers' should be a list, got type 'tuple'
+running sdist
+running egg_info
+creating securedrop_export.egg-info
+writing securedrop_export.egg-info/PKG-INFO
+writing dependency_links to securedrop_export.egg-info/dependency_links.txt
+writing entry points to securedrop_export.egg-info/entry_points.txt
+writing top-level names to securedrop_export.egg-info/top_level.txt
+writing manifest file 'securedrop_export.egg-info/SOURCES.txt'
+reading manifest file 'securedrop_export.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+writing manifest file 'securedrop_export.egg-info/SOURCES.txt'
+running check
+creating securedrop-export-0.2.0
+creating securedrop-export-0.2.0/files
+creating securedrop-export-0.2.0/securedrop_export
+creating securedrop-export-0.2.0/securedrop_export.egg-info
+creating securedrop-export-0.2.0/securedrop_export/disk
+creating securedrop-export-0.2.0/securedrop_export/print
+creating securedrop-export-0.2.0/tests
+creating securedrop-export-0.2.0/tests/disk
+creating securedrop-export-0.2.0/tests/print
+copying files to securedrop-export-0.2.0...
+copying LICENSE -> securedrop-export-0.2.0
+copying MANIFEST.in -> securedrop-export-0.2.0
+copying README.md -> securedrop-export-0.2.0
+copying build-requirements.txt -> securedrop-export-0.2.0
+copying changelog.md -> securedrop-export-0.2.0
+copying requirements.txt -> securedrop-export-0.2.0
+copying setup.py -> securedrop-export-0.2.0
+copying files/application-x-sd-export.xml -> securedrop-export-0.2.0/files
+copying files/sd-logo.png -> securedrop-export-0.2.0/files
+copying files/send-to-usb.desktop -> securedrop-export-0.2.0/files
+copying securedrop_export/VERSION -> securedrop-export-0.2.0/securedrop_export
+copying securedrop_export/__init__.py -> securedrop-export-0.2.0/securedrop_export
+copying securedrop_export/entrypoint.py -> securedrop-export-0.2.0/securedrop_export
+copying securedrop_export/exceptions.py -> securedrop-export-0.2.0/securedrop_export
+copying securedrop_export/export.py -> securedrop-export-0.2.0/securedrop_export
+copying securedrop_export/main.py -> securedrop-export-0.2.0/securedrop_export
+copying securedrop_export.egg-info/PKG-INFO -> securedrop-export-0.2.0/securedrop_export.egg-info
+copying securedrop_export.egg-info/SOURCES.txt -> securedrop-export-0.2.0/securedrop_export.egg-info
+copying securedrop_export.egg-info/dependency_links.txt -> securedrop-export-0.2.0/securedrop_export.egg-info
+copying securedrop_export.egg-info/entry_points.txt -> securedrop-export-0.2.0/securedrop_export.egg-info
+copying securedrop_export.egg-info/top_level.txt -> securedrop-export-0.2.0/securedrop_export.egg-info
+copying securedrop_export/disk/__init__.py -> securedrop-export-0.2.0/securedrop_export/disk
+copying securedrop_export/disk/actions.py -> securedrop-export-0.2.0/securedrop_export/disk
+copying securedrop_export/print/__init__.py -> securedrop-export-0.2.0/securedrop_export/print
+copying securedrop_export/print/actions.py -> securedrop-export-0.2.0/securedrop_export/print
+copying tests/disk/__init__.py -> securedrop-export-0.2.0/tests/disk
+copying tests/disk/test_actions.py -> securedrop-export-0.2.0/tests/disk
+copying tests/print/__init__.py -> securedrop-export-0.2.0/tests/print
+copying tests/print/test_actions.py -> securedrop-export-0.2.0/tests/print
+Writing securedrop-export-0.2.0/setup.cfg
+creating dist
+Creating tar archive
+removing 'securedrop-export-0.2.0' (and everything under it)
+user@build-feb21:~/securedrop-export$ shasum -a 256 dist/securedrop-export-0.2.0.tar.gz 
+b0f4d5bf7b08d1d866b5b4f82b2216a8dde6201b0ad947b29a725c0181d1849d  dist/securedrop-export-0.2.0.tar.gz
+user@build-feb21:~/securedrop-export$ cd ../securedrop-log/
+user@build-feb21:~/securedrop-log$ git checkout 0.1.0
+Note: checking out '0.1.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 0f32743 securedrop-log 0.1.0
+user@build-feb21:~/securedrop-log$ git tag -v 0.1.0
+object 0f32743123cf1673362406ac7818eefd9a0b8237
+type commit
+tag 0.1.0
+tagger redshiftzero <jen@freedom.press> 1582303737 -0500
+
+securedrop-log 0.1.0
+gpg: Signature made Fri 21 Feb 2020 11:50:53 AM EST
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Good signature from "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2224 5C81 E3BA EB41 38B3  6061 310F 5612 00F4 AD77
+user@build-feb21:~/securedrop-log$ python3 setup.py sdist
+running sdist
+running egg_info
+creating securedrop_log.egg-info
+writing securedrop_log.egg-info/PKG-INFO
+writing dependency_links to securedrop_log.egg-info/dependency_links.txt
+writing top-level names to securedrop_log.egg-info/top_level.txt
+writing manifest file 'securedrop_log.egg-info/SOURCES.txt'
+reading manifest file 'securedrop_log.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+writing manifest file 'securedrop_log.egg-info/SOURCES.txt'
+running check
+creating securedrop-log-0.1.0
+creating securedrop-log-0.1.0/securedrop_log.egg-info
+copying files to securedrop-log-0.1.0...
+copying LICENSE -> securedrop-log-0.1.0
+copying MANIFEST.in -> securedrop-log-0.1.0
+copying README.md -> securedrop-log-0.1.0
+copying VERSION -> securedrop-log-0.1.0
+copying build-requirements.txt -> securedrop-log-0.1.0
+copying changelog.md -> securedrop-log-0.1.0
+copying requirements.txt -> securedrop-log-0.1.0
+copying sd-rsyslog -> securedrop-log-0.1.0
+copying sd-rsyslog-example.conf -> securedrop-log-0.1.0
+copying sdlog.conf -> securedrop-log-0.1.0
+copying securedrop-log -> securedrop-log-0.1.0
+copying securedrop-log-saver -> securedrop-log-0.1.0
+copying securedrop-log.service -> securedrop-log-0.1.0
+copying securedrop-redis-log -> securedrop-log-0.1.0
+copying securedrop.Log -> securedrop-log-0.1.0
+copying setup.py -> securedrop-log-0.1.0
+copying securedrop_log.egg-info/PKG-INFO -> securedrop-log-0.1.0/securedrop_log.egg-info
+copying securedrop_log.egg-info/SOURCES.txt -> securedrop-log-0.1.0/securedrop_log.egg-info
+copying securedrop_log.egg-info/dependency_links.txt -> securedrop-log-0.1.0/securedrop_log.egg-info
+copying securedrop_log.egg-info/top_level.txt -> securedrop-log-0.1.0/securedrop_log.egg-info
+Writing securedrop-log-0.1.0/setup.cfg
+creating dist
+Creating tar archive
+removing 'securedrop-log-0.1.0' (and everything under it)
+user@build-feb21:~/securedrop-log$ shasum -a 256 dist/securedrop-log-0.1.0.tar.gz 
+863c963fcb63201034c07ae44e3a8f661ded56d07e094b8f295a69314e181ba1  dist/securedrop-log-0.1.0.tar.gz
+user@build-feb21:~/securedrop-log$ cd ../securedrop-client/
+user@build-feb21:~/securedrop-client$ git checkout 0.1.0
+Note: checking out '0.1.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at d4f4353 securedrop-client 0.1.0
+user@build-feb21:~/securedrop-client$ git tag -v 0.1.0
+object d4f4353ca466ee9c201a1dfb659279a30b2b506e
+type commit
+tag 0.1.0
+tagger redshiftzero <jen@freedom.press> 1582304285 -0500
+
+securedrop-client 0.1.0
+gpg: Signature made Fri 21 Feb 2020 11:59:06 AM EST
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Good signature from "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2224 5C81 E3BA EB41 38B3  6061 310F 5612 00F4 AD77
+user@build-feb21:~/securedrop-client$ python3 setup.py sdist
+Warning: 'classifiers' should be a list, got type 'tuple'
+running sdist
+running egg_info
+creating securedrop_client.egg-info
+writing securedrop_client.egg-info/PKG-INFO
+writing dependency_links to securedrop_client.egg-info/dependency_links.txt
+writing entry points to securedrop_client.egg-info/entry_points.txt
+writing requirements to securedrop_client.egg-info/requires.txt
+writing top-level names to securedrop_client.egg-info/top_level.txt
+writing manifest file 'securedrop_client.egg-info/SOURCES.txt'
+reading manifest file 'securedrop_client.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no files found matching 'files/client.ini'
+warning: no previously-included files matching '*.pyc' found under directory 'alembic'
+warning: no previously-included files matching '*.pyc' found under directory 'securedrop_client'
+writing manifest file 'securedrop_client.egg-info/SOURCES.txt'
+running check
+creating securedrop-client-0.1.0
+creating securedrop-client-0.1.0/alembic
+creating securedrop-client-0.1.0/alembic/versions
+creating securedrop-client-0.1.0/files
+creating securedrop-client-0.1.0/securedrop_client
+creating securedrop-client-0.1.0/securedrop_client.egg-info
+creating securedrop-client-0.1.0/securedrop_client/api_jobs
+creating securedrop-client-0.1.0/securedrop_client/gui
+creating securedrop-client-0.1.0/securedrop_client/resources
+creating securedrop-client-0.1.0/securedrop_client/resources/css
+creating securedrop-client-0.1.0/securedrop_client/resources/fonts
+creating securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+creating securedrop-client-0.1.0/securedrop_client/resources/fonts/Source_Sans_Pro
+creating securedrop-client-0.1.0/securedrop_client/resources/images
+copying files to securedrop-client-0.1.0...
+copying LICENSE -> securedrop-client-0.1.0
+copying MANIFEST.in -> securedrop-client-0.1.0
+copying README.md -> securedrop-client-0.1.0
+copying build-requirements.txt -> securedrop-client-0.1.0
+copying changelog.md -> securedrop-client-0.1.0
+copying requirements.txt -> securedrop-client-0.1.0
+copying setup.cfg -> securedrop-client-0.1.0
+copying setup.py -> securedrop-client-0.1.0
+copying alembic/README -> securedrop-client-0.1.0/alembic
+copying alembic/env.py -> securedrop-client-0.1.0/alembic
+copying alembic/script.py.mako -> securedrop-client-0.1.0/alembic
+copying alembic/versions/2f363b3d680e_init.py -> securedrop-client-0.1.0/alembic/versions
+copying alembic/versions/36a79ffcfbfb_add_first_name_last_name_fullname_.py -> securedrop-client-0.1.0/alembic/versions
+copying alembic/versions/86b01b6290da_add_reply_draft.py -> securedrop-client-0.1.0/alembic/versions
+copying alembic/versions/bafdcae12f97_.py -> securedrop-client-0.1.0/alembic/versions
+copying alembic/versions/fb657f2ee8a7_drop_file_original_filename.py -> securedrop-client-0.1.0/alembic/versions
+copying alembic/versions/fecf1191b6f0_remove_decryption_vs_content_contraint.py -> securedrop-client-0.1.0/alembic/versions
+copying files/alembic.ini -> securedrop-client-0.1.0/files
+copying files/mimeapps.list -> securedrop-client-0.1.0/files
+copying files/open-in-dvm.desktop -> securedrop-client-0.1.0/files
+copying files/sd-app-qubes-gpg-domain.sh -> securedrop-client-0.1.0/files
+copying files/securedrop-client -> securedrop-client-0.1.0/files
+copying files/securedrop-client.desktop -> securedrop-client-0.1.0/files
+copying files/usr.bin.securedrop-client -> securedrop-client-0.1.0/files
+copying securedrop_client/__init__.py -> securedrop-client-0.1.0/securedrop_client
+copying securedrop_client/__main__.py -> securedrop-client-0.1.0/securedrop_client
+copying securedrop_client/app.py -> securedrop-client-0.1.0/securedrop_client
+copying securedrop_client/config.py -> securedrop-client-0.1.0/securedrop_client
+copying securedrop_client/crypto.py -> securedrop-client-0.1.0/securedrop_client
+copying securedrop_client/db.py -> securedrop-client-0.1.0/securedrop_client
+copying securedrop_client/export.py -> securedrop-client-0.1.0/securedrop_client
+copying securedrop_client/logic.py -> securedrop-client-0.1.0/securedrop_client
+copying securedrop_client/queue.py -> securedrop-client-0.1.0/securedrop_client
+copying securedrop_client/storage.py -> securedrop-client-0.1.0/securedrop_client
+copying securedrop_client/sync.py -> securedrop-client-0.1.0/securedrop_client
+copying securedrop_client/utils.py -> securedrop-client-0.1.0/securedrop_client
+copying securedrop_client.egg-info/PKG-INFO -> securedrop-client-0.1.0/securedrop_client.egg-info
+copying securedrop_client.egg-info/SOURCES.txt -> securedrop-client-0.1.0/securedrop_client.egg-info
+copying securedrop_client.egg-info/dependency_links.txt -> securedrop-client-0.1.0/securedrop_client.egg-info
+copying securedrop_client.egg-info/entry_points.txt -> securedrop-client-0.1.0/securedrop_client.egg-info
+copying securedrop_client.egg-info/requires.txt -> securedrop-client-0.1.0/securedrop_client.egg-info
+copying securedrop_client.egg-info/top_level.txt -> securedrop-client-0.1.0/securedrop_client.egg-info
+copying securedrop_client/api_jobs/__init__.py -> securedrop-client-0.1.0/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/base.py -> securedrop-client-0.1.0/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/downloads.py -> securedrop-client-0.1.0/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/sources.py -> securedrop-client-0.1.0/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/sync.py -> securedrop-client-0.1.0/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/updatestar.py -> securedrop-client-0.1.0/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/uploads.py -> securedrop-client-0.1.0/securedrop_client/api_jobs
+copying securedrop_client/gui/__init__.py -> securedrop-client-0.1.0/securedrop_client/gui
+copying securedrop_client/gui/main.py -> securedrop-client-0.1.0/securedrop_client/gui
+copying securedrop_client/gui/widgets.py -> securedrop-client-0.1.0/securedrop_client/gui
+copying securedrop_client/resources/__init__.py -> securedrop-client-0.1.0/securedrop_client/resources
+copying securedrop_client/resources/css/sdclient.css -> securedrop-client-0.1.0/securedrop_client/resources/css
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Black.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-BlackItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Bold.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-BoldItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraBold.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraBoldItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraLight.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraLightItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Light.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-LightItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Medium.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-MediumItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Regular.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-RegularItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-SemiBold.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-SemiBoldItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Thin.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ThinItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/OFL.txt -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Source_Sans_Pro/OFL.txt -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Black.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-BlackItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Bold.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-BoldItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-ExtraLight.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-ExtraLightItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Light.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-LightItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-RegularItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-SemiBold.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-SemiBoldItalic.ttf -> securedrop-client-0.1.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/images/cross.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/delete.png -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/download_active.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/download_file.gif -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/download_file.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/download_file_hover.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/dropdown_arrow.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/ellipsis.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/error_icon.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/error_icon_white.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/eye_hidden.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/eye_visible.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/header_logo.png -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/hexes.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/icon.png -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/left_pane.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/left_pane_offline.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/login_bg.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/logo.png -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/paperclip.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/refresh.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/refresh_active.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/refresh_offline.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/send.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/star_off.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/star_on.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/sync.gif -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/sync.svg -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/sync_active.gif -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/sync_disabled.gif -> securedrop-client-0.1.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/trash.png -> securedrop-client-0.1.0/securedrop_client/resources/images
+Writing securedrop-client-0.1.0/setup.cfg
+creating dist
+Creating tar archive
+removing 'securedrop-client-0.1.0' (and everything under it)
+user@build-feb21:~/securedrop-client$ shasum -a 256 dist/securedrop-client-0.1.0.tar.gz 
+c7e0dcacef46ba3eefafe9eacfe59a9d75c745c6aad2ce2e5d7f2793205b1906  dist/securedrop-client-0.1.0.tar.gz
+
