@@ -1,0 +1,507 @@
+user@builder-disposable:~$ git clone https://github.com/freedomofpress/securedrop-debian-packaging
+Cloning into 'securedrop-debian-packaging'...
+remote: Enumerating objects: 34, done.
+remote: Counting objects: 100% (34/34), done.
+remote: Compressing objects: 100% (27/27), done.
+remote: Total 1792 (delta 8), reused 26 (delta 5), pack-reused 1758
+Receiving objects: 100% (1792/1792), 849.71 KiB | 2.84 MiB/s, done.
+Resolving deltas: 100% (873/873), done.
+Filtering content: 100% (48/48), 17.49 MiB | 2.37 MiB/s, done.
+user@builder-disposable:~$ cd securedrop-debian-packaging/
+user@builder-disposable:~/securedrop-debian-packaging$ git tag -v 0.2.7
+object ca8ce558825edd23597291a777b9637bbcbae5ef
+type commit
+tag 0.2.7
+tagger mickael e <mickael@freedom.press> 1585595910 -0400
+
+securedrop-debian-packaging 0.2.7
+
+securedrop-client 0.1.5
+securedrop-proxy 0.2.1
+securedrop-log 0.1.1
+securedrop-export 0.2.3
+securedrop-workstation-svs-disp 0.2.2
+securedrop-workstation-grsec 4.14.169
+securedrop-workstation-config 0.1.2
+gpg: Signature made Mon 30 Mar 2020 03:20:00 PM EDT
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Good signature from "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2224 5C81 E3BA EB41 38B3  6061 310F 5612 00F4 AD77
+user@builder-disposable:~/securedrop-debian-packaging$ git checkout 0.2.7 
+Note: checking out '0.2.7'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at ca8ce55 Merge pull request #161 from freedomofpress/proxy021-client015
+user@builder-disposable:~/securedrop-debian-packaging$ gpg --verify tarballs/securedrop-client-0.1.5.tar.gz
+gpg: no valid OpenPGP data found.
+gpg: the signature could not be verified.
+Please remember that the signature file (.sig or .asc)
+should be the first file given on the command line.
+user@builder-disposable:~/securedrop-debian-packaging$ gpg --verify tarballs/securedrop-client-0.1.5.tar.gz.asc 
+gpg: assuming signed data in 'tarballs/securedrop-client-0.1.5.tar.gz'
+gpg: Signature made Mon 30 Mar 2020 02:51:47 PM EDT
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Good signature from "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2224 5C81 E3BA EB41 38B3  6061 310F 5612 00F4 AD77
+user@builder-disposable:~/securedrop-debian-packaging$ PKG_VERSION=0.1.5 PKG_PATH=tarballs/securedrop-client-0.1.5.tar.gz make securedrop-client
+PKG_NAME="securedrop-client" ./scripts/build-debianpackage
+gpg: key 310F561200F4AD77: public key "SecureDrop Release Signing Key" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: Signature made Thu 12 Mar 2020 02:22:58 PM EDT
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Good signature from "SecureDrop Release Signing Key" [unknown]
+gpg:                 aka "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2224 5C81 E3BA EB41 38B3  6061 310F 5612 00F4 AD77
+Checking that SHA256SUMs from mirror match signed file...  OK
+securedrop-client is a Python package
+securedrop-client-0.1.5/LICENSE
+securedrop-client-0.1.5/MANIFEST.in
+securedrop-client-0.1.5/PKG-INFO
+securedrop-client-0.1.5/README.md
+securedrop-client-0.1.5/alembic/
+securedrop-client-0.1.5/alembic/README
+securedrop-client-0.1.5/alembic/env.py
+securedrop-client-0.1.5/alembic/script.py.mako
+securedrop-client-0.1.5/alembic/versions/
+securedrop-client-0.1.5/alembic/versions/2f363b3d680e_init.py
+securedrop-client-0.1.5/alembic/versions/36a79ffcfbfb_add_first_name_last_name_fullname_.py
+securedrop-client-0.1.5/alembic/versions/86b01b6290da_add_reply_draft.py
+securedrop-client-0.1.5/alembic/versions/bafdcae12f97_.py
+securedrop-client-0.1.5/alembic/versions/fb657f2ee8a7_drop_file_original_filename.py
+securedrop-client-0.1.5/alembic/versions/fecf1191b6f0_remove_decryption_vs_content_contraint.py
+securedrop-client-0.1.5/build-requirements.txt
+securedrop-client-0.1.5/changelog.md
+securedrop-client-0.1.5/files/
+securedrop-client-0.1.5/files/alembic.ini
+securedrop-client-0.1.5/files/mimeapps.list
+securedrop-client-0.1.5/files/open-in-dvm.desktop
+securedrop-client-0.1.5/files/sd-app-qubes-gpg-domain.sh
+securedrop-client-0.1.5/files/securedrop-client
+securedrop-client-0.1.5/files/securedrop-client.desktop
+securedrop-client-0.1.5/files/usr.bin.securedrop-client
+securedrop-client-0.1.5/requirements.txt
+securedrop-client-0.1.5/securedrop_client/
+securedrop-client-0.1.5/securedrop_client/__init__.py
+securedrop-client-0.1.5/securedrop_client/__main__.py
+securedrop-client-0.1.5/securedrop_client/api_jobs/
+securedrop-client-0.1.5/securedrop_client/api_jobs/__init__.py
+securedrop-client-0.1.5/securedrop_client/api_jobs/base.py
+securedrop-client-0.1.5/securedrop_client/api_jobs/downloads.py
+securedrop-client-0.1.5/securedrop_client/api_jobs/sources.py
+securedrop-client-0.1.5/securedrop_client/api_jobs/sync.py
+securedrop-client-0.1.5/securedrop_client/api_jobs/updatestar.py
+securedrop-client-0.1.5/securedrop_client/api_jobs/uploads.py
+securedrop-client-0.1.5/securedrop_client/app.py
+securedrop-client-0.1.5/securedrop_client/config.py
+securedrop-client-0.1.5/securedrop_client/crypto.py
+securedrop-client-0.1.5/securedrop_client/db.py
+securedrop-client-0.1.5/securedrop_client/export.py
+securedrop-client-0.1.5/securedrop_client/gui/
+securedrop-client-0.1.5/securedrop_client/gui/__init__.py
+securedrop-client-0.1.5/securedrop_client/gui/main.py
+securedrop-client-0.1.5/securedrop_client/gui/widgets.py
+securedrop-client-0.1.5/securedrop_client/logic.py
+securedrop-client-0.1.5/securedrop_client/queue.py
+securedrop-client-0.1.5/securedrop_client/resources/
+securedrop-client-0.1.5/securedrop_client/resources/__init__.py
+securedrop-client-0.1.5/securedrop_client/resources/css/
+securedrop-client-0.1.5/securedrop_client/resources/css/sdclient.css
+securedrop-client-0.1.5/securedrop_client/resources/fonts/
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-Black.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-BlackItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-Bold.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-BoldItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraBold.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraBoldItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraLight.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraLightItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-Light.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-LightItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-Medium.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-MediumItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-Regular.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-RegularItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-SemiBold.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-SemiBoldItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-Thin.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/Montserrat-ThinItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Montserrat/OFL.txt
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Source_Sans_Pro/
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Source_Sans_Pro/OFL.txt
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Black.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-BlackItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Bold.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-BoldItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-ExtraLight.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-ExtraLightItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Light.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-LightItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-RegularItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-SemiBold.ttf
+securedrop-client-0.1.5/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-SemiBoldItalic.ttf
+securedrop-client-0.1.5/securedrop_client/resources/images/
+securedrop-client-0.1.5/securedrop_client/resources/images/activestate-wide.gif
+securedrop-client-0.1.5/securedrop_client/resources/images/blank.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/cross.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/delete.png
+securedrop-client-0.1.5/securedrop_client/resources/images/delete_close.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/download_active.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/download_file.gif
+securedrop-client-0.1.5/securedrop_client/resources/images/download_file.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/download_file_hover.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/dropdown_arrow.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/ellipsis.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/error_icon.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/error_icon_white.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/eye_hidden.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/eye_visible.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/header_animation.gif
+securedrop-client-0.1.5/securedrop_client/resources/images/header_logo.png
+securedrop-client-0.1.5/securedrop_client/resources/images/hexes.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/icon.png
+securedrop-client-0.1.5/securedrop_client/resources/images/left_pane.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/left_pane_offline.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/login_bg.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/logo.png
+securedrop-client-0.1.5/securedrop_client/resources/images/paperclip.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/printer.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/refresh.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/refresh_active.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/refresh_offline.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/savetodisk.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/send.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/star_hover.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/star_off.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/star_on.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/sync.gif
+securedrop-client-0.1.5/securedrop_client/resources/images/sync.svg
+securedrop-client-0.1.5/securedrop_client/resources/images/sync_active.gif
+securedrop-client-0.1.5/securedrop_client/resources/images/sync_disabled.gif
+securedrop-client-0.1.5/securedrop_client/resources/images/trash.png
+securedrop-client-0.1.5/securedrop_client/storage.py
+securedrop-client-0.1.5/securedrop_client/sync.py
+securedrop-client-0.1.5/securedrop_client/utils.py
+securedrop-client-0.1.5/securedrop_client.egg-info/
+securedrop-client-0.1.5/securedrop_client.egg-info/PKG-INFO
+securedrop-client-0.1.5/securedrop_client.egg-info/SOURCES.txt
+securedrop-client-0.1.5/securedrop_client.egg-info/dependency_links.txt
+securedrop-client-0.1.5/securedrop_client.egg-info/entry_points.txt
+securedrop-client-0.1.5/securedrop_client.egg-info/requires.txt
+securedrop-client-0.1.5/securedrop_client.egg-info/top_level.txt
+securedrop-client-0.1.5/setup.cfg
+securedrop-client-0.1.5/setup.py
+All hashes verified.
+Building package 'securedrop-client' from version '0.1.5'...
+/home/user/debbuild/packaging/securedrop-client/
+dpkg-buildpackage: info: source package securedrop-client
+dpkg-buildpackage: info: source version 0.1.5+buster
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by SecureDrop Team <securedrop@freedom.press>
+dpkg-buildpackage: info: host architecture amd64
+ dpkg-source --before-build .
+ fakeroot debian/rules clean
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-client'
+dh clean --with python-virtualenv
+   dh_clean
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-client'
+ dpkg-source -b .
+dpkg-source: warning: no source format specified in debian/source/format, see dpkg-source(1)
+dpkg-source: info: using source format '1.0'
+dpkg-source: warning: source directory 'securedrop-client' is not <sourcepackage>-<upstreamversion> 'securedrop-client-0.1.5+buster'
+dpkg-source: info: building securedrop-client in securedrop-client_0.1.5+buster.tar.gz
+dpkg-source: info: building securedrop-client in securedrop-client_0.1.5+buster.dsc
+ debian/rules build
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-client'
+dh build --with python-virtualenv
+   dh_update_autotools_config
+   dh_auto_configure
+dh_auto_configure: Please use the third-party "pybuild" build system instead of python-distutils
+dh_auto_configure: This feature will be removed in compat 12.
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-client'
+ fakeroot debian/rules binary
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-client'
+dh binary --with python-virtualenv
+   dh_testroot
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   debian/rules override_dh_virtualenv
+make[2]: Entering directory '/home/user/debbuild/packaging/securedrop-client'
+dh_virtualenv \
+	--python /usr/bin/python3 \
+	--setuptools \
+	--use-system-packages \
+	--index-url https://pypi.securedrop.org/simple \
+	--extra-pip-arg "--ignore-installed" \
+	--extra-pip-arg "--no-deps" \
+	--extra-pip-arg "--no-cache-dir" \
+	--requirements build-requirements.txt
+Already using interpreter /usr/bin/python3
+Using base prefix '/usr'
+New python executable in /home/user/debbuild/packaging/securedrop-client/debian/securedrop-client/opt/venvs/securedrop-client/bin/python3
+Also creating executable in /home/user/debbuild/packaging/securedrop-client/debian/securedrop-client/opt/venvs/securedrop-client/bin/python
+Installing setuptools, pkg_resources, pip, wheel...done.
+Looking in indexes: https://pypi.securedrop.org/simple
+Collecting alembic==1.0.2
+  Downloading https://pypi.securedrop.org/localwheels/alembic-1.0.2-py2.py3-none-any.whl (156 kB)
+     || 156 kB 1.6 MB/s 
+Collecting arrow==0.12.1
+  Downloading https://pypi.securedrop.org/localwheels/arrow-0.12.1-py2.py3-none-any.whl (35 kB)
+Collecting certifi==2018.10.15
+  Downloading https://pypi.securedrop.org/localwheels/certifi-2018.10.15-py2.py3-none-any.whl (144 kB)
+     || 144 kB 5.1 MB/s 
+Collecting chardet==3.0.4
+  Downloading https://pypi.securedrop.org/localwheels/chardet-3.0.4-py2.py3-none-any.whl (140 kB)
+     || 140 kB 4.8 MB/s 
+Collecting idna==2.7
+  Downloading https://pypi.securedrop.org/localwheels/idna-2.7-py2.py3-none-any.whl (58 kB)
+     || 58 kB 3.3 MB/s 
+Collecting mako==1.0.7
+  Downloading https://pypi.securedrop.org/localwheels/Mako-1.0.7-py3-none-any.whl (76 kB)
+     || 76 kB 5.2 MB/s 
+Collecting markupsafe==1.1.1
+  Downloading https://pypi.securedrop.org/localwheels/MarkupSafe-1.1.1-py3-none-any.whl (12 kB)
+Collecting pathlib2==2.3.2
+  Downloading https://pypi.securedrop.org/localwheels/pathlib2-2.3.2-py2.py3-none-any.whl (15 kB)
+Collecting python-dateutil==2.7.5
+  Downloading https://pypi.securedrop.org/localwheels/python_dateutil-2.7.5-py2.py3-none-any.whl (225 kB)
+     || 225 kB 4.9 MB/s 
+Collecting python-editor==1.0.3
+  Downloading https://pypi.securedrop.org/localwheels/python_editor-1.0.3-py3-none-any.whl (6.7 kB)
+Collecting requests==2.20.0
+  Downloading https://pypi.securedrop.org/localwheels/requests-2.20.0-py2.py3-none-any.whl (57 kB)
+     || 57 kB 3.0 MB/s 
+Collecting securedrop-sdk==0.0.13
+  Downloading https://pypi.securedrop.org/localwheels/securedrop_sdk-0.0.13-py3-none-any.whl (22 kB)
+Collecting six==1.11.0
+  Downloading https://pypi.securedrop.org/localwheels/six-1.11.0-py2.py3-none-any.whl (10 kB)
+Collecting sqlalchemy==1.3.3
+  Downloading https://pypi.securedrop.org/localwheels/SQLAlchemy-1.3.3-cp37-cp37m-linux_x86_64.whl (1.1 MB)
+     || 1.1 MB 3.2 MB/s 
+Collecting urllib3==1.24.3
+  Downloading https://pypi.securedrop.org/localwheels/urllib3-1.24.3-py2.py3-none-any.whl (118 kB)
+     || 118 kB 4.4 MB/s 
+Installing collected packages: alembic, arrow, certifi, chardet, idna, mako, markupsafe, pathlib2, python-dateutil, python-editor, requests, securedrop-sdk, six, sqlalchemy, urllib3
+Successfully installed alembic-1.0.2 arrow-0.12.1 certifi-2018.10.15 chardet-3.0.4 idna-2.7 mako-1.0.7 markupsafe-1.1.1 pathlib2-2.3.2 python-dateutil-2.7.5 python-editor-1.0.3 requests-2.20.0 securedrop-sdk-0.0.13 six-1.11.0 sqlalchemy-1.3.3 urllib3-1.24.3
+Looking in indexes: https://pypi.securedrop.org/simple
+Processing /home/user/debbuild/packaging/securedrop-client
+Building wheels for collected packages: securedrop-client
+  Building wheel for securedrop-client (setup.py) ... done
+  Created wheel for securedrop-client: filename=securedrop_client-0.1.5-py3-none-any.whl size=3624007 sha256=926fb235e524ff15d86be6a7a251dc2c07e258f6da5703a30e822f194da7ce1a
+  Stored in directory: /tmp/pip-ephem-wheel-cache-zpj_r6jk/wheels/2c/87/3a/84ec4feebda90ccc8f7abeec6ea62e6ed38a7fc4aea80632a5
+Successfully built securedrop-client
+Installing collected packages: securedrop-client
+Successfully installed securedrop-client-0.1.5
+make[2]: Leaving directory '/home/user/debbuild/packaging/securedrop-client'
+   dh_perl
+   dh_link
+   debian/rules override_dh_strip_nondeterminism
+make[2]: Entering directory '/home/user/debbuild/packaging/securedrop-client'
+find ./debian/ -type f -name '*.pyc' -delete
+find ./debian/ -type f -name 'pip-selfcheck.json' -delete
+find -type f -name RECORD -exec sed -i -e '/.*\.pyc.*/d' {} +
+dh_strip_nondeterminism override_dh_strip_nondeterminism
+make[2]: Leaving directory '/home/user/debbuild/packaging/securedrop-client'
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+dpkg-gencontrol: warning: Depends field of package securedrop-client: substitution variable ${python3:Depends} used, but is not defined
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'securedrop-client' in '../securedrop-client_0.1.5+buster_all.deb'.
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-client'
+ dpkg-genbuildinfo
+ dpkg-genchanges  >../securedrop-client_0.1.5+buster_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
+Package location: /home/user/debbuild/packaging/securedrop-client_0.1.5+buster_all.deb
+user@builder-disposable:~/securedrop-debian-packaging$ sha256sum /home/user/debbuild/packaging/securedrop-client_0.1.5+buster_all.deb 
+b3e58596098eb1f9ae037bcb46b1e5375929152b223345cf5e8136c830d51c12  /home/user/debbuild/packaging/securedrop-client_0.1.5+buster_all.deb
+user@builder-disposable:~/securedrop-debian-packaging$ gpg --verify tarballs/securedrop-proxy-0.2.1.tar.gz.asc 
+gpg: assuming signed data in 'tarballs/securedrop-proxy-0.2.1.tar.gz'
+gpg: Signature made Mon 30 Mar 2020 02:52:06 PM EDT
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Good signature from "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2224 5C81 E3BA EB41 38B3  6061 310F 5612 00F4 AD77
+user@builder-disposable:~/securedrop-debian-packaging$ PKG_VERSION=0.2.1 PKG_PATH=tarballs/securedrop-proxy-0.2.1.tar.gz make securedrop-proxy
+PKG_NAME="securedrop-proxy" ./scripts/build-debianpackage
+gpg: key 310F561200F4AD77: public key "SecureDrop Release Signing Key" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: Signature made Thu 12 Mar 2020 02:22:58 PM EDT
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Good signature from "SecureDrop Release Signing Key" [unknown]
+gpg:                 aka "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2224 5C81 E3BA EB41 38B3  6061 310F 5612 00F4 AD77
+Checking that SHA256SUMs from mirror match signed file...  OK
+securedrop-proxy is a Python package
+securedrop-proxy-0.2.1/LICENSE
+securedrop-proxy-0.2.1/MANIFEST.in
+securedrop-proxy-0.2.1/PKG-INFO
+securedrop-proxy-0.2.1/README.md
+securedrop-proxy-0.2.1/build-requirements.txt
+securedrop-proxy-0.2.1/changelog.md
+securedrop-proxy-0.2.1/config-example.yaml
+securedrop-proxy-0.2.1/qubes/
+securedrop-proxy-0.2.1/qubes/securedrop.Proxy
+securedrop-proxy-0.2.1/requirements.txt
+securedrop-proxy-0.2.1/securedrop_proxy/
+securedrop-proxy-0.2.1/securedrop_proxy/VERSION
+securedrop-proxy-0.2.1/securedrop_proxy/__init__.py
+securedrop-proxy-0.2.1/securedrop_proxy/entrypoint.py
+securedrop-proxy-0.2.1/securedrop_proxy/main.py
+securedrop-proxy-0.2.1/securedrop_proxy/proxy.py
+securedrop-proxy-0.2.1/securedrop_proxy/version.py
+securedrop-proxy-0.2.1/securedrop_proxy.egg-info/
+securedrop-proxy-0.2.1/securedrop_proxy.egg-info/PKG-INFO
+securedrop-proxy-0.2.1/securedrop_proxy.egg-info/SOURCES.txt
+securedrop-proxy-0.2.1/securedrop_proxy.egg-info/dependency_links.txt
+securedrop-proxy-0.2.1/securedrop_proxy.egg-info/entry_points.txt
+securedrop-proxy-0.2.1/securedrop_proxy.egg-info/requires.txt
+securedrop-proxy-0.2.1/securedrop_proxy.egg-info/top_level.txt
+securedrop-proxy-0.2.1/setup.cfg
+securedrop-proxy-0.2.1/setup.py
+All hashes verified.
+Building package 'securedrop-proxy' from version '0.2.1'...
+/home/user/debbuild/packaging/securedrop-proxy/
+dpkg-buildpackage: info: source package securedrop-proxy
+dpkg-buildpackage: info: source version 0.2.1+buster
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by SecureDrop Team <securedrop@freedom.press>
+dpkg-buildpackage: info: host architecture amd64
+ dpkg-source --before-build .
+ fakeroot debian/rules clean
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-proxy'
+dh clean --with python-virtualenv
+   dh_clean
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-proxy'
+ dpkg-source -b .
+dpkg-source: warning: no source format specified in debian/source/format, see dpkg-source(1)
+dpkg-source: info: using source format '1.0'
+dpkg-source: warning: source directory 'securedrop-proxy' is not <sourcepackage>-<upstreamversion> 'securedrop-proxy-0.2.1+buster'
+dpkg-source: info: building securedrop-proxy in securedrop-proxy_0.2.1+buster.tar.gz
+dpkg-source: info: building securedrop-proxy in securedrop-proxy_0.2.1+buster.dsc
+ debian/rules build
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-proxy'
+dh build --with python-virtualenv
+   dh_update_autotools_config
+   dh_auto_configure
+dh_auto_configure: Please use the third-party "pybuild" build system instead of python-distutils
+dh_auto_configure: This feature will be removed in compat 12.
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-proxy'
+ fakeroot debian/rules binary
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-proxy'
+dh binary --with python-virtualenv
+   dh_testroot
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   debian/rules override_dh_virtualenv
+make[2]: Entering directory '/home/user/debbuild/packaging/securedrop-proxy'
+dh_virtualenv \
+	--python /usr/bin/python3 \
+	--setuptools \
+	--index-url https://pypi.securedrop.org/simple \
+	--extra-pip-arg "--ignore-installed" \
+	--extra-pip-arg "--no-deps" \
+	--extra-pip-arg "--no-cache-dir" \
+	--requirements build-requirements.txt
+Already using interpreter /usr/bin/python3
+Using base prefix '/usr'
+New python executable in /home/user/debbuild/packaging/securedrop-proxy/debian/securedrop-proxy/opt/venvs/securedrop-proxy/bin/python3
+Also creating executable in /home/user/debbuild/packaging/securedrop-proxy/debian/securedrop-proxy/opt/venvs/securedrop-proxy/bin/python
+Installing setuptools, pkg_resources, pip, wheel...done.
+Looking in indexes: https://pypi.securedrop.org/simple
+Collecting certifi==2018.10.15
+  Downloading https://pypi.securedrop.org/localwheels/certifi-2018.10.15-py2.py3-none-any.whl (144 kB)
+     || 144 kB 1.2 MB/s 
+Collecting chardet==3.0.4
+  Downloading https://pypi.securedrop.org/localwheels/chardet-3.0.4-py2.py3-none-any.whl (140 kB)
+     || 140 kB 4.2 MB/s 
+Collecting furl==2.0.0
+  Downloading https://pypi.securedrop.org/localwheels/furl-2.0.0-py2.py3-none-any.whl (19 kB)
+Collecting idna==2.7
+  Downloading https://pypi.securedrop.org/localwheels/idna-2.7-py2.py3-none-any.whl (58 kB)
+     || 58 kB 2.9 MB/s 
+Collecting orderedmultidict==1.0
+  Downloading https://pypi.securedrop.org/localwheels/orderedmultidict-1.0-py3-none-any.whl (10 kB)
+Collecting pyyaml==5.1
+  Downloading https://pypi.securedrop.org/localwheels/PyYAML-5.1-cp37-cp37m-linux_x86_64.whl (44 kB)
+     || 44 kB 12.6 MB/s 
+Collecting requests==2.20.0
+  Downloading https://pypi.securedrop.org/localwheels/requests-2.20.0-py2.py3-none-any.whl (57 kB)
+     || 57 kB 7.3 MB/s 
+Collecting six==1.11.0
+  Downloading https://pypi.securedrop.org/localwheels/six-1.11.0-py2.py3-none-any.whl (10 kB)
+Collecting urllib3==1.24.3
+  Downloading https://pypi.securedrop.org/localwheels/urllib3-1.24.3-py2.py3-none-any.whl (118 kB)
+     || 118 kB 4.4 MB/s 
+Collecting werkzeug==0.16.0
+  Downloading https://pypi.securedrop.org/localwheels/Werkzeug-0.16.0-py2.py3-none-any.whl (327 kB)
+     || 327 kB 3.6 MB/s 
+Installing collected packages: certifi, chardet, furl, idna, orderedmultidict, pyyaml, requests, six, urllib3, werkzeug
+Successfully installed certifi-2018.10.15 chardet-3.0.4 furl-2.0.0 idna-2.7 orderedmultidict-1.0 pyyaml-5.1 requests-2.20.0 six-1.11.0 urllib3-1.24.3 werkzeug-0.16.0
+Looking in indexes: https://pypi.securedrop.org/simple
+Processing /home/user/debbuild/packaging/securedrop-proxy
+Building wheels for collected packages: securedrop-proxy
+  Building wheel for securedrop-proxy (setup.py) ... done
+  Created wheel for securedrop-proxy: filename=securedrop_proxy-0.2.1-py3-none-any.whl size=22797 sha256=6e218bd2423fc0ceec73143a54c1ce4359d15622ec79d567b9a50e8cc980a88f
+  Stored in directory: /tmp/pip-ephem-wheel-cache-njxd9e1y/wheels/dc/d2/27/56ce9e56b446ee0f7fe1afe4bd9863231b2cb7ea35736c1be4
+Successfully built securedrop-proxy
+Installing collected packages: securedrop-proxy
+Successfully installed securedrop-proxy-0.2.1
+make[2]: Leaving directory '/home/user/debbuild/packaging/securedrop-proxy'
+   dh_perl
+   dh_link
+   debian/rules override_dh_strip_nondeterminism
+make[2]: Entering directory '/home/user/debbuild/packaging/securedrop-proxy'
+find ./debian/ -type f -name '*.pyc' -delete
+find ./debian/ -type f -name 'pip-selfcheck.json' -delete
+find -type f -name RECORD -exec sed -i -e '/.*\.pyc.*/d' {} +
+dh_strip_nondeterminism override_dh_strip_nondeterminism
+make[2]: Leaving directory '/home/user/debbuild/packaging/securedrop-proxy'
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+dpkg-gencontrol: warning: Depends field of package securedrop-proxy: substitution variable ${python3:Depends} used, but is not defined
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'securedrop-proxy' in '../securedrop-proxy_0.2.1+buster_all.deb'.
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-proxy'
+ dpkg-genbuildinfo
+ dpkg-genchanges  >../securedrop-proxy_0.2.1+buster_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
+Package location: /home/user/debbuild/packaging/securedrop-proxy_0.2.1+buster_all.deb
+user@builder-disposable:~/securedrop-debian-packaging$ sha256sum /home/user/debbuild/packaging/securedrop-proxy_0.2.1+buster_all.deb
+4237522e8492d8fc4ad6ceb1c742a2d5c27f80a46cb0efa06dcd0d2112d797d3  /home/user/debbuild/packaging/securedrop-proxy_0.2.1+buster_all.deb
+
