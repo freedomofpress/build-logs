@@ -1,0 +1,78 @@
+user@builder:~/src/securedrop-debian-packaging$ PKG_VERSION=0.1.4 make securedrop-keyring
+PKG_NAME="securedrop-keyring" ./scripts/build-debianpackage
+gpg: key 310F561200F4AD77: public key "SecureDrop Release Signing Key" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: Signature made Tue 28 Apr 2020 10:27:53 AM EDT
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Good signature from "SecureDrop Release Signing Key" [unknown]
+gpg:                 aka "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2224 5C81 E3BA EB41 38B3  6061 310F 5612 00F4 AD77
+Checking that SHA256SUMs from mirror match signed file...  OK
+Package is a metapackage
+Building package 'securedrop-keyring' from version '0.1.4'...
+/home/user/debbuild/packaging/securedrop-keyring/
+dpkg-buildpackage: info: source package securedrop-keyring
+dpkg-buildpackage: info: source version 0.1.4+buster
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by SecureDrop Team <securedrop@freedom.press>
+dpkg-buildpackage: info: host architecture amd64
+ dpkg-source --before-build .
+ fakeroot debian/rules clean
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-keyring'
+dh clean
+   dh_clean
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-keyring'
+ dpkg-source -b .
+dpkg-source: warning: no source format specified in debian/source/format, see dpkg-source(1)
+dpkg-source: info: using source format '1.0'
+dpkg-source: warning: source directory 'securedrop-keyring' is not <sourcepackage>-<upstreamversion> 'securedrop-keyring-0.1.4+buster'
+dpkg-source: info: building securedrop-keyring in securedrop-keyring_0.1.4+buster.tar.gz
+dpkg-source: info: building securedrop-keyring in securedrop-keyring_0.1.4+buster.dsc
+ debian/rules build
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-keyring'
+dh build
+   dh_update_autotools_config
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-keyring'
+ fakeroot debian/rules binary
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-keyring'
+dh binary
+   dh_testroot
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'securedrop-keyring' in '../securedrop-keyring_0.1.4+buster_all.deb'.
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-keyring'
+ dpkg-genbuildinfo
+ dpkg-genchanges  >../securedrop-keyring_0.1.4+buster_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
+Package location: /home/user/debbuild/packaging/securedrop-keyring_0.1.4+buster_all.deb
+user@builder:~/src/securedrop-debian-packaging$ sha256sum /home/user/debbuild/packaging/securedrop-keyring_0.1.4+buster_all.deb
+d09f48501f8607560d4ce0e8002382b067217465d81aa7ca36aad1674403f519  /home/user/debbuild/packaging/securedrop-keyring_0.1.4+buster_all.deb
+user@builder:~/src/securedrop-debian-packaging$ git status
+On branch 438-securedrop-keyring
+nothing to commit, working tree clean
+user@builder:~/src/securedrop-debian-packaging$ git log
+commit a4f12d4d623539dba29672ec58e55126aea5d302 (HEAD -> 438-securedrop-keyring, origin/438-securedrop-keyring)
+Author: mickael e <mickael@freedom.press>
+Date:   Fri May 22 14:09:59 2020 -0400
+
+    Delete release key from /etc/apt/trusted.gpg
+    
+    Use /etc/apt/trusted.gpg.d/securedrop-keyring.gpg, provided by the securedrop-keyring package.
+
