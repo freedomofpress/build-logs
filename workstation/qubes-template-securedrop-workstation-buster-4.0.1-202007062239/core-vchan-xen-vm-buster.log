@@ -1,0 +1,217 @@
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//update-local-repo.sh buster
+dpkg-scanpackages: info: Wrote 16 entries to output Packages file.
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster apt-get  update
+Get:1 file:/tmp/qubes-deb buster InRelease
+Ign:1 file:/tmp/qubes-deb buster InRelease
+Get:2 file:/tmp/qubes-deb buster Release [339 B]
+Get:2 file:/tmp/qubes-deb buster Release [339 B]
+Get:3 file:/tmp/qubes-deb buster Release.gpg
+Ign:3 file:/tmp/qubes-deb buster Release.gpg
+Get:4 file:/tmp/qubes-deb buster/main amd64 Packages [3653 B]
+Hit:5 https://deb.debian.org/debian buster InRelease
+Hit:6 https://deb.qubes-os.org/r4.0/vm buster InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/core-vchan-xen/debian/control
+dh_testdir
+dh_testroot
+dh_prep
+dh_testdir
+dh_testroot
+dh_install
+dh_installdocs
+dh_installchangelogs
+dh_compress
+dh_fixperms
+dh_installdeb
+dh_gencontrol
+dh_md5sums
+dh_builddeb
+dpkg-deb: building package 'libvchan-xen-build-deps' in '../libvchan-xen-build-deps_4.0.8-1_all.deb'.
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package libvchan-xen-build-deps.
+(Reading database ... 39037 files and directories currently installed.)
+Preparing to unpack libvchan-xen-build-deps_4.0.8-1_all.deb ...
+Unpacking libvchan-xen-build-deps (4.0.8-1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Correcting dependencies... Done
+The following additional packages will be installed:
+  libxen-4.8 libxen-dev libxenstore3.0
+The following NEW packages will be installed:
+  libxen-4.8 libxen-dev libxenstore3.0
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+Need to get 1095 kB of archives.
+After this operation, 4888 kB of additional disk space will be used.
+Get:1 https://deb.qubes-os.org/r4.0/vm buster/main amd64 libxenstore3.0 amd64 2001:4.8.5-18+deb10u1 [25.5 kB]
+Get:2 https://deb.qubes-os.org/r4.0/vm buster/main amd64 libxen-4.8 amd64 2001:4.8.5-18+deb10u1 [415 kB]
+Get:3 https://deb.qubes-os.org/r4.0/vm buster/main amd64 libxen-dev amd64 2001:4.8.5-18+deb10u1 [654 kB]
+Fetched 1095 kB in 3s (359 kB/s)
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (19: No such device)
+Selecting previously unselected package libxenstore3.0.
+(Reading database ... 39041 files and directories currently installed.)
+Preparing to unpack .../libxenstore3.0_2001%3a4.8.5-18+deb10u1_amd64.deb ...
+Unpacking libxenstore3.0 (2001:4.8.5-18+deb10u1) ...
+Selecting previously unselected package libxen-4.8.
+Preparing to unpack .../libxen-4.8_2001%3a4.8.5-18+deb10u1_amd64.deb ...
+Unpacking libxen-4.8 (2001:4.8.5-18+deb10u1) ...
+Selecting previously unselected package libxen-dev.
+Preparing to unpack .../libxen-dev_2001%3a4.8.5-18+deb10u1_amd64.deb ...
+Unpacking libxen-dev (2001:4.8.5-18+deb10u1) ...
+Setting up libxenstore3.0 (2001:4.8.5-18+deb10u1) ...
+Setting up libxen-4.8 (2001:4.8.5-18+deb10u1) ...
+Setting up libxen-dev (2001:4.8.5-18+deb10u1) ...
+Setting up libvchan-xen-build-deps (4.0.8-1) ...
+Processing triggers for libc-bin (2.28-10) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/..; GLOBIGNORE=libvchan-xen_4.0.8*orig*; rm -f libvchan-xen_4.0.8*; GLOBIGNORE=
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/deb/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/rpm/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/debian/..; /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/debian/changelog /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/debian/changelog.copy
+mv /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/debian/changelog.copy /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/debian/changelog
+echo "Building package in /home/user/qubes-src/core-vchan-xen"
+Building package in /home/user/qubes-src/core-vchan-xen
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb10u "Build for buster"; debchange -t --force-distribution -r -D buster buster
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/debian/changelog
+find /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen \! -newer /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster su user -c 'cd /home/user/qubes-src/core-vchan-xen/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package libvchan-xen
+dpkg-buildpackage: info: source version 4.0.8-1+deb10u1
+dpkg-buildpackage: info: source distribution buster
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+dpkg-source: info: using options from core-vchan-xen/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+ fakeroot debian/rules clean
+dh clean --with autotools-dev
+dh: The autotools-dev sequence is deprecated and replaced by dh in debhelper (>= 9.20160115)
+dh: This feature will be removed in compat 12.
+   dh_auto_clean
+	make -j1 clean
+make[1]: Entering directory '/home/user/qubes-src/core-vchan-xen'
+make -C u2mfn clean
+make[2]: Entering directory '/home/user/qubes-src/core-vchan-xen/u2mfn'
+rm -f *.o *so *~ libu2mfn.so
+make[2]: Leaving directory '/home/user/qubes-src/core-vchan-xen/u2mfn'
+make -C vchan -f Makefile.linux clean
+make[2]: Entering directory '/home/user/qubes-src/core-vchan-xen/vchan'
+rm -f *.o *so *~ client server node node-select
+make[2]: Leaving directory '/home/user/qubes-src/core-vchan-xen/vchan'
+make[1]: Leaving directory '/home/user/qubes-src/core-vchan-xen'
+   dh_autotools-dev_restoreconfig
+dh_autotools-dev_restoreconfig: dh_autotools-dev_restoreconfig is deprecated; please see dh_autotools-dev_restoreconfig(1) for a replacement
+dh_autotools-dev_restoreconfig: This feature will be removed in compat 12.
+   dh_clean
+ dpkg-source -b .
+dpkg-source: info: using options from core-vchan-xen/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building libvchan-xen using existing ./libvchan-xen_4.0.8.orig.tar.xz
+dpkg-source: info: building libvchan-xen in libvchan-xen_4.0.8-1+deb10u1.debian.tar.xz
+dpkg-source: info: building libvchan-xen in libvchan-xen_4.0.8-1+deb10u1.dsc
+ debian/rules build
+dh build --with autotools-dev
+dh: The autotools-dev sequence is deprecated and replaced by dh in debhelper (>= 9.20160115)
+dh: This feature will be removed in compat 12.
+   dh_update_autotools_config
+   dh_autotools-dev_updateconfig
+dh_autotools-dev_updateconfig: dh_autotools-dev_updateconfig is deprecated; please see dh_autotools-dev_updateconfig(1) for a replacement
+dh_autotools-dev_updateconfig: This feature will be removed in compat 12.
+   dh_auto_configure
+   debian/rules override_dh_auto_build
+make[1]: Entering directory '/home/user/qubes-src/core-vchan-xen'
+make all LIBDIR=/usr/lib
+make[2]: Entering directory '/home/user/qubes-src/core-vchan-xen'
+make -C u2mfn
+make[3]: Entering directory '/home/user/qubes-src/core-vchan-xen/u2mfn'
+cc -g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-vchan-xen=. -fstack-protector-strong -Wformat -Werror=format-security -g -Wall -fPIC -c u2mfnlib.c
+cc -Wl,-z,relro -shared -o libu2mfn.so u2mfnlib.o
+make[3]: Leaving directory '/home/user/qubes-src/core-vchan-xen/u2mfn'
+make -C vchan -f Makefile.linux
+make[3]: Entering directory '/home/user/qubes-src/core-vchan-xen/vchan'
+cc -g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-vchan-xen=. -fstack-protector-strong -Wformat -Werror=format-security -g -Wall -Wextra -Werror -fPIC -O2 -Wdate-time -D_FORTIFY_SOURCE=2  -c -o init.o init.c
+cc -g -O2 -fdebug-prefix-map=/home/user/qubes-src/core-vchan-xen=. -fstack-protector-strong -Wformat -Werror=format-security -g -Wall -Wextra -Werror -fPIC -O2 -Wdate-time -D_FORTIFY_SOURCE=2  -c -o io.o io.c
+cc -Wl,-z,relro -shared -o libvchan-xen.so init.o io.o -lxenvchan -lxenctrl
+sed -e "s/@VERSION@/`cat ../version`/" \
+	-e "s:@PREFIX@:/usr:" \
+	-e "s:@LIBDIR@:/usr/lib:" \
+	-e "s:@INCLUDEDIR@:/usr/include:" \
+	vchan-xen.pc.in > vchan-xen.pc
+make[3]: Leaving directory '/home/user/qubes-src/core-vchan-xen/vchan'
+make[2]: Leaving directory '/home/user/qubes-src/core-vchan-xen'
+make[1]: Leaving directory '/home/user/qubes-src/core-vchan-xen'
+   dh_auto_test
+ fakeroot debian/rules binary
+dh binary --with autotools-dev
+dh: The autotools-dev sequence is deprecated and replaced by dh in debhelper (>= 9.20160115)
+dh: This feature will be removed in compat 12.
+   dh_testroot
+   dh_prep
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/home/user/qubes-src/core-vchan-xen'
+make install LIBDIR=/usr/lib
+make[2]: Entering directory '/home/user/qubes-src/core-vchan-xen'
+install -D -m 0644 vchan/libvchan.h /home/user/qubes-src/core-vchan-xen/debian/tmp/usr/include/vchan-xen/libvchan.h
+install -D -m 0644 u2mfn/u2mfnlib.h /home/user/qubes-src/core-vchan-xen/debian/tmp/usr/include/u2mfnlib.h
+install -D -m 0644 u2mfn/u2mfn-kernel.h /home/user/qubes-src/core-vchan-xen/debian/tmp/usr/include/u2mfn-kernel.h
+install -D -m 0644 vchan/vchan-xen.pc /home/user/qubes-src/core-vchan-xen/debian/tmp/usr/lib/pkgconfig/vchan-xen.pc
+install -D u2mfn/libu2mfn.so /home/user/qubes-src/core-vchan-xen/debian/tmp/usr/lib/libu2mfn.so
+install -D vchan/libvchan-xen.so /home/user/qubes-src/core-vchan-xen/debian/tmp/usr/lib/libvchan-xen.so
+make[2]: Leaving directory '/home/user/qubes-src/core-vchan-xen'
+make[1]: Leaving directory '/home/user/qubes-src/core-vchan-xen'
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_strip
+   dh_makeshlibs
+   dh_shlibdeps
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'libvchan-xen' in '../libvchan-xen_4.0.8-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'libvchan-xen-dev' in '../libvchan-xen-dev_4.0.8-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'libvchan-xen-dbgsym' in '../libvchan-xen-dbgsym_4.0.8-1+deb10u1_amd64.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../libvchan-xen_4.0.8-1+deb10u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-source: info: using options from core-vchan-xen/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-buildpackage: info: full upload (original source is included)
+mkdir -p /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb
+mkdir -p qubes-src/core-vchan-xen/pkgs/vm-buster
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/debian/../..; \
+	cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' libvchan-xen_4.0.8*.changes`
+cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb/ /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/debian/../../libvchan-xen_4.0.8*.changes
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/debian/../..; \
+	mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/core-vchan-xen/pkgs/vm-buster  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' libvchan-xen_4.0.8*.changes`
+mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/core-vchan-xen/pkgs/vm-buster /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/core-vchan-xen/debian/../../libvchan-xen_4.0.8*.changes
