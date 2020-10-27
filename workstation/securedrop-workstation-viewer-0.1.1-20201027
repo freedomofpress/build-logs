@@ -1,0 +1,80 @@
+[user@sd-dev:~/securedrop-debian-packaging] main+ ±
+ $ workon packaging
+[user@sd-dev:~/securedrop-debian-packaging] [packaging] main+ 2s ±
+ $ git show
+commit 94445d533391c44f31ef38c757e751e656db3706 (HEAD -> main, origin/main)
+Merge: a3d5619 cc83111
+Author: mickael e <emkll@users.noreply.github.com>
+Date:   Tue Oct 27 17:31:11 2020 -0400
+
+    Merge pull request #206 from freedomofpress/197-reorg-mimetypes-for-client
+
+    Removes mimetypes from securedrop-client package
+
+[user@sd-dev:~/securedrop-debian-packaging] [packaging] main+ 3s ±
+ $ PKG_VERSION=0.1.1 make securedrop-workstation-viewer
+PKG_NAME="securedrop-workstation-viewer" ./scripts/build-debianpackage
+gpg: key 310F561200F4AD77: public key "SecureDrop Release Signing Key" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: Signature made Thu 08 Oct 2020 07:52:23 AM PDT
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Good signature from "SecureDrop Release Signing Key" [unknown]
+gpg:                 aka "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2224 5C81 E3BA EB41 38B3  6061 310F 5612 00F4 AD77
+Checking that SHA256SUMs from mirror match signed file...  OK
+Package is a metapackage
+Building package 'securedrop-workstation-viewer' from version '0.1.1'...
+/home/user/debbuild/packaging/securedrop-workstation-viewer/
+dpkg-buildpackage: info: source package securedrop-workstation-viewer
+dpkg-buildpackage: info: source version 0.1.1+buster
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by SecureDrop Team <securedrop@freedom.press>
+dpkg-buildpackage: info: host architecture amd64
+ dpkg-source --before-build .
+ fakeroot debian/rules clean
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-workstation-viewer'
+dh clean
+   dh_clean
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-workstation-viewer'
+ dpkg-source -b .
+dpkg-source: warning: no source format specified in debian/source/format, see dpkg-source(1)
+dpkg-source: info: using source format '1.0'
+dpkg-source: warning: source directory 'securedrop-workstation-viewer' is not <sourcepackage>-<upstreamversion> 'securedrop-workstation-viewer-0.1.1+buster'
+dpkg-source: info: building securedrop-workstation-viewer in securedrop-workstation-viewer_0.1.1+buster.tar.gz
+dpkg-source: info: building securedrop-workstation-viewer in securedrop-workstation-viewer_0.1.1+buster.dsc
+ debian/rules build
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-workstation-viewer'
+dh build
+   dh_update_autotools_config
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-workstation-viewer'
+ fakeroot debian/rules binary
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-workstation-viewer'
+dh binary
+   dh_testroot
+   dh_prep
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'securedrop-workstation-viewer' in '../securedrop-workstation-viewer_0.1.1+buster_all.deb'.
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-workstation-viewer'
+ dpkg-genbuildinfo
+ dpkg-genchanges  >../securedrop-workstation-viewer_0.1.1+buster_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
+Package location: /home/user/debbuild/packaging/securedrop-workstation-viewer_0.1.1+buster_all.deb
+[user@sd-dev:~/securedrop-debian-packaging] [packaging] main+ 12s ±
+ $ sha256sum /home/user/debbuild/packaging/securedrop-workstation-viewer_0.1.1+buster_all.deb
+5dd5e3e10d202cbf90639988543ae8ed979b97b82283a0e4dfa91620301470db  /home/user/debbuild/packaging/securedrop-workstation-viewer_0.1.1+buster_all.deb
