@@ -1,0 +1,135 @@
+[user@fpf-dev-dvm:~] $
+ $ git clone https://github.com/freedomofpress/securedrop-debian-packaging
+Cloning into 'securedrop-debian-packaging'...
+Filtering content: 100% (60/60), 18.50 MiB | 5.99 MiB/s, done.
+changing to directory securedrop-debian-packaging
+[user@fpf-dev-dvm:~/securedrop-debian-packaging] main 14s ±
+ $ git checkout workstation-u2mfn-to-4.0.31
+Branch 'workstation-u2mfn-to-4.0.31' set up to track remote branch 'workstation-u2mfn-to-4.0.31' from 'origin'.
+Switched to a new branch 'workstation-u2mfn-to-4.0.31'
+[user@fpf-dev-dvm:~/securedrop-debian-packaging] workstation-u2mfn-to-4.0.31 29s ±
+ $ git show
+commit 1b0ee1d0c6a627906cb4976ccd126a142e4c76fc (HEAD -> workstation-u2mfn-to-4.0.31, origin/workstation-u2mfn-to-4.0.31)
+Author: Conor Schaefer <conor@freedom.press>
+Date:   Tue Nov 17 15:55:42 2020 -0800
+
+    Bumps u2mfn version 4.0.30 -> 4.0.31
+
+    Tracking upstream changes so that clean installs continue to work.
+
+diff --git a/securedrop-workstation-grsec/debian/changelog-buster b/securedrop-workstation-grsec/debian/changelog-buster
+index cda17eb..a560d5d 100644
+--- a/securedrop-workstation-grsec/debian/changelog-buster
++++ b/securedrop-workstation-grsec/debian/changelog-buster
+@@ -1,3 +1,9 @@
++securedrop-workstation-grsec (4.14.186+buster3) unstable; urgency=medium
++
++  * Bumps u2mfn version 4.0.30 -> 4.0.31
++
++ -- SecureDrop Team <securedrop@freedom.press>  Tue, 17 Nov 2020 15:57:41 -0800
++
+ securedrop-workstation-grsec (4.14.186+buster2) unstable; urgency=medium
+
+   * Ensures u2mfn module is built via dkms, otherwise fails
+diff --git a/securedrop-workstation-grsec/debian/postinst b/securedrop-workstation-grsec/debian/postinst
+index 13bdc97..f6681cf 100644
+--- a/securedrop-workstation-grsec/debian/postinst
++++ b/securedrop-workstation-grsec/debian/postinst
+@@ -21,7 +21,7 @@ set -e
+ # When updating the kernel version, also check that the u2mfn version matches:
+ # https://github.com/QubesOS/qubes-linux-utils/blob/release4.0/version
+ GRSEC_VERSION='4.14.186-grsec-workstation'
+-U2MFN_VERSION="4.0.30"
++U2MFN_VERSION="4.0.31"
+
+ # Sets default grub boot parameter to the kernel version specified
+ # by $GRSEC_VERSION. The debian buster default kernel is 4.19, thus
+[user@fpf-dev-dvm:~/securedrop-debian-packaging] workstation-u2mfn-to-4.0.31 34s ±
+ $ git verify-commit 1b0ee1d0c6a627906cb4976ccd126a142e4c76fc
+gpg: Signature made Tue 17 Nov 2020 03:58:23 PM PST
+gpg:                using RSA key 7D3EBF5D7E534BF2DC5677D16FB4762D12E4CDFB
+gpg: Good signature from "Conor Schaefer <conor@freedom.press>" [ultimate]
+gpg:                 aka "Conor Schaefer <conor.schaefer@gmail.com>" [ultimate]
+[user@fpf-dev-dvm:~/securedrop-debian-packaging] workstation-u2mfn-to-4.0.31 42s ±
+ $ PKG_VERSION=4.14.186+buster3 make securedrop-workstation-grsec
+PKG_NAME="securedrop-workstation-grsec" ./scripts/build-debianpackage
+gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
+gpg: key 310F561200F4AD77: public key "SecureDrop Release Signing Key" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: Signature made Wed 28 Oct 2020 06:22:24 AM PDT
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Good signature from "SecureDrop Release Signing Key" [unknown]
+gpg:                 aka "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2224 5C81 E3BA EB41 38B3  6061 310F 5612 00F4 AD77
+Checking that SHA256SUMs from mirror match signed file...  OK
+Package is a metapackage
+Building package 'securedrop-workstation-grsec' from version '4.14.186+buster3'...
+/home/user/debbuild/packaging/securedrop-workstation-grsec/
+dpkg-buildpackage: info: source package securedrop-workstation-grsec
+dpkg-buildpackage: info: source version 4.14.186+buster3
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by SecureDrop Team <securedrop@freedom.press>
+dpkg-buildpackage: info: host architecture amd64
+ dpkg-source --before-build .
+dpkg-source: warning: unknown information field 'Upstream_version' in input data in package's section of control info file
+dpkg-source: warning: unknown information field 'Debian_revision' in input data in package's section of control info file
+ fakeroot debian/rules clean
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-workstation-grsec'
+dh clean
+   dh_clean
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-workstation-grsec'
+ dpkg-source -b .
+dpkg-source: warning: no source format specified in debian/source/format, see dpkg-source(1)
+dpkg-source: warning: unknown information field 'Upstream_version' in input data in package's section of control info file
+dpkg-source: warning: unknown information field 'Debian_revision' in input data in package's section of control info file
+dpkg-source: info: using source format '1.0'
+dpkg-source: warning: source directory 'securedrop-workstation-grsec' is not <sourcepackage>-<upstreamversion> 'securedrop-workstation-grsec-4.14.186+buster3'
+dpkg-source: info: building securedrop-workstation-grsec in securedrop-workstation-grsec_4.14.186+buster3.tar.gz
+dpkg-source: info: building securedrop-workstation-grsec in securedrop-workstation-grsec_4.14.186+buster3.dsc
+ debian/rules build
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-workstation-grsec'
+dh build
+   dh_update_autotools_config
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-workstation-grsec'
+ fakeroot debian/rules binary
+make[1]: Entering directory '/home/user/debbuild/packaging/securedrop-workstation-grsec'
+dh binary
+   dh_testroot
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_strip
+   dh_makeshlibs
+   dh_shlibdeps
+   dh_installdeb
+   dh_gencontrol
+dpkg-gencontrol: warning: unknown information field 'Upstream_version' in input data in package's section of control info file
+dpkg-gencontrol: warning: unknown information field 'Debian_revision' in input data in package's section of control info file
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'securedrop-workstation-grsec' in '../securedrop-workstation-grsec_4.14.186+buster3_amd64.deb'.
+make[1]: Leaving directory '/home/user/debbuild/packaging/securedrop-workstation-grsec'
+ dpkg-genbuildinfo
+ dpkg-genchanges  >../securedrop-workstation-grsec_4.14.186+buster3_amd64.changes
+dpkg-genchanges: warning: unknown information field 'Upstream_version' in input data in package's section of control info file
+dpkg-genchanges: warning: unknown information field 'Debian_revision' in input data in package's section of control info file
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-source: warning: unknown information field 'Upstream_version' in input data in package's section of control info file
+dpkg-source: warning: unknown information field 'Debian_revision' in input data in package's section of control info file
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
+Package location: /home/user/debbuild/packaging/securedrop-workstation-grsec_4.14.186+buster3_amd64.deb
+[user@fpf-dev-dvm:~/securedrop-debian-packaging] workstation-u2mfn-to-4.0.31 1m13s ±
+ $ sha256sum /home/user/debbuild/packaging/securedrop-workstation-grsec_4.14.186+buster3_amd64.deb
+d4aa47bf9a8157e69c01fa8d5221283df62df0bf7cc3ab2574c2c40ed76f29db  /home/user/debbuild/packaging/securedrop-workstation-grsec_4.14.186+buster3_amd64.deb
+
