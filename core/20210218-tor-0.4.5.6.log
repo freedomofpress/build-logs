@@ -1,0 +1,141 @@
+(securedrop) user@build:~/src/securedrop$ make fetch-tor-packages 
+Fetching most recent Tor packages...
+Using active Python 3 virtualenv in /home/user/.virtualenvs/securedrop
+--> Test matrix
+    
+└── fetch-tor-packages
+    ├── destroy
+    ├── create
+    ├── prepare
+    ├── converge
+    ├── verify
+    └── destroy
+    
+--> Scenario: 'fetch-tor-packages'
+--> Action: 'destroy'
+playbook.yml was deprecated, rename it to converge.yml
+--> Sanity checks: 'docker'
+    
+    PLAY [Destroy] *****************************************************************
+    
+    TASK [Destroy molecule instance(s)] ********************************************
+    ok: [localhost] => (item={'distro': 'xenial', 'image': 'quay.io/freedomofpress/sd-docker-builder-xenial', 'name': 'tor-package-fetcher-xenial'})
+    ok: [localhost] => (item={'distro': 'focal', 'image': 'quay.io/freedomofpress/sd-docker-builder-focal', 'name': 'tor-package-fetcher-focal'})
+    
+    PLAY RECAP *********************************************************************
+    localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    
+--> Scenario: 'fetch-tor-packages'
+--> Action: 'create'
+playbook.yml was deprecated, rename it to converge.yml
+    
+    PLAY [Create] ******************************************************************
+    
+    TASK [Create molecule instance(s)] *********************************************
+    changed: [localhost] => (item={'distro': 'xenial', 'image': 'quay.io/freedomofpress/sd-docker-builder-xenial', 'name': 'tor-package-fetcher-xenial'})
+    changed: [localhost] => (item={'distro': 'focal', 'image': 'quay.io/freedomofpress/sd-docker-builder-focal', 'name': 'tor-package-fetcher-focal'})
+    
+    PLAY RECAP *********************************************************************
+    localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    
+--> Scenario: 'fetch-tor-packages'
+--> Action: 'prepare'
+playbook.yml was deprecated, rename it to converge.yml
+    
+    PLAY [Bootstrap Ansible for containers] ****************************************
+    
+    TASK [Install python] **********************************************************
+    changed: [tor-package-fetcher-xenial]
+    changed: [tor-package-fetcher-focal]
+    
+    PLAY RECAP *********************************************************************
+    tor-package-fetcher-focal  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    tor-package-fetcher-xenial : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    
+--> Scenario: 'fetch-tor-packages'
+--> Action: 'converge'
+playbook.yml was deprecated, rename it to converge.yml
+playbook.yml was deprecated, rename it to converge.yml
+    
+    PLAY [Converge] ****************************************************************
+    
+    TASK [Gathering Facts] *********************************************************
+    ok: [tor-package-fetcher-focal]
+    ok: [tor-package-fetcher-xenial]
+    
+    TASK [Add Tor apt repo pubkey] *************************************************
+    changed: [tor-package-fetcher-xenial]
+    changed: [tor-package-fetcher-focal]
+    
+    TASK [Add Tor apt repo URL] ****************************************************
+    changed: [tor-package-fetcher-xenial]
+    changed: [tor-package-fetcher-focal]
+    
+    TASK [Create temporary dir for downloading debs] *******************************
+    changed: [tor-package-fetcher-focal]
+    changed: [tor-package-fetcher-xenial]
+    
+    TASK [Download Tor debs] *******************************************************
+    changed: [tor-package-fetcher-xenial] => (item=tor)
+    changed: [tor-package-fetcher-focal] => (item=tor)
+    changed: [tor-package-fetcher-xenial] => (item=tor-geoipdb)
+    changed: [tor-package-fetcher-focal] => (item=tor-geoipdb)
+    
+    TASK [Find downloaded Tor debs] ************************************************
+    ok: [tor-package-fetcher-focal]
+    ok: [tor-package-fetcher-xenial]
+    
+    TASK [Fetch downloaded Tor debs back to submodule] *****************************
+    ok: [tor-package-fetcher-xenial] => (item={'woth': False, 'ctime': 1613672481.136346, 'rusr': True, 'isreg': True, 'gid': 0, 'wgrp': False, 'gr_name': 'root', 'ischr': False, 'issock': False, 'isdir': False, 'isgid': False, 'size': 1485554, 'inode': 8139632, 'xoth': False, 'isblk': False, 'rgrp': True, 'islnk': False, 'path': '/tmp/tor-debs/tor_0.4.5.6-1~xenial+1_amd64.deb', 'isfifo': False, 'xusr': False, 'wusr': True, 'roth': True, 'mtime': 1613465605.0, 'pw_name': 'root', 'atime': 1613465605.0, 'nlink': 1, 'dev': 50, 'isuid': False, 'xgrp': False, 'mode': '0644', 'uid': 0})
+    ok: [tor-package-fetcher-focal] => (item={'path': '/tmp/tor-debs/tor_0.4.5.6-1~focal+1_amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 1486544, 'inode': 8139633, 'dev': 66, 'nlink': 1, 'atime': 1613465605.0, 'mtime': 1613465605.0, 'ctime': 1613672481.4763474, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+    ok: [tor-package-fetcher-focal] => (item={'path': '/tmp/tor-debs/tor-geoipdb_0.4.5.6-1~focal+1_all.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 997760, 'inode': 8139635, 'dev': 66, 'nlink': 1, 'atime': 1613465605.0, 'mtime': 1613465605.0, 'ctime': 1613672484.960361, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+    ok: [tor-package-fetcher-xenial] => (item={'woth': False, 'ctime': 1613672484.2163582, 'rusr': True, 'isreg': True, 'gid': 0, 'wgrp': False, 'gr_name': 'root', 'ischr': False, 'issock': False, 'isdir': False, 'isgid': False, 'size': 983138, 'inode': 8139634, 'xoth': False, 'isblk': False, 'rgrp': True, 'islnk': False, 'path': '/tmp/tor-debs/tor-geoipdb_0.4.5.6-1~xenial+1_all.deb', 'isfifo': False, 'xusr': False, 'wusr': True, 'roth': True, 'mtime': 1613465605.0, 'pw_name': 'root', 'atime': 1613465605.0, 'nlink': 1, 'dev': 50, 'isuid': False, 'xgrp': False, 'mode': '0644', 'uid': 0})
+    
+    TASK [Display location of fetched files] ***************************************
+    ok: [tor-package-fetcher-focal] => {
+        "msg": "Tor deb packages have been downloaded to '/home/user/src/securedrop/build/focal'.\n"
+    }
+    ok: [tor-package-fetcher-xenial] => {
+        "msg": "Tor deb packages have been downloaded to '/home/user/src/securedrop/build/xenial'.\n"
+    }
+    
+    PLAY RECAP *********************************************************************
+    tor-package-fetcher-focal  : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    tor-package-fetcher-xenial : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    
+--> Scenario: 'fetch-tor-packages'
+--> Action: 'verify'
+--> Executing Testinfra tests found in /home/user/src/securedrop/molecule/fetch-tor-packages/tests/...
+    ============================= test session starts ==============================
+    platform linux -- Python 3.7.3, pytest-6.1.1, py-1.9.0, pluggy-0.13.1
+    rootdir: /home/user/src/securedrop/molecule, configfile: pytest.ini
+
+    plugins: forked-1.3.0, xdist-2.1.0, testinfra-5.3.1
+collected 8 items                                                              
+    
+    tests/test_tor_packages.py ........                                      [100%]
+    
+    ============================== 8 passed in 3.37s ===============================
+Verifier completed successfully.
+--> Scenario: 'fetch-tor-packages'
+--> Action: 'destroy'
+playbook.yml was deprecated, rename it to converge.yml
+    
+    PLAY [Destroy] *****************************************************************
+    
+    TASK [Destroy molecule instance(s)] ********************************************
+    changed: [localhost] => (item={'distro': 'xenial', 'image': 'quay.io/freedomofpress/sd-docker-builder-xenial', 'name': 'tor-package-fetcher-xenial'})
+    changed: [localhost] => (item={'distro': 'focal', 'image': 'quay.io/freedomofpress/sd-docker-builder-focal', 'name': 'tor-package-fetcher-focal'})
+    
+    PLAY RECAP *********************************************************************
+    localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    
+--> Pruning extra files from scenario ephemeral directory
+
+(securedrop) user@build:~/src/securedrop$ sha256sum build/focal/tor*
+034b71c8e66284bcbe7f684b4054222b404a151fcf8c335eb9edfdcf783d13aa  build/focal/tor_0.4.5.6-1~focal+1_amd64.deb
+f6b374634fcafac2c92b932393cadcaa1daa479eacf98212dc18cde786087a11  build/focal/tor-geoipdb_0.4.5.6-1~focal+1_all.deb
+(securedrop) user@build:~/src/securedrop$ sha256sum build/xenial/tor*
+fe12dd3fb39b4e7586905afeaaf301840a8326359b63ef34bfcfcf75587ad602  build/xenial/tor_0.4.5.6-1~xenial+1_amd64.deb
+516d86ac4e401efcae0d3ad46005ef5db4b0acc0fa4d523509e599a0071f2c55  build/xenial/tor-geoipdb_0.4.5.6-1~xenial+1_all.deb
+
