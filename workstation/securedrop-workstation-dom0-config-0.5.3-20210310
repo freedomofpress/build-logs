@@ -1,0 +1,1573 @@
+[user@fpf-dev-dvm:~] $
+ $ git clone https://github.com/freedomofpress/securedrop-workstation
+Cloning into 'securedrop-workstation'...
+changing to directory securedrop-workstation
+[user@fpf-dev-dvm:~/securedrop-workstation] main 13s ±
+ $ git tag -v 0.5.3
+object 3531b6fa7a616fcc4401a68e71c14f1e846ea40e
+type commit
+tag 0.5.3
+tagger Conor Schaefer <conor@freedom.press> 1615402356 -0800
+
+SecureDrop Workstation 0.5.3
+gpg: Signature made Wed 10 Mar 2021 10:53:19 AM PST
+gpg:                using RSA key 22245C81E3BAEB4138B36061310F561200F4AD77
+gpg: Good signature from "SecureDrop Release Signing Key" [unknown]
+gpg:                 aka "SecureDrop Release Signing Key <securedrop-release-key@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2224 5C81 E3BA EB41 38B3  6061 310F 5612 00F4 AD77
+[user@fpf-dev-dvm:~/securedrop-workstation] main 21s ±
+ $ git checkout 0.5.3
+Note: checking out '0.5.3'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 3531b6f Merge pull request #661 from freedomofpress/config-hardening
+[user@fpf-dev-dvm:~/securedrop-workstation] 3531b6f 25s ±
+ $ make dom0-rpm
+make dom0-rpm-f25
+make[1]: Entering directory '/home/user/securedrop-workstation'
+Building for Fedora 25
+Sending build context to Docker daemon  33.79kB
+Step 1/16 : ARG CONTAINER_HASH
+Step 2/16 : FROM fedora@sha256:${CONTAINER_HASH}
+docker.io/library/fedora@sha256:322cb01bbca26972c98051bacd3ab8555cec059496d64d35ee78b15de9ea0d06: Pulling from library/fedora
+8ab017634520: Pull complete
+Digest: sha256:322cb01bbca26972c98051bacd3ab8555cec059496d64d35ee78b15de9ea0d06
+Status: Downloaded newer image for fedora@sha256:322cb01bbca26972c98051bacd3ab8555cec059496d64d35ee78b15de9ea0d06
+ ---> 9cffd21a45e3
+Step 3/16 : LABEL MAINTAINER="Freedom of the Press Foundation"
+ ---> Running in bbd349f13f65
+Removing intermediate container bbd349f13f65
+ ---> 9655cce43e91
+Step 4/16 : LABEL DESCRIPTION="RedHat tooling for building RPMs for Fedora"
+ ---> Running in ebf23684e78e
+Removing intermediate container ebf23684e78e
+ ---> a72a94190111
+Step 5/16 : ARG USERID
+ ---> Running in 93e509f384df
+Removing intermediate container 93e509f384df
+ ---> 08bf21de15ba
+Step 6/16 : ARG FEDORA_PKGR_VER
+ ---> Running in cee28c75f19f
+Removing intermediate container cee28c75f19f
+ ---> b55cc753b182
+Step 7/16 : RUN echo "${FEDORA_PKGR_VER}"
+ ---> Running in fdfc2e7d13c2
+0.6.0.1-1.fc25
+Removing intermediate container fdfc2e7d13c2
+ ---> 00d41d317450
+Step 8/16 : RUN dnf update -y &&     dnf install -y     fedora-packager-${FEDORA_PKGR_VER}.noarch     make     python3-cryptography     python3-devel     python3-requests     python3-setuptools     vim &&     yum clean all
+ ---> Running in 155cc46c7d35
+Last metadata expiration check: 0:00:15 ago on Wed Mar 10 19:45:31 2021.
+Dependencies resolved.
+================================================================================
+ Package                       Arch      Version               Repository  Size
+================================================================================
+Upgrading:
+ audit-libs                    x86_64    2.8.1-1.fc25          updates    111 k
+ ca-certificates               noarch    2017.2.20-1.0.fc25    updates    406 k
+ dbus                          x86_64    1:1.11.18-1.fc25      updates    257 k
+ dbus-libs                     x86_64    1:1.11.18-1.fc25      updates    175 k
+ emacs-filesystem              noarch    1:25.3-3.fc25         updates     67 k
+ gawk                          x86_64    4.1.3-12.fc25         updates    1.0 M
+ krb5-libs                     x86_64    1.14.4-9.fc25         updates    742 k
+ libgcrypt                     x86_64    1.7.9-1.fc25          updates    436 k
+ libsolv                       x86_64    0.6.29-2.fc25         updates    360 k
+ libssh2                       x86_64    1.8.0-5.fc25          updates     94 k
+ libsss_idmap                  x86_64    1.16.0-4.fc25         updates     86 k
+ libsss_nss_idmap              x86_64    1.16.0-4.fc25         updates     84 k
+ lua-libs                      x86_64    5.3.4-7.fc25          updates    114 k
+ nspr                          x86_64    4.17.0-1.fc25         updates    138 k
+ nss                           x86_64    3.34.0-1.0.fc25       updates    851 k
+ nss-softokn                   x86_64    3.34.0-1.0.fc25       updates    389 k
+ nss-softokn-freebl            x86_64    3.34.0-1.0.fc25       updates    231 k
+ nss-sysinit                   x86_64    3.34.0-1.0.fc25       updates     62 k
+ nss-tools                     x86_64    3.34.0-1.0.fc25       updates    516 k
+ nss-util                      x86_64    3.34.0-1.0.fc25       updates     87 k
+ openssl-libs                  x86_64    1:1.0.2m-1.fc25       updates    1.2 M
+ p11-kit                       x86_64    0.23.9-2.fc25         updates    262 k
+ p11-kit-trust                 x86_64    0.23.9-2.fc25         updates    131 k
+ pcre                          x86_64    8.41-3.fc25           updates    199 k
+ popt                          x86_64    1.16-12.fc25          updates     58 k
+ publicsuffix-list-dafsa       noarch    20170828-1.fc25       updates     45 k
+ python3                       x86_64    3.5.4-2.fc25          updates     58 k
+ python3-libs                  x86_64    3.5.4-2.fc25          updates    1.4 M
+ python3-rpm                   x86_64    4.13.0.2-1.fc25       updates    106 k
+ rpm                           x86_64    4.13.0.2-1.fc25       updates    518 k
+ rpm-build-libs                x86_64    4.13.0.2-1.fc25       updates    121 k
+ rpm-libs                      x86_64    4.13.0.2-1.fc25       updates    305 k
+ rpm-plugin-selinux            x86_64    4.13.0.2-1.fc25       updates     57 k
+ rpm-plugin-systemd-inhibit    x86_64    4.13.0.2-1.fc25       updates     57 k
+ sssd-client                   x86_64    1.16.0-4.fc25         updates    137 k
+ system-python                 x86_64    3.5.4-2.fc25          updates     51 k
+ system-python-libs            x86_64    3.5.4-2.fc25          updates    6.9 M
+ systemd                       x86_64    231-19.fc25           updates    2.8 M
+ systemd-libs                  x86_64    231-19.fc25           updates    422 k
+ systemd-pam                   x86_64    231-19.fc25           updates    178 k
+ vim-minimal                   x86_64    2:8.0.1171-1.fc25     updates    531 k
+
+Transaction Summary
+================================================================================
+Upgrade  41 Packages
+
+Total download size: 22 M
+Downloading Packages:
+--------------------------------------------------------------------------------
+Total                                           5.5 MB/s |  22 MB     00:03
+warning: /var/cache/dnf/updates-87ad44ec2dc11249/packages/audit-libs-2.8.1-1.fc25.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID fdb19c98: NOKEY
+Importing GPG key 0xFDB19C98:
+ Userid     : "Fedora 25 Primary (25) <fedora-25-primary@fedoraproject.org>"
+ Fingerprint: C437 DCCD 558A 66A3 7D6F 4372 4089 D8F2 FDB1 9C98
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-25-x86_64
+Key imported successfully
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Upgrading   : nspr-4.17.0-1.fc25.x86_64                                  1/82
+  Upgrading   : nss-util-3.34.0-1.0.fc25.x86_64                            2/82
+  Upgrading   : popt-1.16-12.fc25.x86_64                                   3/82
+  Upgrading   : lua-libs-5.3.4-7.fc25.x86_64                               4/82
+  Upgrading   : libgcrypt-1.7.9-1.fc25.x86_64                              5/82
+  Upgrading   : systemd-libs-231-19.fc25.x86_64                            6/82
+  Upgrading   : dbus-libs-1:1.11.18-1.fc25.x86_64                          7/82
+  Upgrading   : p11-kit-0.23.9-2.fc25.x86_64                               8/82
+  Upgrading   : audit-libs-2.8.1-1.fc25.x86_64                             9/82
+  Upgrading   : systemd-pam-231-19.fc25.x86_64                            10/82
+  Upgrading   : systemd-231-19.fc25.x86_64                                11/82
+  Upgrading   : dbus-1:1.11.18-1.fc25.x86_64                              12/82
+  Upgrading   : p11-kit-trust-0.23.9-2.fc25.x86_64                        13/82
+  Upgrading   : ca-certificates-2017.2.20-1.0.fc25.noarch                 14/82
+  Upgrading   : nss-softokn-freebl-3.34.0-1.0.fc25.x86_64                 15/82
+  Upgrading   : nss-softokn-3.34.0-1.0.fc25.x86_64                        16/82
+  Upgrading   : nss-3.34.0-1.0.fc25.x86_64                                17/82
+  Upgrading   : nss-sysinit-3.34.0-1.0.fc25.x86_64                        18/82
+  Upgrading   : rpm-4.13.0.2-1.fc25.x86_64                                19/82
+  Upgrading   : rpm-libs-4.13.0.2-1.fc25.x86_64                           20/82
+  Upgrading   : rpm-plugin-selinux-4.13.0.2-1.fc25.x86_64                 21/82
+  Upgrading   : rpm-build-libs-4.13.0.2-1.fc25.x86_64                     22/82
+  Upgrading   : libsss_nss_idmap-1.16.0-4.fc25.x86_64                     23/82
+  Upgrading   : libsss_idmap-1.16.0-4.fc25.x86_64                         24/82
+  Upgrading   : gawk-4.1.3-12.fc25.x86_64                                 25/82
+  Upgrading   : krb5-libs-1.14.4-9.fc25.x86_64                            26/82
+  Upgrading   : openssl-libs-1:1.0.2m-1.fc25.x86_64                       27/82
+  Upgrading   : system-python-libs-3.5.4-2.fc25.x86_64                    28/82
+  Upgrading   : python3-libs-3.5.4-2.fc25.x86_64                          29/82
+  Upgrading   : system-python-3.5.4-2.fc25.x86_64                         30/82
+  Upgrading   : python3-rpm-4.13.0.2-1.fc25.x86_64                        31/82
+  Upgrading   : python3-3.5.4-2.fc25.x86_64                               32/82
+  Upgrading   : libssh2-1.8.0-5.fc25.x86_64                               33/82
+  Upgrading   : sssd-client-1.16.0-4.fc25.x86_64                          34/82
+  Upgrading   : libsolv-0.6.29-2.fc25.x86_64                              35/82
+  Upgrading   : rpm-plugin-systemd-inhibit-4.13.0.2-1.fc25.x86_64         36/82
+  Upgrading   : nss-tools-3.34.0-1.0.fc25.x86_64                          37/82
+  Upgrading   : vim-minimal-2:8.0.1171-1.fc25.x86_64                      38/82
+  Upgrading   : publicsuffix-list-dafsa-20170828-1.fc25.noarch            39/82
+  Upgrading   : pcre-8.41-3.fc25.x86_64                                   40/82
+  Upgrading   : emacs-filesystem-1:25.3-3.fc25.noarch                     41/82
+  Cleanup     : publicsuffix-list-dafsa-20170424-1.fc25.noarch            42/82
+  Cleanup     : emacs-filesystem-1:25.2-3.fc25.noarch                     43/82
+  Cleanup     : python3-rpm-4.13.0.1-2.fc25.x86_64                        44/82
+  Cleanup     : nss-tools-3.32.0-1.1.fc25.x86_64                          45/82
+  Cleanup     : systemd-pam-231-17.fc25.x86_64                            46/82
+  Cleanup     : dbus-1:1.11.16-1.fc25.x86_64                              47/82Failed to connect to bus: No such file or directory
+
+  Cleanup     : systemd-231-17.fc25.x86_64                                48/82
+  Cleanup     : rpm-plugin-systemd-inhibit-4.13.0.1-2.fc25.x86_64         49/82
+  Cleanup     : rpm-build-libs-4.13.0.1-2.fc25.x86_64                     50/82
+  Cleanup     : sssd-client-1.15.3-1.fc25.x86_64                          51/82
+  Cleanup     : python3-3.5.4-1.fc25.x86_64                               52/82
+  Cleanup     : python3-libs-3.5.4-1.fc25.x86_64                          53/82
+  Cleanup     : dbus-libs-1:1.11.16-1.fc25.x86_64                         54/82
+  Cleanup     : systemd-libs-231-17.fc25.x86_64                           55/82
+  Cleanup     : system-python-3.5.4-1.fc25.x86_64                         56/82
+  Cleanup     : system-python-libs-3.5.4-1.fc25.x86_64                    57/82
+  Cleanup     : libssh2-1.8.0-1.fc25.x86_64                               58/82
+  Cleanup     : openssl-libs-1:1.0.2k-1.fc25.x86_64                       59/82
+  Cleanup     : krb5-libs-1.14.4-8.fc25.x86_64                            60/82
+  Cleanup     : ca-certificates-2017.2.16-1.0.fc25.noarch                 61/82
+  Cleanup     : p11-kit-trust-0.23.8-1.fc25.x86_64                        62/82
+  Cleanup     : libsolv-0.6.29-1.fc25.x86_64                              63/82
+  Cleanup     : rpm-4.13.0.1-2.fc25.x86_64                                64/82
+  Cleanup     : rpm-plugin-selinux-4.13.0.1-2.fc25.x86_64                 65/82
+  Cleanup     : rpm-libs-4.13.0.1-2.fc25.x86_64                           66/82
+  Cleanup     : nss-sysinit-3.32.0-1.1.fc25.x86_64                        67/82
+  Cleanup     : nss-3.32.0-1.1.fc25.x86_64                                68/82
+  Cleanup     : nss-softokn-3.32.0-1.2.fc25.x86_64                        69/82
+  Cleanup     : nss-util-3.32.0-1.0.fc25.x86_64                           70/82
+  Cleanup     : nspr-4.16.0-1.fc25.x86_64                                 71/82
+  Cleanup     : nss-softokn-freebl-3.32.0-1.2.fc25.x86_64                 72/82
+  Cleanup     : lua-libs-5.3.4-3.fc25.x86_64                              73/82
+  Cleanup     : popt-1.16-7.fc24.x86_64                                   74/82
+  Cleanup     : p11-kit-0.23.8-1.fc25.x86_64                              75/82
+  Cleanup     : gawk-4.1.3-8.fc25.x86_64                                  76/82
+  Cleanup     : libgcrypt-1.7.8-1.fc25.x86_64                             77/82
+  Cleanup     : libsss_idmap-1.15.3-1.fc25.x86_64                         78/82
+  Cleanup     : libsss_nss_idmap-1.15.3-1.fc25.x86_64                     79/82
+  Cleanup     : audit-libs-2.7.7-1.fc25.x86_64                            80/82
+  Cleanup     : vim-minimal-2:8.0.1030-1.fc25.x86_64                      81/82
+  Cleanup     : pcre-8.41-1.fc25.x86_64                                   82/82Failed to connect to bus: No such file or directory
+
+  Verifying   : audit-libs-2.8.1-1.fc25.x86_64                             1/82
+  Verifying   : ca-certificates-2017.2.20-1.0.fc25.noarch                  2/82
+  Verifying   : dbus-1:1.11.18-1.fc25.x86_64                               3/82
+  Verifying   : dbus-libs-1:1.11.18-1.fc25.x86_64                          4/82
+  Verifying   : emacs-filesystem-1:25.3-3.fc25.noarch                      5/82
+  Verifying   : gawk-4.1.3-12.fc25.x86_64                                  6/82
+  Verifying   : krb5-libs-1.14.4-9.fc25.x86_64                             7/82
+  Verifying   : libgcrypt-1.7.9-1.fc25.x86_64                              8/82
+  Verifying   : libsolv-0.6.29-2.fc25.x86_64                               9/82
+  Verifying   : libssh2-1.8.0-5.fc25.x86_64                               10/82
+  Verifying   : libsss_idmap-1.16.0-4.fc25.x86_64                         11/82
+  Verifying   : libsss_nss_idmap-1.16.0-4.fc25.x86_64                     12/82
+  Verifying   : lua-libs-5.3.4-7.fc25.x86_64                              13/82
+  Verifying   : nspr-4.17.0-1.fc25.x86_64                                 14/82
+  Verifying   : nss-3.34.0-1.0.fc25.x86_64                                15/82
+  Verifying   : nss-softokn-3.34.0-1.0.fc25.x86_64                        16/82
+  Verifying   : nss-util-3.34.0-1.0.fc25.x86_64                           17/82
+  Verifying   : nss-softokn-freebl-3.34.0-1.0.fc25.x86_64                 18/82
+  Verifying   : nss-tools-3.34.0-1.0.fc25.x86_64                          19/82
+  Verifying   : nss-sysinit-3.34.0-1.0.fc25.x86_64                        20/82
+  Verifying   : openssl-libs-1:1.0.2m-1.fc25.x86_64                       21/82
+  Verifying   : p11-kit-0.23.9-2.fc25.x86_64                              22/82
+  Verifying   : p11-kit-trust-0.23.9-2.fc25.x86_64                        23/82
+  Verifying   : pcre-8.41-3.fc25.x86_64                                   24/82
+  Verifying   : popt-1.16-12.fc25.x86_64                                  25/82
+  Verifying   : publicsuffix-list-dafsa-20170828-1.fc25.noarch            26/82
+  Verifying   : python3-3.5.4-2.fc25.x86_64                               27/82
+  Verifying   : python3-libs-3.5.4-2.fc25.x86_64                          28/82
+  Verifying   : system-python-libs-3.5.4-2.fc25.x86_64                    29/82
+  Verifying   : system-python-3.5.4-2.fc25.x86_64                         30/82
+  Verifying   : python3-rpm-4.13.0.2-1.fc25.x86_64                        31/82
+  Verifying   : rpm-libs-4.13.0.2-1.fc25.x86_64                           32/82
+  Verifying   : rpm-4.13.0.2-1.fc25.x86_64                                33/82
+  Verifying   : rpm-plugin-selinux-4.13.0.2-1.fc25.x86_64                 34/82
+  Verifying   : rpm-plugin-systemd-inhibit-4.13.0.2-1.fc25.x86_64         35/82
+  Verifying   : rpm-build-libs-4.13.0.2-1.fc25.x86_64                     36/82
+  Verifying   : sssd-client-1.16.0-4.fc25.x86_64                          37/82
+  Verifying   : systemd-231-19.fc25.x86_64                                38/82
+  Verifying   : systemd-pam-231-19.fc25.x86_64                            39/82
+  Verifying   : systemd-libs-231-19.fc25.x86_64                           40/82
+  Verifying   : vim-minimal-2:8.0.1171-1.fc25.x86_64                      41/82
+  Verifying   : popt-1.16-7.fc24.x86_64                                   42/82
+  Verifying   : audit-libs-2.7.7-1.fc25.x86_64                            43/82
+  Verifying   : publicsuffix-list-dafsa-20170424-1.fc25.noarch            44/82
+  Verifying   : python3-3.5.4-1.fc25.x86_64                               45/82
+  Verifying   : ca-certificates-2017.2.16-1.0.fc25.noarch                 46/82
+  Verifying   : python3-libs-3.5.4-1.fc25.x86_64                          47/82
+  Verifying   : python3-rpm-4.13.0.1-2.fc25.x86_64                        48/82
+  Verifying   : dbus-1:1.11.16-1.fc25.x86_64                              49/82
+  Verifying   : dbus-libs-1:1.11.16-1.fc25.x86_64                         50/82
+  Verifying   : rpm-4.13.0.1-2.fc25.x86_64                                51/82
+  Verifying   : rpm-build-libs-4.13.0.1-2.fc25.x86_64                     52/82
+  Verifying   : rpm-libs-4.13.0.1-2.fc25.x86_64                           53/82
+  Verifying   : rpm-plugin-selinux-4.13.0.1-2.fc25.x86_64                 54/82
+  Verifying   : rpm-plugin-systemd-inhibit-4.13.0.1-2.fc25.x86_64         55/82
+  Verifying   : emacs-filesystem-1:25.2-3.fc25.noarch                     56/82
+  Verifying   : system-python-3.5.4-1.fc25.x86_64                         57/82
+  Verifying   : system-python-libs-3.5.4-1.fc25.x86_64                    58/82
+  Verifying   : sssd-client-1.15.3-1.fc25.x86_64                          59/82
+  Verifying   : systemd-231-17.fc25.x86_64                                60/82
+  Verifying   : systemd-pam-231-17.fc25.x86_64                            61/82
+  Verifying   : systemd-libs-231-17.fc25.x86_64                           62/82
+  Verifying   : gawk-4.1.3-8.fc25.x86_64                                  63/82
+  Verifying   : vim-minimal-2:8.0.1030-1.fc25.x86_64                      64/82
+  Verifying   : krb5-libs-1.14.4-8.fc25.x86_64                            65/82
+  Verifying   : libgcrypt-1.7.8-1.fc25.x86_64                             66/82
+  Verifying   : libsolv-0.6.29-1.fc25.x86_64                              67/82
+  Verifying   : libssh2-1.8.0-1.fc25.x86_64                               68/82
+  Verifying   : libsss_idmap-1.15.3-1.fc25.x86_64                         69/82
+  Verifying   : libsss_nss_idmap-1.15.3-1.fc25.x86_64                     70/82
+  Verifying   : lua-libs-5.3.4-3.fc25.x86_64                              71/82
+  Verifying   : nspr-4.16.0-1.fc25.x86_64                                 72/82
+  Verifying   : nss-3.32.0-1.1.fc25.x86_64                                73/82
+  Verifying   : nss-softokn-3.32.0-1.2.fc25.x86_64                        74/82
+  Verifying   : nss-softokn-freebl-3.32.0-1.2.fc25.x86_64                 75/82
+  Verifying   : nss-sysinit-3.32.0-1.1.fc25.x86_64                        76/82
+  Verifying   : nss-tools-3.32.0-1.1.fc25.x86_64                          77/82
+  Verifying   : nss-util-3.32.0-1.0.fc25.x86_64                           78/82
+  Verifying   : openssl-libs-1:1.0.2k-1.fc25.x86_64                       79/82
+  Verifying   : p11-kit-0.23.8-1.fc25.x86_64                              80/82
+  Verifying   : p11-kit-trust-0.23.8-1.fc25.x86_64                        81/82
+  Verifying   : pcre-8.41-1.fc25.x86_64                                   82/82
+
+Upgraded:
+  audit-libs.x86_64 2.8.1-1.fc25
+  ca-certificates.noarch 2017.2.20-1.0.fc25
+  dbus.x86_64 1:1.11.18-1.fc25
+  dbus-libs.x86_64 1:1.11.18-1.fc25
+  emacs-filesystem.noarch 1:25.3-3.fc25
+  gawk.x86_64 4.1.3-12.fc25
+  krb5-libs.x86_64 1.14.4-9.fc25
+  libgcrypt.x86_64 1.7.9-1.fc25
+  libsolv.x86_64 0.6.29-2.fc25
+  libssh2.x86_64 1.8.0-5.fc25
+  libsss_idmap.x86_64 1.16.0-4.fc25
+  libsss_nss_idmap.x86_64 1.16.0-4.fc25
+  lua-libs.x86_64 5.3.4-7.fc25
+  nspr.x86_64 4.17.0-1.fc25
+  nss.x86_64 3.34.0-1.0.fc25
+  nss-softokn.x86_64 3.34.0-1.0.fc25
+  nss-softokn-freebl.x86_64 3.34.0-1.0.fc25
+  nss-sysinit.x86_64 3.34.0-1.0.fc25
+  nss-tools.x86_64 3.34.0-1.0.fc25
+  nss-util.x86_64 3.34.0-1.0.fc25
+  openssl-libs.x86_64 1:1.0.2m-1.fc25
+  p11-kit.x86_64 0.23.9-2.fc25
+  p11-kit-trust.x86_64 0.23.9-2.fc25
+  pcre.x86_64 8.41-3.fc25
+  popt.x86_64 1.16-12.fc25
+  publicsuffix-list-dafsa.noarch 20170828-1.fc25
+  python3.x86_64 3.5.4-2.fc25
+  python3-libs.x86_64 3.5.4-2.fc25
+  python3-rpm.x86_64 4.13.0.2-1.fc25
+  rpm.x86_64 4.13.0.2-1.fc25
+  rpm-build-libs.x86_64 4.13.0.2-1.fc25
+  rpm-libs.x86_64 4.13.0.2-1.fc25
+  rpm-plugin-selinux.x86_64 4.13.0.2-1.fc25
+  rpm-plugin-systemd-inhibit.x86_64 4.13.0.2-1.fc25
+  sssd-client.x86_64 1.16.0-4.fc25
+  system-python.x86_64 3.5.4-2.fc25
+  system-python-libs.x86_64 3.5.4-2.fc25
+  systemd.x86_64 231-19.fc25
+  systemd-libs.x86_64 231-19.fc25
+  systemd-pam.x86_64 231-19.fc25
+  vim-minimal.x86_64 2:8.0.1171-1.fc25
+
+Complete!
+Last metadata expiration check: 0:02:01 ago on Wed Mar 10 19:45:31 2021.
+Package python3-setuptools-25.1.1-1.fc25.noarch is already installed, skipping.
+Dependencies resolved.
+================================================================================
+ Package                   Arch   Version                         Repository
+                                                                           Size
+================================================================================
+Installing:
+ binutils                  x86_64 2.26.1-1.fc25                   fedora  5.9 M
+ bodhi-client              noarch 0.9.12.2-6.fc25                 updates  26 k
+ btrfs-progs               x86_64 4.6.1-1.fc25                    fedora  640 k
+ bzip2                     x86_64 1.0.6-21.fc25                   updates  57 k
+ cpio                      x86_64 2.12-3.fc24                     fedora  261 k
+ createrepo_c              x86_64 0.10.0-6.fc25                   fedora   68 k
+ createrepo_c-libs         x86_64 0.10.0-6.fc25                   fedora   94 k
+ desktop-file-utils        x86_64 0.23-2.fc25                     updates  75 k
+ distribution-gpg-keys     noarch 1.15-1.fc25                     updates 165 k
+ dnf-plugins-core          noarch 0.1.21-5.fc25                   updates  16 k
+ drpm                      x86_64 0.3.0-3.fc25                    fedora   67 k
+ dwz                       x86_64 0.12-2.fc24                     fedora  107 k
+ elfutils                  x86_64 0.169-1.fc25                    updates 298 k
+ enchant                   x86_64 1:1.6.0-14.fc25                 fedora   59 k
+ fakeroot                  x86_64 1.20.2-4.fc24                   fedora  101 k
+ fakeroot-libs             x86_64 1.20.2-4.fc24                   fedora   35 k
+ fedora-cert               noarch 0.6.0.1-1.fc25                  updates  40 k
+ fedora-packager           noarch 0.6.0.1-1.fc25                  updates  48 k
+ fedpkg                    noarch 1.30-4.fc25                     updates  55 k
+ file                      x86_64 5.29-9.fc25                     updates  69 k
+ findutils                 x86_64 1:4.6.0-8.fc25                  fedora  521 k
+ fipscheck                 x86_64 1.4.1-11.fc25                   fedora   26 k
+ fipscheck-lib             x86_64 1.4.1-11.fc25                   fedora   15 k
+ fpc-srpm-macros           noarch 1.0-1.fc25                      fedora  7.6 k
+ gc                        x86_64 7.4.4-1.fc25                    fedora  104 k
+ gdb-headless              x86_64 7.12.1-48.fc25                  updates 3.2 M
+ ghc-srpm-macros           noarch 1.4.2-4.fc25                    fedora  8.6 k
+ git-core                  x86_64 2.9.5-3.fc25                    updates 3.6 M
+ gnat-srpm-macros          noarch 4-1.fc25                        fedora  9.0 k
+ go-srpm-macros            noarch 2-7.fc25                        fedora  8.6 k
+ gpm-libs                  x86_64 1.20.7-9.fc24                   fedora   36 k
+ groff-base                x86_64 1.22.3-9.fc25                   updates 1.0 M
+ guile                     x86_64 5:2.0.13-1.fc25                 fedora  3.5 M
+ hunspell                  x86_64 1.4.1-2.fc25                    updates 272 k
+ hunspell-en               noarch 0.20140811.1-5.fc24             fedora  199 k
+ hunspell-en-GB            noarch 0.20140811.1-5.fc24             fedora  244 k
+ hunspell-en-US            noarch 0.20140811.1-5.fc24             fedora  195 k
+ koji                      noarch 1.14.0-1.fc25                   updates 112 k
+ krb5-workstation          x86_64 1.14.4-9.fc25                   updates 893 k
+ less                      x86_64 481-7.fc25                      updates 156 k
+ libatomic_ops             x86_64 7.4.4-1.fc25                    fedora   32 k
+ libbabeltrace             x86_64 1.4.0-3.fc25                    fedora  164 k
+ libedit                   x86_64 3.1-16.20160618cvs.fc25         fedora   97 k
+ libgnome-keyring          x86_64 3.12.0-7.fc25                   fedora  114 k
+ libipt                    x86_64 1.5-1.fc25                      fedora   38 k
+ libkadm5                  x86_64 1.14.4-9.fc25                   updates 172 k
+ libstdc++                 x86_64 6.4.1-1.fc25                    updates 459 k
+ libtool-ltdl              x86_64 2.4.6-14.fc25                   updates  54 k
+ libuser                   x86_64 0.62-4.fc25                     fedora  397 k
+ libxslt                   x86_64 1.1.28-13.fc25                  fedora  247 k
+ libyubikey                x86_64 1.13-2.fc24                     fedora   34 k
+ make                      x86_64 1:4.1-6.fc25                    updates 468 k
+ mock                      noarch 1.4.7-2.fc25                    updates 157 k
+ mock-core-configs         noarch 27.4-1.fc25                     updates  27 k
+ ocaml-srpm-macros         noarch 2-4.fc24                        fedora  8.0 k
+ openssh                   x86_64 7.4p1-5.fc25                    updates 476 k
+ openssh-clients           x86_64 7.4p1-5.fc25                    updates 657 k
+ openssl                   x86_64 1:1.0.2m-1.fc25                 updates 500 k
+ packagedb-cli             noarch 2.14.1-1.fc25                   updates  68 k
+ passwd                    x86_64 0.79-8.fc24                     fedora  109 k
+ patch                     x86_64 2.7.5-3.fc24                    fedora  125 k
+ perl                      x86_64 4:5.24.3-389.fc25               updates 6.1 M
+ perl-Carp                 noarch 1.40-365.fc25                   fedora   29 k
+ perl-Data-Dumper          x86_64 2.161-1.fc25                    fedora   55 k
+ perl-Encode               x86_64 4:2.88-5.fc25                   updates 1.5 M
+ perl-Errno                x86_64 1.25-389.fc25                   updates  68 k
+ perl-Exporter             noarch 5.72-366.fc25                   fedora   33 k
+ perl-File-Path            noarch 2.12-366.fc25                   updates  34 k
+ perl-File-Temp            noarch 0.23.04-365.fc25                fedora   61 k
+ perl-Getopt-Long          noarch 2.49.1-1.fc25                   fedora   62 k
+ perl-HTTP-Tiny            noarch 0.070-1.fc25                    fedora   56 k
+ perl-IO                   x86_64 1.36-389.fc25                   updates 133 k
+ perl-IO-Socket-IP         noarch 0.39-1.fc25                     updates  45 k
+ perl-IO-Socket-SSL        noarch 2.038-1.fc25                    fedora  261 k
+ perl-MIME-Base64          x86_64 3.15-365.fc25                   fedora   29 k
+ perl-Mozilla-CA           noarch 20160104-3.fc25                 fedora   14 k
+ perl-Net-SSLeay           x86_64 1.78-1.fc25                     fedora  329 k
+ perl-PathTools            x86_64 3.63-366.fc25                   fedora   88 k
+ perl-Pod-Escapes          noarch 1:1.07-365.fc25                 fedora   20 k
+ perl-Pod-Perldoc          noarch 3.28-1.fc25                     updates  86 k
+ perl-Pod-Simple           noarch 1:3.35-1.fc25                   updates 211 k
+ perl-Pod-Usage            noarch 4:1.69-1.fc25                   fedora   33 k
+ perl-Scalar-List-Utils    x86_64 3:1.48-1.fc25                   updates  65 k
+ perl-Socket               x86_64 4:2.024-1.fc25                  fedora   56 k
+ perl-Term-ANSIColor       noarch 4.05-2.fc25                     fedora   45 k
+ perl-Term-Cap             noarch 1.17-365.fc25                   fedora   22 k
+ perl-Text-ParseWords      noarch 3.30-365.fc25                   fedora   17 k
+ perl-Text-Tabs+Wrap       noarch 2013.0523-365.fc25              fedora   23 k
+ perl-Time-Local           noarch 1:1.250-1.fc25                  updates  30 k
+ perl-URI                  noarch 1.71-5.fc25                     fedora  115 k
+ perl-Unicode-Normalize    x86_64 1.25-365.fc25                   fedora   81 k
+ perl-constant             noarch 1.33-367.fc25                   fedora   24 k
+ perl-libnet               noarch 3.11-1.fc25                     updates 119 k
+ perl-libs                 x86_64 4:5.24.3-389.fc25               updates 1.5 M
+ perl-macros               x86_64 4:5.24.3-389.fc25               updates  64 k
+ perl-parent               noarch 1:0.236-1.fc25                  fedora   18 k
+ perl-podlators            noarch 4.09-1.fc25                     updates 114 k
+ perl-srpm-macros          noarch 1-20.fc25                       fedora   10 k
+ perl-threads              x86_64 1:2.16-1.fc25                   updates  58 k
+ perl-threads-shared       x86_64 1.57-1.fc25                     updates  45 k
+ pigz                      x86_64 2.3.4-1.fc25                    updates  85 k
+ procps-ng                 x86_64 3.3.10-11.fc24                  fedora  389 k
+ pyOpenSSL                 noarch 16.2.0-2.fc25                   updates  87 k
+ pyliblzma                 x86_64 0.5.3-16.fc25                   fedora   54 k
+ python                    x86_64 2.7.13-3.fc25                   updates  96 k
+ python-beautifulsoup4     noarch 4.6.0-1.fc25                    updates 175 k
+ python-bugzilla           noarch 1.2.2-4.fc25                    fedora   94 k
+ python-chardet            noarch 2.3.0-1.fc25                    fedora  233 k
+ python-enum34             noarch 1.0.4-6.fc25                    fedora   57 k
+ python-ipaddress          noarch 1.0.16-3.fc25                   fedora   39 k
+ python-kitchen            noarch 1.2.4-2.fc24                    fedora  121 k
+ python-krbV               x86_64 1.0.90-12.fc25                  fedora   58 k
+ python-libs               x86_64 2.7.13-3.fc25                   updates 6.2 M
+ python-lockfile           noarch 1:0.11.0-4.fc25                 fedora   36 k
+ python-magic              noarch 5.29-9.fc25                     updates  40 k
+ python-munch              noarch 2.0.4-3.fc25                    fedora   19 k
+ python-offtrac            noarch 0.1.0-7.fc25                    fedora   20 k
+ python-pip                noarch 8.1.2-2.fc25                    fedora  1.7 M
+ python-pycparser          noarch 2.14-7.fc25                     fedora  109 k
+ python-rpm-macros         noarch 3-12.fc25                       updates 8.8 k
+ python-six                noarch 1.10.0-3.fc25                   fedora   35 k
+ python-srpm-macros        noarch 3-12.fc25                       updates 8.5 k
+ python-urlgrabber         noarch 3.10.1-9.fc25                   fedora  112 k
+ python2-GitPython         noarch 2.1.5-1.fc25                    updates 557 k
+ python2-asn1crypto        noarch 0.22.0-2.fc25                   updates 173 k
+ python2-cccolutils        x86_64 1.4-1.fc25                      updates  18 k
+ python2-cffi              x86_64 1.7.0-2.fc25                    fedora  221 k
+ python2-cryptography      x86_64 2.0.2-2.fc25                    updates 508 k
+ python2-cssselect         noarch 0.9.2-1.fc25                    fedora   39 k
+ python2-dateutil          noarch 1:2.6.0-1.fc25                  updates 248 k
+ python2-dnf               noarch 1.1.10-6.fc25                   updates 445 k
+ python2-fedora            noarch 0.9.0-6.fc25                    updates 349 k
+ python2-gitdb             noarch 2.0.2-1.fc25                    updates 111 k
+ python2-hawkey            x86_64 0.6.4-3.fc25                    updates  46 k
+ python2-idna              noarch 2.5-1.fc25                      updates  98 k
+ python2-iniparse          noarch 0.4-20.fc25                     fedora   46 k
+ python2-kerberos          x86_64 1.2.5-1.fc25                    fedora   32 k
+ python2-koji              noarch 1.14.0-1.fc25                   updates 288 k
+ python2-libcomps          x86_64 0.1.7-5.fc25                    fedora   47 k
+ python2-librepo           x86_64 1.7.18-3.fc25                   fedora   57 k
+ python2-lxml              x86_64 4.1.1-1.fc25                    updates 1.4 M
+ python2-openidc-client    noarch 0-3.20170523git77cb3ee.fc25     updates  21 k
+ python2-ply               noarch 3.8-2.fc25                      fedora  107 k
+ python2-pycurl            x86_64 7.43.0-6.fc25                   updates 241 k
+ python2-pygpgme           x86_64 0.3-18.fc25                     fedora   90 k
+ python2-pysocks           noarch 1.6.7-1.fc25                    updates  32 k
+ python2-requests          noarch 2.10.0-4.fc25                   fedora  107 k
+ python2-requests-kerberos noarch 0.10.0-2.fc25                   fedora   25 k
+ python2-rpkg              noarch 1.51-2.fc25                     updates 155 k
+ python2-rpm               x86_64 4.13.0.2-1.fc25                 updates 106 k
+ python2-setuptools        noarch 25.1.1-1.fc25                   fedora  506 k
+ python2-smmap             noarch 2.0.3-1.fc25                    updates  48 k
+ python2-urllib3           noarch 1.15.1-3.fc25                   fedora  128 k
+ python2-yubico            noarch 1.3.2-7.fc25                    updates  60 k
+ python3-asn1crypto        noarch 0.22.0-2.fc25                   updates 178 k
+ python3-cffi              x86_64 1.7.0-2.fc25                    fedora  225 k
+ python3-chardet           noarch 2.3.0-1.fc25                    fedora  244 k
+ python3-cryptography      x86_64 2.0.2-2.fc25                    updates 515 k
+ python3-dateutil          noarch 1:2.6.0-1.fc25                  updates 249 k
+ python3-devel             x86_64 3.5.4-2.fc25                    updates 204 k
+ python3-distro            noarch 1.0.3-1.fc25                    updates  31 k
+ python3-dnf-plugins-core  noarch 0.1.21-5.fc25                   updates  69 k
+ python3-enchant           noarch 1.6.8-1.fc25                    updates 109 k
+ python3-idna              noarch 2.5-1.fc25                      updates  96 k
+ python3-kerberos          x86_64 1.2.5-1.fc25                    fedora   32 k
+ python3-koji              noarch 1.14.0-1.fc25                   updates 225 k
+ python3-magic             noarch 5.29-9.fc25                     updates  41 k
+ python3-ply               noarch 3.8-2.fc25                      fedora  108 k
+ python3-pyOpenSSL         noarch 16.2.0-2.fc25                   updates  89 k
+ python3-pycparser         noarch 2.14-7.fc25                     fedora  101 k
+ python3-pycurl            x86_64 7.43.0-6.fc25                   updates 241 k
+ python3-pyroute2          noarch 0.4.13-1.fc25                   updates 360 k
+ python3-pysocks           noarch 1.6.7-1.fc25                    updates  33 k
+ python3-requests          noarch 2.10.0-4.fc25                   fedora  110 k
+ python3-requests-kerberos noarch 0.10.0-2.fc25                   fedora   25 k
+ python3-rpm-macros        noarch 3-12.fc25                       updates 8.2 k
+ python3-urllib3           noarch 1.15.1-3.fc25                   fedora  136 k
+ pyusb                     noarch 1.0.0-2.fc25                    fedora   85 k
+ pyxattr                   x86_64 0.5.3-8.fc25                    fedora   34 k
+ qt5-srpm-macros           noarch 5.7.1-1.fc25                    updates 7.9 k
+ redhat-rpm-config         noarch 45-1.fc25                       updates  60 k
+ rpm-build                 x86_64 4.13.0.2-1.fc25                 updates 147 k
+ rpmdevtools               noarch 8.9-1.fc25                      fedora  105 k
+ rpmlint                   noarch 1.10-5.fc25                     updates 257 k
+ rsync                     x86_64 3.1.2-4.fc25                    updates 392 k
+ systemd-container         x86_64 231-19.fc25                     updates 412 k
+ unzip                     x86_64 6.0-32.fc25                     updates 184 k
+ usermode                  x86_64 1.111-8.fc24                    fedora  197 k
+ vim-common                x86_64 2:8.0.1171-1.fc25               updates 6.3 M
+ vim-enhanced              x86_64 2:8.0.1171-1.fc25               updates 1.3 M
+ vim-filesystem            x86_64 2:8.0.1171-1.fc25               updates  38 k
+ which                     x86_64 2.21-1.fc25                     fedora   46 k
+ xemacs-filesystem         noarch 21.5.34-20.20170124hgf412e9f093d4.fc25
+                                                                  updates  21 k
+ xz                        x86_64 5.2.2-2.fc24                    fedora  148 k
+ ykpers                    x86_64 1.18.0-2.fc25                   updates 105 k
+ yum                       noarch 3.4.3-510.fc25                  fedora  1.2 M
+ yum-metadata-parser       x86_64 1.1.4-17.fc25                   fedora   39 k
+ zip                       x86_64 3.0-16.fc24                     fedora  272 k
+
+Transaction Summary
+================================================================================
+Install  198 Packages
+
+Total download size: 69 M
+Installed size: 252 M
+Downloading Packages:
+--------------------------------------------------------------------------------
+Total                                           5.1 MB/s |  69 MB     00:13
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Installing  : python-libs-2.7.13-3.fc25.x86_64                          1/198
+  Installing  : perl-Exporter-5.72-366.fc25.noarch                        2/198
+  Installing  : perl-libs-4:5.24.3-389.fc25.x86_64                        3/198
+  Installing  : perl-Carp-1.40-365.fc25.noarch                            4/198
+  Installing  : python-2.7.13-3.fc25.x86_64                               5/198
+  Installing  : python2-setuptools-25.1.1-1.fc25.noarch                   6/198
+  Installing  : python-pip-8.1.2-2.fc25.noarch                            7/198
+  Installing  : python-six-1.10.0-3.fc25.noarch                           8/198
+  Installing  : perl-Scalar-List-Utils-3:1.48-1.fc25.x86_64               9/198
+  Installing  : libstdc++-6.4.1-1.fc25.x86_64                            10/198
+  Installing  : hunspell-en-US-0.20140811.1-5.fc24.noarch                11/198
+  Installing  : hunspell-1.4.1-2.fc25.x86_64                             12/198
+  Installing  : python2-pycurl-7.43.0-6.fc25.x86_64                      13/198
+  Installing  : python2-rpm-4.13.0.2-1.fc25.x86_64                       14/198
+  Installing  : file-5.29-9.fc25.x86_64                                  15/198
+  Installing  : fipscheck-1.4.1-11.fc25.x86_64                           16/198
+  Installing  : fipscheck-lib-1.4.1-11.fc25.x86_64                       17/198
+  Installing  : cpio-2.12-3.fc24.x86_64                                  18/198
+  Installing  : groff-base-1.22.3-9.fc25.x86_64                          19/198
+  Installing  : python2-iniparse-0.4-20.fc25.noarch                      20/198
+  Installing  : python-chardet-2.3.0-1.fc25.noarch                       21/198
+  Installing  : python-kitchen-1.2.4-2.fc24.noarch                       22/198
+  Installing  : perl-Text-ParseWords-3.30-365.fc25.noarch                23/198
+  Installing  : python2-libcomps-0.1.7-5.fc25.x86_64                     24/198
+  Installing  : pyliblzma-0.5.3-16.fc25.x86_64                           25/198
+  Installing  : python2-pygpgme-0.3-18.fc25.x86_64                       26/198
+  Installing  : libuser-0.62-4.fc25.x86_64                               27/198
+  Installing  : drpm-0.3.0-3.fc25.x86_64                                 28/198
+  Installing  : python-srpm-macros-3-12.fc25.noarch                      29/198
+  Installing  : unzip-6.0-32.fc25.x86_64                                 30/198
+  Installing  : bzip2-1.0.6-21.fc25.x86_64                               31/198
+  Installing  : xz-5.2.2-2.fc24.x86_64                                   32/198
+  Installing  : binutils-2.26.1-1.fc25.x86_64                            33/198
+  Installing  : findutils-1:4.6.0-8.fc25.x86_64                          34/198
+  Installing  : zip-3.0-16.fc24.x86_64                                   35/198
+  Installing  : python-rpm-macros-3-12.fc25.noarch                       36/198
+  Installing  : createrepo_c-libs-0.10.0-6.fc25.x86_64                   37/198
+  Installing  : createrepo_c-0.10.0-6.fc25.x86_64                        38/198
+  Installing  : passwd-0.79-8.fc24.x86_64                                39/198
+  Installing  : usermode-1.111-8.fc24.x86_64                             40/198
+  Installing  : openssh-7.4p1-5.fc25.x86_64                              41/198
+  Installing  : python-magic-5.29-9.fc25.noarch                          42/198
+  Installing  : python3-magic-5.29-9.fc25.noarch                         43/198
+  Installing  : python-urlgrabber-3.10.1-9.fc25.noarch                   44/198
+  Installing  : enchant-1:1.6.0-14.fc25.x86_64                           45/198
+  Installing  : python3-enchant-1.6.8-1.fc25.noarch                      46/198
+  Installing  : hunspell-en-GB-0.20140811.1-5.fc24.noarch                47/198
+  Installing  : elfutils-0.169-1.fc25.x86_64                             48/198
+  Installing  : python2-dateutil-1:2.6.0-1.fc25.noarch                   49/198
+  Installing  : perl-Term-ANSIColor-4.05-2.fc25.noarch                   50/198
+  Installing  : perl-macros-4:5.24.3-389.fc25.x86_64                     51/198
+  Installing  : perl-Socket-4:2.024-1.fc25.x86_64                        52/198
+  Installing  : perl-Errno-1.25-389.fc25.x86_64                          53/198
+  Installing  : perl-constant-1.33-367.fc25.noarch                       54/198
+  Installing  : perl-parent-1:0.236-1.fc25.noarch                        55/198
+  Installing  : perl-Text-Tabs+Wrap-2013.0523-365.fc25.noarch            56/198
+  Installing  : perl-Unicode-Normalize-1.25-365.fc25.x86_64              57/198
+  Installing  : perl-IO-1.36-389.fc25.x86_64                             58/198
+  Installing  : perl-threads-shared-1.57-1.fc25.x86_64                   59/198
+  Installing  : perl-threads-1:2.16-1.fc25.x86_64                        60/198
+  Installing  : perl-File-Path-2.12-366.fc25.noarch                      61/198
+  Installing  : perl-PathTools-3.63-366.fc25.x86_64                      62/198
+  Installing  : perl-4:5.24.3-389.fc25.x86_64                            63/198
+  Installing  : perl-MIME-Base64-3.15-365.fc25.x86_64                    64/198
+  Installing  : perl-File-Temp-0.23.04-365.fc25.noarch                   65/198
+  Installing  : perl-IO-Socket-IP-0.39-1.fc25.noarch                     66/198
+  Installing  : perl-Time-Local-1:1.250-1.fc25.noarch                    67/198
+  Installing  : perl-HTTP-Tiny-0.070-1.fc25.noarch                       68/198
+  Installing  : perl-libnet-3.11-1.fc25.noarch                           69/198
+  Installing  : perl-Net-SSLeay-1.78-1.fc25.x86_64                       70/198
+  Installing  : perl-Term-Cap-1.17-365.fc25.noarch                       71/198
+  Installing  : perl-Pod-Escapes-1:1.07-365.fc25.noarch                  72/198
+  Installing  : perl-Encode-4:2.88-5.fc25.x86_64                         73/198
+  Installing  : perl-Pod-Simple-1:3.35-1.fc25.noarch                     74/198
+  Installing  : perl-Getopt-Long-2.49.1-1.fc25.noarch                    75/198
+  Installing  : perl-podlators-4.09-1.fc25.noarch                        76/198
+  Installing  : perl-Pod-Perldoc-3.28-1.fc25.noarch                      77/198
+  Installing  : perl-Pod-Usage-4:1.69-1.fc25.noarch                      78/198
+  Installing  : perl-Data-Dumper-2.161-1.fc25.x86_64                     79/198
+  Installing  : perl-URI-1.71-5.fc25.noarch                              80/198
+  Installing  : python-offtrac-0.1.0-7.fc25.noarch                       81/198
+  Installing  : python-krbV-1.0.90-12.fc25.x86_64                        82/198
+  Installing  : python2-kerberos-1.2.5-1.fc25.x86_64                     83/198
+  Installing  : python2-pysocks-1.6.7-1.fc25.noarch                      84/198
+  Installing  : python2-urllib3-1.15.1-3.fc25.noarch                     85/198
+  Installing  : python2-requests-2.10.0-4.fc25.noarch                    86/198
+  Installing  : python2-openidc-client-0-3.20170523git77cb3ee.fc25.no    87/198
+  Installing  : python2-requests-kerberos-0.10.0-2.fc25.noarch           88/198
+  Installing  : python-bugzilla-1.2.2-4.fc25.noarch                      89/198
+  Installing  : python2-asn1crypto-0.22.0-2.fc25.noarch                  90/198
+  Installing  : python2-idna-2.5-1.fc25.noarch                           91/198
+  Installing  : python-enum34-1.0.4-6.fc25.noarch                        92/198
+  Installing  : python-ipaddress-1.0.16-3.fc25.noarch                    93/198
+  Installing  : python2-ply-3.8-2.fc25.noarch                            94/198
+  Installing  : python-pycparser-2.14-7.fc25.noarch                      95/198
+  Installing  : python2-cffi-1.7.0-2.fc25.x86_64                         96/198
+  Installing  : python2-hawkey-0.6.4-3.fc25.x86_64                       97/198
+  Installing  : python2-librepo-1.7.18-3.fc25.x86_64                     98/198
+  Installing  : python2-dnf-1.1.10-6.fc25.noarch                         99/198
+  Installing  : pyxattr-0.5.3-8.fc25.x86_64                             100/198
+  Installing  : yum-metadata-parser-1.1.4-17.fc25.x86_64                101/198
+  Installing  : yum-3.4.3-510.fc25.noarch                               102/198
+  Installing  : python-lockfile-1:0.11.0-4.fc25.noarch                  103/198
+  Installing  : python-munch-2.0.4-3.fc25.noarch                        104/198
+  Installing  : python2-cccolutils-1.4-1.fc25.x86_64                    105/198
+  Installing  : pyusb-1.0.0-2.fc25.noarch                               106/198
+  Installing  : python2-yubico-1.3.2-7.fc25.noarch                      107/198
+  Installing  : python2-smmap-2.0.3-1.fc25.noarch                       108/198
+  Installing  : python2-gitdb-2.0.2-1.fc25.noarch                       109/198
+  Installing  : rsync-3.1.2-4.fc25.x86_64                               110/198
+  Installing  : less-481-7.fc25.x86_64                                  111/198
+  Installing  : procps-ng-3.3.10-11.fc24.x86_64                         112/198
+  Installing  : systemd-container-231-19.fc25.x86_64                    113/198
+  Installing  : python3-pyroute2-0.4.13-1.fc25.noarch                   114/198
+  Installing  : python3-distro-1.0.3-1.fc25.noarch                      115/198
+  Installing  : pigz-2.3.4-1.fc25.x86_64                                116/198
+  Installing  : python3-dnf-plugins-core-0.1.21-5.fc25.noarch           117/198
+  Installing  : dnf-plugins-core-0.1.21-5.fc25.noarch                   118/198
+  Installing  : libxslt-1.1.28-13.fc25.x86_64                           119/198
+  Installing  : python2-lxml-4.1.1-1.fc25.x86_64                        120/198
+  Installing  : python-beautifulsoup4-4.6.0-1.fc25.noarch               121/198
+  Installing  : python2-fedora-0.9.0-6.fc25.noarch                      122/198
+  Installing  : libgnome-keyring-3.12.0-7.fc25.x86_64                   123/198
+  Installing  : desktop-file-utils-0.23-2.fc25.x86_64                   124/198
+  Installing  : rpmlint-1.10-5.fc25.noarch                              125/198
+  Installing  : libyubikey-1.13-2.fc24.x86_64                           126/198
+  Installing  : ykpers-1.18.0-2.fc25.x86_64                             127/198
+  Installing  : libedit-3.1-16.20160618cvs.fc25.x86_64                  128/198
+  Installing  : openssh-clients-7.4p1-5.fc25.x86_64                     129/198
+  Installing  : git-core-2.9.5-3.fc25.x86_64                            130/198
+  Installing  : python2-GitPython-2.1.5-1.fc25.noarch                   131/198
+  Installing  : distribution-gpg-keys-1.15-1.fc25.noarch                132/198
+  Installing  : mock-core-configs-27.4-1.fc25.noarch                    133/198
+  Installing  : python3-pycurl-7.43.0-6.fc25.x86_64                     134/198
+  Installing  : python3-rpm-macros-3-12.fc25.noarch                     135/198
+  Installing  : python3-dateutil-1:2.6.0-1.fc25.noarch                  136/198
+  Installing  : qt5-srpm-macros-5.7.1-1.fc25.noarch                     137/198
+  Installing  : perl-srpm-macros-1-20.fc25.noarch                       138/198
+  Installing  : ocaml-srpm-macros-2-4.fc24.noarch                       139/198
+  Installing  : go-srpm-macros-2-7.fc25.noarch                          140/198
+  Installing  : gnat-srpm-macros-4-1.fc25.noarch                        141/198
+  Installing  : ghc-srpm-macros-1.4.2-4.fc25.noarch                     142/198
+  Installing  : fpc-srpm-macros-1.0-1.fc25.noarch                       143/198
+  Installing  : dwz-0.12-2.fc24.x86_64                                  144/198
+  Installing  : redhat-rpm-config-45-1.fc25.noarch                      145/198
+  Installing  : libipt-1.5-1.fc25.x86_64                                146/198
+  Installing  : libbabeltrace-1.4.0-3.fc25.x86_64                       147/198
+  Installing  : vim-filesystem-2:8.0.1171-1.fc25.x86_64                 148/198
+  Installing  : vim-common-2:8.0.1171-1.fc25.x86_64                     149/198
+  Installing  : fakeroot-libs-1.20.2-4.fc24.x86_64                      150/198
+  Installing  : fakeroot-1.20.2-4.fc24.x86_64                           151/198
+  Installing  : libtool-ltdl-2.4.6-14.fc25.x86_64                       152/198
+  Installing  : python3-pysocks-1.6.7-1.fc25.noarch                     153/198
+  Installing  : python3-urllib3-1.15.1-3.fc25.noarch                    154/198
+  Installing  : xemacs-filesystem-21.5.34-20.20170124hgf412e9f093d4.f   155/198
+  Installing  : patch-2.7.5-3.fc24.x86_64                               156/198
+  Installing  : libkadm5-1.14.4-9.fc25.x86_64                           157/198
+  Installing  : krb5-workstation-1.14.4-9.fc25.x86_64                   158/198
+  Installing  : which-2.21-1.fc25.x86_64                                159/198
+  Installing  : gpm-libs-1.20.7-9.fc24.x86_64                           160/198
+  Installing  : python3-ply-3.8-2.fc25.noarch                           161/198
+  Installing  : python3-pycparser-2.14-7.fc25.noarch                    162/198
+  Installing  : python3-cffi-1.7.0-2.fc25.x86_64                        163/198
+  Installing  : python3-idna-2.5-1.fc25.noarch                          164/198
+  Installing  : python3-asn1crypto-0.22.0-2.fc25.noarch                 165/198
+  Installing  : libatomic_ops-7.4.4-1.fc25.x86_64                       166/198
+  Installing  : gc-7.4.4-1.fc25.x86_64                                  167/198
+  Installing  : guile-5:2.0.13-1.fc25.x86_64                            168/198
+  Installing  : make-1:4.1-6.fc25.x86_64                                169/198
+  Installing  : openssl-1:1.0.2m-1.fc25.x86_64                          170/198
+  Installing  : python3-cryptography-2.0.2-2.fc25.x86_64                171/198
+  Installing  : python3-pyOpenSSL-16.2.0-2.fc25.noarch                  172/198
+  Installing  : python2-cryptography-2.0.2-2.fc25.x86_64                173/198
+  Installing  : pyOpenSSL-16.2.0-2.fc25.noarch                          174/198
+  Installing  : fedora-cert-0.6.0.1-1.fc25.noarch                       175/198
+  Installing  : python2-koji-1.14.0-1.fc25.noarch                       176/198
+  Installing  : gdb-headless-7.12.1-48.fc25.x86_64                      177/198
+  Installing  : rpm-build-4.13.0.2-1.fc25.x86_64                        178/198
+  Installing  : rpmdevtools-8.9-1.fc25.noarch                           179/198
+  Installing  : python3-kerberos-1.2.5-1.fc25.x86_64                    180/198
+  Installing  : python3-chardet-2.3.0-1.fc25.noarch                     181/198
+  Installing  : python3-requests-2.10.0-4.fc25.noarch                   182/198
+  Installing  : mock-1.4.7-2.fc25.noarch                                183/198
+  Installing  : python2-rpkg-1.51-2.fc25.noarch                         184/198
+  Installing  : python3-requests-kerberos-0.10.0-2.fc25.noarch          185/198
+  Installing  : python3-koji-1.14.0-1.fc25.noarch                       186/198
+  Installing  : koji-1.14.0-1.fc25.noarch                               187/198
+  Installing  : bodhi-client-0.9.12.2-6.fc25.noarch                     188/198
+  Installing  : packagedb-cli-2.14.1-1.fc25.noarch                      189/198
+  Installing  : fedpkg-1.30-4.fc25.noarch                               190/198
+  Installing  : fedora-packager-0.6.0.1-1.fc25.noarch                   191/198
+  Installing  : perl-IO-Socket-SSL-2.038-1.fc25.noarch                  192/198
+  Installing  : vim-enhanced-2:8.0.1171-1.fc25.x86_64                   193/198
+  Installing  : python3-devel-3.5.4-2.fc25.x86_64                       194/198
+  Installing  : perl-Mozilla-CA-20160104-3.fc25.noarch                  195/198
+  Installing  : hunspell-en-0.20140811.1-5.fc24.noarch                  196/198
+  Installing  : python2-cssselect-0.9.2-1.fc25.noarch                   197/198
+  Installing  : btrfs-progs-4.6.1-1.fc25.x86_64                         198/198Failed to connect to bus: No such file or directory
+
+  Verifying   : fedora-packager-0.6.0.1-1.fc25.noarch                     1/198
+  Verifying   : python3-requests-2.10.0-4.fc25.noarch                     2/198
+  Verifying   : fedora-cert-0.6.0.1-1.fc25.noarch                         3/198
+  Verifying   : koji-1.14.0-1.fc25.noarch                                 4/198
+  Verifying   : python-offtrac-0.1.0-7.fc25.noarch                        5/198
+  Verifying   : rpmdevtools-8.9-1.fc25.noarch                             6/198
+  Verifying   : python3-chardet-2.3.0-1.fc25.noarch                       7/198
+  Verifying   : python3-urllib3-1.15.1-3.fc25.noarch                      8/198
+  Verifying   : python2-koji-1.14.0-1.fc25.noarch                         9/198
+  Verifying   : python2-pycurl-7.43.0-6.fc25.x86_64                      10/198
+  Verifying   : python3-koji-1.14.0-1.fc25.noarch                        11/198
+  Verifying   : python2-libcomps-0.1.7-5.fc25.x86_64                     12/198
+  Verifying   : fakeroot-1.20.2-4.fc24.x86_64                            13/198
+  Verifying   : findutils-1:4.6.0-8.fc25.x86_64                          14/198
+  Verifying   : perl-File-Temp-0.23.04-365.fc25.noarch                   15/198
+  Verifying   : perl-Getopt-Long-2.49.1-1.fc25.noarch                    16/198
+  Verifying   : perl-PathTools-3.63-366.fc25.x86_64                      17/198
+  Verifying   : python-krbV-1.0.90-12.fc25.x86_64                        18/198
+  Verifying   : python-six-1.10.0-3.fc25.noarch                          19/198
+  Verifying   : python2-requests-2.10.0-4.fc25.noarch                    20/198
+  Verifying   : python2-requests-kerberos-0.10.0-2.fc25.noarch           21/198
+  Verifying   : python3-requests-kerberos-0.10.0-2.fc25.noarch           22/198
+  Verifying   : perl-Carp-1.40-365.fc25.noarch                           23/198
+  Verifying   : perl-Exporter-5.72-366.fc25.noarch                       24/198
+  Verifying   : perl-constant-1.33-367.fc25.noarch                       25/198
+  Verifying   : perl-parent-1:0.236-1.fc25.noarch                        26/198
+  Verifying   : perl-Pod-Usage-4:1.69-1.fc25.noarch                      27/198
+  Verifying   : perl-Text-ParseWords-3.30-365.fc25.noarch                28/198
+  Verifying   : python-chardet-2.3.0-1.fc25.noarch                       29/198
+  Verifying   : python2-urllib3-1.15.1-3.fc25.noarch                     30/198
+  Verifying   : python2-kerberos-1.2.5-1.fc25.x86_64                     31/198
+  Verifying   : python3-kerberos-1.2.5-1.fc25.x86_64                     32/198
+  Verifying   : make-1:4.1-6.fc25.x86_64                                 33/198
+  Verifying   : gc-7.4.4-1.fc25.x86_64                                   34/198
+  Verifying   : guile-5:2.0.13-1.fc25.x86_64                             35/198
+  Verifying   : libatomic_ops-7.4.4-1.fc25.x86_64                        36/198
+  Verifying   : python3-cryptography-2.0.2-2.fc25.x86_64                 37/198
+  Verifying   : python3-asn1crypto-0.22.0-2.fc25.noarch                  38/198
+  Verifying   : python3-idna-2.5-1.fc25.noarch                           39/198
+  Verifying   : python3-cffi-1.7.0-2.fc25.x86_64                         40/198
+  Verifying   : python3-pycparser-2.14-7.fc25.noarch                     41/198
+  Verifying   : python3-ply-3.8-2.fc25.noarch                            42/198
+  Verifying   : python3-devel-3.5.4-2.fc25.x86_64                        43/198
+  Verifying   : vim-enhanced-2:8.0.1171-1.fc25.x86_64                    44/198
+  Verifying   : vim-common-2:8.0.1171-1.fc25.x86_64                      45/198
+  Verifying   : gpm-libs-1.20.7-9.fc24.x86_64                            46/198
+  Verifying   : which-2.21-1.fc25.x86_64                                 47/198
+  Verifying   : file-5.29-9.fc25.x86_64                                  48/198
+  Verifying   : krb5-workstation-1.14.4-9.fc25.x86_64                    49/198
+  Verifying   : libkadm5-1.14.4-9.fc25.x86_64                            50/198
+  Verifying   : openssl-1:1.0.2m-1.fc25.x86_64                           51/198
+  Verifying   : python2-rpm-4.13.0.2-1.fc25.x86_64                       52/198
+  Verifying   : rpm-build-4.13.0.2-1.fc25.x86_64                         53/198
+  Verifying   : elfutils-0.169-1.fc25.x86_64                             54/198
+  Verifying   : binutils-2.26.1-1.fc25.x86_64                            55/198
+  Verifying   : cpio-2.12-3.fc24.x86_64                                  56/198
+  Verifying   : patch-2.7.5-3.fc24.x86_64                                57/198
+  Verifying   : xz-5.2.2-2.fc24.x86_64                                   58/198
+  Verifying   : perl-4:5.24.3-389.fc25.x86_64                            59/198
+  Verifying   : perl-libs-4:5.24.3-389.fc25.x86_64                       60/198
+  Verifying   : perl-Text-Tabs+Wrap-2013.0523-365.fc25.noarch            61/198
+  Verifying   : perl-Unicode-Normalize-1.25-365.fc25.x86_64              62/198
+  Verifying   : xemacs-filesystem-21.5.34-20.20170124hgf412e9f093d4.f    63/198
+  Verifying   : python3-pysocks-1.6.7-1.fc25.noarch                      64/198
+  Verifying   : python2-pysocks-1.6.7-1.fc25.noarch                      65/198
+  Verifying   : python-libs-2.7.13-3.fc25.x86_64                         66/198
+  Verifying   : python-2.7.13-3.fc25.x86_64                              67/198
+  Verifying   : python-pip-8.1.2-2.fc25.noarch                           68/198
+  Verifying   : python2-setuptools-25.1.1-1.fc25.noarch                  69/198
+  Verifying   : perl-Pod-Perldoc-3.28-1.fc25.noarch                      70/198
+  Verifying   : perl-HTTP-Tiny-0.070-1.fc25.noarch                       71/198
+  Verifying   : perl-MIME-Base64-3.15-365.fc25.x86_64                    72/198
+  Verifying   : perl-Socket-4:2.024-1.fc25.x86_64                        73/198
+  Verifying   : perl-podlators-4.09-1.fc25.noarch                        74/198
+  Verifying   : perl-Term-ANSIColor-4.05-2.fc25.noarch                   75/198
+  Verifying   : perl-Term-Cap-1.17-365.fc25.noarch                       76/198
+  Verifying   : perl-Scalar-List-Utils-3:1.48-1.fc25.x86_64              77/198
+  Verifying   : perl-Errno-1.25-389.fc25.x86_64                          78/198
+  Verifying   : perl-IO-1.36-389.fc25.x86_64                             79/198
+  Verifying   : perl-Time-Local-1:1.250-1.fc25.noarch                    80/198
+  Verifying   : perl-File-Path-2.12-366.fc25.noarch                      81/198
+  Verifying   : libtool-ltdl-2.4.6-14.fc25.x86_64                        82/198
+  Verifying   : libstdc++-6.4.1-1.fc25.x86_64                            83/198
+  Verifying   : fakeroot-libs-1.20.2-4.fc24.x86_64                       84/198
+  Verifying   : vim-filesystem-2:8.0.1171-1.fc25.x86_64                  85/198
+  Verifying   : bzip2-1.0.6-21.fc25.x86_64                               86/198
+  Verifying   : gdb-headless-7.12.1-48.fc25.x86_64                       87/198
+  Verifying   : libbabeltrace-1.4.0-3.fc25.x86_64                        88/198
+  Verifying   : libipt-1.5-1.fc25.x86_64                                 89/198
+  Verifying   : redhat-rpm-config-45-1.fc25.noarch                       90/198
+  Verifying   : dwz-0.12-2.fc24.x86_64                                   91/198
+  Verifying   : fpc-srpm-macros-1.0-1.fc25.noarch                        92/198
+  Verifying   : ghc-srpm-macros-1.4.2-4.fc25.noarch                      93/198
+  Verifying   : gnat-srpm-macros-4-1.fc25.noarch                         94/198
+  Verifying   : go-srpm-macros-2-7.fc25.noarch                           95/198
+  Verifying   : ocaml-srpm-macros-2-4.fc24.noarch                        96/198
+  Verifying   : perl-srpm-macros-1-20.fc25.noarch                        97/198
+  Verifying   : zip-3.0-16.fc24.x86_64                                   98/198
+  Verifying   : unzip-6.0-32.fc25.x86_64                                 99/198
+  Verifying   : python-srpm-macros-3-12.fc25.noarch                     100/198
+  Verifying   : qt5-srpm-macros-5.7.1-1.fc25.noarch                     101/198
+  Verifying   : python3-dateutil-1:2.6.0-1.fc25.noarch                  102/198
+  Verifying   : python3-pyOpenSSL-16.2.0-2.fc25.noarch                  103/198
+  Verifying   : python-rpm-macros-3-12.fc25.noarch                      104/198
+  Verifying   : python3-rpm-macros-3-12.fc25.noarch                     105/198
+  Verifying   : pyOpenSSL-16.2.0-2.fc25.noarch                          106/198
+  Verifying   : python2-dateutil-1:2.6.0-1.fc25.noarch                  107/198
+  Verifying   : python2-cryptography-2.0.2-2.fc25.x86_64                108/198
+  Verifying   : python2-asn1crypto-0.22.0-2.fc25.noarch                 109/198
+  Verifying   : python2-idna-2.5-1.fc25.noarch                          110/198
+  Verifying   : python-enum34-1.0.4-6.fc25.noarch                       111/198
+  Verifying   : python-ipaddress-1.0.16-3.fc25.noarch                   112/198
+  Verifying   : python2-cffi-1.7.0-2.fc25.x86_64                        113/198
+  Verifying   : python-pycparser-2.14-7.fc25.noarch                     114/198
+  Verifying   : python2-ply-3.8-2.fc25.noarch                           115/198
+  Verifying   : perl-Encode-4:2.88-5.fc25.x86_64                        116/198
+  Verifying   : perl-Pod-Simple-1:3.35-1.fc25.noarch                    117/198
+  Verifying   : perl-Pod-Escapes-1:1.07-365.fc25.noarch                 118/198
+  Verifying   : groff-base-1.22.3-9.fc25.x86_64                         119/198
+  Verifying   : perl-macros-4:5.24.3-389.fc25.x86_64                    120/198
+  Verifying   : perl-threads-1:2.16-1.fc25.x86_64                       121/198
+  Verifying   : perl-threads-shared-1.57-1.fc25.x86_64                  122/198
+  Verifying   : python3-pycurl-7.43.0-6.fc25.x86_64                     123/198
+  Verifying   : bodhi-client-0.9.12.2-6.fc25.noarch                     124/198
+  Verifying   : python2-dnf-1.1.10-6.fc25.noarch                        125/198
+  Verifying   : python-kitchen-1.2.4-2.fc24.noarch                      126/198
+  Verifying   : yum-3.4.3-510.fc25.noarch                               127/198
+  Verifying   : python2-hawkey-0.6.4-3.fc25.x86_64                      128/198
+  Verifying   : pyliblzma-0.5.3-16.fc25.x86_64                          129/198
+  Verifying   : python2-iniparse-0.4-20.fc25.noarch                     130/198
+  Verifying   : python2-librepo-1.7.18-3.fc25.x86_64                    131/198
+  Verifying   : python2-pygpgme-0.3-18.fc25.x86_64                      132/198
+  Verifying   : python-urlgrabber-3.10.1-9.fc25.noarch                  133/198
+  Verifying   : pyxattr-0.5.3-8.fc25.x86_64                             134/198
+  Verifying   : yum-metadata-parser-1.1.4-17.fc25.x86_64                135/198
+  Verifying   : fedpkg-1.30-4.fc25.noarch                               136/198
+  Verifying   : python2-fedora-0.9.0-6.fc25.noarch                      137/198
+  Verifying   : python2-openidc-client-0-3.20170523git77cb3ee.fc25.no   138/198
+  Verifying   : python2-rpkg-1.51-2.fc25.noarch                         139/198
+  Verifying   : python-lockfile-1:0.11.0-4.fc25.noarch                  140/198
+  Verifying   : python-munch-2.0.4-3.fc25.noarch                        141/198
+  Verifying   : python2-cccolutils-1.4-1.fc25.x86_64                    142/198
+  Verifying   : mock-1.4.7-2.fc25.noarch                                143/198
+  Verifying   : mock-core-configs-27.4-1.fc25.noarch                    144/198
+  Verifying   : createrepo_c-0.10.0-6.fc25.x86_64                       145/198
+  Verifying   : usermode-1.111-8.fc24.x86_64                            146/198
+  Verifying   : distribution-gpg-keys-1.15-1.fc25.noarch                147/198
+  Verifying   : createrepo_c-libs-0.10.0-6.fc25.x86_64                  148/198
+  Verifying   : drpm-0.3.0-3.fc25.x86_64                                149/198
+  Verifying   : libuser-0.62-4.fc25.x86_64                              150/198
+  Verifying   : passwd-0.79-8.fc24.x86_64                               151/198
+  Verifying   : openssh-clients-7.4p1-5.fc25.x86_64                     152/198
+  Verifying   : openssh-7.4p1-5.fc25.x86_64                             153/198
+  Verifying   : fipscheck-lib-1.4.1-11.fc25.x86_64                      154/198
+  Verifying   : libedit-3.1-16.20160618cvs.fc25.x86_64                  155/198
+  Verifying   : fipscheck-1.4.1-11.fc25.x86_64                          156/198
+  Verifying   : packagedb-cli-2.14.1-1.fc25.noarch                      157/198
+  Verifying   : python-bugzilla-1.2.2-4.fc25.noarch                     158/198
+  Verifying   : python-magic-5.29-9.fc25.noarch                         159/198
+  Verifying   : python2-yubico-1.3.2-7.fc25.noarch                      160/198
+  Verifying   : pyusb-1.0.0-2.fc25.noarch                               161/198
+  Verifying   : rpmlint-1.10-5.fc25.noarch                              162/198
+  Verifying   : python3-magic-5.29-9.fc25.noarch                        163/198
+  Verifying   : ykpers-1.18.0-2.fc25.x86_64                             164/198
+  Verifying   : libyubikey-1.13-2.fc24.x86_64                           165/198
+  Verifying   : desktop-file-utils-0.23-2.fc25.x86_64                   166/198
+  Verifying   : python3-enchant-1.6.8-1.fc25.noarch                     167/198
+  Verifying   : enchant-1:1.6.0-14.fc25.x86_64                          168/198
+  Verifying   : python2-GitPython-2.1.5-1.fc25.noarch                   169/198
+  Verifying   : python2-gitdb-2.0.2-1.fc25.noarch                       170/198
+  Verifying   : python2-smmap-2.0.3-1.fc25.noarch                       171/198
+  Verifying   : python-beautifulsoup4-4.6.0-1.fc25.noarch               172/198
+  Verifying   : git-core-2.9.5-3.fc25.x86_64                            173/198
+  Verifying   : libgnome-keyring-3.12.0-7.fc25.x86_64                   174/198
+  Verifying   : python2-lxml-4.1.1-1.fc25.x86_64                        175/198
+  Verifying   : libxslt-1.1.28-13.fc25.x86_64                           176/198
+  Verifying   : dnf-plugins-core-0.1.21-5.fc25.noarch                   177/198
+  Verifying   : python3-dnf-plugins-core-0.1.21-5.fc25.noarch           178/198
+  Verifying   : pigz-2.3.4-1.fc25.x86_64                                179/198
+  Verifying   : python3-distro-1.0.3-1.fc25.noarch                      180/198
+  Verifying   : python3-pyroute2-0.4.13-1.fc25.noarch                   181/198
+  Verifying   : systemd-container-231-19.fc25.x86_64                    182/198
+  Verifying   : procps-ng-3.3.10-11.fc24.x86_64                         183/198
+  Verifying   : less-481-7.fc25.x86_64                                  184/198
+  Verifying   : rsync-3.1.2-4.fc25.x86_64                               185/198
+  Verifying   : hunspell-1.4.1-2.fc25.x86_64                            186/198
+  Verifying   : hunspell-en-US-0.20140811.1-5.fc24.noarch               187/198
+  Verifying   : hunspell-en-0.20140811.1-5.fc24.noarch                  188/198
+  Verifying   : hunspell-en-GB-0.20140811.1-5.fc24.noarch               189/198
+  Verifying   : perl-Mozilla-CA-20160104-3.fc25.noarch                  190/198
+  Verifying   : perl-IO-Socket-IP-0.39-1.fc25.noarch                    191/198
+  Verifying   : perl-IO-Socket-SSL-2.038-1.fc25.noarch                  192/198
+  Verifying   : perl-Net-SSLeay-1.78-1.fc25.x86_64                      193/198
+  Verifying   : perl-URI-1.71-5.fc25.noarch                             194/198
+  Verifying   : perl-Data-Dumper-2.161-1.fc25.x86_64                    195/198
+  Verifying   : btrfs-progs-4.6.1-1.fc25.x86_64                         196/198
+  Verifying   : python2-cssselect-0.9.2-1.fc25.noarch                   197/198
+  Verifying   : perl-libnet-3.11-1.fc25.noarch                          198/198
+
+Installed:
+  binutils.x86_64 2.26.1-1.fc25
+  bodhi-client.noarch 0.9.12.2-6.fc25
+  btrfs-progs.x86_64 4.6.1-1.fc25
+  bzip2.x86_64 1.0.6-21.fc25
+  cpio.x86_64 2.12-3.fc24
+  createrepo_c.x86_64 0.10.0-6.fc25
+  createrepo_c-libs.x86_64 0.10.0-6.fc25
+  desktop-file-utils.x86_64 0.23-2.fc25
+  distribution-gpg-keys.noarch 1.15-1.fc25
+  dnf-plugins-core.noarch 0.1.21-5.fc25
+  drpm.x86_64 0.3.0-3.fc25
+  dwz.x86_64 0.12-2.fc24
+  elfutils.x86_64 0.169-1.fc25
+  enchant.x86_64 1:1.6.0-14.fc25
+  fakeroot.x86_64 1.20.2-4.fc24
+  fakeroot-libs.x86_64 1.20.2-4.fc24
+  fedora-cert.noarch 0.6.0.1-1.fc25
+  fedora-packager.noarch 0.6.0.1-1.fc25
+  fedpkg.noarch 1.30-4.fc25
+  file.x86_64 5.29-9.fc25
+  findutils.x86_64 1:4.6.0-8.fc25
+  fipscheck.x86_64 1.4.1-11.fc25
+  fipscheck-lib.x86_64 1.4.1-11.fc25
+  fpc-srpm-macros.noarch 1.0-1.fc25
+  gc.x86_64 7.4.4-1.fc25
+  gdb-headless.x86_64 7.12.1-48.fc25
+  ghc-srpm-macros.noarch 1.4.2-4.fc25
+  git-core.x86_64 2.9.5-3.fc25
+  gnat-srpm-macros.noarch 4-1.fc25
+  go-srpm-macros.noarch 2-7.fc25
+  gpm-libs.x86_64 1.20.7-9.fc24
+  groff-base.x86_64 1.22.3-9.fc25
+  guile.x86_64 5:2.0.13-1.fc25
+  hunspell.x86_64 1.4.1-2.fc25
+  hunspell-en.noarch 0.20140811.1-5.fc24
+  hunspell-en-GB.noarch 0.20140811.1-5.fc24
+  hunspell-en-US.noarch 0.20140811.1-5.fc24
+  koji.noarch 1.14.0-1.fc25
+  krb5-workstation.x86_64 1.14.4-9.fc25
+  less.x86_64 481-7.fc25
+  libatomic_ops.x86_64 7.4.4-1.fc25
+  libbabeltrace.x86_64 1.4.0-3.fc25
+  libedit.x86_64 3.1-16.20160618cvs.fc25
+  libgnome-keyring.x86_64 3.12.0-7.fc25
+  libipt.x86_64 1.5-1.fc25
+  libkadm5.x86_64 1.14.4-9.fc25
+  libstdc++.x86_64 6.4.1-1.fc25
+  libtool-ltdl.x86_64 2.4.6-14.fc25
+  libuser.x86_64 0.62-4.fc25
+  libxslt.x86_64 1.1.28-13.fc25
+  libyubikey.x86_64 1.13-2.fc24
+  make.x86_64 1:4.1-6.fc25
+  mock.noarch 1.4.7-2.fc25
+  mock-core-configs.noarch 27.4-1.fc25
+  ocaml-srpm-macros.noarch 2-4.fc24
+  openssh.x86_64 7.4p1-5.fc25
+  openssh-clients.x86_64 7.4p1-5.fc25
+  openssl.x86_64 1:1.0.2m-1.fc25
+  packagedb-cli.noarch 2.14.1-1.fc25
+  passwd.x86_64 0.79-8.fc24
+  patch.x86_64 2.7.5-3.fc24
+  perl.x86_64 4:5.24.3-389.fc25
+  perl-Carp.noarch 1.40-365.fc25
+  perl-Data-Dumper.x86_64 2.161-1.fc25
+  perl-Encode.x86_64 4:2.88-5.fc25
+  perl-Errno.x86_64 1.25-389.fc25
+  perl-Exporter.noarch 5.72-366.fc25
+  perl-File-Path.noarch 2.12-366.fc25
+  perl-File-Temp.noarch 0.23.04-365.fc25
+  perl-Getopt-Long.noarch 2.49.1-1.fc25
+  perl-HTTP-Tiny.noarch 0.070-1.fc25
+  perl-IO.x86_64 1.36-389.fc25
+  perl-IO-Socket-IP.noarch 0.39-1.fc25
+  perl-IO-Socket-SSL.noarch 2.038-1.fc25
+  perl-MIME-Base64.x86_64 3.15-365.fc25
+  perl-Mozilla-CA.noarch 20160104-3.fc25
+  perl-Net-SSLeay.x86_64 1.78-1.fc25
+  perl-PathTools.x86_64 3.63-366.fc25
+  perl-Pod-Escapes.noarch 1:1.07-365.fc25
+  perl-Pod-Perldoc.noarch 3.28-1.fc25
+  perl-Pod-Simple.noarch 1:3.35-1.fc25
+  perl-Pod-Usage.noarch 4:1.69-1.fc25
+  perl-Scalar-List-Utils.x86_64 3:1.48-1.fc25
+  perl-Socket.x86_64 4:2.024-1.fc25
+  perl-Term-ANSIColor.noarch 4.05-2.fc25
+  perl-Term-Cap.noarch 1.17-365.fc25
+  perl-Text-ParseWords.noarch 3.30-365.fc25
+  perl-Text-Tabs+Wrap.noarch 2013.0523-365.fc25
+  perl-Time-Local.noarch 1:1.250-1.fc25
+  perl-URI.noarch 1.71-5.fc25
+  perl-Unicode-Normalize.x86_64 1.25-365.fc25
+  perl-constant.noarch 1.33-367.fc25
+  perl-libnet.noarch 3.11-1.fc25
+  perl-libs.x86_64 4:5.24.3-389.fc25
+  perl-macros.x86_64 4:5.24.3-389.fc25
+  perl-parent.noarch 1:0.236-1.fc25
+  perl-podlators.noarch 4.09-1.fc25
+  perl-srpm-macros.noarch 1-20.fc25
+  perl-threads.x86_64 1:2.16-1.fc25
+  perl-threads-shared.x86_64 1.57-1.fc25
+  pigz.x86_64 2.3.4-1.fc25
+  procps-ng.x86_64 3.3.10-11.fc24
+  pyOpenSSL.noarch 16.2.0-2.fc25
+  pyliblzma.x86_64 0.5.3-16.fc25
+  python.x86_64 2.7.13-3.fc25
+  python-beautifulsoup4.noarch 4.6.0-1.fc25
+  python-bugzilla.noarch 1.2.2-4.fc25
+  python-chardet.noarch 2.3.0-1.fc25
+  python-enum34.noarch 1.0.4-6.fc25
+  python-ipaddress.noarch 1.0.16-3.fc25
+  python-kitchen.noarch 1.2.4-2.fc24
+  python-krbV.x86_64 1.0.90-12.fc25
+  python-libs.x86_64 2.7.13-3.fc25
+  python-lockfile.noarch 1:0.11.0-4.fc25
+  python-magic.noarch 5.29-9.fc25
+  python-munch.noarch 2.0.4-3.fc25
+  python-offtrac.noarch 0.1.0-7.fc25
+  python-pip.noarch 8.1.2-2.fc25
+  python-pycparser.noarch 2.14-7.fc25
+  python-rpm-macros.noarch 3-12.fc25
+  python-six.noarch 1.10.0-3.fc25
+  python-srpm-macros.noarch 3-12.fc25
+  python-urlgrabber.noarch 3.10.1-9.fc25
+  python2-GitPython.noarch 2.1.5-1.fc25
+  python2-asn1crypto.noarch 0.22.0-2.fc25
+  python2-cccolutils.x86_64 1.4-1.fc25
+  python2-cffi.x86_64 1.7.0-2.fc25
+  python2-cryptography.x86_64 2.0.2-2.fc25
+  python2-cssselect.noarch 0.9.2-1.fc25
+  python2-dateutil.noarch 1:2.6.0-1.fc25
+  python2-dnf.noarch 1.1.10-6.fc25
+  python2-fedora.noarch 0.9.0-6.fc25
+  python2-gitdb.noarch 2.0.2-1.fc25
+  python2-hawkey.x86_64 0.6.4-3.fc25
+  python2-idna.noarch 2.5-1.fc25
+  python2-iniparse.noarch 0.4-20.fc25
+  python2-kerberos.x86_64 1.2.5-1.fc25
+  python2-koji.noarch 1.14.0-1.fc25
+  python2-libcomps.x86_64 0.1.7-5.fc25
+  python2-librepo.x86_64 1.7.18-3.fc25
+  python2-lxml.x86_64 4.1.1-1.fc25
+  python2-openidc-client.noarch 0-3.20170523git77cb3ee.fc25
+  python2-ply.noarch 3.8-2.fc25
+  python2-pycurl.x86_64 7.43.0-6.fc25
+  python2-pygpgme.x86_64 0.3-18.fc25
+  python2-pysocks.noarch 1.6.7-1.fc25
+  python2-requests.noarch 2.10.0-4.fc25
+  python2-requests-kerberos.noarch 0.10.0-2.fc25
+  python2-rpkg.noarch 1.51-2.fc25
+  python2-rpm.x86_64 4.13.0.2-1.fc25
+  python2-setuptools.noarch 25.1.1-1.fc25
+  python2-smmap.noarch 2.0.3-1.fc25
+  python2-urllib3.noarch 1.15.1-3.fc25
+  python2-yubico.noarch 1.3.2-7.fc25
+  python3-asn1crypto.noarch 0.22.0-2.fc25
+  python3-cffi.x86_64 1.7.0-2.fc25
+  python3-chardet.noarch 2.3.0-1.fc25
+  python3-cryptography.x86_64 2.0.2-2.fc25
+  python3-dateutil.noarch 1:2.6.0-1.fc25
+  python3-devel.x86_64 3.5.4-2.fc25
+  python3-distro.noarch 1.0.3-1.fc25
+  python3-dnf-plugins-core.noarch 0.1.21-5.fc25
+  python3-enchant.noarch 1.6.8-1.fc25
+  python3-idna.noarch 2.5-1.fc25
+  python3-kerberos.x86_64 1.2.5-1.fc25
+  python3-koji.noarch 1.14.0-1.fc25
+  python3-magic.noarch 5.29-9.fc25
+  python3-ply.noarch 3.8-2.fc25
+  python3-pyOpenSSL.noarch 16.2.0-2.fc25
+  python3-pycparser.noarch 2.14-7.fc25
+  python3-pycurl.x86_64 7.43.0-6.fc25
+  python3-pyroute2.noarch 0.4.13-1.fc25
+  python3-pysocks.noarch 1.6.7-1.fc25
+  python3-requests.noarch 2.10.0-4.fc25
+  python3-requests-kerberos.noarch 0.10.0-2.fc25
+  python3-rpm-macros.noarch 3-12.fc25
+  python3-urllib3.noarch 1.15.1-3.fc25
+  pyusb.noarch 1.0.0-2.fc25
+  pyxattr.x86_64 0.5.3-8.fc25
+  qt5-srpm-macros.noarch 5.7.1-1.fc25
+  redhat-rpm-config.noarch 45-1.fc25
+  rpm-build.x86_64 4.13.0.2-1.fc25
+  rpmdevtools.noarch 8.9-1.fc25
+  rpmlint.noarch 1.10-5.fc25
+  rsync.x86_64 3.1.2-4.fc25
+  systemd-container.x86_64 231-19.fc25
+  unzip.x86_64 6.0-32.fc25
+  usermode.x86_64 1.111-8.fc24
+  vim-common.x86_64 2:8.0.1171-1.fc25
+  vim-enhanced.x86_64 2:8.0.1171-1.fc25
+  vim-filesystem.x86_64 2:8.0.1171-1.fc25
+  which.x86_64 2.21-1.fc25
+  xemacs-filesystem.noarch 21.5.34-20.20170124hgf412e9f093d4.fc25
+  xz.x86_64 5.2.2-2.fc24
+  ykpers.x86_64 1.18.0-2.fc25
+  yum.noarch 3.4.3-510.fc25
+  yum-metadata-parser.x86_64 1.1.4-17.fc25
+  zip.x86_64 3.0-16.fc24
+
+Complete!
+Redirecting to '/usr/bin/dnf clean all' (see 'man yum2dnf')
+
+21 files removed
+Removing intermediate container 155cc46c7d35
+ ---> 45f98e9d2e72
+Step 9/16 : ENV HOME /home/user
+ ---> Running in 1028c1b9879a
+Removing intermediate container 1028c1b9879a
+ ---> 4c196306c5b7
+Step 10/16 : RUN useradd --create-home --home-dir $HOME user     && chown -R user:user $HOME &&     su -c rpmdev-setuptree user
+ ---> Running in 02ca45f330aa
+Removing intermediate container 02ca45f330aa
+ ---> 8c01911fa3ef
+Step 11/16 : RUN getent passwd $USERID > /dev/null ||         ( usermod -u ${USERID} user && chown -R user: /home/user )
+ ---> Running in 806ca8bd2393
+Removing intermediate container 806ca8bd2393
+ ---> 923340ef99a8
+Step 12/16 : USER user
+ ---> Running in d4c5b4841d39
+Removing intermediate container d4c5b4841d39
+ ---> b9c8498e8faf
+Step 13/16 : WORKDIR $HOME/rpmbuild
+ ---> Running in c209cf8d6e50
+Removing intermediate container c209cf8d6e50
+ ---> 0812b8f6818c
+Step 14/16 : VOLUME $HOME/rpmbuild
+ ---> Running in e17d599470a3
+Removing intermediate container e17d599470a3
+ ---> bac934d3e475
+Step 15/16 : CMD ["/usr/bin/bash"]
+ ---> Running in 42036c740e8d
+Removing intermediate container 42036c740e8d
+ ---> 558526ad8b1b
+Step 16/16 : WORKDIR /sd
+ ---> Running in b4bac19257e6
+Removing intermediate container b4bac19257e6
+ ---> b40eceaf1921
+Successfully built b40eceaf1921
+Successfully tagged fpf.local/rpmbuilder-f25:latest
+/usr/lib64/python3.5/distutils/dist.py:261: UserWarning: Unknown distribution option: 'long_description_content_type'
+  warnings.warn(msg)
+running sdist
+running egg_info
+creating securedrop_workstation_dom0_config.egg-info
+writing dependency_links to securedrop_workstation_dom0_config.egg-info/dependency_links.txt
+writing top-level names to securedrop_workstation_dom0_config.egg-info/top_level.txt
+writing securedrop_workstation_dom0_config.egg-info/PKG-INFO
+writing manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+reading manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no files found matching 'dom0/sdw-admin'
+writing manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+warning: sdist: standard file not found: should have one of README, README.rst, README.txt
+
+running check
+creating securedrop-workstation-dom0-config-0.5.3
+creating securedrop-workstation-dom0-config-0.5.3/dom0
+creating securedrop-workstation-dom0-config-0.5.3/launcher
+creating securedrop-workstation-dom0-config-0.5.3/launcher/sdw_notify
+creating securedrop-workstation-dom0-config-0.5.3/launcher/sdw_updater_gui
+creating securedrop-workstation-dom0-config-0.5.3/launcher/sdw_util
+creating securedrop-workstation-dom0-config-0.5.3/scripts
+creating securedrop-workstation-dom0-config-0.5.3/sd-app
+creating securedrop-workstation-dom0-config-0.5.3/sd-proxy
+creating securedrop-workstation-dom0-config-0.5.3/sd-whonix
+creating securedrop-workstation-dom0-config-0.5.3/sd-workstation
+creating securedrop-workstation-dom0-config-0.5.3/securedrop_workstation_dom0_config.egg-info
+creating securedrop-workstation-dom0-config-0.5.3/sys-firewall
+creating securedrop-workstation-dom0-config-0.5.3/usb-autoattach
+copying files to securedrop-workstation-dom0-config-0.5.3...
+copying LICENSE -> securedrop-workstation-dom0-config-0.5.3
+copying MANIFEST.in -> securedrop-workstation-dom0-config-0.5.3
+copying Makefile -> securedrop-workstation-dom0-config-0.5.3
+copying README.md -> securedrop-workstation-dom0-config-0.5.3
+copying VERSION -> securedrop-workstation-dom0-config-0.5.3
+copying config.json.example -> securedrop-workstation-dom0-config-0.5.3
+copying setup.py -> securedrop-workstation-dom0-config-0.5.3
+copying dom0/dom0-xfce-desktop-file.j2 -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/fpf-apt-test-repo.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/remove-tags -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-app-config.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-app-files.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-app.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-clean-all.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-clean-default-dispvm.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-clean-whonix.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-default-config.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-default-config.yml -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-devices-files.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-devices.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-dom0-crontab.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-dom0-files.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-dom0-qvm-rpc.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-dom0-systemd.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-gpg-files.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-gpg.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-log.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-logging-setup.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-mime-handling.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-proxy-files.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-proxy-template-files.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-proxy.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-remove-unused-templates.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-rsyslog.conf.j2 -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-sys-firewall-files.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-sys-vms.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-sys-whonix-vms.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-upgrade-templates.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-usb-autoattach-add.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-usb-autoattach-remove.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-viewer-files.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-viewer.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-whonix-hidserv-key.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-whonix.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-workstation-template-files.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-workstation-template.sls -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sd-workstation.top -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/sdlog.conf -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/securedrop-check-migration -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/securedrop-handle-upgrade -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/securedrop-launcher.desktop -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/securedrop-login -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying dom0/update-xfce-settings -> securedrop-workstation-dom0-config-0.5.3/dom0
+copying launcher/sdw-launcher.py -> securedrop-workstation-dom0-config-0.5.3/launcher
+copying launcher/sdw-notify.py -> securedrop-workstation-dom0-config-0.5.3/launcher
+copying launcher/sdw_notify/Notify.py -> securedrop-workstation-dom0-config-0.5.3/launcher/sdw_notify
+copying launcher/sdw_updater_gui/Updater.py -> securedrop-workstation-dom0-config-0.5.3/launcher/sdw_updater_gui
+copying launcher/sdw_updater_gui/UpdaterApp.py -> securedrop-workstation-dom0-config-0.5.3/launcher/sdw_updater_gui
+copying launcher/sdw_updater_gui/UpdaterAppUi.py -> securedrop-workstation-dom0-config-0.5.3/launcher/sdw_updater_gui
+copying launcher/sdw_updater_gui/UpdaterAppUiQt5.py -> securedrop-workstation-dom0-config-0.5.3/launcher/sdw_updater_gui
+copying launcher/sdw_updater_gui/strings.py -> securedrop-workstation-dom0-config-0.5.3/launcher/sdw_updater_gui
+copying launcher/sdw_util/Util.py -> securedrop-workstation-dom0-config-0.5.3/launcher/sdw_util
+copying scripts/build-dom0-rpm -> securedrop-workstation-dom0-config-0.5.3/scripts
+copying scripts/clean-salt -> securedrop-workstation-dom0-config-0.5.3/scripts
+copying scripts/clone-to-dom0 -> securedrop-workstation-dom0-config-0.5.3/scripts
+copying scripts/configure-environment -> securedrop-workstation-dom0-config-0.5.3/scripts
+copying scripts/destroy-vm -> securedrop-workstation-dom0-config-0.5.3/scripts
+copying scripts/lint-all -> securedrop-workstation-dom0-config-0.5.3/scripts
+copying scripts/prep-dev -> securedrop-workstation-dom0-config-0.5.3/scripts
+copying scripts/provision-all -> securedrop-workstation-dom0-config-0.5.3/scripts
+copying scripts/rpmbuilder.Dockerfile -> securedrop-workstation-dom0-config-0.5.3/scripts
+copying scripts/sdw-admin.py -> securedrop-workstation-dom0-config-0.5.3/scripts
+copying scripts/validate_config.py -> securedrop-workstation-dom0-config-0.5.3/scripts
+copying sd-app/config.json.j2 -> securedrop-workstation-dom0-config-0.5.3/sd-app
+copying sd-proxy/logo-small.png -> securedrop-workstation-dom0-config-0.5.3/sd-proxy
+copying sd-proxy/mimeapps.list -> securedrop-workstation-dom0-config-0.5.3/sd-proxy
+copying sd-proxy/sd-proxy.yaml -> securedrop-workstation-dom0-config-0.5.3/sd-proxy
+copying sd-whonix/app-journalist.yaml -> securedrop-workstation-dom0-config-0.5.3/sd-whonix
+copying sd-workstation/apt-test-pubkey.asc -> securedrop-workstation-dom0-config-0.5.3/sd-workstation
+copying sd-workstation/securedrop-release-signing-pubkey.asc -> securedrop-workstation-dom0-config-0.5.3/sd-workstation
+copying securedrop_workstation_dom0_config.egg-info/PKG-INFO -> securedrop-workstation-dom0-config-0.5.3/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/SOURCES.txt -> securedrop-workstation-dom0-config-0.5.3/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/dependency_links.txt -> securedrop-workstation-dom0-config-0.5.3/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/top_level.txt -> securedrop-workstation-dom0-config-0.5.3/securedrop_workstation_dom0_config.egg-info
+copying sys-firewall/sd-copy-rpm-repo-pubkey.sh -> securedrop-workstation-dom0-config-0.5.3/sys-firewall
+copying usb-autoattach/99-sd-devices.rules -> securedrop-workstation-dom0-config-0.5.3/usb-autoattach
+copying usb-autoattach/sd-attach-export-device -> securedrop-workstation-dom0-config-0.5.3/usb-autoattach
+Writing securedrop-workstation-dom0-config-0.5.3/setup.cfg
+creating dist
+Creating tar archive
+removing 'securedrop-workstation-dom0-config-0.5.3' (and everything under it)
+Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.bo0GFr
++ umask 022
++ cd /home/user/rpmbuild/BUILD
++ cd /home/user/rpmbuild/BUILD
++ rm -rf securedrop-workstation-dom0-config-0.5.3
++ /usr/bin/gzip -dc /home/user/rpmbuild/SOURCES/securedrop-workstation-dom0-config-0.5.3.tar.gz
++ /usr/bin/tar -xvvof -
+drwxr-xr-x user/user         0 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/
+-rw-r--r-- user/user         6 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/VERSION
+drwxr-xr-x user/user         0 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/sd-whonix/
+-rw-r--r-- user/user        42 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/sd-whonix/app-journalist.yaml
+drwxr-xr-x user/user         0 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/dom0/
+-rw-r--r-- user/user       515 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-upgrade-templates.sls
+-rw-r--r-- user/user       854 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-whonix.sls
+-rw-r--r-- user/user       602 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-app-config.sls
+-rw-r--r-- user/user      3647 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-clean-all.sls
+-rw-r--r-- user/user      1332 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-workstation-template.sls
+-rwxr-xr-x user/user       910 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/securedrop-check-migration
+-rw-r--r-- user/user       944 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-viewer.sls
+-rw-r--r-- user/user       627 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-workstation-template-files.sls
+-rw-r--r-- user/user      1237 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-usb-autoattach-add.sls
+-rw-r--r-- user/user       800 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-sys-whonix-vms.sls
+-rw-r--r-- user/user      2894 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-logging-setup.sls
+-rw-r--r-- user/user      2165 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-sys-vms.sls
+-rw-r--r-- user/user      6328 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-dom0-files.sls
+-rw-r--r-- user/user      1184 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-log.sls
+-rw-r--r-- user/user       912 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-sys-firewall-files.sls
+-rw-r--r-- user/user       784 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-proxy.sls
+-rw-r--r-- user/user      1251 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-app.sls
+-rw-r--r-- user/user       223 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-clean-default-dispvm.sls
+-rw-r--r-- user/user       732 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-dom0-systemd.sls
+-rw-r--r-- user/user      1313 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-devices.sls
+-rw-r--r-- user/user       499 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-usb-autoattach-remove.sls
+-rw-r--r-- user/user       487 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-default-config.yml
+-rw-r--r-- user/user       647 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-devices-files.sls
+-rw-r--r-- user/user       758 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/securedrop-login
+-rw-r--r-- user/user       477 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-clean-whonix.sls
+-rw-r--r-- user/user      1533 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/fpf-apt-test-repo.sls
+-rw-r--r-- user/user       568 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-default-config.sls
+-rwxr-xr-x user/user       951 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/remove-tags
+-rw-r--r-- user/user        31 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-rsyslog.conf.j2
+-rw-r--r-- user/user       728 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-dom0-crontab.sls
+-rwxr-xr-x user/user      3504 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/update-xfce-settings
+-rw-r--r-- user/user       562 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-viewer-files.sls
+-rw-r--r-- user/user       493 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-proxy-template-files.sls
+-rw-r--r-- user/user      1422 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-workstation.top
+-rw-r--r-- user/user       568 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-remove-unused-templates.sls
+-rw-r--r-- user/user       395 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-app-files.sls
+-rw-r--r-- user/user      1101 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-gpg-files.sls
+-rw-r--r-- user/user       167 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/securedrop-launcher.desktop
+-rwxr-xr-x user/user      4472 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/securedrop-handle-upgrade
+-rw-r--r-- user/user       418 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-proxy-files.sls
+-rw-r--r-- user/user      1239 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-whonix-hidserv-key.sls
+-rw-r--r-- user/user       614 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-gpg.sls
+-rw-r--r-- user/user      1431 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-mime-handling.sls
+-rw-r--r-- user/user      6058 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sd-dom0-qvm-rpc.sls
+-rw-r--r-- user/user       205 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/dom0-xfce-desktop-file.j2
+-rw-r--r-- user/user       129 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/dom0/sdlog.conf
+-rw-r--r-- user/user        59 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/setup.cfg
+-rw-r--r-- user/user     49655 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/PKG-INFO
+-rw-r--r-- user/user      6556 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/Makefile
+-rw-r--r-- user/user       693 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/MANIFEST.in
+drwxr-xr-x user/user         0 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/usb-autoattach/
+-rwxr-xr-x user/user       178 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/usb-autoattach/sd-attach-export-device
+-rw-r--r-- user/user       443 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/usb-autoattach/99-sd-devices.rules
+drwxr-xr-x user/user         0 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/sd-app/
+-rw-r--r-- user/user        55 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/sd-app/config.json.j2
+-rw-r--r-- user/user     34520 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/LICENSE
+-rw-r--r-- user/user       250 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/config.json.example
+drwxr-xr-x user/user         0 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/sys-firewall/
+-rw-r--r-- user/user       381 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/sys-firewall/sd-copy-rpm-repo-pubkey.sh
+drwxr-xr-x user/user         0 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/sd-proxy/
+-rw-r--r-- user/user     16040 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/sd-proxy/logo-small.png
+-rw-r--r-- user/user     12595 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/sd-proxy/mimeapps.list
+-rw-r--r-- user/user        72 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/sd-proxy/sd-proxy.yaml
+drwxr-xr-x user/user         0 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/sd-workstation/
+-rw-r--r-- user/user      2562 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/sd-workstation/securedrop-release-signing-pubkey.asc
+-rw-r--r-- user/user      1765 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/sd-workstation/apt-test-pubkey.asc
+drwxr-xr-x user/user         0 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/launcher/
+-rw-r--r-- user/user      1587 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/launcher/sdw-launcher.py
+drwxr-xr-x user/user         0 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/launcher/sdw_updater_gui/
+-rw-r--r-- user/user      5947 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/launcher/sdw_updater_gui/UpdaterAppUi.py
+-rw-r--r-- user/user      5584 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/launcher/sdw_updater_gui/UpdaterAppUiQt5.py
+-rw-r--r-- user/user     17960 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/launcher/sdw_updater_gui/Updater.py
+-rw-r--r-- user/user      8560 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/launcher/sdw_updater_gui/UpdaterApp.py
+-rw-r--r-- user/user      1915 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/launcher/sdw_updater_gui/strings.py
+drwxr-xr-x user/user         0 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/launcher/sdw_util/
+-rw-r--r-- user/user      4675 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/launcher/sdw_util/Util.py
+-rwxr-xr-x user/user      2156 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/launcher/sdw-notify.py
+drwxr-xr-x user/user         0 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/launcher/sdw_notify/
+-rw-r--r-- user/user      4752 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/launcher/sdw_notify/Notify.py
+drwxr-xr-x user/user         0 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/securedrop_workstation_dom0_config.egg-info/
+-rw-r--r-- user/user      2356 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/securedrop_workstation_dom0_config.egg-info/SOURCES.txt
+-rw-r--r-- user/user     49655 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/securedrop_workstation_dom0_config.egg-info/PKG-INFO
+-rw-r--r-- user/user         1 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/securedrop_workstation_dom0_config.egg-info/dependency_links.txt
+-rw-r--r-- user/user         1 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/securedrop_workstation_dom0_config.egg-info/top_level.txt
+-rw-r--r-- user/user      1054 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/setup.py
+drwxr-xr-x user/user         0 2021-03-10 19:49 securedrop-workstation-dom0-config-0.5.3/scripts/
+-rwxr-xr-x user/user      5424 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/scripts/validate_config.py
+-rwxr-xr-x user/user       942 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/scripts/clean-salt
+-rwxr-xr-x user/user      1088 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/scripts/prep-dev
+-rwxr-xr-x user/user      1439 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/scripts/configure-environment
+-rwxr-xr-x user/user      5833 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/scripts/sdw-admin.py
+-rw-r--r-- user/user       806 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/scripts/rpmbuilder.Dockerfile
+-rwxr-xr-x user/user      1862 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/scripts/provision-all
+-rwxr-xr-x user/user      1311 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/scripts/lint-all
+-rwxr-xr-x user/user      1997 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/scripts/destroy-vm
+-rwxr-xr-x user/user      1616 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/scripts/clone-to-dom0
+-rwxr-xr-x user/user      2220 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/scripts/build-dom0-rpm
+-rw-r--r-- user/user     43929 2021-03-10 19:44 securedrop-workstation-dom0-config-0.5.3/README.md
++ STATUS=0
++ '[' 0 -ne 0 ']'
++ cd securedrop-workstation-dom0-config-0.5.3
++ /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
++ exit 0
+Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.Wn3xzM
++ umask 022
++ cd /home/user/rpmbuild/BUILD
++ cd securedrop-workstation-dom0-config-0.5.3
++ /usr/bin/python3 setup.py build
+/usr/lib64/python3.5/distutils/dist.py:261: UserWarning: Unknown distribution option: 'long_description_content_type'
+  warnings.warn(msg)
+running build
++ exit 0
+Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.1AB6T7
++ umask 022
++ cd /home/user/rpmbuild/BUILD
++ '[' /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64 '!=' / ']'
++ rm -rf /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64
+++ dirname /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64
++ mkdir -p /home/user/rpmbuild/BUILDROOT
++ mkdir /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64
++ cd securedrop-workstation-dom0-config-0.5.3
++ /usr/bin/python3 setup.py install --no-compile --skip-build --root /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64
+/usr/lib64/python3.5/distutils/dist.py:261: UserWarning: Unknown distribution option: 'long_description_content_type'
+  warnings.warn(msg)
+running install
+running install_data
+creating /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/usr
+creating /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/usr/share
+creating /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/usr/share/securedrop-workstation-dom0-config
+copying config.json.example -> /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/usr/share/securedrop-workstation-dom0-config
+running install_egg_info
+running egg_info
+writing top-level names to securedrop_workstation_dom0_config.egg-info/top_level.txt
+writing dependency_links to securedrop_workstation_dom0_config.egg-info/dependency_links.txt
+writing securedrop_workstation_dom0_config.egg-info/PKG-INFO
+reading manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no files found matching 'dom0/sdw-admin'
+writing manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+Copying securedrop_workstation_dom0_config.egg-info to /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/usr/lib/python3.5/site-packages/securedrop_workstation_dom0_config-0.5.3-py3.5.egg-info
+running install_scripts
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/opt/securedrop/launcher
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/opt/securedrop/launcher/sdw_updater_gui
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/opt/securedrop/launcher/sdw_notify
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/opt/securedrop/launcher/sdw_util
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd/sd-app
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd/sd-proxy
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd/sd-journalist
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd/sd-whonix
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd/sd-workstation
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd/sys-firewall
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/usr/share/securedrop-workstation-dom0-config/scripts
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd/usb-autoattach
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/launcher
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/launcher/sdw_updater_gui
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/launcher/sdw_notify
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/launcher/sdw_util
++ install -m 755 -d /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64//usr/bin
++ install -m 644 dom0/fpf-apt-test-repo.sls dom0/sd-app-config.sls dom0/sd-app-files.sls dom0/sd-app.sls dom0/sd-clean-all.sls dom0/sd-clean-default-dispvm.sls dom0/sd-clean-whonix.sls dom0/sd-default-config.sls dom0/sd-devices-files.sls dom0/sd-devices.sls dom0/sd-dom0-crontab.sls dom0/sd-dom0-files.sls dom0/sd-dom0-qvm-rpc.sls dom0/sd-dom0-systemd.sls dom0/sd-gpg-files.sls dom0/sd-gpg.sls dom0/sd-log.sls dom0/sd-logging-setup.sls dom0/sd-mime-handling.sls dom0/sd-proxy-files.sls dom0/sd-proxy-template-files.sls dom0/sd-proxy.sls dom0/sd-remove-unused-templates.sls dom0/sd-sys-firewall-files.sls dom0/sd-sys-vms.sls dom0/sd-sys-whonix-vms.sls dom0/sd-upgrade-templates.sls dom0/sd-usb-autoattach-add.sls dom0/sd-usb-autoattach-remove.sls dom0/sd-viewer-files.sls dom0/sd-viewer.sls dom0/sd-whonix-hidserv-key.sls dom0/sd-whonix.sls dom0/sd-workstation-template-files.sls dom0/sd-workstation-template.sls /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/
++ install -m 644 dom0/sd-workstation.top /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/
++ install -m 644 dom0/dom0-xfce-desktop-file.j2 dom0/sd-rsyslog.conf.j2 /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/
++ install -m 644 dom0/sd-default-config.yml /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/
++ install -m 644 dom0/sdlog.conf /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/
++ install -m 755 dom0/remove-tags /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/
++ install -m 644 dom0/securedrop-login /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/
++ install -m 644 dom0/securedrop-launcher.desktop /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/
++ install -m 755 dom0/securedrop-check-migration /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/
++ install -m 755 dom0/securedrop-handle-upgrade /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/
++ install -m 755 dom0/update-xfce-settings /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/
++ install -m 755 scripts/sdw-admin.py /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64//usr/bin/sdw-admin
++ install -m 644 sd-app/config.json.j2 /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd/sd-app/
++ install -m 644 sd-proxy/logo-small.png sd-proxy/mimeapps.list sd-proxy/sd-proxy.yaml /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd/sd-proxy/
++ install -m 644 sd-whonix/app-journalist.yaml /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd/sd-whonix/
++ install -m 644 sd-workstation/apt-test-pubkey.asc sd-workstation/securedrop-release-signing-pubkey.asc /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd/sd-workstation/
++ install -m 644 sys-firewall/sd-copy-rpm-repo-pubkey.sh /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd/sys-firewall/
++ install -m 644 usb-autoattach/99-sd-devices.rules /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd/usb-autoattach/
++ install -m 755 usb-autoattach/sd-attach-export-device /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/sd/usb-autoattach/
++ install -m 644 Makefile /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/usr/share/securedrop-workstation-dom0-config/Makefile
++ install -m 755 scripts/build-dom0-rpm scripts/clean-salt scripts/clone-to-dom0 scripts/configure-environment scripts/destroy-vm scripts/lint-all scripts/prep-dev scripts/provision-all scripts/rpmbuilder.Dockerfile scripts/sdw-admin.py scripts/validate_config.py /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/usr/share/securedrop-workstation-dom0-config/scripts/
++ install -m 644 launcher/sdw-launcher.py launcher/sdw-notify.py /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/opt/securedrop/launcher/
++ install -m 644 launcher/sdw-launcher.py launcher/sdw-notify.py /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/launcher/
++ install -m 644 launcher/sdw_updater_gui/Updater.py launcher/sdw_updater_gui/UpdaterApp.py launcher/sdw_updater_gui/UpdaterAppUi.py launcher/sdw_updater_gui/UpdaterAppUiQt5.py launcher/sdw_updater_gui/strings.py /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/opt/securedrop/launcher/sdw_updater_gui/
++ install -m 644 launcher/sdw_updater_gui/Updater.py launcher/sdw_updater_gui/UpdaterApp.py launcher/sdw_updater_gui/UpdaterAppUi.py launcher/sdw_updater_gui/UpdaterAppUiQt5.py launcher/sdw_updater_gui/strings.py /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/launcher/sdw_updater_gui/
++ install -m 644 launcher/sdw_notify/Notify.py /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/opt/securedrop/launcher/sdw_notify/
++ install -m 644 launcher/sdw_notify/Notify.py /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/launcher/sdw_notify/
++ install -m 644 launcher/sdw_util/Util.py /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/opt/securedrop/launcher/sdw_util/
++ install -m 644 launcher/sdw_util/Util.py /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/srv/salt/launcher/sdw_util/
++ /usr/lib/rpm/find-debuginfo.sh --strict-build-id -m --run-dwz --dwz-low-mem-die-limit 10000000 --dwz-max-die-limit 110000000 /home/user/rpmbuild/BUILD/securedrop-workstation-dom0-config-0.5.3
+find: 'debug': No such file or directory
++ '[' noarch = noarch ']'
++ case "${QA_CHECK_RPATHS:-}" in
++ /usr/lib/rpm/check-buildroot
++ /usr/lib/rpm/brp-compress
++ /usr/lib/rpm/brp-strip-static-archive /usr/bin/strip
++ /usr/lib/rpm/brp-python-hardlink
++ /usr/lib/rpm/redhat/brp-java-repack-jars
+Processing files: securedrop-workstation-dom0-config-0.5.3-1.fc25.noarch
+Executing(%doc): /bin/sh -e /var/tmp/rpm-tmp.DppJNu
++ umask 022
++ cd /home/user/rpmbuild/BUILD
++ cd securedrop-workstation-dom0-config-0.5.3
++ DOCDIR=/home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/usr/share/doc/securedrop-workstation-dom0-config
++ export DOCDIR
++ /usr/bin/mkdir -p /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/usr/share/doc/securedrop-workstation-dom0-config
++ cp -pr README.md /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/usr/share/doc/securedrop-workstation-dom0-config
++ cp -pr LICENSE /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64/usr/share/doc/securedrop-workstation-dom0-config
++ exit 0
+Provides: python3.5dist(securedrop-workstation-dom0-config) = 0.5.3 python3dist(securedrop-workstation-dom0-config) = 0.5.3 securedrop-workstation-dom0-config = 0.5.3-1.fc25
+Requires(interp): /bin/sh
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Requires(post): /bin/sh
+Requires: /bin/bash /usr/bin/env python(abi) = 3.5
+Checking for unpackaged file(s): /usr/lib/rpm/check-files /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64
+Wrote: /home/user/rpmbuild/SRPMS/securedrop-workstation-dom0-config-0.5.3-1.fc25.src.rpm
+Wrote: /home/user/rpmbuild/RPMS/noarch/securedrop-workstation-dom0-config-0.5.3-1.fc25.noarch.rpm
+Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.Vyr0wU
++ umask 022
++ cd /home/user/rpmbuild/BUILD
++ cd securedrop-workstation-dom0-config-0.5.3
++ /usr/bin/rm -rf /home/user/rpmbuild/BUILDROOT/securedrop-workstation-dom0-config-0.5.3-1.fc25.x86_64
++ exit 0
+
+RPM packages can be found at:
+
+rpm-build/SRPMS/securedrop-workstation-dom0-config-0.5.3-1.fc25.src.rpm
+rpm-build/RPMS/noarch/securedrop-workstation-dom0-config-0.5.3-1.fc25.noarch.rpm
+make[1]: Leaving directory '/home/user/securedrop-workstation'
+[user@fpf-dev-dvm:~/securedrop-workstation] 3531b6f 4m51s ±
+ $ sha256sum rpm-build/RPMS/noarch/securedrop-workstation-dom0-config-0.5.3-1.fc25.noarch.rpm
+c7a42de13d27a3769162918a4206b9f4844ed8eb2ac2c799323e6fb39e62adaf  rpm-build/RPMS/noarch/securedrop-workstation-dom0-config-0.5.3-1.fc25.noarch.rpm
