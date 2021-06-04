@@ -1,0 +1,201 @@
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//update-local-repo.sh buster
+dpkg-scanpackages: info: Wrote 61 entries to output Packages file.
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster apt-get  update
+Get:1 file:/tmp/qubes-deb buster InRelease
+Ign:1 file:/tmp/qubes-deb buster InRelease
+Get:2 file:/tmp/qubes-deb buster Release [340 B]
+Get:2 file:/tmp/qubes-deb buster Release [340 B]
+Get:3 file:/tmp/qubes-deb buster Release.gpg
+Ign:3 file:/tmp/qubes-deb buster Release.gpg
+Get:4 file:/tmp/qubes-deb buster/main amd64 Packages [12.6 kB]
+Hit:5 https://deb.debian.org/debian buster InRelease
+Hit:6 https://deb.qubes-os.org/r4.0/vm buster InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/app-linux-input-proxy/debian/control
+dh_testdir
+dh_testroot
+dh_prep
+dh_testdir
+dh_testroot
+dh_install
+dh_installdocs
+dh_installchangelogs
+dh_compress
+dh_fixperms
+dh_installdeb
+dh_gencontrol
+dh_md5sums
+dh_builddeb
+dpkg-deb: building package 'qubes-input-proxy-build-deps' in '../qubes-input-proxy-build-deps_1.0.23-1_all.deb'.
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package qubes-input-proxy-build-deps.
+(Reading database ... 42108 files and directories currently installed.)
+Preparing to unpack qubes-input-proxy-build-deps_1.0.23-1_all.deb ...
+Unpacking qubes-input-proxy-build-deps (1.0.23-1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+After this operation, 0 B of additional disk space will be used.
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (19: No such device)
+Setting up qubes-input-proxy-build-deps (1.0.23-1) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/..; GLOBIGNORE=qubes-input-proxy_1.0.23*orig*; rm -f qubes-input-proxy_1.0.23*; GLOBIGNORE=
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/deb/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/rpm/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/debian/..; /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/debian/changelog /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/debian/changelog.copy
+mv /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/debian/changelog.copy /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/debian/changelog
+echo "Building package in /home/user/qubes-src/app-linux-input-proxy"
+Building package in /home/user/qubes-src/app-linux-input-proxy
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb10u "Build for buster"; debchange -t --force-distribution -r -D buster buster
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/debian/changelog
+find /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy \! -newer /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster su user -c 'cd /home/user/qubes-src/app-linux-input-proxy/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package qubes-input-proxy
+dpkg-buildpackage: info: source version 1.0.23-1+deb10u1
+dpkg-buildpackage: info: source distribution buster
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+dpkg-source: info: using patch list from debian/patches/series
+dpkg-source: info: applying 01_install_systemd_service.diff
+ fakeroot debian/rules clean
+dh clean 
+   dh_auto_clean
+	make -j1 clean
+make[1]: Entering directory '/home/user/qubes-src/app-linux-input-proxy'
+make -C src clean
+make[2]: Entering directory '/home/user/qubes-src/app-linux-input-proxy/src'
+rm -f *.o input-proxy-sender input-proxy-receiver
+make[2]: Leaving directory '/home/user/qubes-src/app-linux-input-proxy/src'
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-input-proxy'
+   dh_clean
+ dpkg-source -b .
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building qubes-input-proxy using existing ./qubes-input-proxy_1.0.23.orig.tar.xz
+dpkg-source: info: using patch list from debian/patches/series
+dpkg-source: info: building qubes-input-proxy in qubes-input-proxy_1.0.23-1+deb10u1.debian.tar.xz
+dpkg-source: info: building qubes-input-proxy in qubes-input-proxy_1.0.23-1+deb10u1.dsc
+ debian/rules build
+dh build 
+   dh_update_autotools_config
+   dh_auto_configure
+   dh_auto_build
+	make -j1
+make[1]: Entering directory '/home/user/qubes-src/app-linux-input-proxy'
+make -C src all
+make[2]: Entering directory '/home/user/qubes-src/app-linux-input-proxy/src'
+cc -g -O2 -fdebug-prefix-map=/home/user/qubes-src/app-linux-input-proxy=. -fstack-protector-strong -Wformat -Werror=format-security -g -Wall -Wextra -Werror -O2 -std=gnu99 -Wno-missing-braces -Wno-missing-field-initializers -Wdate-time -D_FORTIFY_SOURCE=2  -c -o input-proxy-sender.o input-proxy-sender.c
+cc -g -O2 -fdebug-prefix-map=/home/user/qubes-src/app-linux-input-proxy=. -fstack-protector-strong -Wformat -Werror=format-security -g -Wall -Wextra -Werror -O2 -std=gnu99 -Wno-missing-braces -Wno-missing-field-initializers -Wdate-time -D_FORTIFY_SOURCE=2  -c -o common.o common.c
+cc -Wl,-z,relro  input-proxy-sender.o common.o   -o input-proxy-sender
+cc -g -O2 -fdebug-prefix-map=/home/user/qubes-src/app-linux-input-proxy=. -fstack-protector-strong -Wformat -Werror=format-security -g -Wall -Wextra -Werror -O2 -std=gnu99 -Wno-missing-braces -Wno-missing-field-initializers -Wdate-time -D_FORTIFY_SOURCE=2  -c -o input-proxy-receiver.o input-proxy-receiver.c
+cc -Wl,-z,relro  input-proxy-receiver.o common.o   -o input-proxy-receiver
+make[2]: Leaving directory '/home/user/qubes-src/app-linux-input-proxy/src'
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-input-proxy'
+   dh_auto_test
+ fakeroot debian/rules binary
+dh binary 
+   dh_testroot
+   dh_prep
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/home/user/qubes-src/app-linux-input-proxy'
+make install-vm DESTDIR=/home/user/qubes-src/app-linux-input-proxy/debian/tmp
+make[2]: Entering directory '/home/user/qubes-src/app-linux-input-proxy'
+make -C src install
+make[3]: Entering directory '/home/user/qubes-src/app-linux-input-proxy/src'
+install -d /home/user/qubes-src/app-linux-input-proxy/debian/tmp/usr/bin
+install input-proxy-sender /home/user/qubes-src/app-linux-input-proxy/debian/tmp/usr/bin/input-proxy-sender
+install input-proxy-receiver /home/user/qubes-src/app-linux-input-proxy/debian/tmp/usr/bin/input-proxy-receiver
+make[3]: Leaving directory '/home/user/qubes-src/app-linux-input-proxy/src'
+make -C qubes-rpc install-vm
+make[3]: Entering directory '/home/user/qubes-src/app-linux-input-proxy/qubes-rpc'
+install -d /home/user/qubes-src/app-linux-input-proxy/debian/tmp/lib/systemd/system
+install -m 0644 \
+	qubes-input-sender-keyboard@.service \
+	qubes-input-sender-keyboard-mouse@.service \
+	qubes-input-sender-mouse@.service \
+	qubes-input-sender-tablet@.service \
+	/home/user/qubes-src/app-linux-input-proxy/debian/tmp/lib/systemd/system
+install -d /home/user/qubes-src/app-linux-input-proxy/debian/tmp/lib/udev/rules.d
+install -m 0644 qubes-input-proxy.rules \
+	/home/user/qubes-src/app-linux-input-proxy/debian/tmp/lib/udev/rules.d/90-qubes-input-proxy.rules
+install -m 0644 qubes-uinput.rules \
+	/home/user/qubes-src/app-linux-input-proxy/debian/tmp/lib/udev/rules.d/90-qubes-uinput.rules
+install -m 0644 -D qubes-uinput.modules \
+	/home/user/qubes-src/app-linux-input-proxy/debian/tmp/lib/modules-load.d/qubes-uinput.conf
+install -d /home/user/qubes-src/app-linux-input-proxy/debian/tmp/etc/qubes-rpc
+install qubes.InputMouse /home/user/qubes-src/app-linux-input-proxy/debian/tmp/etc/qubes-rpc
+install qubes.InputKeyboard /home/user/qubes-src/app-linux-input-proxy/debian/tmp/etc/qubes-rpc
+install qubes.InputTablet /home/user/qubes-src/app-linux-input-proxy/debian/tmp/etc/qubes-rpc
+install -m 0755 -D qubes-input-trigger \
+	/home/user/qubes-src/app-linux-input-proxy/debian/tmp/usr/bin/qubes-input-trigger
+install -m 0755 -D qubes-input-sender \
+	/home/user/qubes-src/app-linux-input-proxy/debian/tmp/usr/bin/qubes-input-sender
+install -m 0644 -D qubes-input-trigger.desktop \
+	/home/user/qubes-src/app-linux-input-proxy/debian/tmp/etc/xdg/autostart/qubes-input-trigger.desktop
+install -m 0600 -D qubes-input-trigger.sudoers \
+	/home/user/qubes-src/app-linux-input-proxy/debian/tmp/etc/sudoers.d/qubes-input-trigger
+make[3]: Leaving directory '/home/user/qubes-src/app-linux-input-proxy/qubes-rpc'
+make[2]: Leaving directory '/home/user/qubes-src/app-linux-input-proxy'
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-input-proxy'
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   debian/rules override_dh_missing
+make[1]: Entering directory '/home/user/qubes-src/app-linux-input-proxy'
+dh_missing --fail-missing
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-input-proxy'
+   dh_strip
+   dh_makeshlibs
+   dh_shlibdeps
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-input-proxy-sender' in '../qubes-input-proxy-sender_1.0.23-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'qubes-input-proxy-receiver' in '../qubes-input-proxy-receiver_1.0.23-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'qubes-input-proxy-receiver-dbgsym' in '../qubes-input-proxy-receiver-dbgsym_1.0.23-1+deb10u1_amd64.deb'.
+dpkg-deb: building package 'qubes-input-proxy-sender-dbgsym' in '../qubes-input-proxy-sender-dbgsym_1.0.23-1+deb10u1_amd64.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../qubes-input-proxy_1.0.23-1+deb10u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-source: info: unapplying 01_install_systemd_service.diff
+dpkg-buildpackage: info: full upload (original source is included)
+mkdir -p /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb
+mkdir -p qubes-src/app-linux-input-proxy/pkgs/vm-buster
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/debian/../..; \
+	cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-input-proxy_1.0.23*.changes`
+cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb/ /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/debian/../../qubes-input-proxy_1.0.23*.changes
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/debian/../..; \
+	mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/app-linux-input-proxy/pkgs/vm-buster  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-input-proxy_1.0.23*.changes`
+mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/app-linux-input-proxy/pkgs/vm-buster /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-linux-input-proxy/debian/../../qubes-input-proxy_1.0.23*.changes

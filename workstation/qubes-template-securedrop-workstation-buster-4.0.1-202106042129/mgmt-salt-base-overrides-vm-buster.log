@@ -1,0 +1,194 @@
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//update-local-repo.sh buster
+dpkg-scanpackages: info: Wrote 71 entries to output Packages file.
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster apt-get  update
+Get:1 file:/tmp/qubes-deb buster InRelease
+Ign:1 file:/tmp/qubes-deb buster InRelease
+Get:2 file:/tmp/qubes-deb buster Release [340 B]
+Get:2 file:/tmp/qubes-deb buster Release [340 B]
+Get:3 file:/tmp/qubes-deb buster Release.gpg
+Ign:3 file:/tmp/qubes-deb buster Release.gpg
+Get:4 file:/tmp/qubes-deb buster/main amd64 Packages [14.7 kB]
+Hit:5 https://deb.debian.org/debian buster InRelease
+Hit:6 https://deb.qubes-os.org/r4.0/vm buster InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/mgmt-salt-base-overrides/debian/control
+dh_testdir
+dh_testroot
+dh_prep
+dh_testdir
+dh_testroot
+dh_install
+dh_installdocs
+dh_installchangelogs
+dh_compress
+dh_fixperms
+dh_installdeb
+dh_gencontrol
+dh_md5sums
+dh_builddeb
+dpkg-deb: building package 'qubes-mgmt-salt-base-overrides-build-deps' in '../qubes-mgmt-salt-base-overrides-build-deps_4.0.2-1_all.deb'.
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package qubes-mgmt-salt-base-overrides-build-deps.
+(Reading database ... 42136 files and directories currently installed.)
+Preparing to unpack qubes-mgmt-salt-base-overrides-build-deps_4.0.2-1_all.deb ...
+Unpacking qubes-mgmt-salt-base-overrides-build-deps (4.0.2-1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Correcting dependencies... Done
+The following additional packages will be installed:
+  python-all
+The following NEW packages will be installed:
+  python-all
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+Need to get 1044 B of archives.
+After this operation, 6144 B of additional disk space will be used.
+Get:1 https://deb.debian.org/debian buster/main amd64 python-all amd64 2.7.16-1 [1044 B]
+Fetched 1044 B in 0s (5933 B/s)
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (19: No such device)
+Selecting previously unselected package python-all.
+(Reading database ... 42140 files and directories currently installed.)
+Preparing to unpack .../python-all_2.7.16-1_amd64.deb ...
+Unpacking python-all (2.7.16-1) ...
+Setting up python-all (2.7.16-1) ...
+Setting up qubes-mgmt-salt-base-overrides-build-deps (4.0.2-1) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/..; GLOBIGNORE=qubes-mgmt-salt-base-overrides_4.0.2*orig*; rm -f qubes-mgmt-salt-base-overrides_4.0.2*; GLOBIGNORE=
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/deb/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/rpm/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/debian/..; /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/debian/changelog /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/debian/changelog.copy
+mv /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/debian/changelog.copy /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/debian/changelog
+echo "Building package in /home/user/qubes-src/mgmt-salt-base-overrides"
+Building package in /home/user/qubes-src/mgmt-salt-base-overrides
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb10u "Build for buster"; debchange -t --force-distribution -r -D buster buster
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/debian/changelog
+find /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides \! -newer /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster su user -c 'cd /home/user/qubes-src/mgmt-salt-base-overrides/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package qubes-mgmt-salt-base-overrides
+dpkg-buildpackage: info: source version 4.0.2-1+deb10u1
+dpkg-buildpackage: info: source distribution buster
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+dpkg-source: info: using options from mgmt-salt-base-overrides/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm_spec/.*)$ --extend-diff-ignore=(^|/)(debian.*)$ --extend-diff-ignore=(^|/)(.*[.]vm)(/.*|)$ --extend-diff-ignore=(^|/)(.*[.]dom0)(/.*|)$
+ fakeroot debian/rules clean
+dh clean --with python2
+   dh_auto_clean
+   dh_clean
+ dpkg-source -b .
+dpkg-source: info: using options from mgmt-salt-base-overrides/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm_spec/.*)$ --extend-diff-ignore=(^|/)(debian.*)$ --extend-diff-ignore=(^|/)(.*[.]vm)(/.*|)$ --extend-diff-ignore=(^|/)(.*[.]dom0)(/.*|)$
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building qubes-mgmt-salt-base-overrides using existing ./qubes-mgmt-salt-base-overrides_4.0.2.orig.tar.xz
+dpkg-source: info: building qubes-mgmt-salt-base-overrides in qubes-mgmt-salt-base-overrides_4.0.2-1+deb10u1.debian.tar.xz
+dpkg-source: info: building qubes-mgmt-salt-base-overrides in qubes-mgmt-salt-base-overrides_4.0.2-1+deb10u1.dsc
+ debian/rules build
+dh build --with python2
+   dh_update_autotools_config
+   dh_auto_configure
+   dh_auto_build
+	make -j1
+make[1]: Entering directory '/home/user/qubes-src/mgmt-salt-base-overrides'
+install -d /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/srv/salt
+cp -r _modules /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/srv/salt/
+# Place README and LICENSE in each non _* subdirectory only if in main /srv/salt tree
+make[1]: Leaving directory '/home/user/qubes-src/mgmt-salt-base-overrides'
+   dh_auto_test
+ fakeroot debian/rules binary
+dh binary --with python2
+   dh_testroot
+   dh_prep
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/home/user/qubes-src/mgmt-salt-base-overrides'
+python setup.py install -O1 --install-layout=deb --root=/home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp
+running install
+running build
+running build_py
+creating build
+creating build/lib.linux-x86_64-2.7
+creating build/lib.linux-x86_64-2.7/qubessaltpatches
+copying src/qubessaltpatches/__init__.py -> build/lib.linux-x86_64-2.7/qubessaltpatches
+copying src/qubessaltpatches/update.py -> build/lib.linux-x86_64-2.7/qubessaltpatches
+copying src/qubessaltpatches/config.py -> build/lib.linux-x86_64-2.7/qubessaltpatches
+copying src/qubessaltpatches/url.py -> build/lib.linux-x86_64-2.7/qubessaltpatches
+running install_lib
+creating /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp
+creating /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/usr
+creating /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/usr/lib
+creating /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/usr/lib/python2.7
+creating /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/usr/lib/python2.7/dist-packages
+creating /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/usr/lib/python2.7/dist-packages/qubessaltpatches
+copying build/lib.linux-x86_64-2.7/qubessaltpatches/__init__.py -> /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/usr/lib/python2.7/dist-packages/qubessaltpatches
+copying build/lib.linux-x86_64-2.7/qubessaltpatches/update.py -> /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/usr/lib/python2.7/dist-packages/qubessaltpatches
+copying build/lib.linux-x86_64-2.7/qubessaltpatches/config.py -> /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/usr/lib/python2.7/dist-packages/qubessaltpatches
+copying build/lib.linux-x86_64-2.7/qubessaltpatches/url.py -> /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/usr/lib/python2.7/dist-packages/qubessaltpatches
+byte-compiling /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/usr/lib/python2.7/dist-packages/qubessaltpatches/__init__.py to __init__.pyc
+byte-compiling /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/usr/lib/python2.7/dist-packages/qubessaltpatches/update.py to update.pyc
+byte-compiling /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/usr/lib/python2.7/dist-packages/qubessaltpatches/config.py to config.pyc
+byte-compiling /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/usr/lib/python2.7/dist-packages/qubessaltpatches/url.py to url.pyc
+writing byte-compilation script '/tmp/tmpNmj9pD.py'
+/usr/bin/python -O /tmp/tmpNmj9pD.py
+removing /tmp/tmpNmj9pD.py
+running install_egg_info
+Writing /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/usr/lib/python2.7/dist-packages/qubessaltpatches-1.0.egg-info
+make install DESTDIR=/home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp
+make[2]: Entering directory '/home/user/qubes-src/mgmt-salt-base-overrides'
+install -d /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/srv/salt
+cp -r _modules /home/user/qubes-src/mgmt-salt-base-overrides/debian/tmp/srv/salt/
+# Place README and LICENSE in each non _* subdirectory only if in main /srv/salt tree
+make[2]: Leaving directory '/home/user/qubes-src/mgmt-salt-base-overrides'
+make[1]: Leaving directory '/home/user/qubes-src/mgmt-salt-base-overrides'
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_python2
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+dpkg-gencontrol: warning: package qubes-mgmt-salt-base-overrides-libs: substitution variable ${python:Versions} unused, but is defined
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-mgmt-salt-base-overrides' in '../qubes-mgmt-salt-base-overrides_4.0.2-1+deb10u1_all.deb'.
+dpkg-deb: building package 'qubes-mgmt-salt-base-overrides-libs' in '../qubes-mgmt-salt-base-overrides-libs_4.0.2-1+deb10u1_all.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../qubes-mgmt-salt-base-overrides_4.0.2-1+deb10u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-source: info: using options from mgmt-salt-base-overrides/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm_spec/.*)$ --extend-diff-ignore=(^|/)(debian.*)$ --extend-diff-ignore=(^|/)(.*[.]vm)(/.*|)$ --extend-diff-ignore=(^|/)(.*[.]dom0)(/.*|)$
+dpkg-buildpackage: info: full upload (original source is included)
+mkdir -p /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb
+mkdir -p qubes-src/mgmt-salt-base-overrides/pkgs/vm-buster
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/debian/../..; \
+	cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-mgmt-salt-base-overrides_4.0.2*.changes`
+cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb/ /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/debian/../../qubes-mgmt-salt-base-overrides_4.0.2*.changes
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/debian/../..; \
+	mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/mgmt-salt-base-overrides/pkgs/vm-buster  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-mgmt-salt-base-overrides_4.0.2*.changes`
+mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/mgmt-salt-base-overrides/pkgs/vm-buster /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/mgmt-salt-base-overrides/debian/../../qubes-mgmt-salt-base-overrides_4.0.2*.changes

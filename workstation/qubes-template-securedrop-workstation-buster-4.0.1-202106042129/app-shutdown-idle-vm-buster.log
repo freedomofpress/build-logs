@@ -1,0 +1,210 @@
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//update-local-repo.sh buster
+dpkg-scanpackages: info: Wrote 67 entries to output Packages file.
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster apt-get  update
+Get:1 file:/tmp/qubes-deb buster InRelease
+Ign:1 file:/tmp/qubes-deb buster InRelease
+Get:2 file:/tmp/qubes-deb buster Release [340 B]
+Get:2 file:/tmp/qubes-deb buster Release [340 B]
+Get:3 file:/tmp/qubes-deb buster Release.gpg
+Ign:3 file:/tmp/qubes-deb buster Release.gpg
+Get:4 file:/tmp/qubes-deb buster/main amd64 Packages [13.9 kB]
+Hit:5 https://deb.debian.org/debian buster InRelease
+Hit:6 https://deb.qubes-os.org/r4.0/vm buster InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/app-shutdown-idle/debian/control
+dh_testdir
+dh_testroot
+dh_prep
+dh_testdir
+dh_testroot
+dh_install
+dh_installdocs
+dh_installchangelogs
+dh_compress
+dh_fixperms
+dh_installdeb
+dh_gencontrol
+dh_md5sums
+dh_builddeb
+dpkg-deb: building package 'qubes-app-shutdown-idle-build-deps' in '../qubes-app-shutdown-idle-build-deps_1.0.6-1_all.deb'.
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package qubes-app-shutdown-idle-build-deps.
+(Reading database ... 42120 files and directories currently installed.)
+Preparing to unpack qubes-app-shutdown-idle-build-deps_1.0.6-1_all.deb ...
+Unpacking qubes-app-shutdown-idle-build-deps (1.0.6-1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+After this operation, 0 B of additional disk space will be used.
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (19: No such device)
+Setting up qubes-app-shutdown-idle-build-deps (1.0.6-1) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/..; GLOBIGNORE=qubes-app-shutdown-idle_1.0.6*orig*; rm -f qubes-app-shutdown-idle_1.0.6*; GLOBIGNORE=
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/deb/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/rpm/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/debian/..; /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/debian/changelog /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/debian/changelog.copy
+mv /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/debian/changelog.copy /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/debian/changelog
+echo "Building package in /home/user/qubes-src/app-shutdown-idle"
+Building package in /home/user/qubes-src/app-shutdown-idle
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb10u "Build for buster"; debchange -t --force-distribution -r -D buster buster
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/debian/changelog
+find /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle \! -newer /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster su user -c 'cd /home/user/qubes-src/app-shutdown-idle/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package qubes-app-shutdown-idle
+dpkg-buildpackage: info: source version 1.0.6-1+deb10u1
+dpkg-buildpackage: info: source distribution buster
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+ fakeroot debian/rules clean
+dh clean --with python3 --buildsystem=pybuild
+   dh_auto_clean -O--buildsystem=pybuild
+I: pybuild base:217: python3.7 setup.py clean 
+running clean
+removing '/home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build' (and everything under it)
+'build/bdist.linux-amd64' does not exist -- can't clean it
+'build/scripts-3.7' does not exist -- can't clean it
+   dh_autoreconf_clean -O--buildsystem=pybuild
+   dh_clean -O--buildsystem=pybuild
+ dpkg-source -b .
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building qubes-app-shutdown-idle using existing ./qubes-app-shutdown-idle_1.0.6.orig.tar.xz
+dpkg-source: info: building qubes-app-shutdown-idle in qubes-app-shutdown-idle_1.0.6-1+deb10u1.debian.tar.xz
+dpkg-source: info: building qubes-app-shutdown-idle in qubes-app-shutdown-idle_1.0.6-1+deb10u1.dsc
+ debian/rules build
+dh build --with python3 --buildsystem=pybuild
+   dh_update_autotools_config -O--buildsystem=pybuild
+   dh_autoreconf -O--buildsystem=pybuild
+   dh_auto_configure -O--buildsystem=pybuild
+I: pybuild base:217: python3.7 setup.py config 
+running config
+   dh_auto_build -O--buildsystem=pybuild
+I: pybuild base:217: /usr/bin/python3 setup.py build 
+running build
+running build_py
+creating /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle
+copying qubesidle/__init__.py -> /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle
+copying qubesidle/idle_watcher.py -> /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle
+copying qubesidle/network_watcher.py -> /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle
+copying qubesidle/idleness_monitor.py -> /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle
+copying qubesidle/tests_idleness_monitor.py -> /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle
+copying qubesidle/idle_watcher_window.py -> /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle
+   dh_auto_test -O--buildsystem=pybuild
+I: pybuild base:217: cd /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build; python3.7 -m unittest discover -v 
+test_00_no_watcher (qubesidle.tests_idleness_monitor.MonitorTest) ... ok
+test_01_always_idle (qubesidle.tests_idleness_monitor.MonitorTest) ... ok
+test_02_idle_after_3s_2s (qubesidle.tests_idleness_monitor.MonitorTest) ... ok
+test_03_idle_after_3s_10s (qubesidle.tests_idleness_monitor.MonitorTest) ... ok
+test_04_idle_after_3s_two_watchers (qubesidle.tests_idleness_monitor.MonitorTest) ... ok
+test_05_never_idle_state_change (qubesidle.tests_idleness_monitor.MonitorTest) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 58.056s
+
+OK
+   create-stamp debian/debhelper-build-stamp
+ fakeroot debian/rules binary
+dh binary --with python3 --buildsystem=pybuild
+   dh_testroot -O--buildsystem=pybuild
+   dh_prep -O--buildsystem=pybuild
+   dh_auto_install -O--buildsystem=pybuild
+I: pybuild base:217: /usr/bin/python3 setup.py install --root /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle 
+running install
+running build
+running build_py
+running install_lib
+creating /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr
+creating /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib
+creating /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7
+creating /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages
+creating /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle
+copying /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle/__init__.py -> /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle
+creating /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle/__pycache__
+copying /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle/__pycache__/__init__.cpython-37.pyc -> /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle/__pycache__
+copying /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle/__pycache__/idle_watcher.cpython-37.pyc -> /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle/__pycache__
+copying /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle/__pycache__/idleness_monitor.cpython-37.pyc -> /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle/__pycache__
+copying /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle/__pycache__/tests_idleness_monitor.cpython-37.pyc -> /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle/__pycache__
+copying /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle/idle_watcher.py -> /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle
+copying /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle/network_watcher.py -> /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle
+copying /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle/idleness_monitor.py -> /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle
+copying /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle/tests_idleness_monitor.py -> /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle
+copying /home/user/qubes-src/app-shutdown-idle/.pybuild/cpython3_3.7_qubesidle/build/qubesidle/idle_watcher_window.py -> /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle
+byte-compiling /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle/__init__.py to __init__.cpython-37.pyc
+byte-compiling /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle/idle_watcher.py to idle_watcher.cpython-37.pyc
+byte-compiling /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle/network_watcher.py to network_watcher.cpython-37.pyc
+byte-compiling /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle/idleness_monitor.py to idleness_monitor.cpython-37.pyc
+byte-compiling /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle/tests_idleness_monitor.py to tests_idleness_monitor.cpython-37.pyc
+byte-compiling /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle/idle_watcher_window.py to idle_watcher_window.cpython-37.pyc
+running install_egg_info
+running egg_info
+creating qubesidle.egg-info
+writing qubesidle.egg-info/PKG-INFO
+writing dependency_links to qubesidle.egg-info/dependency_links.txt
+writing entry points to qubesidle.egg-info/entry_points.txt
+writing top-level names to qubesidle.egg-info/top_level.txt
+writing manifest file 'qubesidle.egg-info/SOURCES.txt'
+reading manifest file 'qubesidle.egg-info/SOURCES.txt'
+writing manifest file 'qubesidle.egg-info/SOURCES.txt'
+Copying qubesidle.egg-info to /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/lib/python3.7/dist-packages/qubesidle-1.0.6.egg-info
+Skipping SOURCES.txt
+running install_scripts
+Installing qubes-idle-watcher script to /home/user/qubes-src/app-shutdown-idle/debian/qubes-app-shutdown-idle/usr/bin
+   dh_install -O--buildsystem=pybuild
+   dh_installdocs -O--buildsystem=pybuild
+   dh_installchangelogs -O--buildsystem=pybuild
+   dh_systemd_enable -O--buildsystem=pybuild
+   dh_python3 -O--buildsystem=pybuild
+   dh_installinit -O--buildsystem=pybuild
+   dh_systemd_start -O--buildsystem=pybuild
+   dh_perl -O--buildsystem=pybuild
+   dh_link -O--buildsystem=pybuild
+   dh_strip_nondeterminism -O--buildsystem=pybuild
+   dh_compress -O--buildsystem=pybuild
+   dh_fixperms -O--buildsystem=pybuild
+   dh_missing -O--buildsystem=pybuild
+   dh_strip -O--buildsystem=pybuild
+   dh_makeshlibs -O--buildsystem=pybuild
+   dh_shlibdeps -O--buildsystem=pybuild
+   dh_installdeb -O--buildsystem=pybuild
+   dh_gencontrol -O--buildsystem=pybuild
+   dh_md5sums -O--buildsystem=pybuild
+   dh_builddeb -O--buildsystem=pybuild
+dpkg-deb: building package 'qubes-app-shutdown-idle' in '../qubes-app-shutdown-idle_1.0.6-1+deb10u1_amd64.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../qubes-app-shutdown-idle_1.0.6-1+deb10u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload (original source is included)
+mkdir -p /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb
+mkdir -p qubes-src/app-shutdown-idle/pkgs/vm-buster
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/debian/../..; \
+	cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-app-shutdown-idle_1.0.6*.changes`
+cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-buster/deb/ /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/debian/../../qubes-app-shutdown-idle_1.0.6*.changes
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/debian/../..; \
+	mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/app-shutdown-idle/pkgs/vm-buster  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-app-shutdown-idle_1.0.6*.changes`
+mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/app-shutdown-idle/pkgs/vm-buster /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-buster//home/user/qubes-src/app-shutdown-idle/debian/../../qubes-app-shutdown-idle_1.0.6*.changes
