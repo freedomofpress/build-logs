@@ -1,0 +1,143 @@
+user@sd-dvm:~$ cd securedrop
+user@sd-dvm:~/securedrop$ git checkout update-tor-0.4.6.8 
+Branch 'update-tor-0.4.6.8' set up to track remote branch 'update-tor-0.4.6.8' from 'origin'.
+Switched to a new branch 'update-tor-0.4.6.8'
+user@sd-dvm:~/securedrop$ git log -1
+commit f067f677a148091fd2f2b144891ccd3accaee090 (HEAD -> update-tor-0.4.6.8, origin/update-tor-0.4.6.8)
+Author: Kevin O'Gorman <kog@freedom.press>
+Date:   Tue Nov 9 12:10:36 2021 -0500
+
+    update Tor version to 0.4.6.8
+user@sd-dvm:~/securedrop$ git verify-commit HEAD
+gpg: Signature made Tue Nov  9 12:10:38 2021 EST
+gpg:                using RSA key A05ACE4F7E0BCA9BAD8D42F4ACFE4353173015EA
+gpg: Good signature from "Kevin O'Gorman <kog@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: A05A CE4F 7E0B CA9B AD8D  42F4 ACFE 4353 1730 15EA
+user@sd-dvm:~/securedrop$ make fetch-tor-packages 
+Fetching most recent Tor packages...
+Creating Python 3 virtualenv in .venv
+Already using interpreter /usr/bin/python3
+Using base prefix '/usr'
+New python executable in /home/user/securedrop/.venv/bin/python3
+Also creating executable in /home/user/securedrop/.venv/bin/python
+Installing setuptools, pkg_resources, pip, wheel...done.
+--> Test matrix
+    
+└── fetch-tor-packages
+    ├── destroy
+    ├── create
+    ├── prepare
+    ├── converge
+    ├── verify
+    └── destroy
+    
+--> Scenario: 'fetch-tor-packages'
+--> Action: 'destroy'
+playbook.yml was deprecated, rename it to converge.yml
+--> Sanity checks: 'docker'
+    
+    PLAY [Destroy] *****************************************************************
+    
+    TASK [Destroy molecule instance(s)] ********************************************
+    ok: [localhost] => (item={'distro': 'focal', 'image': 'quay.io/freedomofpress/sd-docker-builder-focal', 'name': 'tor-package-fetcher-focal'})
+    
+    PLAY RECAP *********************************************************************
+    localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    
+--> Scenario: 'fetch-tor-packages'
+--> Action: 'create'
+playbook.yml was deprecated, rename it to converge.yml
+    
+    PLAY [Create] ******************************************************************
+    
+    TASK [Create molecule instance(s)] *********************************************
+    changed: [localhost] => (item={'distro': 'focal', 'image': 'quay.io/freedomofpress/sd-docker-builder-focal', 'name': 'tor-package-fetcher-focal'})
+    
+    PLAY RECAP *********************************************************************
+    localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    
+--> Scenario: 'fetch-tor-packages'
+--> Action: 'prepare'
+playbook.yml was deprecated, rename it to converge.yml
+    
+    PLAY [Bootstrap Ansible for containers] ****************************************
+    
+    TASK [Install python] **********************************************************
+    changed: [tor-package-fetcher-focal]
+    
+    PLAY RECAP *********************************************************************
+    tor-package-fetcher-focal  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    
+--> Scenario: 'fetch-tor-packages'
+--> Action: 'converge'
+playbook.yml was deprecated, rename it to converge.yml
+playbook.yml was deprecated, rename it to converge.yml
+    
+    PLAY [Converge] ****************************************************************
+    
+    TASK [Gathering Facts] *********************************************************
+    ok: [tor-package-fetcher-focal]
+    
+    TASK [Add Tor apt repo pubkey] *************************************************
+    changed: [tor-package-fetcher-focal]
+    
+    TASK [Add Tor apt repo URL] ****************************************************
+    changed: [tor-package-fetcher-focal]
+    
+    TASK [Create temporary dir for downloading debs] *******************************
+    changed: [tor-package-fetcher-focal]
+    
+    TASK [Download Tor debs] *******************************************************
+    changed: [tor-package-fetcher-focal] => (item=tor)
+    changed: [tor-package-fetcher-focal] => (item=tor-geoipdb)
+    
+    TASK [Find downloaded Tor debs] ************************************************
+    ok: [tor-package-fetcher-focal]
+    
+    TASK [Fetch downloaded Tor debs back to submodule] *****************************
+    changed: [tor-package-fetcher-focal] => (item={'path': '/tmp/tor-debs/tor_0.4.6.8-1~focal+1_amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 1445692, 'inode': 1059114, 'dev': 52, 'nlink': 1, 'atime': 1635696073.0, 'mtime': 1635696073.0, 'ctime': 1636479195.933, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [tor-package-fetcher-focal] => (item={'path': '/tmp/tor-debs/tor-geoipdb_0.4.6.8-1~focal+1_all.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 890796, 'inode': 1059118, 'dev': 52, 'nlink': 1, 'atime': 1635696073.0, 'mtime': 1635696073.0, 'ctime': 1636479199.547, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+    
+    TASK [Display location of fetched files] ***************************************
+    ok: [tor-package-fetcher-focal] => {
+        "msg": "Tor deb packages have been downloaded to '/home/user/securedrop/build/focal'.\n"
+    }
+    
+    PLAY RECAP *********************************************************************
+    tor-package-fetcher-focal  : ok=8    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    
+--> Scenario: 'fetch-tor-packages'
+--> Action: 'verify'
+--> Executing Testinfra tests found in /home/user/securedrop/molecule/fetch-tor-packages/tests/...
+    ============================= test session starts ==============================
+    platform linux -- Python 3.7.3, pytest-6.1.1, py-1.10.0, pluggy-0.13.1
+    rootdir: /home/user/securedrop/molecule, configfile: pytest.ini
+    plugins: forked-1.3.0, testinfra-5.3.1, xdist-2.1.0
+collected 4 items                                                              
+    
+    tests/test_tor_packages.py ....                                          [100%]
+    
+    ============================== 4 passed in 1.13s ===============================
+Verifier completed successfully.
+--> Scenario: 'fetch-tor-packages'
+--> Action: 'destroy'
+playbook.yml was deprecated, rename it to converge.yml
+    
+    PLAY [Destroy] *****************************************************************
+    
+    TASK [Destroy molecule instance(s)] ********************************************
+    changed: [localhost] => (item={'distro': 'focal', 'image': 'quay.io/freedomofpress/sd-docker-builder-focal', 'name': 'tor-package-fetcher-focal'})
+    
+    PLAY RECAP *********************************************************************
+    localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    
+--> Pruning extra files from scenario ephemeral directory
+
+user@sd-dvm:~/securedrop$ shasum -a 256 build/
+focal/      .gitignore  
+user@sd-dvm:~/securedrop$ shasum -a 256 build/focal/tor*
+0d2b81cd9be3a6401762237114076c702d7443808b73c82ef91325dda7a833d9  build/focal/tor_0.4.6.8-1~focal+1_amd64.deb
+c3de43d58a2a7e091bbcc31af62abf2cd390f8edebb4666bf37546a9b73a10ce  build/focal/tor-geoipdb_0.4.6.8-1~focal+1_all.deb
+
