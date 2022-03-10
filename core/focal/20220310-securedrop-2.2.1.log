@@ -1,0 +1,1210 @@
+[user@fpf-dev-dvm:~] $
+ $ git clone https://github.com/freedomofpress/securedrop
+Cloning into 'securedrop'...
+changing to directory securedrop
+[user@fpf-dev-dvm:~/securedrop] develop 18s ±
+ $ ls -l
+total 204
+drwxr-xr-x  5 user user  4096 Mar 10 09:39 admin
+-rw-r--r--  1 user user   514 Mar 10 09:39 ansible.cfg
+drwxr-xr-x  2 user user  4096 Mar 10 09:39 build
+-rw-r--r--  1 user user 68155 Mar 10 09:39 changelog.md
+-rw-r--r--  1 user user   222 Mar 10 09:39 codecov.yml
+-rw-r--r--  1 user user   842 Mar 10 09:39 CONTRIBUTING.md
+drwxr-xr-x  5 user user  4096 Mar 10 09:39 devops
+drwxr-xr-x  2 user user  4096 Mar 10 09:39 git
+drwxr-xr-x 12 user user  4096 Mar 10 09:39 install_files
+drwxr-xr-x  3 user user  4096 Mar 10 09:39 journalist_gui
+drwxr-xr-x  2 user user  4096 Mar 10 09:39 junit
+-rw-r--r--  1 user user 34629 Mar 10 09:39 LICENSE
+-rw-r--r--  1 user user 13035 Mar 10 09:39 Makefile
+-rw-r--r--  1 user user   204 Mar 10 09:39 MANIFEST.in
+drwxr-xr-x 11 user user  4096 Mar 10 09:39 molecule
+-rw-r--r--  1 user user   193 Mar 10 09:39 mypy.ini
+-rw-r--r--  1 user user  4050 Mar 10 09:39 README.md
+drwxr-xr-x 19 user user  4096 Mar 10 09:39 securedrop
+-rwxr-xr-x  1 user user   725 Mar 10 09:39 securedrop-admin
+-rw-r--r--  1 user user   441 Mar 10 09:39 SECURITY.md
+-rw-r--r--  1 user user   845 Mar 10 09:39 setup.py
+-rw-r--r--  1 user user   682 Mar 10 09:39 SOURCE_OFFER
+drwxr-xr-x  2 user user  4096 Mar 10 09:39 tails_files
+-rwxr-xr-x  1 user user  3212 Mar 10 09:39 update_version.sh
+[user@fpf-dev-dvm:~/securedrop] develop 19s ±
+ $ git tag -v 2.2.1
+object d24594d23e5df5586164ba0652c948439aa12f1e
+type commit
+tag 2.2.1
+tagger Conor Schaefer <conor@freedom.press> 1646933828 -0800
+
+SecureDrop 2.2.1
+gpg: Signature made Thu 10 Mar 2022 09:38:05 AM PST
+gpg:                using RSA key 2359E6538C0613E652955E6C188EDD3B7B22E6A3
+gpg: Good signature from "SecureDrop Release Signing Key <securedrop-release-key-2021@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2359 E653 8C06 13E6 5295  5E6C 188E DD3B 7B22 E6A3
+[user@fpf-dev-dvm:~/securedrop] develop 28s ±
+ $ git checkout 2.2.1
+Note: checking out '2.2.1'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at d24594d23 SecureDrop 2.2.1
+[user@fpf-dev-dvm:~/securedrop] d24594d23 42s ±
+ $ git show
+commit d24594d23e5df5586164ba0652c948439aa12f1e (HEAD, tag: 2.2.1, origin/release/2.2.1)
+Author: Conor Schaefer <conor@freedom.press>
+Date:   Thu Mar 10 09:34:28 2022 -0800
+
+    SecureDrop 2.2.1
+
+diff --git a/changelog.md b/changelog.md
+index a0ad7be0a..c8c15b339 100644
+--- a/changelog.md
++++ b/changelog.md
+@@ -1,6 +1,6 @@
+ # Changelog
+
+-## 2.2.1~rc1
++## 2.2.1
+
+ * Update default grsec kernel version to 5.15.26 (#6325)
+ * Update pillow test dependency from 9.0.0 to 9.0.1 (#6305)
+diff --git a/install_files/ansible-base/group_vars/all/securedrop b/install_files/ansible-base/group_vars/all/securedrop
+index 96931eb00..785213e7d 100644
+--- a/install_files/ansible-base/group_vars/all/securedrop
++++ b/install_files/ansible-base/group_vars/all/securedrop
+@@ -2,7 +2,7 @@
+ # Variables that apply to both the app and monitor server go in this file
+ # If the monitor or app server need different values define the variable in
+ # hosts_vars/app.yml or host_vars/mon.yml
+-securedrop_version: "2.2.1~rc1"
++securedrop_version: "2.2.1"
+ securedrop_app_code_sdist_name: "securedrop-app-code-{{ securedrop_version | replace('~', '-') }}.tar.gz"
+
+ grsecurity: true
+diff --git a/install_files/ansible-base/roles/build-securedrop-app-code-deb-pkg/files/changelog-focal b/install_files/ansible-base/roles/build-securedrop-app-code-deb-pkg/files/changelog-focal
+index d38406a9b..2e3298211 100644
+--- a/install_files/ansible-base/roles/build-securedrop-app-code-deb-pkg/files/changelog-focal
++++ b/install_files/ansible-base/roles/build-securedrop-app-code-deb-pkg/files/changelog-focal
+@@ -1,8 +1,8 @@
+-securedrop-app-code (2.2.1~rc1+focal) focal; urgency=medium
++securedrop-app-code (2.2.1+focal) focal; urgency=medium
+[user@fpf-dev-dvm:~/securedrop] d24594d23 45s ±
+ $ mkvirtualenv -a $PWD sd -p $(which python3)
+Already using interpreter /usr/bin/python3
+Using base prefix '/usr'
+New python executable in /home/user/.virtualenvs/sd/bin/python3
+Also creating executable in /home/user/.virtualenvs/sd/bin/python
+Installing setuptools, pkg_resources, pip, wheel...done.
+Setting project for sd to /home/user/securedrop
+[user@fpf-dev-dvm:~/securedrop] [sd] d24594d23 1m1s ±
+ $ pip install --require-hashes -r securedrop/requirements/python3/develop-requirements.txt
+Collecting ansible-lint==4.2.0
+  Downloading ansible_lint-4.2.0-py2.py3-none-any.whl (57 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.2/57.2 KB 3.6 MB/s eta 0:00:00
+Collecting ansible==2.9.26
+  Downloading ansible-2.9.26.tar.gz (14.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.3/14.3 MB 33.4 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Collecting apipkg==1.4
+  Downloading apipkg-1.4-py2.py3-none-any.whl (6.6 kB)
+Collecting argon2-cffi==20.1.0
+  Downloading argon2_cffi-20.1.0-cp35-abi3-manylinux1_x86_64.whl (97 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.0/98.0 KB 18.3 MB/s eta 0:00:00
+Collecting arrow==0.10.0
+  Downloading arrow-0.10.0.tar.gz (86 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 86.5/86.5 KB 8.6 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Collecting aspy.yaml==1.3.0
+  Downloading aspy.yaml-1.3.0-py2.py3-none-any.whl (3.5 kB)
+Collecting astroid==2.5.2
+  Downloading astroid-2.5.2-py3-none-any.whl (222 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 222.8/222.8 KB 20.3 MB/s eta 0:00:00
+Collecting attrs==20.2.0
+  Downloading attrs-20.2.0-py2.py3-none-any.whl (48 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.1/48.1 KB 7.8 MB/s eta 0:00:00
+Collecting bandit==1.7.0
+  Downloading bandit-1.7.0-py3-none-any.whl (115 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 115.2/115.2 KB 22.8 MB/s eta 0:00:00
+Collecting bcrypt==3.1.3
+  Downloading bcrypt-3.1.3.tar.gz (40 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.8/40.8 KB 8.0 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Collecting binaryornot==0.4.4
+  Downloading binaryornot-0.4.4-py2.py3-none-any.whl (9.0 kB)
+Collecting boto3==1.5.24
+  Downloading boto3-1.5.24-py2.py3-none-any.whl (128 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 128.4/128.4 KB 10.0 MB/s eta 0:00:00
+Collecting boto==2.48.0
+  Downloading boto-2.48.0-py2.py3-none-any.whl (1.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 29.7 MB/s eta 0:00:00
+Collecting botocore==1.8.38
+  Downloading botocore-1.8.38-py2.py3-none-any.whl (4.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.1/4.1 MB 36.7 MB/s eta 0:00:00
+Collecting cerberus==1.3.1
+  Downloading Cerberus-1.3.1.tar.gz (52 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 52.3/52.3 KB 7.0 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Collecting certifi==2017.7.27.1
+  Downloading certifi-2017.7.27.1-py2.py3-none-any.whl (349 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 349.6/349.6 KB 30.3 MB/s eta 0:00:00
+Collecting cffi==1.14.5
+  Downloading cffi-1.14.5-cp37-cp37m-manylinux1_x86_64.whl (402 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 402.3/402.3 KB 24.9 MB/s eta 0:00:00
+Collecting cfgv==2.0.1
+  Downloading cfgv-2.0.1-py2.py3-none-any.whl (7.4 kB)
+Collecting chardet==3.0.4
+  Downloading chardet-3.0.4-py2.py3-none-any.whl (133 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.4/133.4 KB 12.4 MB/s eta 0:00:00
+Collecting charset-normalizer==2.0.3
+  Downloading charset_normalizer-2.0.3-py3-none-any.whl (35 kB)
+Collecting click-completion==0.5.2
+  Downloading click-completion-0.5.2.tar.gz (10 kB)
+  Preparing metadata (setup.py) ... done
+Collecting click-help-colors==0.8
+  Downloading click_help_colors-0.8-py3-none-any.whl (6.0 kB)
+Collecting click==7.1.2
+  Downloading click-7.1.2-py2.py3-none-any.whl (82 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 82.8/82.8 KB 18.2 MB/s eta 0:00:00
+Collecting colorama==0.3.9
+  Downloading colorama-0.3.9-py2.py3-none-any.whl (20 kB)
+Collecting cookiecutter==1.6.0
+  Downloading cookiecutter-1.6.0-py2.py3-none-any.whl (50 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50.1/50.1 KB 5.5 MB/s eta 0:00:00
+Collecting cryptography==3.4.7
+  Downloading cryptography-3.4.7-cp36-abi3-manylinux2014_x86_64.whl (3.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 38.2 MB/s eta 0:00:00
+Collecting distro==1.5.0
+  Downloading distro-1.5.0-py2.py3-none-any.whl (18 kB)
+Collecting dnspython==1.15.0
+  Downloading dnspython-1.15.0-py2.py3-none-any.whl (177 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 177.4/177.4 KB 25.6 MB/s eta 0:00:00
+Collecting docker==4.4.2
+  Downloading docker-4.4.2-py2.py3-none-any.whl (146 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 146.9/146.9 KB 9.1 MB/s eta 0:00:00
+Collecting docopt==0.6.2
+  Downloading docopt-0.6.2.tar.gz (25 kB)
+  Preparing metadata (setup.py) ... done
+Collecting docutils==0.14
+  Downloading docutils-0.14-py3-none-any.whl (543 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 543.2/543.2 KB 37.1 MB/s eta 0:00:00
+Collecting dparse==0.4.1
+  Downloading dparse-0.4.1.tar.gz (31 kB)
+  Preparing metadata (setup.py) ... done
+Collecting entrypoints==0.3
+  Downloading entrypoints-0.3-py2.py3-none-any.whl (11 kB)
+Collecting execnet==1.4.1
+  Downloading execnet-1.4.1-py2.py3-none-any.whl (40 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.7/40.7 KB 8.2 MB/s eta 0:00:00
+Collecting fasteners==0.14.1
+  Downloading fasteners-0.14.1-py2.py3-none-any.whl (20 kB)
+Collecting flake8==3.7.7
+  Downloading flake8-3.7.7-py2.py3-none-any.whl (68 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 68.8/68.8 KB 7.0 MB/s eta 0:00:00
+Collecting future==0.16.0
+  Downloading future-0.16.0.tar.gz (824 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 824.5/824.5 KB 46.1 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Collecting git-url-parse==1.0.2
+  Downloading git_url_parse-1.0.2-py3-none-any.whl (5.4 kB)
+Collecting gitdb2==2.0.3
+  Downloading gitdb2-2.0.3-py2.py3-none-any.whl (63 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 63.5/63.5 KB 13.8 MB/s eta 0:00:00
+Collecting gitpython==2.1.8
+  Downloading GitPython-2.1.8-py2.py3-none-any.whl (448 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 448.7/448.7 KB 33.8 MB/s eta 0:00:00
+Collecting html-linter==0.4.0
+  Downloading html-linter-0.4.0.tar.gz (19 kB)
+  Preparing metadata (setup.py) ... done
+Collecting identify==1.4.7
+  Downloading identify-1.4.7-py2.py3-none-any.whl (97 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 97.1/97.1 KB 11.4 MB/s eta 0:00:00
+Collecting idna==2.5
+  Downloading idna-2.5-py2.py3-none-any.whl (55 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 55.1/55.1 KB 6.5 MB/s eta 0:00:00
+Collecting importlib-metadata==0.23
+  Downloading importlib_metadata-0.23-py2.py3-none-any.whl (28 kB)
+Collecting importlib-resources==1.5.0
+  Downloading importlib_resources-1.5.0-py2.py3-none-any.whl (21 kB)
+Collecting iniconfig==1.0.1
+  Downloading iniconfig-1.0.1-py3-none-any.whl (4.2 kB)
+Collecting isort==5.8.0
+  Downloading isort-5.8.0-py3-none-any.whl (103 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 103.2/103.2 KB 21.4 MB/s eta 0:00:00
+Collecting jinja2-time==0.2.0
+  Downloading jinja2_time-0.2.0-py2.py3-none-any.whl (6.4 kB)
+Collecting jinja2==3.0.2
+  Downloading Jinja2-3.0.2-py3-none-any.whl (133 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.8/133.8 KB 19.2 MB/s eta 0:00:00
+Collecting jmespath==0.9.3
+  Downloading jmespath-0.9.3-py2.py3-none-any.whl (23 kB)
+Collecting lazy-object-proxy==1.6.0
+  Downloading lazy_object_proxy-1.6.0-cp37-cp37m-manylinux1_x86_64.whl (55 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 55.8/55.8 KB 11.4 MB/s eta 0:00:00
+Collecting markupsafe==2.0.1
+  Downloading MarkupSafe-2.0.1-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (31 kB)
+Collecting mccabe==0.6.1
+  Downloading mccabe-0.6.1-py2.py3-none-any.whl (8.6 kB)
+Collecting molecule-vagrant==0.3
+  Downloading molecule_vagrant-0.3-py2.py3-none-any.whl (24 kB)
+Collecting molecule==3.0.2.1
+  Downloading molecule-3.0.2.1-py2.py3-none-any.whl (281 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 281.1/281.1 KB 27.3 MB/s eta 0:00:00
+Collecting monotonic==1.4
+  Downloading monotonic-1.4-py2.py3-none-any.whl (5.3 kB)
+Collecting more-itertools==7.2.0
+  Downloading more_itertools-7.2.0-py3-none-any.whl (57 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.3/57.3 KB 11.6 MB/s eta 0:00:00
+Collecting mypy-extensions==0.4.3
+  Downloading mypy_extensions-0.4.3-py2.py3-none-any.whl (4.5 kB)
+Collecting mypy==0.761
+  Downloading mypy-0.761-cp37-cp37m-manylinux1_x86_64.whl (24.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 24.1/24.1 MB 33.1 MB/s eta 0:00:00
+Collecting netaddr==0.7.19
+  Downloading netaddr-0.7.19-py2.py3-none-any.whl (1.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 34.4 MB/s eta 0:00:00
+Collecting nodeenv==1.3.3
+  Downloading nodeenv-1.3.3.tar.gz (34 kB)
+  Preparing metadata (setup.py) ... done
+Collecting packaging==16.8
+  Downloading packaging-16.8-py2.py3-none-any.whl (23 kB)
+Collecting paramiko==2.6.0
+  Downloading paramiko-2.6.0-py2.py3-none-any.whl (199 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 199.9/199.9 KB 37.4 MB/s eta 0:00:00
+Collecting pathspec==0.5.5
+  Downloading pathspec-0.5.5.tar.gz (21 kB)
+  Preparing metadata (setup.py) ... done
+Collecting pbr==5.1.1
+  Downloading pbr-5.1.1-py2.py3-none-any.whl (106 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 106.7/106.7 KB 21.6 MB/s eta 0:00:00
+Collecting pep517==0.10.0
+  Downloading pep517-0.10.0-py2.py3-none-any.whl (19 kB)
+Collecting pexpect==4.6.0
+  Downloading pexpect-4.6.0-py2.py3-none-any.whl (57 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.9/57.9 KB 12.3 MB/s eta 0:00:00
+Collecting pip-tools==6.1.0
+  Downloading pip_tools-6.1.0-py3-none-any.whl (44 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.4/44.4 KB 3.8 MB/s eta 0:00:00
+Collecting pluggy==0.13.1
+  Downloading pluggy-0.13.1-py2.py3-none-any.whl (18 kB)
+Collecting poyo==0.4.1
+  Downloading poyo-0.4.1-py2.py3-none-any.whl (12 kB)
+Collecting pre-commit==1.18.3
+  Downloading pre_commit-1.18.3-py2.py3-none-any.whl (154 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 154.2/154.2 KB 30.4 MB/s eta 0:00:00
+Collecting prompt_toolkit==2.0.9
+  Downloading prompt_toolkit-2.0.9-py3-none-any.whl (337 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 337.8/337.8 KB 32.6 MB/s eta 0:00:00
+Collecting psutil==5.7.0
+  Downloading psutil-5.7.0.tar.gz (449 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 449.6/449.6 KB 26.2 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Collecting ptyprocess==0.5.2
+  Downloading ptyprocess-0.5.2-py2.py3-none-any.whl (39 kB)
+Collecting py==1.10.0
+  Downloading py-1.10.0-py2.py3-none-any.whl (97 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 97.6/97.6 KB 21.0 MB/s eta 0:00:00
+Collecting pycodestyle==2.5.0
+  Downloading pycodestyle-2.5.0-py2.py3-none-any.whl (51 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 51.2/51.2 KB 6.6 MB/s eta 0:00:00
+Collecting pycparser==2.18
+  Downloading pycparser-2.18.tar.gz (245 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 245.9/245.9 KB 21.3 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Collecting pyenchant==3.2.1
+  Downloading pyenchant-3.2.1-py3-none-any.whl (55 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 55.7/55.7 KB 12.2 MB/s eta 0:00:00
+Collecting pyflakes==2.1.1
+  Downloading pyflakes-2.1.1-py2.py3-none-any.whl (59 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.0/60.0 KB 6.1 MB/s eta 0:00:00
+Collecting pylint==2.7.4
+  Downloading pylint-2.7.4-py3-none-any.whl (346 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 346.2/346.2 KB 32.2 MB/s eta 0:00:00
+Collecting pynacl==1.4.0
+  Downloading PyNaCl-1.4.0-cp35-abi3-manylinux1_x86_64.whl (961 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 961.1/961.1 KB 67.1 MB/s eta 0:00:00
+Collecting pyparsing==2.2.0
+  Downloading pyparsing-2.2.0-py2.py3-none-any.whl (56 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.4/56.4 KB 10.9 MB/s eta 0:00:00
+Collecting pytest-forked==1.3.0
+  Downloading pytest_forked-1.3.0-py2.py3-none-any.whl (4.7 kB)
+Collecting pytest-xdist==2.1.0
+  Downloading pytest_xdist-2.1.0-py3-none-any.whl (36 kB)
+Collecting pytest==6.1.1
+  Downloading pytest-6.1.1-py3-none-any.whl (272 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 272.2/272.2 KB 20.1 MB/s eta 0:00:00
+Collecting python-dateutil==2.6.1
+  Downloading python_dateutil-2.6.1-py2.py3-none-any.whl (194 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 194.2/194.2 KB 18.9 MB/s eta 0:00:00
+Collecting python-gilt==1.2.1
+  Downloading python_gilt-1.2.1-py3-none-any.whl (13 kB)
+Collecting python-vagrant==0.5.15
+  Downloading python-vagrant-0.5.15.tar.gz (29 kB)
+  Preparing metadata (setup.py) ... done
+Collecting pyyaml==5.4.1
+  Downloading PyYAML-5.4.1-cp37-cp37m-manylinux1_x86_64.whl (636 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 636.6/636.6 KB 28.5 MB/s eta 0:00:00
+Collecting requests==2.26.0
+  Downloading requests-2.26.0-py2.py3-none-any.whl (62 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.3/62.3 KB 11.7 MB/s eta 0:00:00
+Collecting ruamel.yaml.clib==0.2.0
+  Downloading ruamel.yaml.clib-0.2.0-cp37-cp37m-manylinux1_x86_64.whl (547 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 547.2/547.2 KB 34.3 MB/s eta 0:00:00
+Collecting ruamel.yaml==0.16.10
+  Downloading ruamel.yaml-0.16.10-py2.py3-none-any.whl (111 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 111.2/111.2 KB 18.8 MB/s eta 0:00:00
+Collecting s3transfer==0.1.12
+  Downloading s3transfer-0.1.12-py2.py3-none-any.whl (59 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.4/59.4 KB 6.2 MB/s eta 0:00:00
+Collecting safety==1.8.7
+  Downloading safety-1.8.7-py2.py3-none-any.whl (14 kB)
+Collecting selinux==0.2.1
+  Downloading selinux-0.2.1-py2.py3-none-any.whl (4.3 kB)
+Collecting sh==1.12.14
+  Downloading sh-1.12.14-py2.py3-none-any.whl (38 kB)
+Collecting shellingham==1.3.2
+  Downloading shellingham-1.3.2-py2.py3-none-any.whl (11 kB)
+Collecting six==1.15.0
+  Downloading six-1.15.0-py2.py3-none-any.whl (10 kB)
+Collecting smmap2==2.0.3
+  Downloading smmap2-2.0.3-py2.py3-none-any.whl (27 kB)
+Collecting sqlalchemy-stubs==0.3
+  Downloading sqlalchemy_stubs-0.3-py3-none-any.whl (115 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 115.5/115.5 KB 14.4 MB/s eta 0:00:00
+Collecting stevedore==1.28.0
+  Downloading stevedore-1.28.0-py2.py3-none-any.whl (39 kB)
+Collecting tabulate==0.8.7
+  Downloading tabulate-0.8.7-py3-none-any.whl (24 kB)
+Collecting template-remover==0.1.9
+  Downloading template-remover-0.1.9.tar.gz (7.1 kB)
+  Preparing metadata (setup.py) ... done
+Collecting testinfra==5.3.1
+  Downloading testinfra-5.3.1-py3-none-any.whl (69 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.1/69.1 KB 15.4 MB/s eta 0:00:00
+Collecting toml==0.10.0
+  Downloading toml-0.10.0-py2.py3-none-any.whl (25 kB)
+Collecting tree-format==0.1.2
+  Downloading tree-format-0.1.2.tar.gz (4.0 kB)
+  Preparing metadata (setup.py) ... done
+Collecting typed-ast==1.4.1
+  Downloading typed_ast-1.4.1-cp37-cp37m-manylinux1_x86_64.whl (737 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 737.6/737.6 KB 28.1 MB/s eta 0:00:00
+Collecting typing-extensions==3.7.4.1
+  Downloading typing_extensions-3.7.4.1-py3-none-any.whl (20 kB)
+Collecting urllib3==1.26.6
+  Downloading urllib3-1.26.6-py2.py3-none-any.whl (138 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 138.5/138.5 KB 11.6 MB/s eta 0:00:00
+Collecting virtualenv==16.7.5
+  Downloading virtualenv-16.7.5-py2.py3-none-any.whl (3.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 36.8 MB/s eta 0:00:00
+Collecting wcwidth==0.1.7
+  Downloading wcwidth-0.1.7-py2.py3-none-any.whl (21 kB)
+Collecting websocket-client==0.44.0
+  Downloading websocket_client-0.44.0-py2.py3-none-any.whl (199 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 199.9/199.9 KB 38.1 MB/s eta 0:00:00
+Collecting whichcraft==0.4.1
+  Downloading whichcraft-0.4.1-py2.py3-none-any.whl (5.1 kB)
+Collecting wrapt==1.12.1
+  Downloading wrapt-1.12.1.tar.gz (27 kB)
+  Preparing metadata (setup.py) ... done
+Collecting yamllint==1.17.0
+  Downloading yamllint-1.17.0-py2.py3-none-any.whl (57 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.3/57.3 KB 10.6 MB/s eta 0:00:00
+Collecting zipp==0.6.0
+  Downloading zipp-0.6.0-py2.py3-none-any.whl (4.1 kB)
+Collecting pip==21.3
+  Downloading pip-21.3-py3-none-any.whl (1.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 32.8 MB/s eta 0:00:00
+Collecting setuptools==56.0.0
+  Downloading setuptools-56.0.0-py3-none-any.whl (784 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 784.9/784.9 KB 25.5 MB/s eta 0:00:00
+Building wheels for collected packages: ansible, arrow, bcrypt, cerberus, click-completion, docopt, dparse, future, html-linter, nodeenv, pathspec, psutil, pycparser, python-vagrant, template-remover, tree-format, wrapt
+  Building wheel for ansible (setup.py) ... done
+  Created wheel for ansible: filename=ansible-2.9.26-py3-none-any.whl size=16206007 sha256=6e6125366ae77d61278ceda662a210ce4c96cca01a2e9a003e66d0fc4ba62607
+  Stored in directory: /home/user/.cache/pip/wheels/b1/a0/2b/e12e1655d6d3cbd8b9a8a8729eddaf1de2d1384db19a55198b
+  Building wheel for arrow (setup.py) ... done
+  Created wheel for arrow: filename=arrow-0.10.0-py2.py3-none-any.whl size=32870 sha256=486c047859ecfea1d4039bbead0b41f70d8caa0f4eb3ad51d916e23d4c6982c2
+  Stored in directory: /home/user/.cache/pip/wheels/08/04/41/fc01ef75aa14872805f2283ef01954a539700a7a6435cf52f1
+  Building wheel for bcrypt (setup.py) ... done
+  Created wheel for bcrypt: filename=bcrypt-3.1.3-cp37-cp37m-linux_x86_64.whl size=41874 sha256=6f158c46e39c77c0acaf24ff6f288d26ef5fcf228ff53fba11458bc10a2258cc
+  Stored in directory: /home/user/.cache/pip/wheels/af/05/db/ec8bfecf1b99a175e62e918d2f891a5f9b1132d12ad2b32e6e
+  Building wheel for cerberus (setup.py) ... done
+  Created wheel for cerberus: filename=Cerberus-1.3.1-py3-none-any.whl size=54148 sha256=dca942f874798d1b5b5ea0ad07bc7dfa2681f545e361e96e762dc4ac960c14b8
+  Stored in directory: /home/user/.cache/pip/wheels/c6/d3/b0/ff1650a3cb6b6f19ea314ec517a17d88a1a4a1181b5a209836
+  Building wheel for click-completion (setup.py) ... done
+  Created wheel for click-completion: filename=click_completion-0.5.2-py3-none-any.whl size=11202 sha256=4ed6426dc009b7f23c6ba4e9b3f741241dfbf2a3e68b9c81cdaeba050ee35f6b
+  Stored in directory: /home/user/.cache/pip/wheels/31/f0/f2/9a6863c99cbafd28edbad2f52336fa296e267a83378d57babd
+  Building wheel for docopt (setup.py) ... done
+  Created wheel for docopt: filename=docopt-0.6.2-py2.py3-none-any.whl size=13723 sha256=c2c06f67c4e2ce6b0c425b1e98930436c7e824e779267de7bd9c67dd3593ad30
+  Stored in directory: /home/user/.cache/pip/wheels/72/b0/3f/1d95f96ff986c7dfffe46ce2be4062f38ebd04b506c77c81b9
+  Building wheel for dparse (setup.py) ... done
+  Created wheel for dparse: filename=dparse-0.4.1-py3-none-any.whl size=19528 sha256=593e7e63764ab3c1d5e3a1af1a8b401f59cfb554228de9388f337dee5efbdd89
+  Stored in directory: /home/user/.cache/pip/wheels/71/4d/89/faf1d72f447af4ba171beff9447a110e24e28c530fba45d3da
+  Building wheel for future (setup.py) ... done
+  Created wheel for future: filename=future-0.16.0-py3-none-any.whl size=487809 sha256=46600feb76731e1afc897abb6287cb252924b0efe3bf766ea1cd5e18fca81732
+  Stored in directory: /home/user/.cache/pip/wheels/7c/09/6f/dfd31fb2ebe951aefbee461a0dfce1bdc2e4b2c1016e85d233
+  Building wheel for html-linter (setup.py) ... done
+  Created wheel for html-linter: filename=html_linter-0.4.0-py3-none-any.whl size=14338 sha256=cc0576bc6ae630be6ba6ea819231a4e599c12f5eb7477df3e9ece3ab721d0e51
+  Stored in directory: /home/user/.cache/pip/wheels/2e/50/9f/73a163b49962de66a9bcc0707dbb1519f553371422ed91c200
+  Building wheel for nodeenv (setup.py) ... done
+  Created wheel for nodeenv: filename=nodeenv-1.3.3-py3-none-any.whl size=21368 sha256=7690c0711fa1408d6e1b9a14a742c9328d2c5123f1c9b74405472b79d15e7c2d
+  Stored in directory: /home/user/.cache/pip/wheels/13/d3/6f/0e01c0c62414f74a97916cc97047c088f6acc8ce617d1b37ff
+  Building wheel for pathspec (setup.py) ... done
+  Created wheel for pathspec: filename=pathspec-0.5.5-py3-none-any.whl size=24234 sha256=59ae1e55425aaf4bdafcb141951c918714a6b9a13a217bd8f837e81b76a4ea07
+  Stored in directory: /home/user/.cache/pip/wheels/09/97/ce/98234adaab0cf5b2c3a1b6610ada24e6f7ab3675fff4e0b8b2
+  Building wheel for psutil (setup.py) ... done
+  Created wheel for psutil: filename=psutil-5.7.0-cp37-cp37m-linux_x86_64.whl size=265359 sha256=5bb2a8f7384f5d8b1076d745fb3f2d8fc6b8643b6618130526eb0ba38aaec8ae
+  Stored in directory: /home/user/.cache/pip/wheels/b6/e7/50/aee9cc966163d74430f13f208171dee22f11efa4a4a826661c
+  Building wheel for pycparser (setup.py) ... done
+  Created wheel for pycparser: filename=pycparser-2.18-py2.py3-none-any.whl size=205757 sha256=46fe622b5fdb3ebf2a7bfe4ac656366dad8fb36a46e79112abdc13b6066736d1
+  Stored in directory: /home/user/.cache/pip/wheels/5d/c6/29/87a8bb797e60b55a91bd0a1e8455365c5f5dff9fc45c05f3e4
+  Building wheel for python-vagrant (setup.py) ... done
+  Created wheel for python-vagrant: filename=python_vagrant-0.5.15-py3-none-any.whl size=18449 sha256=dcb32a654a92af74a19469b54aebf2942917684784b5d1095f4494f559b06ab5
+  Stored in directory: /home/user/.cache/pip/wheels/a1/9e/8f/6d84a01c39978f584d03e873cbd99d2c41415695a0fa5c1f5c
+  Building wheel for template-remover (setup.py) ... done
+  Created wheel for template-remover: filename=template_remover-0.1.9-py3-none-any.whl size=7049 sha256=eb6e3e6f25f10b60b1a23b6576936d2a1fe4860490d2d89220d04b7bafff0825
+  Stored in directory: /home/user/.cache/pip/wheels/18/3f/f0/67e5e9e4ed02275ac31bf76b2fca329ae79687eaf5913ee8f3
+  Building wheel for tree-format (setup.py) ... done
+  Created wheel for tree-format: filename=tree_format-0.1.2-py3-none-any.whl size=5412 sha256=e2c3e7c8ffd12066a34cd05732092e7d0ca5f2b5638714ed3493be134c9e0d9f
+  Stored in directory: /home/user/.cache/pip/wheels/dd/b2/d1/6ac00b8fe427c28f3f3a39563977cd0667296720b3d9c19f6a
+  Building wheel for wrapt (setup.py) ... done
+  Created wheel for wrapt: filename=wrapt-1.12.1-cp37-cp37m-linux_x86_64.whl size=51281 sha256=70b5adbe1cd453eef94e007d6e2428fdbde877a4c65766b298417622d17b2303
+  Stored in directory: /home/user/.cache/pip/wheels/62/76/4c/aa25851149f3f6d9785f6c869387ad82b3fd37582fa8147ac6
+Successfully built ansible arrow bcrypt cerberus click-completion docopt dparse future html-linter nodeenv pathspec psutil pycparser python-vagrant template-remover tree-format wrapt
+Installing collected packages: wrapt, whichcraft, wcwidth, typing-extensions, typed-ast, tree-format, toml, tabulate, smmap2, sh, ruamel.yaml.clib, python-vagrant, pyparsing, pycparser, ptyprocess, poyo, pbr, pathspec, nodeenv, netaddr, mypy-extensions, monotonic, mccabe, jmespath, iniconfig, idna, future, docutils, docopt, dnspython, distro, colorama, chardet, certifi, boto, apipkg, virtualenv, urllib3, template-remover, six, shellingham, setuptools, ruamel.yaml, pyyaml, pyflakes, pyenchant, pycodestyle, py, psutil, pip, pexpect, mypy, more-itertools, markupsafe, lazy-object-proxy, isort, identify, gitdb2, execnet, entrypoints, click, charset-normalizer, cffi, cerberus, binaryornot, attrs, zipp, yamllint, websocket-client, stevedore, sqlalchemy-stubs, selinux, requests, python-dateutil, pynacl, prompt_toolkit, packaging, jinja2, html-linter, gitpython, git-url-parse, flake8, fasteners, cryptography, click-help-colors, cfgv, bcrypt, astroid, aspy.yaml, argon2-cffi, python-gilt, pylint, paramiko, importlib-metadata, dparse, docker, click-completion, botocore, bandit, arrow, ansible, safety, s3transfer, pre-commit, pluggy, pep517, jinja2-time, importlib-resources, ansible-lint, pytest, pip-tools, cookiecutter, boto3, testinfra, pytest-forked, molecule, pytest-xdist, molecule-vagrant
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 60.9.3
+    Uninstalling setuptools-60.9.3:
+      Successfully uninstalled setuptools-60.9.3
+  Attempting uninstall: pip
+    Found existing installation: pip 22.0.4
+    Uninstalling pip-22.0.4:
+      Successfully uninstalled pip-22.0.4
+Successfully installed ansible-2.9.26 ansible-lint-4.2.0 apipkg-1.4 argon2-cffi-20.1.0 arrow-0.10.0 aspy.yaml-1.3.0 astroid-2.5.2 attrs-20.2.0 bandit-1.7.0 bcrypt-3.1.3 binaryornot-0.4.4 boto-2.48.0 boto3-1.5.24 botocore-1.8.38 cerberus-1.3.1 certifi-2017.7.27.1 cffi-1.14.5 cfgv-2.0.1 chardet-3.0.4 charset-normalizer-2.0.3 click-7.1.2 click-completion-0.5.2 click-help-colors-0.8 colorama-0.3.9 cookiecutter-1.6.0 cryptography-3.4.7 distro-1.5.0 dnspython-1.15.0 docker-4.4.2 docopt-0.6.2 docutils-0.14 dparse-0.4.1 entrypoints-0.3 execnet-1.4.1 fasteners-0.14.1 flake8-3.7.7 future-0.16.0 git-url-parse-1.0.2 gitdb2-2.0.3 gitpython-2.1.8 html-linter-0.4.0 identify-1.4.7 idna-2.5 importlib-metadata-0.23 importlib-resources-1.5.0 iniconfig-1.0.1 isort-5.8.0 jinja2-3.0.2 jinja2-time-0.2.0 jmespath-0.9.3 lazy-object-proxy-1.6.0 markupsafe-2.0.1 mccabe-0.6.1 molecule-3.0.2.1 molecule-vagrant-0.3 monotonic-1.4 more-itertools-7.2.0 mypy-0.761 mypy-extensions-0.4.3 netaddr-0.7.19 nodeenv-1.3.3 packaging-16.8 paramiko-2.6.0 pathspec-0.5.5 pbr-5.1.1 pep517-0.10.0 pexpect-4.6.0 pip-21.3 pip-tools-6.1.0 pluggy-0.13.1 poyo-0.4.1 pre-commit-1.18.3 prompt_toolkit-2.0.9 psutil-5.7.0 ptyprocess-0.5.2 py-1.10.0 pycodestyle-2.5.0 pycparser-2.18 pyenchant-3.2.1 pyflakes-2.1.1 pylint-2.7.4 pynacl-1.4.0 pyparsing-2.2.0 pytest-6.1.1 pytest-forked-1.3.0 pytest-xdist-2.1.0 python-dateutil-2.6.1 python-gilt-1.2.1 python-vagrant-0.5.15 pyyaml-5.4.1 requests-2.26.0 ruamel.yaml-0.16.10 ruamel.yaml.clib-0.2.0 s3transfer-0.1.12 safety-1.8.7 selinux-0.2.1 setuptools-56.0.0 sh-1.12.14 shellingham-1.3.2 six-1.15.0 smmap2-2.0.3 sqlalchemy-stubs-0.3 stevedore-1.28.0 tabulate-0.8.7 template-remover-0.1.9 testinfra-5.3.1 toml-0.10.0 tree-format-0.1.2 typed-ast-1.4.1 typing-extensions-3.7.4.1 urllib3-1.26.6 virtualenv-16.7.5 wcwidth-0.1.7 websocket-client-0.44.0 whichcraft-0.4.1 wrapt-1.12.1 yamllint-1.17.0 zipp-0.6.0
+[user@fpf-dev-dvm:~/securedrop] [sd] d24594d23 2m31s ±
+ $ make build-debs
+Building SecureDrop Debian packages for Focal...
+Using active Python 3 virtualenv in /home/user/.virtualenvs/sd
+--> Test matrix
+
+└── builder-focal
+    ├── destroy
+    ├── create
+    ├── converge
+    ├── verify
+    └── destroy
+
+--> Inventory /home/user/securedrop/molecule/builder-focal/../../install_files/ansible-base/group_vars linked to /home/user/.cache/molecule/securedrop/builder-focal/inventory/group_vars
+--> Scenario: 'builder-focal'
+--> Action: 'destroy'
+--> Sanity checks: 'docker'
+
+    PLAY [Destroy] *****************************************************************
+
+    TASK [Destroy molecule instance(s)] ********************************************
+    ok: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-app'})
+    ok: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-generic-ossec-agent'})
+    ok: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-generic-ossec-server'})
+    ok: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-generic-ossec-agent2'})
+    ok: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-generic-ossec-server2'})
+    ok: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-grsec'})
+    ok: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-config'})
+    ok: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-keyring'})
+    ok: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-sec-update'})
+    ok: [localhost] => (item={'groups': ['testers'], 'name': 'focal-sd-dpkg-verification'})
+
+    PLAY RECAP *********************************************************************
+    localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+--> Inventory /home/user/securedrop/molecule/builder-focal/../../install_files/ansible-base/group_vars linked to /home/user/.cache/molecule/securedrop/builder-focal/inventory/group_vars
+--> Scenario: 'builder-focal'
+--> Action: 'create'
+
+    PLAY [Create] ******************************************************************
+
+    TASK [debug] *******************************************************************
+    ok: [localhost] => {
+        "msg": "Building with Docker image quay.io/freedomofpress/sd-docker-builder-focal@sha256:aa92785916f3d27df8b3ca8773eb9465db8f603d98d2986d257a236eeb2b3c13"
+    }
+
+    TASK [Create builders] *********************************************************
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-app'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-generic-ossec-agent'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-generic-ossec-server'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-generic-ossec-agent2'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-generic-ossec-server2'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-grsec'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-config'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-keyring'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-sec-update'})
+    changed: [localhost] => (item={'groups': ['testers'], 'name': 'focal-sd-dpkg-verification'})
+
+    PLAY RECAP *********************************************************************
+    localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+--> Inventory /home/user/securedrop/molecule/builder-focal/../../install_files/ansible-base/group_vars linked to /home/user/.cache/molecule/securedrop/builder-focal/inventory/group_vars
+--> Scenario: 'builder-focal'
+--> Action: 'converge'
+
+    PLAY [Build SecureDrop application Debian package from local repository.] ******
+
+    TASK [Gathering Facts] *********************************************************
+    ok: [focal-sd-sec-update]
+    ok: [focal-sd-keyring]
+    ok: [focal-sd-generic-ossec-server]
+    ok: [focal-sd-generic-ossec-agent2]
+    ok: [focal-sd-app]
+    ok: [focal-sd-generic-ossec-agent]
+    ok: [focal-sd-generic-ossec-server2]
+    ok: [focal-sd-grsec]
+    ok: [focal-sd-config]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy install_files/securedrop-app-code to prep directory] ***
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy app code to prep directory under var/www/securedrop] ***
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy setup.py to prep directory] *****
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy MANIFEST.in to prep directory] ***
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy translation-requirements.txt to prep directory] ***
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy requirements.txt to prep directory] ***
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Control the version of setuptools used in the default construction of virtual environments] ***
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Install sass Ruby gem] ***************
+    changed: [focal-sd-app]
+
+    TASK [build-ossec-deb-pkg : Create src path folder] ****************************
+    changed: [focal-sd-generic-ossec-server] => (item=/tmp/build/ossec-server)
+    ok: [focal-sd-generic-ossec-server] => (item=/tmp/build)
+
+    TASK [build-securedrop-app-code-deb-pkg : Create static asset directories.] ****
+    changed: [focal-sd-app] => (item=/tmp/securedrop-app-code_2.2.1+focal_amd64-prep/var/www/securedrop/static/css)
+    changed: [focal-sd-app] => (item=/tmp/securedrop-app-code_2.2.1+focal_amd64-prep/var/www/securedrop/static/gen)
+    changed: [focal-sd-app] => (item=/tmp/securedrop-app-code_2.2.1+focal_amd64-prep/var/www/securedrop/static/.webassets-cache)
+
+    TASK [build-securedrop-app-code-deb-pkg : Compile SASS to CSS.] ****************
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Remove temporary SASS directory from package build directory.] ***
+    changed: [focal-sd-app] => (item=sass)
+    changed: [focal-sd-app] => (item=.sass-cache)
+
+    TASK [build-ossec-deb-pkg : Install python-requests for URL fetching] **********
+    ok: [focal-sd-generic-ossec-server]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create virtualenv for translation work] ***
+    changed: [focal-sd-app]
+
+    TASK [build-ossec-deb-pkg : Copy over current directory for repo build] ********
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Include OSSEC download URLs.] **********************
+    ok: [focal-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Download OSSEC tarball.] ***************************
+    changed: [focal-sd-generic-ossec-server]
+[WARNING]: Module remote_tmp /root/.ansible/tmp did not exist and was created
+with a mode of 0700, this may cause issues when running as another user. To
+avoid this, create the remote_tmp dir with the correct permissions manually
+
+    TASK [build-ossec-deb-pkg : Download OSSEC signature.] *************************
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC archive GPG key.] ***********************
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Import OSSEC archive GPG key.] *********************
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Verify signature of OSSEC tarball.] ****************
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Create src path folder] ****************************
+    changed: [focal-sd-generic-ossec-agent] => (item=/tmp/build/ossec-agent)
+    ok: [focal-sd-generic-ossec-agent] => (item=/tmp/build)
+
+    TASK [build-ossec-deb-pkg : Install apt dependencies for building OSSEC packages.] ***
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Install python-requests for URL fetching] **********
+    ok: [focal-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Extract OSSEC source tarball.] *********************
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Copy over current directory for repo build] ********
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Create /etc directory within source directory.] ****
+    ok: [focal-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Include OSSEC download URLs.] **********************
+    ok: [focal-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Download OSSEC tarball.] ***************************
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC preloaded vars template.] ***************
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Download OSSEC signature.] *************************
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Disable JIT in OSSEC Makefile] *********************
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC archive GPG key.] ***********************
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Import OSSEC archive GPG key.] *********************
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : Ensure package name is set] **************************
+    ok: [focal-sd-generic-ossec-server2] => {
+        "changed": false,
+        "msg": "All assertions passed"
+    }
+
+    TASK [build-ossec-deb-pkg : Verify signature of OSSEC tarball.] ****************
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : Ensure build directory in-place] *********************
+    ok: [focal-sd-generic-ossec-server2]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-sec-update -> localhost]
+    ok: [focal-sd-keyring -> localhost]
+    ok: [focal-sd-grsec -> localhost]
+    ok: [focal-sd-config -> localhost]
+    ok: [focal-sd-generic-ossec-agent2 -> localhost]
+
+    TASK [build-generic-pkg : Copy app code to build directory.] *******************
+    changed: [focal-sd-generic-ossec-server2]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-generic-ossec-server2 -> localhost]
+
+    TASK [build-generic-pkg : Create any necessary parent directories for jinja files] ***
+    ok: [focal-sd-generic-ossec-server2] => (item={'path': '/home/user/securedrop/install_files/securedrop-ossec-server/DEBIAN/control.j2', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 911, 'inode': 132096, 'dev': 51728, 'nlink': 1, 'atime': 1646933976.26, 'mtime': 1646933976.156, 'ctime': 1646933976.156, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-generic-pkg : Ensure package name is set] **************************
+    ok: [focal-sd-generic-ossec-agent2] => {
+        "changed": false,
+        "msg": "All assertions passed"
+    }
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-sec-update -> localhost]
+
+    TASK [build-generic-pkg : Template out any jinja files found and copy over] ****
+    changed: [focal-sd-generic-ossec-server2] => (item={'path': '/home/user/securedrop/install_files/securedrop-ossec-server/DEBIAN/control.j2', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 911, 'inode': 132096, 'dev': 51728, 'nlink': 1, 'atime': 1646933976.26, 'mtime': 1646933976.156, 'ctime': 1646933976.156, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-generic-pkg : Ensure build directory in-place] *********************
+    ok: [focal-sd-generic-ossec-agent2]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-keyring -> localhost]
+    ok: [focal-sd-grsec -> localhost]
+    ok: [focal-sd-config -> localhost]
+
+    TASK [build-generic-pkg : Copy app code to build directory.] *******************
+    changed: [focal-sd-generic-ossec-agent2]
+
+    TASK [build-generic-pkg : run bash script to build generic packages] ***********
+    changed: [focal-sd-generic-ossec-server2]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-generic-ossec-agent2 -> localhost]
+
+    TASK [build-generic-pkg : Track down package] **********************************
+    ok: [focal-sd-generic-ossec-server2]
+
+    TASK [build-ossec-deb-pkg : Install apt dependencies for building OSSEC packages.] ***
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : Create any necessary parent directories for jinja files] ***
+    ok: [focal-sd-generic-ossec-agent2] => (item={'path': '/home/user/securedrop/install_files/securedrop-ossec-agent/DEBIAN/control.j2', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 721, 'inode': 132074, 'dev': 51728, 'nlink': 1, 'atime': 1646933976.26, 'mtime': 1646933976.152, 'ctime': 1646933976.152, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-generic-pkg : Fetch back package] **********************************
+    changed: [focal-sd-generic-ossec-server2] => (item={'path': '/tmp/securedrop-ossec-server-3.6.0+2.2.1+focal-amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 8628, 'inode': 604763, 'dev': 88, 'nlink': 1, 'atime': 1646934393.332, 'mtime': 1646934393.332, 'ctime': 1646934393.332, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-generic-pkg : Ensure package name is set] **************************
+    ok: [focal-sd-keyring] => {
+        "changed": false,
+        "msg": "All assertions passed"
+    }
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-sec-update -> localhost]
+
+    TASK [build-generic-pkg : Ensure build directory in-place] *********************
+    ok: [focal-sd-keyring]
+
+    TASK [build-generic-pkg : Template out any jinja files found and copy over] ****
+    changed: [focal-sd-generic-ossec-agent2] => (item={'path': '/home/user/securedrop/install_files/securedrop-ossec-agent/DEBIAN/control.j2', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 721, 'inode': 132074, 'dev': 51728, 'nlink': 1, 'atime': 1646933976.26, 'mtime': 1646933976.152, 'ctime': 1646933976.152, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-ossec-deb-pkg : Extract OSSEC source tarball.] *********************
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-grsec -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-generic-ossec-server2 -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-config -> localhost]
+
+    TASK [build-generic-pkg : Copy app code to build directory.] *******************
+    changed: [focal-sd-keyring]
+
+    TASK [build-ossec-deb-pkg : Create /etc directory within source directory.] ****
+    ok: [focal-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : run bash script to build generic packages] ***********
+    changed: [focal-sd-generic-ossec-agent2]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-keyring -> localhost]
+
+    TASK [build-generic-pkg : Track down package] **********************************
+    ok: [focal-sd-generic-ossec-agent2]
+
+    TASK [build-generic-pkg : Create any necessary parent directories for jinja files] ***
+    ok: [focal-sd-keyring] => (item={'path': '/home/user/securedrop/install_files/securedrop-keyring/DEBIAN/control.j2', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 428, 'inode': 132066, 'dev': 51728, 'nlink': 1, 'atime': 1646933976.26, 'mtime': 1646933976.152, 'ctime': 1646933976.152, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC preloaded vars template.] ***************
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : Fetch back package] **********************************
+    changed: [focal-sd-generic-ossec-agent2] => (item={'path': '/tmp/securedrop-ossec-agent-3.6.0+2.2.1+focal-amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 4660, 'inode': 607171, 'dev': 78, 'nlink': 1, 'atime': 1646934415.06, 'mtime': 1646934415.06, 'ctime': 1646934415.06, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-ossec-deb-pkg : Run OSSEC installer script on extracted source.] ***
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-generic-pkg : Ensure package name is set] **************************
+    ok: [focal-sd-grsec] => {
+        "changed": false,
+        "msg": "All assertions passed"
+    }
+
+    TASK [build-ossec-deb-pkg : Disable JIT in OSSEC Makefile] *********************
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : Template out any jinja files found and copy over] ****
+    changed: [focal-sd-keyring] => (item={'path': '/home/user/securedrop/install_files/securedrop-keyring/DEBIAN/control.j2', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 428, 'inode': 132066, 'dev': 51728, 'nlink': 1, 'atime': 1646933976.26, 'mtime': 1646933976.152, 'ctime': 1646933976.152, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-ossec-deb-pkg : Create OSSEC build directory.] *********************
+    changed: [focal-sd-generic-ossec-server] => (item=/tmp/build/ossec-server-3.6.0+focal-amd64)
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-sec-update -> localhost]
+
+    TASK [build-generic-pkg : Ensure build directory in-place] *********************
+    ok: [focal-sd-grsec]
+
+    TASK [build-ossec-deb-pkg : Create OSSEC build directory.] *********************
+    changed: [focal-sd-generic-ossec-server] => (item=/tmp/build/ossec-server-3.6.0+focal-amd64/var)
+
+    TASK [build-generic-pkg : run bash script to build generic packages] ***********
+    changed: [focal-sd-keyring]
+
+    TASK [build-ossec-deb-pkg : Remove client.keys to avoid overwriting existing client.keys] ***
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-generic-pkg : Copy app code to build directory.] *******************
+    changed: [focal-sd-grsec]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-generic-ossec-agent2 -> localhost]
+    ok: [focal-sd-generic-ossec-server2 -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-config -> localhost]
+
+    TASK [build-generic-pkg : Track down package] **********************************
+    ok: [focal-sd-keyring]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-grsec -> localhost]
+
+    TASK [build-ossec-deb-pkg : Copy /var/ossec/ to OSSEC build directory.] ********
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-generic-pkg : Fetch back package] **********************************
+    changed: [focal-sd-keyring] => (item={'path': '/tmp/securedrop-keyring-0.1.5+2.2.1+focal-amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 3744, 'inode': 606682, 'dev': 118, 'nlink': 1, 'atime': 1646934432.832, 'mtime': 1646934432.832, 'ctime': 1646934432.832, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-generic-pkg : Create any necessary parent directories for jinja files] ***
+    ok: [focal-sd-grsec] => (item={'path': '/home/user/securedrop/install_files/securedrop-grsec-focal/DEBIAN/control.j2', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 558, 'inode': 132053, 'dev': 51728, 'nlink': 1, 'atime': 1646933976.26, 'mtime': 1646933976.152, 'ctime': 1646933976.152, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC DEBIAN package scripts to build directory.] ***
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-generic-pkg : Create any necessary parent directories for jinja files] ***
+    ok: [focal-sd-grsec] => (item={'path': '/home/user/securedrop/install_files/securedrop-grsec-focal/DEBIAN/postinst.j2', 'mode': '0755', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 2176, 'inode': 132054, 'dev': 51728, 'nlink': 1, 'atime': 1646933976.26, 'mtime': 1646933976.152, 'ctime': 1646933976.152, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': True, 'wgrp': False, 'rgrp': True, 'xgrp': True, 'woth': False, 'roth': True, 'xoth': True, 'isuid': False, 'isgid': False})
+
+    TASK [build-generic-pkg : Ensure package name is set] **************************
+    ok: [focal-sd-config] => {
+        "changed": false,
+        "msg": "All assertions passed"
+    }
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC DEBIAN/control template to build directory.] ***
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-sec-update -> localhost]
+
+    TASK [build-generic-pkg : Template out any jinja files found and copy over] ****
+    changed: [focal-sd-grsec] => (item={'path': '/home/user/securedrop/install_files/securedrop-grsec-focal/DEBIAN/control.j2', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 558, 'inode': 132053, 'dev': 51728, 'nlink': 1, 'atime': 1646933976.26, 'mtime': 1646933976.152, 'ctime': 1646933976.152, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-keyring -> localhost]
+
+    TASK [build-generic-pkg : Ensure build directory in-place] *********************
+    ok: [focal-sd-config]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC /usr and /etc directories to build directory.] ***
+    changed: [focal-sd-generic-ossec-server] => (item=etc)
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-generic-ossec-agent2 -> localhost]
+    ok: [focal-sd-generic-ossec-server2 -> localhost]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC /usr and /etc directories to build directory.] ***
+    changed: [focal-sd-generic-ossec-server] => (item=usr)
+
+    TASK [build-generic-pkg : Template out any jinja files found and copy over] ****
+    changed: [focal-sd-grsec] => (item={'path': '/home/user/securedrop/install_files/securedrop-grsec-focal/DEBIAN/postinst.j2', 'mode': '0755', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 2176, 'inode': 132054, 'dev': 51728, 'nlink': 1, 'atime': 1646933976.26, 'mtime': 1646933976.152, 'ctime': 1646933976.152, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': True, 'wgrp': False, 'rgrp': True, 'xgrp': True, 'woth': False, 'roth': True, 'xoth': True, 'isuid': False, 'isgid': False})
+
+    TASK [build-generic-pkg : Copy app code to build directory.] *******************
+    changed: [focal-sd-config]
+
+    TASK [build-ossec-deb-pkg : Delete the old service file] ***********************
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-config -> localhost]
+
+    TASK [build-generic-pkg : run bash script to build generic packages] ***********
+    changed: [focal-sd-grsec]
+
+    TASK [build-ossec-deb-pkg : Run OSSEC installer script on extracted source.] ***
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Create directory for our systemd based service file] ***
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-generic-pkg : Create any necessary parent directories for jinja files] ***
+    ok: [focal-sd-config] => (item={'path': '/home/user/securedrop/install_files/securedrop-config-focal/DEBIAN/control.j2', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 414, 'inode': 132041, 'dev': 51728, 'nlink': 1, 'atime': 1646933976.26, 'mtime': 1646933976.152, 'ctime': 1646933976.152, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-generic-pkg : Track down package] **********************************
+    ok: [focal-sd-grsec]
+
+    TASK [build-ossec-deb-pkg : Create OSSEC build directory.] *********************
+    changed: [focal-sd-generic-ossec-agent] => (item=/tmp/build/ossec-agent-3.6.0+focal-amd64)
+    changed: [focal-sd-generic-ossec-agent] => (item=/tmp/build/ossec-agent-3.6.0+focal-amd64/var)
+
+    TASK [build-generic-pkg : Fetch back package] **********************************
+    changed: [focal-sd-grsec] => (item={'path': '/tmp/securedrop-grsec-5.15.26+focal-amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 3044, 'inode': 604136, 'dev': 98, 'nlink': 1, 'atime': 1646934461.216, 'mtime': 1646934461.216, 'ctime': 1646934461.216, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-ossec-deb-pkg : Remove client.keys to avoid overwriting existing client.keys] ***
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Copy our systemd based service file for ossec-server] ***
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-generic-pkg : Template out any jinja files found and copy over] ****
+    changed: [focal-sd-config] => (item={'path': '/home/user/securedrop/install_files/securedrop-config-focal/DEBIAN/control.j2', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 414, 'inode': 132041, 'dev': 51728, 'nlink': 1, 'atime': 1646933976.26, 'mtime': 1646933976.152, 'ctime': 1646933976.152, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-keyring -> localhost]
+
+    TASK [build-ossec-deb-pkg : Copy /var/ossec/ to OSSEC build directory.] ********
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-generic-ossec-server2 -> localhost]
+    ok: [focal-sd-generic-ossec-agent2 -> localhost]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC DEBIAN package scripts to build directory.] ***
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : run bash script to build generic packages] ***********
+    changed: [focal-sd-config]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-grsec -> localhost]
+
+    TASK [build-generic-pkg : Track down package] **********************************
+    ok: [focal-sd-config]
+
+    TASK [build-generic-pkg : Fetch back package] **********************************
+    changed: [focal-sd-config] => (item={'path': '/tmp/securedrop-config-0.1.4+2.2.1+focal-amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 3060, 'inode': 605083, 'dev': 108, 'nlink': 1, 'atime': 1646934479.664, 'mtime': 1646934479.664, 'ctime': 1646934479.664, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC DEBIAN/control template to build directory.] ***
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [Update apt-cache for our security checker] *******************************
+    changed: [focal-sd-sec-update]
+
+    TASK [build-ossec-deb-pkg : Build SecureDrop OSSEC deb package.] ***************
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Copy OSSEC /usr and /etc directories to build directory.] ***
+    changed: [focal-sd-generic-ossec-agent] => (item=etc)
+    changed: [focal-sd-generic-ossec-agent] => (item=usr)
+
+    TASK [build-ossec-deb-pkg : Delete OSSEC build directories and config files.] ***
+    changed: [focal-sd-generic-ossec-server] => (item=/etc/init.d/ossec)
+
+    TASK [build-ossec-deb-pkg : Delete the old service file] ***********************
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Delete OSSEC build directories and config files.] ***
+    changed: [focal-sd-generic-ossec-server] => (item=/etc/ossec-init.conf)
+    changed: [focal-sd-generic-ossec-server] => (item=/var/ossec)
+
+    TASK [build-ossec-deb-pkg : Create directory for our systemd based service file] ***
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Delete OSSEC build directories and config files.] ***
+    changed: [focal-sd-generic-ossec-server] => (item=/tmp/OSSEC-ARCHIVE-KEY.asc)
+
+    TASK [build-ossec-deb-pkg : Fetch newly built Debian packages back to localhost.] ***
+    changed: [focal-sd-generic-ossec-server]
+
+    TASK [build-ossec-deb-pkg : Copy our systemd based service file for ossec-agent] ***
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Build SecureDrop OSSEC deb package.] ***************
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-ossec-deb-pkg : Delete OSSEC build directories and config files.] ***
+    changed: [focal-sd-generic-ossec-agent] => (item=/etc/init.d/ossec)
+    changed: [focal-sd-generic-ossec-agent] => (item=/etc/ossec-init.conf)
+    changed: [focal-sd-generic-ossec-agent] => (item=/var/ossec)
+    changed: [focal-sd-generic-ossec-agent] => (item=/tmp/OSSEC-ARCHIVE-KEY.asc)
+
+    TASK [build-ossec-deb-pkg : Fetch newly built Debian packages back to localhost.] ***
+    changed: [focal-sd-generic-ossec-agent]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-generic-ossec-agent -> localhost]
+    ok: [focal-sd-generic-ossec-server -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-generic-ossec-agent -> localhost]
+    ok: [focal-sd-generic-ossec-server -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-generic-ossec-agent -> localhost]
+    ok: [focal-sd-generic-ossec-server -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-generic-ossec-agent -> localhost]
+    ok: [focal-sd-generic-ossec-server -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-generic-ossec-agent -> localhost]
+    ok: [focal-sd-generic-ossec-server -> localhost]
+
+    TASK [build-securedrop-app-code-deb-pkg : Install SecureDrop Python requirements in virtualenv for translation work] ***
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Compile PO to MO.] *******************
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create apparmor.d directory in prep directory] ***
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy AppArmor profiles to prep path] ***
+    changed: [focal-sd-app] => (item=usr.sbin.tor)
+    changed: [focal-sd-app] => (item=usr.sbin.apache2)
+
+    TASK [build-securedrop-app-code-deb-pkg : Replace placeholder changelog to dist-specific changelog] ***
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create the control file based on distribution] ***
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create lib/systemd/services directory in prep directory] ***
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Copy systemd service configurations to prep path] ***
+    changed: [focal-sd-app] => (item=securedrop_rqrequeue.service)
+    changed: [focal-sd-app] => (item=securedrop_rqworker.service)
+    changed: [focal-sd-app] => (item=securedrop_shredder.service)
+    changed: [focal-sd-app] => (item=securedrop_source_deleter.service)
+
+    TASK [build-securedrop-app-code-deb-pkg : Create sdist in prep dir] ************
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create build dir] ********************
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Extract sdist to build dir] **********
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Create empty static asset directories in build dir] ***
+    changed: [focal-sd-app] => (item=/tmp/securedrop-app-code_2.2.1+focal_amd64/var/www/securedrop/static/gen)
+    changed: [focal-sd-app] => (item=/tmp/securedrop-app-code_2.2.1+focal_amd64/var/www/securedrop/static/.webassets-cache)
+    changed: [focal-sd-app] => (item=/tmp/securedrop-app-code_2.2.1+focal_amd64/var/www/securedrop/.well-known/pki-validation)
+
+    TASK [build-securedrop-app-code-deb-pkg : Build securedrop-app-code Debian package] ***
+    changed: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Find newly built Debian package] *****
+    ok: [focal-sd-app]
+
+    TASK [build-securedrop-app-code-deb-pkg : Fetch newly built Debian packages back to localhost] ***
+    changed: [focal-sd-app] => (item={'path': '/tmp/securedrop-app-code_2.2.1+focal_amd64.deb', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 13665916, 'inode': 598913, 'dev': 45, 'nlink': 1, 'atime': 1646935128.668, 'mtime': 1646935128.476, 'ctime': 1646935128.476, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [focal-sd-app] => (item={'path': '/tmp/securedrop-app-code_2.2.1+focal.tar.gz', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 2131814, 'inode': 595905, 'dev': 45, 'nlink': 1, 'atime': 1646934760.668, 'mtime': 1646934760.64, 'ctime': 1646934760.664, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-app -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-app -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-app -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-app -> localhost]
+
+    TASK [build-generic-pkg : Find any jinja templates] ****************************
+    ok: [focal-sd-app -> localhost]
+
+    PLAY [Give dpkg verify container access to debs] *******************************
+
+    TASK [Discover local debian build files] ***************************************
+    ok: [focal-sd-dpkg-verification -> localhost]
+
+    TASK [Create build dir] ********************************************************
+    ok: [focal-sd-dpkg-verification]
+
+    TASK [Drop debian files into container] ****************************************
+    changed: [focal-sd-dpkg-verification] => (item={'path': '/home/user/securedrop/build/focal/securedrop-grsec-5.15.26+focal-amd64.deb', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 3044, 'inode': 137146, 'dev': 51728, 'nlink': 1, 'atime': 1646934470.376, 'mtime': 1646934470.376, 'ctime': 1646934470.376, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [focal-sd-dpkg-verification] => (item={'path': '/home/user/securedrop/build/focal/securedrop-ossec-server-3.6.0+2.2.1+focal-amd64.deb', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 8628, 'inode': 137143, 'dev': 51728, 'nlink': 1, 'atime': 1646934401.852, 'mtime': 1646934401.852, 'ctime': 1646934401.852, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [focal-sd-dpkg-verification] => (item={'path': '/home/user/securedrop/build/focal/ossec-server-3.6.0+focal-amd64.deb', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 735656, 'inode': 137148, 'dev': 51728, 'nlink': 1, 'atime': 1646934496.916, 'mtime': 1646934496.912, 'ctime': 1646934496.912, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [focal-sd-dpkg-verification] => (item={'path': '/home/user/securedrop/build/focal/securedrop-keyring-0.1.5+2.2.1+focal-amd64.deb', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 3744, 'inode': 137145, 'dev': 51728, 'nlink': 1, 'atime': 1646934441.808, 'mtime': 1646934441.808, 'ctime': 1646934441.808, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [focal-sd-dpkg-verification] => (item={'path': '/home/user/securedrop/build/focal/securedrop-ossec-agent-3.6.0+2.2.1+focal-amd64.deb', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 4660, 'inode': 137144, 'dev': 51728, 'nlink': 1, 'atime': 1646934423.12, 'mtime': 1646934423.12, 'ctime': 1646934423.12, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [focal-sd-dpkg-verification] => (item={'path': '/home/user/securedrop/build/focal/ossec-agent-3.6.0+focal-amd64.deb', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 288684, 'inode': 137149, 'dev': 51728, 'nlink': 1, 'atime': 1646934509.396, 'mtime': 1646934509.392, 'ctime': 1646934509.392, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [focal-sd-dpkg-verification] => (item={'path': '/home/user/securedrop/build/focal/securedrop-app-code_2.2.1+focal_amd64.deb', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 13665916, 'inode': 137150, 'dev': 51728, 'nlink': 1, 'atime': 1646935132.528, 'mtime': 1646935132.516, 'ctime': 1646935132.516, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+    changed: [focal-sd-dpkg-verification] => (item={'path': '/home/user/securedrop/build/focal/securedrop-config-0.1.4+2.2.1+focal-amd64.deb', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 3060, 'inode': 137147, 'dev': 51728, 'nlink': 1, 'atime': 1646934487.556, 'mtime': 1646934487.556, 'ctime': 1646934487.556, 'gr_name': 'user', 'pw_name': 'user', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+
+    PLAY RECAP *********************************************************************
+    focal-sd-app               : ok=33   changed=26   unreachable=0    failed=0    skipped=97   rescued=0    ignored=0
+    focal-sd-config            : ok=14   changed=4    unreachable=0    failed=0    skipped=116  rescued=0    ignored=0
+    focal-sd-dpkg-verification : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    focal-sd-generic-ossec-agent : ok=33   changed=24   unreachable=0    failed=0    skipped=97   rescued=0    ignored=0
+    focal-sd-generic-ossec-agent2 : ok=14   changed=4    unreachable=0    failed=0    skipped=116  rescued=0    ignored=0
+    focal-sd-generic-ossec-server : ok=33   changed=24   unreachable=0    failed=0    skipped=97   rescued=0    ignored=0
+    focal-sd-generic-ossec-server2 : ok=14   changed=4    unreachable=0    failed=0    skipped=116  rescued=0    ignored=0
+    focal-sd-grsec             : ok=14   changed=4    unreachable=0    failed=0    skipped=116  rescued=0    ignored=0
+    focal-sd-keyring           : ok=14   changed=4    unreachable=0    failed=0    skipped=116  rescued=0    ignored=0
+    focal-sd-sec-update        : ok=7    changed=1    unreachable=0    failed=0    skipped=123  rescued=0    ignored=0
+
+--> Inventory /home/user/securedrop/molecule/builder-focal/../../install_files/ansible-base/group_vars linked to /home/user/.cache/molecule/securedrop/builder-focal/inventory/group_vars
+--> Scenario: 'builder-focal'
+--> Action: 'verify'
+--> Executing Testinfra tests found in /home/user/securedrop/molecule/builder-focal/tests/...
+    ============================= test session starts ==============================
+    platform linux -- Python 3.7.3, pytest-6.1.1, py-1.10.0, pluggy-0.13.1
+    rootdir: /home/user/securedrop/molecule, configfile: pytest.ini
+    plugins: xdist-2.1.0, testinfra-5.3.1, forked-1.3.0
+gw0 [146] / gw1 [146]
+    ....................................................................F... [ 49%]
+    ...........................................................x............ [ 98%]
+    ..                                                                       [100%]
+    =================================== FAILURES ===================================
+    __________ test_ensure_no_updates_avail[docker://focal-sd-sec-update] __________
+    [gw1] linux -- Python 3.7.3 /home/user/.virtualenvs/sd/bin/python3
+
+    host = <testinfra.host.Host docker://focal-sd-sec-update>
+
+        @pytest.mark.skipif(not test_should_run(), reason="Only tested for RCs and builder updates")
+        def test_ensure_no_updates_avail(host):
+            """
+                Test to make sure that there are no security-updates in the
+                base builder container.
+            """
+            # Filter out all the security repos to their own file
+            # without this change all the package updates appeared as if they were
+            # coming from normal ubuntu update channel (since they get posted to both)
+            host.run('egrep "^deb.*security" /etc/apt/sources.list > /tmp/sec.list')
+
+            dist_upgrade_simulate = host.run('apt-get -s dist-upgrade '
+                                             '-oDir::Etc::Sourcelist=/tmp/sec.list '
+                                             '|grep "^Inst" |grep -i security')
+
+            # If the grep was successful that means security package updates found
+            # otherwise we get a non-zero exit code so no updates needed.
+    >       assert dist_upgrade_simulate.rc != 0
+    E       assert 0 != 0
+    E        +  where 0 = CommandResult(command=b'apt-get -s dist-upgrade -oDir::Etc::Sourcelist=/tmp/sec.list |grep "^Inst" |grep -i security',... [amd64]) []\nInst libexpat1 [2.2.9-1ubuntu0.2] (2.2.9-1ubuntu0.4 Ubuntu:20.04/focal-security [amd64])\n', stderr=None).rc
+
+    tests/test_security_updates.py:43: AssertionError
+    =========================== short test summary info ============================
+    FAILED tests/test_security_updates.py::test_ensure_no_updates_avail[docker:/focal-sd-sec-update]
+    ================== 1 failed, 144 passed, 1 xfailed in 53.32s ===================
+An error occurred during the test sequence action: 'verify'. Cleaning up.
+--> Inventory /home/user/securedrop/molecule/builder-focal/../../install_files/ansible-base/group_vars linked to /home/user/.cache/molecule/securedrop/builder-focal/inventory/group_vars
+--> Scenario: 'builder-focal'
+--> Action: 'cleanup'
+Skipping, cleanup playbook not configured.
+--> Inventory /home/user/securedrop/molecule/builder-focal/../../install_files/ansible-base/group_vars linked to /home/user/.cache/molecule/securedrop/builder-focal/inventory/group_vars
+--> Scenario: 'builder-focal'
+--> Action: 'destroy'
+
+    PLAY [Destroy] *****************************************************************
+
+    TASK [Destroy molecule instance(s)] ********************************************
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-app'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-generic-ossec-agent'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-generic-ossec-server'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-generic-ossec-agent2'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-generic-ossec-server2'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-grsec'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-config'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-keyring'})
+    changed: [localhost] => (item={'groups': ['builders'], 'name': 'focal-sd-sec-update'})
+    changed: [localhost] => (item={'groups': ['testers'], 'name': 'focal-sd-dpkg-verification'})
+
+    PLAY RECAP *********************************************************************
+    localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+--> Pruning extra files from scenario ephemeral directory
+make: *** [Makefile:303: build-debs] Error 1
+[user@fpf-dev-dvm:~/securedrop] [sd] d24594d23 21m21s 2 ±
+ $ sha256sum build/focal/*
+c701a842ea493503206500a5592792b1d5468c03d094a7472288041d3cf10466  build/focal/ossec-agent-3.6.0+focal-amd64.deb
+64b8be749fc4492d79240b150eeb7ebeaeec9744c341711d66a80c7f45f05011  build/focal/ossec-server-3.6.0+focal-amd64.deb
+bee7a0a21075d3ff6a19e2e45f7c10bfea35780d05ad3b15efe7e7608bb38734  build/focal/securedrop-app-code_2.2.1+focal_amd64.deb
+64a68882a2f7217cdc2a238f26849526d22d97235b35dcf311ea7410f31cc918  build/focal/securedrop-app-code_2.2.1+focal.tar.gz
+eb7b3910429f497e73aff145f08de5abb2d16f0c1e87c6c0fc1e20d7d7435adf  build/focal/securedrop-config-0.1.4+2.2.1+focal-amd64.deb
+992137960a5784931f8bef897bd75de54241d9a4c46fbd7d364fc6aecc1a8db9  build/focal/securedrop-grsec-5.15.26+focal-amd64.deb
+48c432ace5b81191e55b750bef5bade21907718df64bdae39f87f24645614690  build/focal/securedrop-keyring-0.1.5+2.2.1+focal-amd64.deb
+ca7e522dff190b466d196094ff14a41d5726b00c2e670eac5fb2ee9cb2eb93e3  build/focal/securedrop-ossec-agent-3.6.0+2.2.1+focal-amd64.deb
+b6604686b749072f41bc3e0cd173218c1400110dfc02437b0a41a1933f84371a  build/focal/securedrop-ossec-server-3.6.0+2.2.1+focal-amd64.deb
+[user@fpf-dev-dvm:~/securedrop] [sd] d24594d23 21m26s ±
+ $
