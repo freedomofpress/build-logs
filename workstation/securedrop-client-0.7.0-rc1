@@ -1,0 +1,1104 @@
+user@sd-dev-dvm:~$ export QUBES_GPG_DOMAIN=vault
+user@sd-dev-dvm:~$ qubes-gpg-client --export --armor ro@freedom.press | gpg --import
+gpg: keybox '/home/user/.gnupg/pubring.kbx' created
+gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
+gpg: key FC72AA838C444B47: public key "Rowen S <ro@freedom.press>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+user@sd-dev-dvm:~$ git clone https://github.com/freedomofpress/securedrop-debian-packaging
+Cloning into 'securedrop-debian-packaging'...
+remote: Enumerating objects: 3028, done.
+remote: Counting objects: 100% (807/807), done.
+remote: Compressing objects: 100% (510/510), done.
+remote: Total 3028 (delta 325), reused 679 (delta 251), pack-reused 2221
+Receiving objects: 100% (3028/3028), 2.19 MiB | 4.21 MiB/s, done.
+Resolving deltas: 100% (1395/1395), done.
+Filtering content: 100% (125/125), 39.67 MiB | 4.32 MiB/s, done.
+user@sd-dev-dvm:~$ git clone https://github.com/freedomofpress/securedrop-client
+Cloning into 'securedrop-client'...
+remote: Enumerating objects: 12593, done.
+remote: Counting objects: 100% (1489/1489), done.
+remote: Compressing objects: 100% (612/612), done.
+remote: Total 12593 (delta 1029), reused 1260 (delta 861), pack-reused 11104
+Receiving objects: 100% (12593/12593), 8.95 MiB | 5.07 MiB/s, done.
+Resolving deltas: 100% (9183/9183), done.
+user@sd-dev-dvm:~$ cd securedrop-client/
+user@sd-dev-dvm:~/securedrop-client$ git tag -v 0.7.0-rc1 
+object d6348ba3f6de49c46311356537b8fa3a24864743
+type commit
+tag 0.7.0-rc1
+tagger ro <ro@freedom.press> 1649709976 -0400
+
+SecureDrop Client 0.7.0-rc1
+gpg: Signature made Mon 11 Apr 2022 04:46:20 PM EDT
+gpg:                using RSA key 720196FD0038EB89B2DF8C00A0F5B05898819C49
+gpg: Good signature from "Rowen S <ro@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 91B3 D67D 8758 4495 4625  6E7E FC72 AA83 8C44 4B47
+     Subkey fingerprint: 7201 96FD 0038 EB89 B2DF  8C00 A0F5 B058 9881 9C49
+user@sd-dev-dvm:~/securedrop-client$ git checkout 0.7.0-rc1 
+Note: checking out '0.7.0-rc1'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at d6348ba Merge pull request #1467 from rocodes/0.7.0-rc1
+user@sd-dev-dvm:~/securedrop-client$ make venv
+git config core.hooksPath ".githooks"
+python3 -m venv .venv
+.venv/bin/pip install --upgrade pip wheel
+Collecting pip
+  Downloading https://files.pythonhosted.org/packages/4d/16/0a14ca596f30316efd412a60bdfac02a7259bf8673d4d917dc60b9a21812/pip-22.0.4-py3-none-any.whl (2.1MB)
+    100% |████████████████████████████████| 2.1MB 811kB/s 
+Collecting wheel
+  Downloading https://files.pythonhosted.org/packages/27/d6/003e593296a85fd6ed616ed962795b2f87709c3eee2bca4f6d0fe55c6d00/wheel-0.37.1-py2.py3-none-any.whl
+Installing collected packages: pip, wheel
+  Found existing installation: pip 18.1
+    Uninstalling pip-18.1:
+      Successfully uninstalled pip-18.1
+Successfully installed pip-22.0.4 wheel-0.37.1
+.venv/bin/pip install --require-hashes -r "requirements/dev-requirements.txt"
+Collecting alembic==1.0.2
+  Downloading alembic-1.0.2.tar.gz (1.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.0/1.0 MB 4.7 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Collecting argcomplete==2.0.0
+  Downloading argcomplete-2.0.0-py2.py3-none-any.whl (37 kB)
+Collecting arrow==0.12.1
+  Downloading arrow-0.12.1.tar.gz (65 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 65.4/65.4 KB 3.5 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Collecting attrs==21.4.0
+  Downloading attrs-21.4.0-py2.py3-none-any.whl (60 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.6/60.6 KB 4.1 MB/s eta 0:00:00
+Collecting babel==2.9.1
+  Downloading Babel-2.9.1-py2.py3-none-any.whl (8.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.8/8.8 MB 5.3 MB/s eta 0:00:00
+Collecting black==22.1.0
+  Downloading black-22.1.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 5.1 MB/s eta 0:00:00
+Collecting bracex==2.2.1
+  Downloading bracex-2.2.1-py3-none-any.whl (12 kB)
+Collecting certifi==2021.5.30
+  Downloading certifi-2021.5.30-py2.py3-none-any.whl (145 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 145.5/145.5 KB 5.6 MB/s eta 0:00:00
+Collecting charset-normalizer==2.0.4
+  Downloading charset_normalizer-2.0.4-py3-none-any.whl (36 kB)
+Collecting click==8.0.4
+  Downloading click-8.0.4-py3-none-any.whl (97 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 97.5/97.5 KB 3.7 MB/s eta 0:00:00
+Collecting click-option-group==0.5.3
+  Downloading click_option_group-0.5.3-py3-none-any.whl (11 kB)
+Collecting colorama==0.4.4
+  Downloading colorama-0.4.4-py2.py3-none-any.whl (16 kB)
+Collecting coverage[toml]==6.3.2
+  Downloading coverage-6.3.2-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (207 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 208.0/208.0 KB 4.4 MB/s eta 0:00:00
+Collecting defusedxml==0.7.1
+  Downloading defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+Collecting execnet==1.9.0
+  Downloading execnet-1.9.0-py2.py3-none-any.whl (39 kB)
+Collecting flake8==4.0.1
+  Downloading flake8-4.0.1-py2.py3-none-any.whl (64 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 64.1/64.1 KB 3.9 MB/s eta 0:00:00
+Collecting flaky==3.7.0
+  Downloading flaky-3.7.0-py2.py3-none-any.whl (22 kB)
+Collecting idna==3.2
+  Downloading idna-3.2-py3-none-any.whl (59 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.6/59.6 KB 5.3 MB/s eta 0:00:00
+Collecting importlib-metadata==4.2.0
+  Downloading importlib_metadata-4.2.0-py3-none-any.whl (16 kB)
+Collecting iniconfig==1.1.1
+  Downloading iniconfig-1.1.1-py2.py3-none-any.whl (5.0 kB)
+Collecting isort==5.10.1
+  Downloading isort-5.10.1-py3-none-any.whl (103 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 103.4/103.4 KB 4.0 MB/s eta 0:00:00
+Collecting jsonschema==3.2.0
+  Downloading jsonschema-3.2.0-py2.py3-none-any.whl (56 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.3/56.3 KB 3.0 MB/s eta 0:00:00
+Collecting mako==1.0.7
+  Downloading Mako-1.0.7.tar.gz (564 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 564.4/564.4 KB 5.0 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Collecting markupsafe==2.0.1
+  Downloading MarkupSafe-2.0.1-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (31 kB)
+Collecting mccabe==0.6.1
+  Downloading mccabe-0.6.1-py2.py3-none-any.whl (8.6 kB)
+Collecting mouseinfo==0.1.3
+  Downloading MouseInfo-0.1.3.tar.gz (10 kB)
+  Preparing metadata (setup.py) ... done
+Collecting multidict==6.0.2
+  Downloading multidict-6.0.2-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (94 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 94.8/94.8 KB 2.8 MB/s eta 0:00:00
+Collecting mypy==0.940
+  Downloading mypy-0.940-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (14.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.4/14.4 MB 5.3 MB/s eta 0:00:00
+Collecting mypy-extensions==0.4.3
+  Downloading mypy_extensions-0.4.3-py2.py3-none-any.whl (4.5 kB)
+Collecting packaging==21.3
+  Downloading packaging-21.3-py3-none-any.whl (40 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.8/40.8 KB 2.1 MB/s eta 0:00:00
+Collecting pathlib2==2.3.2
+  Downloading pathlib2-2.3.2-py2.py3-none-any.whl (16 kB)
+Collecting pathspec==0.9.0
+  Downloading pathspec-0.9.0-py2.py3-none-any.whl (31 kB)
+Collecting peewee==3.14.10
+  Downloading peewee-3.14.10.tar.gz (855 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 855.5/855.5 KB 5.2 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Collecting pep517==0.12.0
+  Downloading pep517-0.12.0-py2.py3-none-any.whl (19 kB)
+Collecting pillow==9.0.1
+  Downloading Pillow-9.0.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.3/4.3 MB 5.4 MB/s eta 0:00:00
+Collecting pip-tools==6.5.1
+  Downloading pip_tools-6.5.1-py3-none-any.whl (47 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 47.4/47.4 KB 2.8 MB/s eta 0:00:00
+Collecting platformdirs==2.5.1
+  Downloading platformdirs-2.5.1-py3-none-any.whl (14 kB)
+Collecting pluggy==1.0.0
+  Downloading pluggy-1.0.0-py2.py3-none-any.whl (13 kB)
+Collecting py==1.11.0
+  Downloading py-1.11.0-py2.py3-none-any.whl (98 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.7/98.7 KB 3.7 MB/s eta 0:00:00
+Collecting pyautogui==0.9.53
+  Downloading PyAutoGUI-0.9.53.tar.gz (59 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.0/59.0 KB 2.8 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Collecting pycodestyle==2.8.0
+  Downloading pycodestyle-2.8.0-py2.py3-none-any.whl (42 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.1/42.1 KB 3.4 MB/s eta 0:00:00
+Collecting pyflakes==2.4.0
+  Downloading pyflakes-2.4.0-py2.py3-none-any.whl (69 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.7/69.7 KB 4.6 MB/s eta 0:00:00
+Collecting pygetwindow==0.0.9
+  Downloading PyGetWindow-0.0.9.tar.gz (9.7 kB)
+  Preparing metadata (setup.py) ... done
+Collecting pymsgbox==1.0.9
+  Downloading PyMsgBox-1.0.9.tar.gz (18 kB)
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... done
+  Preparing metadata (pyproject.toml) ... done
+Collecting pyparsing==3.0.7
+  Downloading pyparsing-3.0.7-py3-none-any.whl (98 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.0/98.0 KB 3.8 MB/s eta 0:00:00
+Collecting pyperclip==1.8.2
+  Downloading pyperclip-1.8.2.tar.gz (20 kB)
+  Preparing metadata (setup.py) ... done
+Collecting pyqt5==5.11.3
+  Downloading PyQt5-5.11.3-5.11.2-cp35.cp36.cp37.cp38-abi3-manylinux1_x86_64.whl (117.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 117.8/117.8 MB 4.3 MB/s eta 0:00:00
+Collecting pyqt5-sip==4.19.19
+  Downloading PyQt5_sip-4.19.19-cp37-cp37m-manylinux1_x86_64.whl (67 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 67.4/67.4 KB 966.3 kB/s eta 0:00:00
+Collecting pyrect==0.1.4
+  Downloading PyRect-0.1.4.tar.gz (15 kB)
+  Preparing metadata (setup.py) ... done
+Collecting pyrsistent==0.18.1
+  Downloading pyrsistent-0.18.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (117 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 117.1/117.1 KB 4.2 MB/s eta 0:00:00
+Collecting pyscreeze==0.1.28
+  Downloading PyScreeze-0.1.28.tar.gz (25 kB)
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... done
+  Preparing metadata (pyproject.toml) ... done
+Collecting pytest==7.1.0
+  Downloading pytest-7.1.0-py3-none-any.whl (297 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 297.0/297.0 KB 4.9 MB/s eta 0:00:00
+Collecting pytest-cov==3.0.0
+  Downloading pytest_cov-3.0.0-py3-none-any.whl (20 kB)
+Collecting pytest-forked==1.4.0
+  Downloading pytest_forked-1.4.0-py3-none-any.whl (4.9 kB)
+Collecting pytest-mock==3.7.0
+  Downloading pytest_mock-3.7.0-py3-none-any.whl (12 kB)
+Collecting pytest-qt==4.0.2
+  Downloading pytest_qt-4.0.2-py2.py3-none-any.whl (33 kB)
+Collecting pytest-random-order==1.0.4
+  Downloading pytest_random_order-1.0.4-py3-none-any.whl (10 kB)
+Collecting pytest-vcr==1.0.2
+  Downloading pytest_vcr-1.0.2-py2.py3-none-any.whl (4.1 kB)
+Collecting pytest-xdist==2.5.0
+  Downloading pytest_xdist-2.5.0-py3-none-any.whl (41 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 41.7/41.7 KB 2.8 MB/s eta 0:00:00
+Collecting python-dateutil==2.7.5
+  Downloading python_dateutil-2.7.5-py2.py3-none-any.whl (225 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 225.7/225.7 KB 4.4 MB/s eta 0:00:00
+Collecting python-editor==1.0.3
+  Downloading python-editor-1.0.3.tar.gz (7.0 kB)
+  Preparing metadata (setup.py) ... done
+Collecting python3-xlib==0.15
+  Downloading python3-xlib-0.15.tar.gz (132 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 132.8/132.8 KB 4.9 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Collecting pytweening==1.0.4
+  Downloading pytweening-1.0.4.tar.gz (14 kB)
+  Preparing metadata (setup.py) ... done
+Collecting pytz==2021.3
+  Downloading pytz-2021.3-py2.py3-none-any.whl (503 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 503.5/503.5 KB 4.8 MB/s eta 0:00:00
+Collecting pyxdg==0.27
+  Downloading pyxdg-0.27-py2.py3-none-any.whl (49 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 49.5/49.5 KB 2.8 MB/s eta 0:00:00
+Collecting pyyaml==6.0
+  Downloading PyYAML-6.0-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (596 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 596.3/596.3 KB 4.9 MB/s eta 0:00:00
+Collecting requests==2.26.0
+  Downloading requests-2.26.0-py2.py3-none-any.whl (62 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.3/62.3 KB 3.9 MB/s eta 0:00:00
+Collecting ruamel-yaml==0.17.21
+  Downloading ruamel.yaml-0.17.21-py3-none-any.whl (109 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 109.5/109.5 KB 3.3 MB/s eta 0:00:00
+Collecting ruamel-yaml-clib==0.2.6
+  Downloading ruamel.yaml.clib-0.2.6-cp37-cp37m-manylinux1_x86_64.whl (546 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 546.8/546.8 KB 4.9 MB/s eta 0:00:00
+Collecting securedrop-sdk==0.4.0
+  Downloading securedrop-sdk-0.4.0.tar.gz (27 kB)
+  Preparing metadata (setup.py) ... done
+Collecting semgrep==0.84.0
+  Downloading semgrep-0.84.0-cp37.cp38.cp39.py37.py38.py39-none-any.whl (22.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.7/22.7 MB 5.1 MB/s eta 0:00:00
+Collecting sip==4.19.8
+  Downloading sip-4.19.8-cp37-cp37m-manylinux1_x86_64.whl (66 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 66.4/66.4 KB 3.0 MB/s eta 0:00:00
+Collecting six==1.11.0
+  Downloading six-1.11.0-py2.py3-none-any.whl (10 kB)
+Collecting sqlalchemy==1.3.3
+  Downloading SQLAlchemy-1.3.3.tar.gz (5.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.9/5.9 MB 5.2 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... done
+Collecting toml==0.10.2
+  Downloading toml-0.10.2-py2.py3-none-any.whl (16 kB)
+Collecting tomli==2.0.1
+  Downloading tomli-2.0.1-py3-none-any.whl (12 kB)
+Collecting tqdm==4.63.0
+  Downloading tqdm-4.63.0-py2.py3-none-any.whl (76 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 76.6/76.6 KB 3.0 MB/s eta 0:00:00
+Collecting typed-ast==1.5.2
+  Downloading typed_ast-1.5.2-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (843 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 843.7/843.7 KB 4.8 MB/s eta 0:00:00
+Collecting types-python-dateutil==2.8.9
+  Downloading types_python_dateutil-2.8.9-py3-none-any.whl (7.8 kB)
+Collecting types-setuptools==57.4.10
+  Downloading types_setuptools-57.4.10-py3-none-any.whl (27 kB)
+Collecting typing-extensions==4.1.1
+  Downloading typing_extensions-4.1.1-py3-none-any.whl (26 kB)
+Collecting urllib3==1.26.6
+  Downloading urllib3-1.26.6-py2.py3-none-any.whl (138 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 138.5/138.5 KB 4.7 MB/s eta 0:00:00
+Collecting vcrpy==4.1.1
+  Downloading vcrpy-4.1.1-py2.py3-none-any.whl (40 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.5/40.5 KB 2.5 MB/s eta 0:00:00
+Collecting wcmatch==8.3
+  Downloading wcmatch-8.3-py3-none-any.whl (42 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.9/42.9 KB 4.1 MB/s eta 0:00:00
+Requirement already satisfied: wheel==0.37.1 in ./.venv/lib/python3.7/site-packages (from -r requirements/dev-requirements.txt (line 748)) (0.37.1)
+Collecting wlc==1.12
+  Downloading wlc-1.12-py3-none-any.whl (84 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 84.9/84.9 KB 3.1 MB/s eta 0:00:00
+Collecting wrapt==1.14.0
+  Downloading wrapt-1.14.0-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (75 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 75.2/75.2 KB 3.0 MB/s eta 0:00:00
+Collecting yarl==1.7.2
+  Downloading yarl-1.7.2-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (271 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 271.8/271.8 KB 4.4 MB/s eta 0:00:00
+Collecting zipp==3.7.0
+  Downloading zipp-3.7.0-py3-none-any.whl (5.3 kB)
+Requirement already satisfied: pip==22.0.4 in ./.venv/lib/python3.7/site-packages (from -r requirements/dev-requirements.txt (line 904)) (22.0.4)
+Collecting setuptools==60.9.3
+  Downloading setuptools-60.9.3-py3-none-any.whl (1.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 5.1 MB/s eta 0:00:00
+Building wheels for collected packages: alembic, arrow, mako, mouseinfo, peewee, pyautogui, pygetwindow, pymsgbox, pyperclip, pyrect, pyscreeze, python-editor, python3-xlib, pytweening, securedrop-sdk, sqlalchemy
+  Building wheel for alembic (setup.py) ... done
+  Created wheel for alembic: filename=alembic-1.0.2-py2.py3-none-any.whl size=156223 sha256=d37724cee3798a2a3054f8a9c9bd3195af6ca1b96ae506ad101450427218dc79
+  Stored in directory: /home/user/.cache/pip/wheels/8f/7e/c8/4f8f99caf4b400f72be35abaa178d13553b5111f55598bc9f6
+  Building wheel for arrow (setup.py) ... done
+  Created wheel for arrow: filename=arrow-0.12.1-py2.py3-none-any.whl size=35208 sha256=9df5326667d800f4c9725af6ba4870920048606d55c3222272268a17d39c66de
+  Stored in directory: /home/user/.cache/pip/wheels/97/b6/2c/284f694cb760a62eb964fd98b0a8fa6a393b21ea944c849c76
+  Building wheel for mako (setup.py) ... done
+  Created wheel for mako: filename=Mako-1.0.7-py3-none-any.whl size=76583 sha256=4accf43e6393669f1624fce8bc9ecfae21d3e520c24422034d23e1b9d200abce
+  Stored in directory: /home/user/.cache/pip/wheels/e7/66/82/00a40359e214afa269e7f3a7075c9bc1ae3545ba0ff776ad46
+  Building wheel for mouseinfo (setup.py) ... done
+  Created wheel for mouseinfo: filename=MouseInfo-0.1.3-py3-none-any.whl size=10906 sha256=a8a26c62fb8772d0f237b96fe6b2265687eb266c6701b5d11e3cf38f56a8eea1
+  Stored in directory: /home/user/.cache/pip/wheels/43/9a/7f/373736bf37b94b358be41fb2f317a0f9940a1dcb7a733e1707
+  Building wheel for peewee (setup.py) ... done
+  Created wheel for peewee: filename=peewee-3.14.10-py3-none-any.whl size=132887 sha256=d00cb3346877727782e1af4574e5bd9b649a7aa76cf04514eac4ceeb543eb27b
+  Stored in directory: /home/user/.cache/pip/wheels/df/4f/73/3228affbec8e2e73e622306ac47ebba39df2170bd784eec69c
+  Building wheel for pyautogui (setup.py) ... done
+  Created wheel for pyautogui: filename=PyAutoGUI-0.9.53-py3-none-any.whl size=36587 sha256=1664a1946dcd58ff299d96b7e5f8e085f3cb4519f00fe53e2f873e33d154d682
+  Stored in directory: /home/user/.cache/pip/wheels/23/db/81/a14b5eca81ccb97c15e5bbea8d5394b8cbf6b36451d89dd648
+  Building wheel for pygetwindow (setup.py) ... done
+  Created wheel for pygetwindow: filename=PyGetWindow-0.0.9-py3-none-any.whl size=11081 sha256=ad98185466c5f3e8b5b3d949193e4d7bb79b514c9fddb9993e6e9c20db885cb8
+  Stored in directory: /home/user/.cache/pip/wheels/91/7e/35/62d9062a06cfc46fea39e26860253da36f258b3f3fd96c91c3
+  Building wheel for pymsgbox (pyproject.toml) ... done
+  Created wheel for pymsgbox: filename=PyMsgBox-1.0.9-py3-none-any.whl size=7420 sha256=0aafc214e9a7340f5522d8bff4e18366378116806f695842704ba160272c4b4d
+  Stored in directory: /home/user/.cache/pip/wheels/39/eb/0e/1587e06da34adf675ad26a113da25df542991f5095303374ef
+  Building wheel for pyperclip (setup.py) ... done
+  Created wheel for pyperclip: filename=pyperclip-1.8.2-py3-none-any.whl size=11107 sha256=175f922e969375bd79826ae3cbb9bbe8c74a345ec789d1169e482ff90d78f953
+  Stored in directory: /home/user/.cache/pip/wheels/9f/18/84/8f69f8b08169c7bae2dde6bd7daf0c19fca8c8e500ee620a28
+  Building wheel for pyrect (setup.py) ... done
+  Created wheel for pyrect: filename=PyRect-0.1.4-py2.py3-none-any.whl size=9547 sha256=5d04ac8cf043974863348d962eb9e2e5eb9ee7cf29a6e3252aa25ef24875d94f
+  Stored in directory: /home/user/.cache/pip/wheels/97/5f/8e/6f26a5b00d46679ee2391a3542334274ce8bdaf7c6b0f3504c
+  Building wheel for pyscreeze (pyproject.toml) ... done
+  Created wheel for pyscreeze: filename=PyScreeze-0.1.28-py3-none-any.whl size=13021 sha256=dc1613a7bc53933dabcbe29a10465fe094fa1ad6e261440a4dd74927816ae95f
+  Stored in directory: /home/user/.cache/pip/wheels/09/85/24/8db624ac125598fc40c4fbbff9d3b42e1c464d168567f72a42
+  Building wheel for python-editor (setup.py) ... done
+  Created wheel for python-editor: filename=python_editor-1.0.3-py3-none-any.whl size=6686 sha256=d0f963c18768d6213bc1f7fa981b69397c63b024bdc7923155e6c4e41078f6cf
+  Stored in directory: /home/user/.cache/pip/wheels/22/c1/04/243aae548a9c777e467c9f57f8f0f8dc76f66413b320ed7737
+  Building wheel for python3-xlib (setup.py) ... done
+  Created wheel for python3-xlib: filename=python3_xlib-0.15-py3-none-any.whl size=109517 sha256=ea4bd7183e7cbd7d1a530bf48539c9973c89438107e01a8a80cd2cddf1ec1486
+  Stored in directory: /home/user/.cache/pip/wheels/67/6f/f2/18f51230840318e784c45e1392a0e174777e499251e42ddf86
+  Building wheel for pytweening (setup.py) ... done
+  Created wheel for pytweening: filename=pytweening-1.0.4-py3-none-any.whl size=5825 sha256=55e9725cd91ce0bc710c75e234ce0155600a60585fffd6350a2858f964b96158
+  Stored in directory: /home/user/.cache/pip/wheels/13/0b/3b/73efc9b0421547a03ed3208c92a88ccddae2ce853c1e6da7e9
+  Building wheel for securedrop-sdk (setup.py) ... done
+  Created wheel for securedrop-sdk: filename=securedrop_sdk-0.4.0-py3-none-any.whl size=24506 sha256=3453029e8062f8762b764f3981b63a21a76efdaa33a16762b270a7196e7c75e9
+  Stored in directory: /home/user/.cache/pip/wheels/29/96/e5/bd0e28bf94e2787778d19b44f6166b34a0f3b93034b34af0e9
+  Building wheel for sqlalchemy (setup.py) ... done
+  Created wheel for sqlalchemy: filename=SQLAlchemy-1.3.3-cp37-cp37m-linux_x86_64.whl size=1187983 sha256=540b6e5e3615fa6e6ba7ab5291bd56c9962f6f88e5c0f4fb6d5743786c5fcf47
+  Stored in directory: /home/user/.cache/pip/wheels/33/68/a5/e7099cc3a176110335d157276d8eb738613a6e86cabbd1d3a5
+Successfully built alembic arrow mako mouseinfo peewee pyautogui pygetwindow pymsgbox pyperclip pyrect pyscreeze python-editor python3-xlib pytweening securedrop-sdk sqlalchemy
+Installing collected packages: types-setuptools, types-python-dateutil, six, sip, pyxdg, pytz, pytweening, python3-xlib, python-editor, pyrect, pyqt5-sip, pyperclip, pymsgbox, peewee, mypy-extensions, mccabe, iniconfig, certifi, zipp, wrapt, urllib3, typing-extensions, typed-ast, tqdm, tomli, toml, sqlalchemy, setuptools, ruamel-yaml-clib, pyyaml, python-dateutil, pyrsistent, pyqt5, pyparsing, pygetwindow, pyflakes, pycodestyle, py, platformdirs, pillow, pathspec, pathlib2, multidict, markupsafe, isort, idna, flaky, execnet, defusedxml, coverage, colorama, charset-normalizer, bracex, babel, attrs, yarl, wcmatch, ruamel-yaml, requests, pyscreeze, packaging, mypy, mouseinfo, mako, importlib-metadata, arrow, vcrpy, securedrop-sdk, pyautogui, pluggy, pep517, jsonschema, flake8, click, argcomplete, alembic, wlc, pytest, pip-tools, click-option-group, black, semgrep, pytest-vcr, pytest-random-order, pytest-qt, pytest-mock, pytest-forked, pytest-cov, pytest-xdist
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 40.8.0
+    Uninstalling setuptools-40.8.0:
+      Successfully uninstalled setuptools-40.8.0
+Successfully installed alembic-1.0.2 argcomplete-2.0.0 arrow-0.12.1 attrs-21.4.0 babel-2.9.1 black-22.1.0 bracex-2.2.1 certifi-2021.5.30 charset-normalizer-2.0.4 click-8.0.4 click-option-group-0.5.3 colorama-0.4.4 coverage-6.3.2 defusedxml-0.7.1 execnet-1.9.0 flake8-4.0.1 flaky-3.7.0 idna-3.2 importlib-metadata-4.2.0 iniconfig-1.1.1 isort-5.10.1 jsonschema-3.2.0 mako-1.0.7 markupsafe-2.0.1 mccabe-0.6.1 mouseinfo-0.1.3 multidict-6.0.2 mypy-0.940 mypy-extensions-0.4.3 packaging-21.3 pathlib2-2.3.2 pathspec-0.9.0 peewee-3.14.10 pep517-0.12.0 pillow-9.0.1 pip-tools-6.5.1 platformdirs-2.5.1 pluggy-1.0.0 py-1.11.0 pyautogui-0.9.53 pycodestyle-2.8.0 pyflakes-2.4.0 pygetwindow-0.0.9 pymsgbox-1.0.9 pyparsing-3.0.7 pyperclip-1.8.2 pyqt5-5.11.3 pyqt5-sip-4.19.19 pyrect-0.1.4 pyrsistent-0.18.1 pyscreeze-0.1.28 pytest-7.1.0 pytest-cov-3.0.0 pytest-forked-1.4.0 pytest-mock-3.7.0 pytest-qt-4.0.2 pytest-random-order-1.0.4 pytest-vcr-1.0.2 pytest-xdist-2.5.0 python-dateutil-2.7.5 python-editor-1.0.3 python3-xlib-0.15 pytweening-1.0.4 pytz-2021.3 pyxdg-0.27 pyyaml-6.0 requests-2.26.0 ruamel-yaml-0.17.21 ruamel-yaml-clib-0.2.6 securedrop-sdk-0.4.0 semgrep-0.84.0 setuptools-60.9.3 sip-4.19.8 six-1.11.0 sqlalchemy-1.3.3 toml-0.10.2 tomli-2.0.1 tqdm-4.63.0 typed-ast-1.5.2 types-python-dateutil-2.8.9 types-setuptools-57.4.10 typing-extensions-4.1.1 urllib3-1.26.6 vcrpy-4.1.1 wcmatch-8.3 wlc-1.12 wrapt-1.14.0 yarl-1.7.2 zipp-3.7.0
+#################
+Make sure to run: source .venv/bin/activate
+user@sd-dev-dvm:~/securedrop-client$ source .venv/bin/activate
+(.venv) user@sd-dev-dvm:~/securedrop-client$ python3 setup.py sdist
+/home/user/securedrop-client/.venv/lib/python3.7/site-packages/setuptools/dist.py:505: UserWarning: Normalizing '0.7.0-rc1' to '0.7.0rc1'
+  warnings.warn(tmpl.format(**locals()))
+running sdist
+running egg_info
+creating securedrop_client.egg-info
+writing securedrop_client.egg-info/PKG-INFO
+writing dependency_links to securedrop_client.egg-info/dependency_links.txt
+writing entry points to securedrop_client.egg-info/entry_points.txt
+writing requirements to securedrop_client.egg-info/requires.txt
+writing top-level names to securedrop_client.egg-info/top_level.txt
+writing manifest file 'securedrop_client.egg-info/SOURCES.txt'
+reading manifest file 'securedrop_client.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no files found matching 'files/client.ini'
+warning: no previously-included files matching '*.pyc' found under directory 'alembic'
+warning: no previously-included files matching '*.pyc' found under directory 'securedrop_client'
+adding license file 'LICENSE'
+writing manifest file 'securedrop_client.egg-info/SOURCES.txt'
+running check
+creating securedrop-client-0.7.0rc1
+creating securedrop-client-0.7.0rc1/alembic
+creating securedrop-client-0.7.0rc1/alembic/versions
+creating securedrop-client-0.7.0rc1/files
+creating securedrop-client-0.7.0rc1/requirements
+creating securedrop-client-0.7.0rc1/securedrop_client
+creating securedrop-client-0.7.0rc1/securedrop_client.egg-info
+creating securedrop-client-0.7.0rc1/securedrop_client/api_jobs
+creating securedrop-client-0.7.0rc1/securedrop_client/gui
+creating securedrop-client-0.7.0rc1/securedrop_client/gui/auth
+creating securedrop-client-0.7.0rc1/securedrop_client/gui/auth/sign_in
+creating securedrop-client-0.7.0rc1/securedrop_client/gui/auth/use_offline
+creating securedrop-client-0.7.0rc1/securedrop_client/gui/base
+creating securedrop-client-0.7.0rc1/securedrop_client/gui/conversation
+creating securedrop-client-0.7.0rc1/securedrop_client/gui/conversation/delete
+creating securedrop-client-0.7.0rc1/securedrop_client/gui/source
+creating securedrop-client-0.7.0rc1/securedrop_client/gui/source/delete
+creating securedrop-client-0.7.0rc1/securedrop_client/locale
+creating securedrop-client-0.7.0rc1/securedrop_client/locale/ca
+creating securedrop-client-0.7.0rc1/securedrop_client/locale/ca/LC_MESSAGES
+creating securedrop-client-0.7.0rc1/securedrop_client/locale/de
+creating securedrop-client-0.7.0rc1/securedrop_client/locale/de/LC_MESSAGES
+creating securedrop-client-0.7.0rc1/securedrop_client/locale/es
+creating securedrop-client-0.7.0rc1/securedrop_client/locale/es/LC_MESSAGES
+creating securedrop-client-0.7.0rc1/securedrop_client/locale/hr
+creating securedrop-client-0.7.0rc1/securedrop_client/locale/hr/LC_MESSAGES
+creating securedrop-client-0.7.0rc1/securedrop_client/locale/is
+creating securedrop-client-0.7.0rc1/securedrop_client/locale/is/LC_MESSAGES
+creating securedrop-client-0.7.0rc1/securedrop_client/locale/sk
+creating securedrop-client-0.7.0rc1/securedrop_client/locale/sk/LC_MESSAGES
+creating securedrop-client-0.7.0rc1/securedrop_client/resources
+creating securedrop-client-0.7.0rc1/securedrop_client/resources/css
+creating securedrop-client-0.7.0rc1/securedrop_client/resources/fonts
+creating securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+creating securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro
+creating securedrop-client-0.7.0rc1/securedrop_client/resources/images
+creating securedrop-client-0.7.0rc1/securedrop_client/state
+copying files to securedrop-client-0.7.0rc1...
+copying LICENSE -> securedrop-client-0.7.0rc1
+copying MANIFEST.in -> securedrop-client-0.7.0rc1
+copying README.md -> securedrop-client-0.7.0rc1
+copying changelog.md -> securedrop-client-0.7.0rc1
+copying pyproject.toml -> securedrop-client-0.7.0rc1
+copying setup.cfg -> securedrop-client-0.7.0rc1
+copying setup.py -> securedrop-client-0.7.0rc1
+copying alembic/README -> securedrop-client-0.7.0rc1/alembic
+copying alembic/env.py -> securedrop-client-0.7.0rc1/alembic
+copying alembic/script.py.mako -> securedrop-client-0.7.0rc1/alembic
+copying alembic/versions/2f363b3d680e_init.py -> securedrop-client-0.7.0rc1/alembic/versions
+copying alembic/versions/36a79ffcfbfb_add_first_name_last_name_fullname_.py -> securedrop-client-0.7.0rc1/alembic/versions
+copying alembic/versions/7f682532afa2_add_download_error.py -> securedrop-client-0.7.0rc1/alembic/versions
+copying alembic/versions/86b01b6290da_add_reply_draft.py -> securedrop-client-0.7.0rc1/alembic/versions
+copying alembic/versions/9ba8d7524871_add_deletedsource_table.py -> securedrop-client-0.7.0rc1/alembic/versions
+copying alembic/versions/a4bf1f58ce69_fix_journalist_association_in_replies.py -> securedrop-client-0.7.0rc1/alembic/versions
+copying alembic/versions/bafdcae12f97_.py -> securedrop-client-0.7.0rc1/alembic/versions
+copying alembic/versions/bd57477f19a2_add_seen_tables.py -> securedrop-client-0.7.0rc1/alembic/versions
+copying alembic/versions/eff1387cfd0b_add_deletedconversation_table.py -> securedrop-client-0.7.0rc1/alembic/versions
+copying alembic/versions/fb657f2ee8a7_drop_file_original_filename.py -> securedrop-client-0.7.0rc1/alembic/versions
+copying alembic/versions/fecf1191b6f0_remove_decryption_vs_content_contraint.py -> securedrop-client-0.7.0rc1/alembic/versions
+copying files/alembic.ini -> securedrop-client-0.7.0rc1/files
+copying files/sd-app-qubes-gpg-domain.sh -> securedrop-client-0.7.0rc1/files
+copying files/securedrop-client -> securedrop-client-0.7.0rc1/files
+copying files/securedrop-client.desktop -> securedrop-client-0.7.0rc1/files
+copying files/usr.bin.securedrop-client -> securedrop-client-0.7.0rc1/files
+copying requirements/build-requirements.txt -> securedrop-client-0.7.0rc1/requirements
+copying requirements/requirements.txt -> securedrop-client-0.7.0rc1/requirements
+copying securedrop_client/__init__.py -> securedrop-client-0.7.0rc1/securedrop_client
+copying securedrop_client/__main__.py -> securedrop-client-0.7.0rc1/securedrop_client
+copying securedrop_client/app.py -> securedrop-client-0.7.0rc1/securedrop_client
+copying securedrop_client/config.py -> securedrop-client-0.7.0rc1/securedrop_client
+copying securedrop_client/crypto.py -> securedrop-client-0.7.0rc1/securedrop_client
+copying securedrop_client/database.py -> securedrop-client-0.7.0rc1/securedrop_client
+copying securedrop_client/db.py -> securedrop-client-0.7.0rc1/securedrop_client
+copying securedrop_client/export.py -> securedrop-client-0.7.0rc1/securedrop_client
+copying securedrop_client/logic.py -> securedrop-client-0.7.0rc1/securedrop_client
+copying securedrop_client/queue.py -> securedrop-client-0.7.0rc1/securedrop_client
+copying securedrop_client/storage.py -> securedrop-client-0.7.0rc1/securedrop_client
+copying securedrop_client/sync.py -> securedrop-client-0.7.0rc1/securedrop_client
+copying securedrop_client/utils.py -> securedrop-client-0.7.0rc1/securedrop_client
+copying securedrop_client.egg-info/PKG-INFO -> securedrop-client-0.7.0rc1/securedrop_client.egg-info
+copying securedrop_client.egg-info/SOURCES.txt -> securedrop-client-0.7.0rc1/securedrop_client.egg-info
+copying securedrop_client.egg-info/dependency_links.txt -> securedrop-client-0.7.0rc1/securedrop_client.egg-info
+copying securedrop_client.egg-info/entry_points.txt -> securedrop-client-0.7.0rc1/securedrop_client.egg-info
+copying securedrop_client.egg-info/requires.txt -> securedrop-client-0.7.0rc1/securedrop_client.egg-info
+copying securedrop_client.egg-info/top_level.txt -> securedrop-client-0.7.0rc1/securedrop_client.egg-info
+copying securedrop_client/api_jobs/__init__.py -> securedrop-client-0.7.0rc1/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/base.py -> securedrop-client-0.7.0rc1/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/downloads.py -> securedrop-client-0.7.0rc1/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/seen.py -> securedrop-client-0.7.0rc1/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/sources.py -> securedrop-client-0.7.0rc1/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/sync.py -> securedrop-client-0.7.0rc1/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/updatestar.py -> securedrop-client-0.7.0rc1/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/uploads.py -> securedrop-client-0.7.0rc1/securedrop_client/api_jobs
+copying securedrop_client/gui/__init__.py -> securedrop-client-0.7.0rc1/securedrop_client/gui
+copying securedrop_client/gui/actions.py -> securedrop-client-0.7.0rc1/securedrop_client/gui
+copying securedrop_client/gui/main.py -> securedrop-client-0.7.0rc1/securedrop_client/gui
+copying securedrop_client/gui/widgets.py -> securedrop-client-0.7.0rc1/securedrop_client/gui
+copying securedrop_client/gui/auth/__init__.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/auth
+copying securedrop_client/gui/auth/dialog.css -> securedrop-client-0.7.0rc1/securedrop_client/gui/auth
+copying securedrop_client/gui/auth/dialog.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/auth
+copying securedrop_client/gui/auth/sign_in/__init__.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/auth/sign_in
+copying securedrop_client/gui/auth/sign_in/button.css -> securedrop-client-0.7.0rc1/securedrop_client/gui/auth/sign_in
+copying securedrop_client/gui/auth/sign_in/button.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/auth/sign_in
+copying securedrop_client/gui/auth/sign_in/error_bar.css -> securedrop-client-0.7.0rc1/securedrop_client/gui/auth/sign_in
+copying securedrop_client/gui/auth/sign_in/error_bar.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/auth/sign_in
+copying securedrop_client/gui/auth/use_offline/__init__.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/auth/use_offline
+copying securedrop_client/gui/auth/use_offline/button.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/auth/use_offline
+copying securedrop_client/gui/base/__init__.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/base
+copying securedrop_client/gui/base/buttons.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/base
+copying securedrop_client/gui/base/dialog_button.css -> securedrop-client-0.7.0rc1/securedrop_client/gui/base
+copying securedrop_client/gui/base/dialog_message.css -> securedrop-client-0.7.0rc1/securedrop_client/gui/base
+copying securedrop_client/gui/base/dialogs.css -> securedrop-client-0.7.0rc1/securedrop_client/gui/base
+copying securedrop_client/gui/base/dialogs.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/base
+copying securedrop_client/gui/base/inputs.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/base
+copying securedrop_client/gui/base/misc.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/base
+copying securedrop_client/gui/conversation/__init__.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/conversation
+copying securedrop_client/gui/conversation/delete/__init__.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/conversation/delete
+copying securedrop_client/gui/conversation/delete/dialog.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/conversation/delete
+copying securedrop_client/gui/source/__init__.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/source
+copying securedrop_client/gui/source/delete/__init__.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/source/delete
+copying securedrop_client/gui/source/delete/dialog.py -> securedrop-client-0.7.0rc1/securedrop_client/gui/source/delete
+copying securedrop_client/locale/messages.pot -> securedrop-client-0.7.0rc1/securedrop_client/locale
+copying securedrop_client/locale/ca/LC_MESSAGES/messages.mo -> securedrop-client-0.7.0rc1/securedrop_client/locale/ca/LC_MESSAGES
+copying securedrop_client/locale/ca/LC_MESSAGES/messages.po -> securedrop-client-0.7.0rc1/securedrop_client/locale/ca/LC_MESSAGES
+copying securedrop_client/locale/de/LC_MESSAGES/messages.mo -> securedrop-client-0.7.0rc1/securedrop_client/locale/de/LC_MESSAGES
+copying securedrop_client/locale/de/LC_MESSAGES/messages.po -> securedrop-client-0.7.0rc1/securedrop_client/locale/de/LC_MESSAGES
+copying securedrop_client/locale/es/LC_MESSAGES/messages.mo -> securedrop-client-0.7.0rc1/securedrop_client/locale/es/LC_MESSAGES
+copying securedrop_client/locale/es/LC_MESSAGES/messages.po -> securedrop-client-0.7.0rc1/securedrop_client/locale/es/LC_MESSAGES
+copying securedrop_client/locale/hr/LC_MESSAGES/messages.mo -> securedrop-client-0.7.0rc1/securedrop_client/locale/hr/LC_MESSAGES
+copying securedrop_client/locale/hr/LC_MESSAGES/messages.po -> securedrop-client-0.7.0rc1/securedrop_client/locale/hr/LC_MESSAGES
+copying securedrop_client/locale/is/LC_MESSAGES/messages.mo -> securedrop-client-0.7.0rc1/securedrop_client/locale/is/LC_MESSAGES
+copying securedrop_client/locale/is/LC_MESSAGES/messages.po -> securedrop-client-0.7.0rc1/securedrop_client/locale/is/LC_MESSAGES
+copying securedrop_client/locale/sk/LC_MESSAGES/messages.mo -> securedrop-client-0.7.0rc1/securedrop_client/locale/sk/LC_MESSAGES
+copying securedrop_client/locale/sk/LC_MESSAGES/messages.po -> securedrop-client-0.7.0rc1/securedrop_client/locale/sk/LC_MESSAGES
+copying securedrop_client/resources/__init__.py -> securedrop-client-0.7.0rc1/securedrop_client/resources
+copying securedrop_client/resources/css/button.css -> securedrop-client-0.7.0rc1/securedrop_client/resources/css
+copying securedrop_client/resources/css/checker_tooltip.css -> securedrop-client-0.7.0rc1/securedrop_client/resources/css
+copying securedrop_client/resources/css/file_download_button.css -> securedrop-client-0.7.0rc1/securedrop_client/resources/css
+copying securedrop_client/resources/css/sdclient.css -> securedrop-client-0.7.0rc1/securedrop_client/resources/css
+copying securedrop_client/resources/css/sender_icon.css -> securedrop-client-0.7.0rc1/securedrop_client/resources/css
+copying securedrop_client/resources/css/source_menu.css -> securedrop-client-0.7.0rc1/securedrop_client/resources/css
+copying securedrop_client/resources/css/source_name.css -> securedrop-client-0.7.0rc1/securedrop_client/resources/css
+copying securedrop_client/resources/css/source_preview.css -> securedrop-client-0.7.0rc1/securedrop_client/resources/css
+copying securedrop_client/resources/css/source_timestamp.css -> securedrop-client-0.7.0rc1/securedrop_client/resources/css
+copying securedrop_client/resources/css/speech_bubble_message.css -> securedrop-client-0.7.0rc1/securedrop_client/resources/css
+copying securedrop_client/resources/css/speech_bubble_status_bar.css -> securedrop-client-0.7.0rc1/securedrop_client/resources/css
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Black.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-BlackItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Bold.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-BoldItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraBold.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraBoldItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraLight.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraLightItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Light.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-LightItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Medium.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-MediumItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Regular.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-RegularItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-SemiBold.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-SemiBoldItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Thin.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ThinItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/OFL.txt -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Source_Sans_Pro/OFL.txt -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Black.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-BlackItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Bold.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-BoldItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-ExtraLight.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-ExtraLightItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Light.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-LightItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-RegularItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-SemiBold.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-SemiBoldItalic.ttf -> securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/images/activestate-wide.gif -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/blank.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/checkmark.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/checkmark_hover.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/cross.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/delete.png -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/delete_close.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/deleted-user.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/download_active.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/download_file.gif -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/download_file.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/download_file_hover.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/dropdown_arrow.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/ellipsis.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/error_icon.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/error_icon_white.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/eye_hidden.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/eye_visible.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/header_animation.gif -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/header_logo.png -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/hexes.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/icon.png -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/left_pane.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/left_pane_offline.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/loading-bar.gif -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/loading-cubes.gif -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/login_bg.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/logo.png -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/paperclip-disabled.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/paperclip.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/printer.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/refresh.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/refresh_active.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/refresh_offline.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/savetodisk.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/send-disabled.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/send.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/star_hover.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/star_off.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/star_on.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/sync.gif -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/sync.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/sync_active.gif -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/sync_disabled.gif -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/tear-big.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/tear-left.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/tear-right.svg -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/resources/images/trash.png -> securedrop-client-0.7.0rc1/securedrop_client/resources/images
+copying securedrop_client/state/__init__.py -> securedrop-client-0.7.0rc1/securedrop_client/state
+copying securedrop_client/state/domain.py -> securedrop-client-0.7.0rc1/securedrop_client/state
+copying securedrop_client/state/state.py -> securedrop-client-0.7.0rc1/securedrop_client/state
+Writing securedrop-client-0.7.0rc1/setup.cfg
+creating dist
+Creating tar archive
+removing 'securedrop-client-0.7.0rc1' (and everything under it)
+(.venv) user@sd-dev-dvm:~/securedrop-client$ cd ../securedrop-debian-packaging/
+(.venv) user@sd-dev-dvm:~/securedrop-debian-packaging$ make install-deps
+./scripts/install-deps
+Hit:1 https://deb.debian.org/debian buster InRelease
+Get:2 https://deb.debian.org/debian-security buster/updates InRelease [65.4 kB]
+Get:3 https://deb.debian.org/debian-security buster/updates/main amd64 Packages [317 kB]
+Get:4 https://deb.debian.org/debian-security buster/updates/main Translation-en [172 kB]
+Hit:5 https://deb.qubes-os.org/r4.0/vm buster InRelease                        
+Fetched 554 kB in 1s (711 kB/s)
+Reading package lists... Done
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+build-essential is already the newest version (12.6).
+curl is already the newest version (7.64.0-4+deb10u2).
+desktop-file-utils is already the newest version (0.23-4).
+desktop-file-utils set to manually installed.
+devscripts is already the newest version (2.19.5+deb10u1).
+dh-make is already the newest version (2.201802).
+dh-python is already the newest version (3.20190308).
+dh-virtualenv is already the newest version (1.1-1).
+git-lfs is already the newest version (2.7.1-1+deb10u1).
+libffi-dev is already the newest version (3.2.1-9).
+libyaml-dev is already the newest version (0.2.1-1).
+libssl-dev is already the newest version (1.1.1n-0+deb10u1).
+python3-pip is already the newest version (18.1-5).
+python3-setuptools is already the newest version (40.8.0-1).
+python3-all is already the newest version (3.7.3-1).
+python3-venv is already the newest version (3.7.3-1).
+reprotest is already the newest version (0.7.8).
+0 upgraded, 0 newly installed, 0 to remove and 213 not upgraded.
+Virtualenv already activated, skipping creation...
+Looking in links: ./bootstrap/
+Processing ./bootstrap/build-0.3.0-py2.py3-none-any.whl
+Processing ./bootstrap/click-7.1.2-py2.py3-none-any.whl
+Processing ./bootstrap/Cython-0.29.22-cp37-cp37m-linux_x86_64.whl
+Processing ./bootstrap/flit_core-2.3.0-py2.py3-none-any.whl
+Processing ./bootstrap/importlib_metadata-3.7.0-py3-none-any.whl
+Processing ./bootstrap/packaging-20.9-py2.py3-none-any.whl
+Processing ./bootstrap/pep517-0.9.1-py2.py3-none-any.whl
+Processing ./bootstrap/pip_tools-6.0.1-py3-none-any.whl
+Processing ./bootstrap/pyparsing-2.4.7-py2.py3-none-any.whl
+Processing ./bootstrap/pytest_runner-5.3.0-py3-none-any.whl
+Processing ./bootstrap/pytoml-0.1.21-py2.py3-none-any.whl
+Processing ./bootstrap/setuptools_scm-5.0.2-py2.py3-none-any.whl
+Requirement already satisfied: toml==0.10.2 in /home/user/securedrop-client/.venv/lib/python3.7/site-packages (from -r build-requirements.txt (line 13)) (0.10.2)
+Processing ./bootstrap/typing_extensions-3.7.4.3-py3-none-any.whl
+Processing ./bootstrap/wheel-0.36.2-py2.py3-none-any.whl
+Processing ./bootstrap/zipp-3.4.1-py3-none-any.whl
+Processing ./bootstrap/pip-21.3.1-py3-none-any.whl
+Processing ./bootstrap/setuptools-54.0.0-py3-none-any.whl
+Installing collected packages: typing-extensions, pytoml, pep517, zipp, wheel, setuptools-scm, setuptools, pytest-runner, pyparsing, pip-tools, pip, packaging, importlib-metadata, flit-core, cython, click, build
+  Attempting uninstall: typing-extensions
+    Found existing installation: typing_extensions 4.1.1
+    Uninstalling typing_extensions-4.1.1:
+      Successfully uninstalled typing_extensions-4.1.1
+  Attempting uninstall: pep517
+    Found existing installation: pep517 0.12.0
+    Uninstalling pep517-0.12.0:
+      Successfully uninstalled pep517-0.12.0
+  Attempting uninstall: zipp
+    Found existing installation: zipp 3.7.0
+    Uninstalling zipp-3.7.0:
+      Successfully uninstalled zipp-3.7.0
+  Attempting uninstall: wheel
+    Found existing installation: wheel 0.37.1
+    Uninstalling wheel-0.37.1:
+      Successfully uninstalled wheel-0.37.1
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 60.9.3
+    Uninstalling setuptools-60.9.3:
+      Successfully uninstalled setuptools-60.9.3
+  Attempting uninstall: pyparsing
+    Found existing installation: pyparsing 3.0.7
+    Uninstalling pyparsing-3.0.7:
+      Successfully uninstalled pyparsing-3.0.7
+  Attempting uninstall: pip-tools
+    Found existing installation: pip-tools 6.5.1
+    Uninstalling pip-tools-6.5.1:
+      Successfully uninstalled pip-tools-6.5.1
+  Attempting uninstall: pip
+    Found existing installation: pip 22.0.4
+    Uninstalling pip-22.0.4:
+      Successfully uninstalled pip-22.0.4
+  Attempting uninstall: packaging
+    Found existing installation: packaging 21.3
+    Uninstalling packaging-21.3:
+      Successfully uninstalled packaging-21.3
+  Attempting uninstall: importlib-metadata
+    Found existing installation: importlib-metadata 4.2.0
+    Uninstalling importlib-metadata-4.2.0:
+      Successfully uninstalled importlib-metadata-4.2.0
+  Attempting uninstall: click
+    Found existing installation: click 8.0.4
+    Uninstalling click-8.0.4:
+      Successfully uninstalled click-8.0.4
+Successfully installed build-0.3.0 click-7.1.2 cython-0.29.22 flit-core-2.3.0 importlib-metadata-3.7.0 packaging-20.9 pep517-0.9.1 pip-21.3.1 pip-tools-6.0.1 pyparsing-2.4.7 pytest-runner-5.3.0 pytoml-0.1.21 setuptools-54.0.0 setuptools-scm-5.0.2 typing-extensions-3.7.4.3 wheel-0.36.2 zipp-3.4.1
+(.venv) user@sd-dev-dvm:~/securedrop-debian-packaging$ PKG_VERSION=0.7.0-rc1 ./scripts/update-changelog securedrop-client
+dch warning: Previous package version was Debian native whilst new version is not
+
+Select an editor.  To change later, run 'select-editor'.
+  1. /usr/bin/vim.nox
+  2. /bin/nano        <---- easiest
+  3. /usr/bin/vim.tiny
+  4. /usr/bin/emacs
+
+Choose 1-4 [2]: 1
+(.venv) user@sd-dev-dvm:~/securedrop-debian-packaging$ PKG_VERSION=0.7.0-rc1 PKG_PATH=/home/user/securedrop-client/dist/securedrop-client-0.7.0rc1.tar.gz make securedrop-client
+WHEELS_DIR="/home/user/securedrop-debian-packaging/localwheels/" PKG_NAME="securedrop-client" ./scripts/build-debianpackage
+gpg: key 9232DAD3105B8D58: public key "Allie Crevier <allie@freedom.press>" imported
+gpg: key F08893B959CAB065: public key "Conor Schaefer <conor@freedom.press>" imported
+gpg: key 07AD35D378D10BA0: public key "Cory Francis Myers <cory@freedom.press>" imported
+gpg: key ACFE4353173015EA: public key "Kevin O'Gorman <kog@freedom.press>" imported
+gpg: key D8219C8C43F6C5E1: public key "Kushal Das <kushal@freedom.press>" imported
+gpg: key 188EDD3B7B22E6A3: public key "SecureDrop Release Signing Key <securedrop-release-key-2021@freedom.press>" imported
+gpg: key FC72AA838C444B47: public key "Rowen S <ro@freedom.press>" imported
+gpg: Total number processed: 7
+gpg:               imported: 7
+gpg: Signature made Thu 07 Apr 2022 01:27:23 PM EDT
+gpg:                using RSA key B3BC38A1FEDE0B8728BAB9BF11738E09A8EB8645
+gpg: Good signature from "Allie Crevier <allie@freedom.press>" [unknown]
+gpg:                 aka "Allie Crevier <creviera@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 789B 3522 29D9 BD2F B354  7759 9232 DAD3 105B 8D58
+     Subkey fingerprint: B3BC 38A1 FEDE 0B87 28BA  B9BF 1173 8E09 A8EB 8645
+Checking that SHA256SUMs from mirror match signed file...  OK
+securedrop-client is a Python package
+securedrop-client-0.7.0rc1/LICENSE
+securedrop-client-0.7.0rc1/MANIFEST.in
+securedrop-client-0.7.0rc1/PKG-INFO
+securedrop-client-0.7.0rc1/README.md
+securedrop-client-0.7.0rc1/alembic/
+securedrop-client-0.7.0rc1/alembic/README
+securedrop-client-0.7.0rc1/alembic/env.py
+securedrop-client-0.7.0rc1/alembic/script.py.mako
+securedrop-client-0.7.0rc1/alembic/versions/
+securedrop-client-0.7.0rc1/alembic/versions/2f363b3d680e_init.py
+securedrop-client-0.7.0rc1/alembic/versions/36a79ffcfbfb_add_first_name_last_name_fullname_.py
+securedrop-client-0.7.0rc1/alembic/versions/7f682532afa2_add_download_error.py
+securedrop-client-0.7.0rc1/alembic/versions/86b01b6290da_add_reply_draft.py
+securedrop-client-0.7.0rc1/alembic/versions/9ba8d7524871_add_deletedsource_table.py
+securedrop-client-0.7.0rc1/alembic/versions/a4bf1f58ce69_fix_journalist_association_in_replies.py
+securedrop-client-0.7.0rc1/alembic/versions/bafdcae12f97_.py
+securedrop-client-0.7.0rc1/alembic/versions/bd57477f19a2_add_seen_tables.py
+securedrop-client-0.7.0rc1/alembic/versions/eff1387cfd0b_add_deletedconversation_table.py
+securedrop-client-0.7.0rc1/alembic/versions/fb657f2ee8a7_drop_file_original_filename.py
+securedrop-client-0.7.0rc1/alembic/versions/fecf1191b6f0_remove_decryption_vs_content_contraint.py
+securedrop-client-0.7.0rc1/changelog.md
+securedrop-client-0.7.0rc1/files/
+securedrop-client-0.7.0rc1/files/alembic.ini
+securedrop-client-0.7.0rc1/files/sd-app-qubes-gpg-domain.sh
+securedrop-client-0.7.0rc1/files/securedrop-client
+securedrop-client-0.7.0rc1/files/securedrop-client.desktop
+securedrop-client-0.7.0rc1/files/usr.bin.securedrop-client
+securedrop-client-0.7.0rc1/pyproject.toml
+securedrop-client-0.7.0rc1/requirements/
+securedrop-client-0.7.0rc1/requirements/build-requirements.txt
+securedrop-client-0.7.0rc1/requirements/requirements.txt
+securedrop-client-0.7.0rc1/securedrop_client/
+securedrop-client-0.7.0rc1/securedrop_client/__init__.py
+securedrop-client-0.7.0rc1/securedrop_client/__main__.py
+securedrop-client-0.7.0rc1/securedrop_client/api_jobs/
+securedrop-client-0.7.0rc1/securedrop_client/api_jobs/__init__.py
+securedrop-client-0.7.0rc1/securedrop_client/api_jobs/base.py
+securedrop-client-0.7.0rc1/securedrop_client/api_jobs/downloads.py
+securedrop-client-0.7.0rc1/securedrop_client/api_jobs/seen.py
+securedrop-client-0.7.0rc1/securedrop_client/api_jobs/sources.py
+securedrop-client-0.7.0rc1/securedrop_client/api_jobs/sync.py
+securedrop-client-0.7.0rc1/securedrop_client/api_jobs/updatestar.py
+securedrop-client-0.7.0rc1/securedrop_client/api_jobs/uploads.py
+securedrop-client-0.7.0rc1/securedrop_client/app.py
+securedrop-client-0.7.0rc1/securedrop_client/config.py
+securedrop-client-0.7.0rc1/securedrop_client/crypto.py
+securedrop-client-0.7.0rc1/securedrop_client/database.py
+securedrop-client-0.7.0rc1/securedrop_client/db.py
+securedrop-client-0.7.0rc1/securedrop_client/export.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/
+securedrop-client-0.7.0rc1/securedrop_client/gui/__init__.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/actions.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/auth/
+securedrop-client-0.7.0rc1/securedrop_client/gui/auth/__init__.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/auth/dialog.css
+securedrop-client-0.7.0rc1/securedrop_client/gui/auth/dialog.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/auth/sign_in/
+securedrop-client-0.7.0rc1/securedrop_client/gui/auth/sign_in/__init__.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/auth/sign_in/button.css
+securedrop-client-0.7.0rc1/securedrop_client/gui/auth/sign_in/button.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/auth/sign_in/error_bar.css
+securedrop-client-0.7.0rc1/securedrop_client/gui/auth/sign_in/error_bar.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/auth/use_offline/
+securedrop-client-0.7.0rc1/securedrop_client/gui/auth/use_offline/__init__.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/auth/use_offline/button.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/base/
+securedrop-client-0.7.0rc1/securedrop_client/gui/base/__init__.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/base/buttons.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/base/dialog_button.css
+securedrop-client-0.7.0rc1/securedrop_client/gui/base/dialog_message.css
+securedrop-client-0.7.0rc1/securedrop_client/gui/base/dialogs.css
+securedrop-client-0.7.0rc1/securedrop_client/gui/base/dialogs.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/base/inputs.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/base/misc.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/conversation/
+securedrop-client-0.7.0rc1/securedrop_client/gui/conversation/__init__.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/conversation/delete/
+securedrop-client-0.7.0rc1/securedrop_client/gui/conversation/delete/__init__.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/conversation/delete/dialog.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/main.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/source/
+securedrop-client-0.7.0rc1/securedrop_client/gui/source/__init__.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/source/delete/
+securedrop-client-0.7.0rc1/securedrop_client/gui/source/delete/__init__.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/source/delete/dialog.py
+securedrop-client-0.7.0rc1/securedrop_client/gui/widgets.py
+securedrop-client-0.7.0rc1/securedrop_client/locale/
+securedrop-client-0.7.0rc1/securedrop_client/locale/ca/
+securedrop-client-0.7.0rc1/securedrop_client/locale/ca/LC_MESSAGES/
+securedrop-client-0.7.0rc1/securedrop_client/locale/ca/LC_MESSAGES/messages.mo
+securedrop-client-0.7.0rc1/securedrop_client/locale/ca/LC_MESSAGES/messages.po
+securedrop-client-0.7.0rc1/securedrop_client/locale/de/
+securedrop-client-0.7.0rc1/securedrop_client/locale/de/LC_MESSAGES/
+securedrop-client-0.7.0rc1/securedrop_client/locale/de/LC_MESSAGES/messages.mo
+securedrop-client-0.7.0rc1/securedrop_client/locale/de/LC_MESSAGES/messages.po
+securedrop-client-0.7.0rc1/securedrop_client/locale/es/
+securedrop-client-0.7.0rc1/securedrop_client/locale/es/LC_MESSAGES/
+securedrop-client-0.7.0rc1/securedrop_client/locale/es/LC_MESSAGES/messages.mo
+securedrop-client-0.7.0rc1/securedrop_client/locale/es/LC_MESSAGES/messages.po
+securedrop-client-0.7.0rc1/securedrop_client/locale/hr/
+securedrop-client-0.7.0rc1/securedrop_client/locale/hr/LC_MESSAGES/
+securedrop-client-0.7.0rc1/securedrop_client/locale/hr/LC_MESSAGES/messages.mo
+securedrop-client-0.7.0rc1/securedrop_client/locale/hr/LC_MESSAGES/messages.po
+securedrop-client-0.7.0rc1/securedrop_client/locale/is/
+securedrop-client-0.7.0rc1/securedrop_client/locale/is/LC_MESSAGES/
+securedrop-client-0.7.0rc1/securedrop_client/locale/is/LC_MESSAGES/messages.mo
+securedrop-client-0.7.0rc1/securedrop_client/locale/is/LC_MESSAGES/messages.po
+securedrop-client-0.7.0rc1/securedrop_client/locale/messages.pot
+securedrop-client-0.7.0rc1/securedrop_client/locale/sk/
+securedrop-client-0.7.0rc1/securedrop_client/locale/sk/LC_MESSAGES/
+securedrop-client-0.7.0rc1/securedrop_client/locale/sk/LC_MESSAGES/messages.mo
+securedrop-client-0.7.0rc1/securedrop_client/locale/sk/LC_MESSAGES/messages.po
+securedrop-client-0.7.0rc1/securedrop_client/logic.py
+securedrop-client-0.7.0rc1/securedrop_client/queue.py
+securedrop-client-0.7.0rc1/securedrop_client/resources/
+securedrop-client-0.7.0rc1/securedrop_client/resources/__init__.py
+securedrop-client-0.7.0rc1/securedrop_client/resources/css/
+securedrop-client-0.7.0rc1/securedrop_client/resources/css/button.css
+securedrop-client-0.7.0rc1/securedrop_client/resources/css/checker_tooltip.css
+securedrop-client-0.7.0rc1/securedrop_client/resources/css/file_download_button.css
+securedrop-client-0.7.0rc1/securedrop_client/resources/css/sdclient.css
+securedrop-client-0.7.0rc1/securedrop_client/resources/css/sender_icon.css
+securedrop-client-0.7.0rc1/securedrop_client/resources/css/source_menu.css
+securedrop-client-0.7.0rc1/securedrop_client/resources/css/source_name.css
+securedrop-client-0.7.0rc1/securedrop_client/resources/css/source_preview.css
+securedrop-client-0.7.0rc1/securedrop_client/resources/css/source_timestamp.css
+securedrop-client-0.7.0rc1/securedrop_client/resources/css/speech_bubble_message.css
+securedrop-client-0.7.0rc1/securedrop_client/resources/css/speech_bubble_status_bar.css
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-Black.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-BlackItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-Bold.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-BoldItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraBold.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraBoldItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraLight.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraLightItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-Light.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-LightItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-Medium.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-MediumItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-Regular.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-RegularItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-SemiBold.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-SemiBoldItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-Thin.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/Montserrat-ThinItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Montserrat/OFL.txt
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro/
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro/OFL.txt
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Black.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-BlackItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Bold.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-BoldItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-ExtraLight.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-ExtraLightItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Light.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-LightItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-RegularItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-SemiBold.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-SemiBoldItalic.ttf
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/activestate-wide.gif
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/blank.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/checkmark.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/checkmark_hover.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/cross.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/delete.png
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/delete_close.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/deleted-user.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/download_active.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/download_file.gif
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/download_file.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/download_file_hover.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/dropdown_arrow.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/ellipsis.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/error_icon.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/error_icon_white.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/eye_hidden.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/eye_visible.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/header_animation.gif
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/header_logo.png
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/hexes.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/icon.png
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/left_pane.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/left_pane_offline.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/loading-bar.gif
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/loading-cubes.gif
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/login_bg.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/logo.png
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/paperclip-disabled.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/paperclip.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/printer.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/refresh.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/refresh_active.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/refresh_offline.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/savetodisk.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/send-disabled.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/send.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/star_hover.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/star_off.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/star_on.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/sync.gif
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/sync.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/sync_active.gif
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/sync_disabled.gif
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/tear-big.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/tear-left.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/tear-right.svg
+securedrop-client-0.7.0rc1/securedrop_client/resources/images/trash.png
+securedrop-client-0.7.0rc1/securedrop_client/state/
+securedrop-client-0.7.0rc1/securedrop_client/state/__init__.py
+securedrop-client-0.7.0rc1/securedrop_client/state/domain.py
+securedrop-client-0.7.0rc1/securedrop_client/state/state.py
+securedrop-client-0.7.0rc1/securedrop_client/storage.py
+securedrop-client-0.7.0rc1/securedrop_client/sync.py
+securedrop-client-0.7.0rc1/securedrop_client/utils.py
+securedrop-client-0.7.0rc1/securedrop_client.egg-info/
+securedrop-client-0.7.0rc1/securedrop_client.egg-info/PKG-INFO
+securedrop-client-0.7.0rc1/securedrop_client.egg-info/SOURCES.txt
+securedrop-client-0.7.0rc1/securedrop_client.egg-info/dependency_links.txt
+securedrop-client-0.7.0rc1/securedrop_client.egg-info/entry_points.txt
+securedrop-client-0.7.0rc1/securedrop_client.egg-info/requires.txt
+securedrop-client-0.7.0rc1/securedrop_client.egg-info/top_level.txt
+securedrop-client-0.7.0rc1/setup.cfg
+securedrop-client-0.7.0rc1/setup.py
+All hashes verified.
+Building package 'securedrop-client' from version '0.7.0-rc1'...
+/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client/
+dpkg-buildpackage: info: source package securedrop-client
+dpkg-buildpackage: info: source version 0.7.0-rc1+buster
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by SecureDrop Team <securedrop@freedom.press>
+dpkg-buildpackage: info: host architecture amd64
+ dpkg-source --before-build .
+ fakeroot debian/rules clean
+make[1]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+dh clean --with python-virtualenv
+   dh_clean
+make[1]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+ dpkg-source -b .
+dpkg-source: warning: no source format specified in debian/source/format, see dpkg-source(1)
+dpkg-source: info: using source format '1.0'
+dpkg-source: warning: source directory 'securedrop-client' is not <sourcepackage>-<upstreamversion> 'securedrop-client-0.7.0'
+dpkg-source: info: building securedrop-client in securedrop-client_0.7.0-rc1+buster.tar.gz
+dpkg-source: info: building securedrop-client in securedrop-client_0.7.0-rc1+buster.dsc
+ debian/rules build
+make[1]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+dh build --with python-virtualenv
+   dh_update_autotools_config
+   dh_auto_configure
+dh_auto_configure: Please use the third-party "pybuild" build system instead of python-distutils
+dh_auto_configure: This feature will be removed in compat 12.
+make[1]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+ fakeroot debian/rules binary
+make[1]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+dh binary --with python-virtualenv
+   dh_testroot
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   debian/rules override_dh_virtualenv
+make[2]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+test -e requirements/build-requirements.txt
+dh_virtualenv \
+	--python /usr/bin/python3 \
+	--setuptools \
+	--use-system-packages \
+	--extra-pip-arg "--ignore-installed" \
+	--extra-pip-arg "--no-index" \
+	--extra-pip-arg "--find-links" \
+	--extra-pip-arg "/home/user/securedrop-debian-packaging/localwheels/" \
+	--extra-pip-arg "--no-deps" \
+	--extra-pip-arg "--no-cache-dir" \
+	--extra-pip-arg "--no-use-pep517" \
+	--requirements requirements/build-requirements.txt
+Already using interpreter /usr/bin/python3
+Using base prefix '/usr'
+New python executable in /home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client/debian/securedrop-client/opt/venvs/securedrop-client/bin/python3
+Also creating executable in /home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client/debian/securedrop-client/opt/venvs/securedrop-client/bin/python
+Installing setuptools, pip, wheel...done.
+Looking in links: /home/user/securedrop-debian-packaging/localwheels/
+Processing /home/user/securedrop-debian-packaging/localwheels/alembic-1.0.2-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/arrow-0.12.1-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/certifi-2021.5.30-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/charset_normalizer-2.0.4-py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/idna-3.2-py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/Mako-1.0.7-py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/MarkupSafe-2.0.1-cp37-cp37m-linux_x86_64.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/pathlib2-2.3.2-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/python_dateutil-2.7.5-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/python_editor-1.0.3-py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/requests-2.26.0-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/securedrop_sdk-0.4.0-py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/six-1.11.0-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/SQLAlchemy-1.3.3-cp37-cp37m-linux_x86_64.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/urllib3-1.26.6-py2.py3-none-any.whl
+Installing collected packages: six, python-editor, pathlib2, mako, certifi, arrow, urllib3, sqlalchemy, securedrop-sdk, requests, python-dateutil, markupsafe, idna, charset-normalizer, alembic
+Successfully installed alembic-1.0.2 arrow-0.12.1 certifi-2021.5.30 charset-normalizer-2.0.4 idna-3.2 mako-1.0.7 markupsafe-2.0.1 pathlib2-2.3.2 python-dateutil-2.7.5 python-editor-1.0.3 requests-2.26.0 securedrop-sdk-0.4.0 six-1.11.0 sqlalchemy-1.3.3 urllib3-1.26.6
+Looking in links: /home/user/securedrop-debian-packaging/localwheels/
+Processing /home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client
+  Preparing metadata (setup.py) ... done
+Building wheels for collected packages: securedrop-client
+  Building wheel for securedrop-client (setup.py) ... done
+  Created wheel for securedrop-client: filename=securedrop_client-0.7.0rc1-py3-none-any.whl size=3916521 sha256=767c29882b3474df8ef557a340305a07d74f55d6cbb63d410c39ccdcce465e02
+  Stored in directory: /tmp/pip-ephem-wheel-cache-d3_uuqag/wheels/38/28/9e/1e81c9a54606d405d437d7d0030ecf9861758c682fb92ee8d8
+Successfully built securedrop-client
+Installing collected packages: securedrop-client
+Successfully installed securedrop-client-0.7.0rc1
+make[2]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+   dh_perl
+   dh_link
+   debian/rules override_dh_strip_nondeterminism
+make[2]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+find ./debian/ -type f -name '*.pyc' -delete
+find ./debian/ -type f -name 'pip-selfcheck.json' -delete
+find ./debian/ -type f -name 'direct_url.json' -delete
+find ./debian/ -type f -name 'RECORD' -delete
+dh_strip_nondeterminism override_dh_strip_nondeterminism
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.7/site-packages/securedrop_client/locale/sk/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.7/site-packages/securedrop_client/locale/hr/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.7/site-packages/securedrop_client/locale/es/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.7/site-packages/securedrop_client/locale/is/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.7/site-packages/securedrop_client/locale/de/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.7/site-packages/securedrop_client/locale/ca/LC_MESSAGES/messages.mo
+make[2]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+dpkg-gencontrol: warning: Depends field of package securedrop-client: substitution variable ${python3:Depends} used, but is not defined
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'securedrop-client' in '../securedrop-client_0.7.0-rc1+buster_all.deb'.
+make[1]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+ dpkg-genbuildinfo
+ dpkg-genchanges  >../securedrop-client_0.7.0-rc1+buster_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
+Package location: /home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client_0.7.0-rc1+buster_all.deb
+(.venv) user@sd-dev-dvm:~/securedrop-debian-packaging$ sha256sum build/debbuild/packaging/securedrop-client_0.7.0-rc1+buster_all.deb 
+2f9b5a6bcc45520c566159d3664df503695100a6fb75e269362f4d64efcf2435  build/debbuild/packaging/securedrop-client_0.7.0-rc1+buster_all.deb
+
