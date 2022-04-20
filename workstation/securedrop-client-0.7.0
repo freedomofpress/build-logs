@@ -1,0 +1,747 @@
+user@sd-dev-dvm:~$ git clone https://github.com/freedomofpress/securedrop-debian-packaging
+Cloning into 'securedrop-debian-packaging'...
+remote: Enumerating objects: 3062, done.
+remote: Counting objects: 100% (841/841), done.
+remote: Compressing objects: 100% (526/526), done.
+remote: Total 3062 (delta 342), reused 705 (delta 265), pack-reused 2221
+Receiving objects: 100% (3062/3062), 2.20 MiB | 4.08 MiB/s, done.
+Resolving deltas: 100% (1412/1412), done.
+Filtering content: 100% (125/125), 39.67 MiB | 3.27 MiB/s, done.
+user@sd-dev-dvm:~$ git clone https://github.com/freedomofpress/securedrop-client
+Cloning into 'securedrop-client'...
+remote: Enumerating objects: 12673, done.
+remote: Counting objects: 100% (12673/12673), done.
+remote: Compressing objects: 100% (3277/3277), done.
+remote: Total 12673 (delta 9338), reused 12478 (delta 9225), pack-reused 0
+Receiving objects: 100% (12673/12673), 8.69 MiB | 5.09 MiB/s, done.
+Resolving deltas: 100% (9338/9338), done.
+user@sd-dev-dvm:~$ cd securedrop-debian-packaging/
+user@sd-dev-dvm:~/securedrop-debian-packaging$ make install-deps
+./scripts/install-deps
+Hit:1 https://deb.debian.org/debian buster InRelease
+Hit:2 https://deb.debian.org/debian-security buster/updates InRelease
+Hit:3 https://deb.qubes-os.org/r4.0/vm buster InRelease
+Reading package lists... Done                   
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+build-essential is already the newest version (12.6).
+curl is already the newest version (7.64.0-4+deb10u2).
+desktop-file-utils is already the newest version (0.23-4).
+desktop-file-utils set to manually installed.
+devscripts is already the newest version (2.19.5+deb10u1).
+dh-make is already the newest version (2.201802).
+dh-python is already the newest version (3.20190308).
+dh-virtualenv is already the newest version (1.1-1).
+git-lfs is already the newest version (2.7.1-1+deb10u1).
+libffi-dev is already the newest version (3.2.1-9).
+libyaml-dev is already the newest version (0.2.1-1).
+libssl-dev is already the newest version (1.1.1n-0+deb10u1).
+python3-pip is already the newest version (18.1-5).
+python3-setuptools is already the newest version (40.8.0-1).
+python3-all is already the newest version (3.7.3-1).
+python3-venv is already the newest version (3.7.3-1).
+reprotest is already the newest version (0.7.8).
+0 upgraded, 0 newly installed, 0 to remove and 217 not upgraded.
+Creating local virtualenv...
+Looking in links: ./bootstrap/
+Collecting build==0.3.0 (from -r build-requirements.txt (line 1))
+Collecting click==7.1.2 (from -r build-requirements.txt (line 2))
+Collecting cython==0.29.22 (from -r build-requirements.txt (line 3))
+Collecting flit-core==2.3.0 (from -r build-requirements.txt (line 4))
+Collecting importlib-metadata==3.7.0 (from -r build-requirements.txt (line 5))
+Collecting packaging==20.9 (from -r build-requirements.txt (line 6))
+Collecting pep517==0.9.1 (from -r build-requirements.txt (line 7))
+Collecting pip-tools==6.0.1 (from -r build-requirements.txt (line 8))
+Collecting pyparsing==2.4.7 (from -r build-requirements.txt (line 9))
+Collecting pytest-runner==5.3.0 (from -r build-requirements.txt (line 10))
+Collecting pytoml==0.1.21 (from -r build-requirements.txt (line 11))
+Collecting setuptools-scm==5.0.2 (from -r build-requirements.txt (line 12))
+Collecting toml==0.10.2 (from -r build-requirements.txt (line 13))
+Collecting typing-extensions==3.7.4.3 (from -r build-requirements.txt (line 14))
+Collecting wheel==0.36.2 (from -r build-requirements.txt (line 15))
+Collecting zipp==3.4.1 (from -r build-requirements.txt (line 16))
+Collecting pip==21.3.1 (from -r build-requirements.txt (line 17))
+Collecting setuptools==54.0.0 (from -r build-requirements.txt (line 18))
+Installing collected packages: build, click, cython, flit-core, importlib-metadata, packaging, pep517, pip-tools, pyparsing, pytest-runner, pytoml, setuptools-scm, toml, typing-extensions, wheel, zipp, pip, setuptools
+  Found existing installation: pip 18.1
+    Uninstalling pip-18.1:
+      Successfully uninstalled pip-18.1
+  Found existing installation: setuptools 40.8.0
+    Uninstalling setuptools-40.8.0:
+      Successfully uninstalled setuptools-40.8.0
+Successfully installed build-0.3.0 click-7.1.2 cython-0.29.22 flit-core-2.3.0 importlib-metadata-3.7.0 packaging-20.9 pep517-0.9.1 pip-21.3.1 pip-tools-6.0.1 pyparsing-2.4.7 pytest-runner-5.3.0 pytoml-0.1.21 setuptools-54.0.0 setuptools-scm-5.0.2 toml-0.10.2 typing-extensions-3.7.4.3 wheel-0.36.2 zipp-3.4.1
+user@sd-dev-dvm:~/securedrop-debian-packaging$ export QUBES_GPG_DOMAIN="vault"
+user@sd-dev-dvm:~/securedrop-debian-packaging$ qubes-gpg-client --export --armor ro@freedom.press | gpg --import
+gpg: keybox '/home/user/.gnupg/pubring.kbx' created
+gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
+gpg: key FC72AA838C444B47: public key "Rowen S <ro@freedom.press>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+user@sd-dev-dvm:~/securedrop-debian-packaging$ cd ../securedrop-client/
+user@sd-dev-dvm:~/securedrop-client$ git tag -v 0.7.0
+object 27e209ae7b3d182314aa9bde60428f876160b6f9
+type commit
+tag 0.7.0
+tagger ro <ro@freedom.press> 1650466480 -0400
+
+SecureDrop Client 0.7.0
+gpg: Signature made Wed 20 Apr 2022 10:54:42 AM EDT
+gpg:                using RSA key 720196FD0038EB89B2DF8C00A0F5B05898819C49
+gpg: Good signature from "Rowen S <ro@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 91B3 D67D 8758 4495 4625  6E7E FC72 AA83 8C44 4B47
+     Subkey fingerprint: 7201 96FD 0038 EB89 B2DF  8C00 A0F5 B058 9881 9C49
+user@sd-dev-dvm:~/securedrop-client$ git checkout 0.7.0
+Note: checking out '0.7.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 27e209a Merge pull request #1483 from freedomofpress/release-0.7.0
+user@sd-dev-dvm:~/securedrop-client$ cd ../securedrop-debian-packaging/
+user@sd-dev-dvm:~/securedrop-debian-packaging$ cd ../securedrop-client/
+user@sd-dev-dvm:~/securedrop-client$ python3 setup.py sdist
+running sdist
+running egg_info
+creating securedrop_client.egg-info
+writing securedrop_client.egg-info/PKG-INFO
+writing dependency_links to securedrop_client.egg-info/dependency_links.txt
+writing entry points to securedrop_client.egg-info/entry_points.txt
+writing requirements to securedrop_client.egg-info/requires.txt
+writing top-level names to securedrop_client.egg-info/top_level.txt
+writing manifest file 'securedrop_client.egg-info/SOURCES.txt'
+reading manifest file 'securedrop_client.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no files found matching 'files/client.ini'
+warning: no previously-included files matching '*.pyc' found under directory 'alembic'
+warning: no previously-included files matching '*.pyc' found under directory 'securedrop_client'
+writing manifest file 'securedrop_client.egg-info/SOURCES.txt'
+running check
+creating securedrop-client-0.7.0
+creating securedrop-client-0.7.0/alembic
+creating securedrop-client-0.7.0/alembic/versions
+creating securedrop-client-0.7.0/files
+creating securedrop-client-0.7.0/requirements
+creating securedrop-client-0.7.0/securedrop_client
+creating securedrop-client-0.7.0/securedrop_client.egg-info
+creating securedrop-client-0.7.0/securedrop_client/api_jobs
+creating securedrop-client-0.7.0/securedrop_client/gui
+creating securedrop-client-0.7.0/securedrop_client/gui/auth
+creating securedrop-client-0.7.0/securedrop_client/gui/auth/sign_in
+creating securedrop-client-0.7.0/securedrop_client/gui/auth/use_offline
+creating securedrop-client-0.7.0/securedrop_client/gui/base
+creating securedrop-client-0.7.0/securedrop_client/gui/conversation
+creating securedrop-client-0.7.0/securedrop_client/gui/conversation/delete
+creating securedrop-client-0.7.0/securedrop_client/gui/source
+creating securedrop-client-0.7.0/securedrop_client/gui/source/delete
+creating securedrop-client-0.7.0/securedrop_client/locale
+creating securedrop-client-0.7.0/securedrop_client/locale/ca
+creating securedrop-client-0.7.0/securedrop_client/locale/ca/LC_MESSAGES
+creating securedrop-client-0.7.0/securedrop_client/locale/de
+creating securedrop-client-0.7.0/securedrop_client/locale/de/LC_MESSAGES
+creating securedrop-client-0.7.0/securedrop_client/locale/es
+creating securedrop-client-0.7.0/securedrop_client/locale/es/LC_MESSAGES
+creating securedrop-client-0.7.0/securedrop_client/locale/hr
+creating securedrop-client-0.7.0/securedrop_client/locale/hr/LC_MESSAGES
+creating securedrop-client-0.7.0/securedrop_client/locale/is
+creating securedrop-client-0.7.0/securedrop_client/locale/is/LC_MESSAGES
+creating securedrop-client-0.7.0/securedrop_client/locale/sk
+creating securedrop-client-0.7.0/securedrop_client/locale/sk/LC_MESSAGES
+creating securedrop-client-0.7.0/securedrop_client/resources
+creating securedrop-client-0.7.0/securedrop_client/resources/css
+creating securedrop-client-0.7.0/securedrop_client/resources/fonts
+creating securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+creating securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro
+creating securedrop-client-0.7.0/securedrop_client/resources/images
+creating securedrop-client-0.7.0/securedrop_client/state
+copying files to securedrop-client-0.7.0...
+copying LICENSE -> securedrop-client-0.7.0
+copying MANIFEST.in -> securedrop-client-0.7.0
+copying README.md -> securedrop-client-0.7.0
+copying changelog.md -> securedrop-client-0.7.0
+copying setup.cfg -> securedrop-client-0.7.0
+copying setup.py -> securedrop-client-0.7.0
+copying alembic/README -> securedrop-client-0.7.0/alembic
+copying alembic/env.py -> securedrop-client-0.7.0/alembic
+copying alembic/script.py.mako -> securedrop-client-0.7.0/alembic
+copying alembic/versions/2f363b3d680e_init.py -> securedrop-client-0.7.0/alembic/versions
+copying alembic/versions/36a79ffcfbfb_add_first_name_last_name_fullname_.py -> securedrop-client-0.7.0/alembic/versions
+copying alembic/versions/7f682532afa2_add_download_error.py -> securedrop-client-0.7.0/alembic/versions
+copying alembic/versions/86b01b6290da_add_reply_draft.py -> securedrop-client-0.7.0/alembic/versions
+copying alembic/versions/9ba8d7524871_add_deletedsource_table.py -> securedrop-client-0.7.0/alembic/versions
+copying alembic/versions/a4bf1f58ce69_fix_journalist_association_in_replies.py -> securedrop-client-0.7.0/alembic/versions
+copying alembic/versions/bafdcae12f97_.py -> securedrop-client-0.7.0/alembic/versions
+copying alembic/versions/bd57477f19a2_add_seen_tables.py -> securedrop-client-0.7.0/alembic/versions
+copying alembic/versions/eff1387cfd0b_add_deletedconversation_table.py -> securedrop-client-0.7.0/alembic/versions
+copying alembic/versions/fb657f2ee8a7_drop_file_original_filename.py -> securedrop-client-0.7.0/alembic/versions
+copying alembic/versions/fecf1191b6f0_remove_decryption_vs_content_contraint.py -> securedrop-client-0.7.0/alembic/versions
+copying files/alembic.ini -> securedrop-client-0.7.0/files
+copying files/sd-app-qubes-gpg-domain.sh -> securedrop-client-0.7.0/files
+copying files/securedrop-client -> securedrop-client-0.7.0/files
+copying files/securedrop-client.desktop -> securedrop-client-0.7.0/files
+copying files/usr.bin.securedrop-client -> securedrop-client-0.7.0/files
+copying requirements/build-requirements.txt -> securedrop-client-0.7.0/requirements
+copying requirements/requirements.txt -> securedrop-client-0.7.0/requirements
+copying securedrop_client/__init__.py -> securedrop-client-0.7.0/securedrop_client
+copying securedrop_client/__main__.py -> securedrop-client-0.7.0/securedrop_client
+copying securedrop_client/app.py -> securedrop-client-0.7.0/securedrop_client
+copying securedrop_client/config.py -> securedrop-client-0.7.0/securedrop_client
+copying securedrop_client/crypto.py -> securedrop-client-0.7.0/securedrop_client
+copying securedrop_client/database.py -> securedrop-client-0.7.0/securedrop_client
+copying securedrop_client/db.py -> securedrop-client-0.7.0/securedrop_client
+copying securedrop_client/export.py -> securedrop-client-0.7.0/securedrop_client
+copying securedrop_client/logic.py -> securedrop-client-0.7.0/securedrop_client
+copying securedrop_client/queue.py -> securedrop-client-0.7.0/securedrop_client
+copying securedrop_client/storage.py -> securedrop-client-0.7.0/securedrop_client
+copying securedrop_client/sync.py -> securedrop-client-0.7.0/securedrop_client
+copying securedrop_client/utils.py -> securedrop-client-0.7.0/securedrop_client
+copying securedrop_client.egg-info/PKG-INFO -> securedrop-client-0.7.0/securedrop_client.egg-info
+copying securedrop_client.egg-info/SOURCES.txt -> securedrop-client-0.7.0/securedrop_client.egg-info
+copying securedrop_client.egg-info/dependency_links.txt -> securedrop-client-0.7.0/securedrop_client.egg-info
+copying securedrop_client.egg-info/entry_points.txt -> securedrop-client-0.7.0/securedrop_client.egg-info
+copying securedrop_client.egg-info/requires.txt -> securedrop-client-0.7.0/securedrop_client.egg-info
+copying securedrop_client.egg-info/top_level.txt -> securedrop-client-0.7.0/securedrop_client.egg-info
+copying securedrop_client/api_jobs/__init__.py -> securedrop-client-0.7.0/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/base.py -> securedrop-client-0.7.0/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/downloads.py -> securedrop-client-0.7.0/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/seen.py -> securedrop-client-0.7.0/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/sources.py -> securedrop-client-0.7.0/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/sync.py -> securedrop-client-0.7.0/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/updatestar.py -> securedrop-client-0.7.0/securedrop_client/api_jobs
+copying securedrop_client/api_jobs/uploads.py -> securedrop-client-0.7.0/securedrop_client/api_jobs
+copying securedrop_client/gui/__init__.py -> securedrop-client-0.7.0/securedrop_client/gui
+copying securedrop_client/gui/actions.py -> securedrop-client-0.7.0/securedrop_client/gui
+copying securedrop_client/gui/main.py -> securedrop-client-0.7.0/securedrop_client/gui
+copying securedrop_client/gui/widgets.py -> securedrop-client-0.7.0/securedrop_client/gui
+copying securedrop_client/gui/auth/__init__.py -> securedrop-client-0.7.0/securedrop_client/gui/auth
+copying securedrop_client/gui/auth/dialog.css -> securedrop-client-0.7.0/securedrop_client/gui/auth
+copying securedrop_client/gui/auth/dialog.py -> securedrop-client-0.7.0/securedrop_client/gui/auth
+copying securedrop_client/gui/auth/sign_in/__init__.py -> securedrop-client-0.7.0/securedrop_client/gui/auth/sign_in
+copying securedrop_client/gui/auth/sign_in/button.css -> securedrop-client-0.7.0/securedrop_client/gui/auth/sign_in
+copying securedrop_client/gui/auth/sign_in/button.py -> securedrop-client-0.7.0/securedrop_client/gui/auth/sign_in
+copying securedrop_client/gui/auth/sign_in/error_bar.css -> securedrop-client-0.7.0/securedrop_client/gui/auth/sign_in
+copying securedrop_client/gui/auth/sign_in/error_bar.py -> securedrop-client-0.7.0/securedrop_client/gui/auth/sign_in
+copying securedrop_client/gui/auth/use_offline/__init__.py -> securedrop-client-0.7.0/securedrop_client/gui/auth/use_offline
+copying securedrop_client/gui/auth/use_offline/button.py -> securedrop-client-0.7.0/securedrop_client/gui/auth/use_offline
+copying securedrop_client/gui/base/__init__.py -> securedrop-client-0.7.0/securedrop_client/gui/base
+copying securedrop_client/gui/base/buttons.py -> securedrop-client-0.7.0/securedrop_client/gui/base
+copying securedrop_client/gui/base/dialog_button.css -> securedrop-client-0.7.0/securedrop_client/gui/base
+copying securedrop_client/gui/base/dialog_message.css -> securedrop-client-0.7.0/securedrop_client/gui/base
+copying securedrop_client/gui/base/dialogs.css -> securedrop-client-0.7.0/securedrop_client/gui/base
+copying securedrop_client/gui/base/dialogs.py -> securedrop-client-0.7.0/securedrop_client/gui/base
+copying securedrop_client/gui/base/inputs.py -> securedrop-client-0.7.0/securedrop_client/gui/base
+copying securedrop_client/gui/base/misc.py -> securedrop-client-0.7.0/securedrop_client/gui/base
+copying securedrop_client/gui/conversation/__init__.py -> securedrop-client-0.7.0/securedrop_client/gui/conversation
+copying securedrop_client/gui/conversation/delete/__init__.py -> securedrop-client-0.7.0/securedrop_client/gui/conversation/delete
+copying securedrop_client/gui/conversation/delete/dialog.py -> securedrop-client-0.7.0/securedrop_client/gui/conversation/delete
+copying securedrop_client/gui/source/__init__.py -> securedrop-client-0.7.0/securedrop_client/gui/source
+copying securedrop_client/gui/source/delete/__init__.py -> securedrop-client-0.7.0/securedrop_client/gui/source/delete
+copying securedrop_client/gui/source/delete/dialog.py -> securedrop-client-0.7.0/securedrop_client/gui/source/delete
+copying securedrop_client/locale/messages.pot -> securedrop-client-0.7.0/securedrop_client/locale
+copying securedrop_client/locale/ca/LC_MESSAGES/messages.mo -> securedrop-client-0.7.0/securedrop_client/locale/ca/LC_MESSAGES
+copying securedrop_client/locale/ca/LC_MESSAGES/messages.po -> securedrop-client-0.7.0/securedrop_client/locale/ca/LC_MESSAGES
+copying securedrop_client/locale/de/LC_MESSAGES/messages.mo -> securedrop-client-0.7.0/securedrop_client/locale/de/LC_MESSAGES
+copying securedrop_client/locale/de/LC_MESSAGES/messages.po -> securedrop-client-0.7.0/securedrop_client/locale/de/LC_MESSAGES
+copying securedrop_client/locale/es/LC_MESSAGES/messages.mo -> securedrop-client-0.7.0/securedrop_client/locale/es/LC_MESSAGES
+copying securedrop_client/locale/es/LC_MESSAGES/messages.po -> securedrop-client-0.7.0/securedrop_client/locale/es/LC_MESSAGES
+copying securedrop_client/locale/hr/LC_MESSAGES/messages.mo -> securedrop-client-0.7.0/securedrop_client/locale/hr/LC_MESSAGES
+copying securedrop_client/locale/hr/LC_MESSAGES/messages.po -> securedrop-client-0.7.0/securedrop_client/locale/hr/LC_MESSAGES
+copying securedrop_client/locale/is/LC_MESSAGES/messages.mo -> securedrop-client-0.7.0/securedrop_client/locale/is/LC_MESSAGES
+copying securedrop_client/locale/is/LC_MESSAGES/messages.po -> securedrop-client-0.7.0/securedrop_client/locale/is/LC_MESSAGES
+copying securedrop_client/locale/sk/LC_MESSAGES/messages.mo -> securedrop-client-0.7.0/securedrop_client/locale/sk/LC_MESSAGES
+copying securedrop_client/locale/sk/LC_MESSAGES/messages.po -> securedrop-client-0.7.0/securedrop_client/locale/sk/LC_MESSAGES
+copying securedrop_client/resources/__init__.py -> securedrop-client-0.7.0/securedrop_client/resources
+copying securedrop_client/resources/css/button.css -> securedrop-client-0.7.0/securedrop_client/resources/css
+copying securedrop_client/resources/css/checker_tooltip.css -> securedrop-client-0.7.0/securedrop_client/resources/css
+copying securedrop_client/resources/css/file_download_button.css -> securedrop-client-0.7.0/securedrop_client/resources/css
+copying securedrop_client/resources/css/sdclient.css -> securedrop-client-0.7.0/securedrop_client/resources/css
+copying securedrop_client/resources/css/sender_icon.css -> securedrop-client-0.7.0/securedrop_client/resources/css
+copying securedrop_client/resources/css/source_menu.css -> securedrop-client-0.7.0/securedrop_client/resources/css
+copying securedrop_client/resources/css/source_name.css -> securedrop-client-0.7.0/securedrop_client/resources/css
+copying securedrop_client/resources/css/source_preview.css -> securedrop-client-0.7.0/securedrop_client/resources/css
+copying securedrop_client/resources/css/source_timestamp.css -> securedrop-client-0.7.0/securedrop_client/resources/css
+copying securedrop_client/resources/css/speech_bubble_message.css -> securedrop-client-0.7.0/securedrop_client/resources/css
+copying securedrop_client/resources/css/speech_bubble_status_bar.css -> securedrop-client-0.7.0/securedrop_client/resources/css
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Black.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-BlackItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Bold.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-BoldItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraBold.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraBoldItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraLight.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraLightItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Light.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-LightItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Medium.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-MediumItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Regular.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-RegularItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-SemiBold.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-SemiBoldItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-Thin.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/Montserrat-ThinItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Montserrat/OFL.txt -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat
+copying securedrop_client/resources/fonts/Source_Sans_Pro/OFL.txt -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Black.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-BlackItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Bold.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-BoldItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-ExtraLight.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-ExtraLightItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Light.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-LightItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-RegularItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-SemiBold.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-SemiBoldItalic.ttf -> securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro
+copying securedrop_client/resources/images/activestate-wide.gif -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/blank.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/checkmark.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/checkmark_hover.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/cross.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/delete.png -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/delete_close.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/deleted-user.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/download_active.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/download_file.gif -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/download_file.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/download_file_hover.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/dropdown_arrow.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/ellipsis.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/error_icon.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/error_icon_white.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/eye_hidden.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/eye_visible.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/header_animation.gif -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/header_logo.png -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/hexes.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/icon.png -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/left_pane.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/left_pane_offline.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/loading-bar.gif -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/loading-cubes.gif -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/login_bg.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/logo.png -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/paperclip-disabled.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/paperclip.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/printer.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/refresh.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/refresh_active.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/refresh_offline.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/savetodisk.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/send-disabled.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/send.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/star_hover.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/star_off.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/star_on.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/sync.gif -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/sync.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/sync_active.gif -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/sync_disabled.gif -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/tear-big.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/tear-left.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/tear-right.svg -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/resources/images/trash.png -> securedrop-client-0.7.0/securedrop_client/resources/images
+copying securedrop_client/state/__init__.py -> securedrop-client-0.7.0/securedrop_client/state
+copying securedrop_client/state/domain.py -> securedrop-client-0.7.0/securedrop_client/state
+copying securedrop_client/state/state.py -> securedrop-client-0.7.0/securedrop_client/state
+Writing securedrop-client-0.7.0/setup.cfg
+creating dist
+Creating tar archive
+removing 'securedrop-client-0.7.0' (and everything under it)
+user@sd-dev-dvm:~/securedrop-client$ cd ../securedrop-debian-packaging/
+user@sd-dev-dvm:~/securedrop-debian-packaging$ PKG=0.7.0 PKG_PATH=/home/user/securedrop-client/
+alembic/                    MANIFEST.in
+alembic.ini                 pyproject.toml
+changelog.md                pytest.ini
+.circleci/                  README.md
+CONTRIBUTING.md             requirements/
+.coveragerc                 run.sh
+create_dev_data.py          securedrop_client/
+dist/                       securedrop_client.egg-info/
+files/                      SECURITY.md
+.git/                       .semgrep/
+.git-blame-ignore-revs      setup.cfg
+.githooks/                  setup.py
+.github/                    test-functional.sh
+.gitignore                  tests/
+LICENSE                     update_version.sh
+Makefile                    
+user@sd-dev-dvm:~/securedrop-debian-packaging$ PKG=0.7.0 PKG_PATH=/home/user/securedrop-client/dist/securedrop-client-0.7.0.tar.gz make securedrop-client
+WHEELS_DIR="/home/user/securedrop-debian-packaging/localwheels/" PKG_NAME="securedrop-client" ./scripts/build-debianpackage
+gpg: key 9232DAD3105B8D58: public key "Allie Crevier <allie@freedom.press>" imported
+gpg: key F08893B959CAB065: public key "Conor Schaefer <conor@freedom.press>" imported
+gpg: key 07AD35D378D10BA0: public key "Cory Francis Myers <cory@freedom.press>" imported
+gpg: key ACFE4353173015EA: public key "Kevin O'Gorman <kog@freedom.press>" imported
+gpg: key D8219C8C43F6C5E1: public key "Kushal Das <kushal@freedom.press>" imported
+gpg: key 188EDD3B7B22E6A3: public key "SecureDrop Release Signing Key <securedrop-release-key-2021@freedom.press>" imported
+gpg: key FC72AA838C444B47: public key "Rowen S <ro@freedom.press>" imported
+gpg: Total number processed: 7
+gpg:               imported: 7
+gpg: Signature made Thu 07 Apr 2022 01:27:23 PM EDT
+gpg:                using RSA key B3BC38A1FEDE0B8728BAB9BF11738E09A8EB8645
+gpg: Good signature from "Allie Crevier <allie@freedom.press>" [unknown]
+gpg:                 aka "Allie Crevier <creviera@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 789B 3522 29D9 BD2F B354  7759 9232 DAD3 105B 8D58
+     Subkey fingerprint: B3BC 38A1 FEDE 0B87 28BA  B9BF 1173 8E09 A8EB 8645
+Checking that SHA256SUMs from mirror match signed file...  OK
+PKG_VERSION not set, inferring from recent releases...
+Using PKG_VERSION: 0.7.0
+securedrop-client is a Python package
+securedrop-client-0.7.0/LICENSE
+securedrop-client-0.7.0/MANIFEST.in
+securedrop-client-0.7.0/PKG-INFO
+securedrop-client-0.7.0/README.md
+securedrop-client-0.7.0/alembic/
+securedrop-client-0.7.0/alembic/README
+securedrop-client-0.7.0/alembic/env.py
+securedrop-client-0.7.0/alembic/script.py.mako
+securedrop-client-0.7.0/alembic/versions/
+securedrop-client-0.7.0/alembic/versions/2f363b3d680e_init.py
+securedrop-client-0.7.0/alembic/versions/36a79ffcfbfb_add_first_name_last_name_fullname_.py
+securedrop-client-0.7.0/alembic/versions/7f682532afa2_add_download_error.py
+securedrop-client-0.7.0/alembic/versions/86b01b6290da_add_reply_draft.py
+securedrop-client-0.7.0/alembic/versions/9ba8d7524871_add_deletedsource_table.py
+securedrop-client-0.7.0/alembic/versions/a4bf1f58ce69_fix_journalist_association_in_replies.py
+securedrop-client-0.7.0/alembic/versions/bafdcae12f97_.py
+securedrop-client-0.7.0/alembic/versions/bd57477f19a2_add_seen_tables.py
+securedrop-client-0.7.0/alembic/versions/eff1387cfd0b_add_deletedconversation_table.py
+securedrop-client-0.7.0/alembic/versions/fb657f2ee8a7_drop_file_original_filename.py
+securedrop-client-0.7.0/alembic/versions/fecf1191b6f0_remove_decryption_vs_content_contraint.py
+securedrop-client-0.7.0/changelog.md
+securedrop-client-0.7.0/files/
+securedrop-client-0.7.0/files/alembic.ini
+securedrop-client-0.7.0/files/sd-app-qubes-gpg-domain.sh
+securedrop-client-0.7.0/files/securedrop-client
+securedrop-client-0.7.0/files/securedrop-client.desktop
+securedrop-client-0.7.0/files/usr.bin.securedrop-client
+securedrop-client-0.7.0/requirements/
+securedrop-client-0.7.0/requirements/build-requirements.txt
+securedrop-client-0.7.0/requirements/requirements.txt
+securedrop-client-0.7.0/securedrop_client/
+securedrop-client-0.7.0/securedrop_client/__init__.py
+securedrop-client-0.7.0/securedrop_client/__main__.py
+securedrop-client-0.7.0/securedrop_client/api_jobs/
+securedrop-client-0.7.0/securedrop_client/api_jobs/__init__.py
+securedrop-client-0.7.0/securedrop_client/api_jobs/base.py
+securedrop-client-0.7.0/securedrop_client/api_jobs/downloads.py
+securedrop-client-0.7.0/securedrop_client/api_jobs/seen.py
+securedrop-client-0.7.0/securedrop_client/api_jobs/sources.py
+securedrop-client-0.7.0/securedrop_client/api_jobs/sync.py
+securedrop-client-0.7.0/securedrop_client/api_jobs/updatestar.py
+securedrop-client-0.7.0/securedrop_client/api_jobs/uploads.py
+securedrop-client-0.7.0/securedrop_client/app.py
+securedrop-client-0.7.0/securedrop_client/config.py
+securedrop-client-0.7.0/securedrop_client/crypto.py
+securedrop-client-0.7.0/securedrop_client/database.py
+securedrop-client-0.7.0/securedrop_client/db.py
+securedrop-client-0.7.0/securedrop_client/export.py
+securedrop-client-0.7.0/securedrop_client/gui/
+securedrop-client-0.7.0/securedrop_client/gui/__init__.py
+securedrop-client-0.7.0/securedrop_client/gui/actions.py
+securedrop-client-0.7.0/securedrop_client/gui/auth/
+securedrop-client-0.7.0/securedrop_client/gui/auth/__init__.py
+securedrop-client-0.7.0/securedrop_client/gui/auth/dialog.css
+securedrop-client-0.7.0/securedrop_client/gui/auth/dialog.py
+securedrop-client-0.7.0/securedrop_client/gui/auth/sign_in/
+securedrop-client-0.7.0/securedrop_client/gui/auth/sign_in/__init__.py
+securedrop-client-0.7.0/securedrop_client/gui/auth/sign_in/button.css
+securedrop-client-0.7.0/securedrop_client/gui/auth/sign_in/button.py
+securedrop-client-0.7.0/securedrop_client/gui/auth/sign_in/error_bar.css
+securedrop-client-0.7.0/securedrop_client/gui/auth/sign_in/error_bar.py
+securedrop-client-0.7.0/securedrop_client/gui/auth/use_offline/
+securedrop-client-0.7.0/securedrop_client/gui/auth/use_offline/__init__.py
+securedrop-client-0.7.0/securedrop_client/gui/auth/use_offline/button.py
+securedrop-client-0.7.0/securedrop_client/gui/base/
+securedrop-client-0.7.0/securedrop_client/gui/base/__init__.py
+securedrop-client-0.7.0/securedrop_client/gui/base/buttons.py
+securedrop-client-0.7.0/securedrop_client/gui/base/dialog_button.css
+securedrop-client-0.7.0/securedrop_client/gui/base/dialog_message.css
+securedrop-client-0.7.0/securedrop_client/gui/base/dialogs.css
+securedrop-client-0.7.0/securedrop_client/gui/base/dialogs.py
+securedrop-client-0.7.0/securedrop_client/gui/base/inputs.py
+securedrop-client-0.7.0/securedrop_client/gui/base/misc.py
+securedrop-client-0.7.0/securedrop_client/gui/conversation/
+securedrop-client-0.7.0/securedrop_client/gui/conversation/__init__.py
+securedrop-client-0.7.0/securedrop_client/gui/conversation/delete/
+securedrop-client-0.7.0/securedrop_client/gui/conversation/delete/__init__.py
+securedrop-client-0.7.0/securedrop_client/gui/conversation/delete/dialog.py
+securedrop-client-0.7.0/securedrop_client/gui/main.py
+securedrop-client-0.7.0/securedrop_client/gui/source/
+securedrop-client-0.7.0/securedrop_client/gui/source/__init__.py
+securedrop-client-0.7.0/securedrop_client/gui/source/delete/
+securedrop-client-0.7.0/securedrop_client/gui/source/delete/__init__.py
+securedrop-client-0.7.0/securedrop_client/gui/source/delete/dialog.py
+securedrop-client-0.7.0/securedrop_client/gui/widgets.py
+securedrop-client-0.7.0/securedrop_client/locale/
+securedrop-client-0.7.0/securedrop_client/locale/ca/
+securedrop-client-0.7.0/securedrop_client/locale/ca/LC_MESSAGES/
+securedrop-client-0.7.0/securedrop_client/locale/ca/LC_MESSAGES/messages.mo
+securedrop-client-0.7.0/securedrop_client/locale/ca/LC_MESSAGES/messages.po
+securedrop-client-0.7.0/securedrop_client/locale/de/
+securedrop-client-0.7.0/securedrop_client/locale/de/LC_MESSAGES/
+securedrop-client-0.7.0/securedrop_client/locale/de/LC_MESSAGES/messages.mo
+securedrop-client-0.7.0/securedrop_client/locale/de/LC_MESSAGES/messages.po
+securedrop-client-0.7.0/securedrop_client/locale/es/
+securedrop-client-0.7.0/securedrop_client/locale/es/LC_MESSAGES/
+securedrop-client-0.7.0/securedrop_client/locale/es/LC_MESSAGES/messages.mo
+securedrop-client-0.7.0/securedrop_client/locale/es/LC_MESSAGES/messages.po
+securedrop-client-0.7.0/securedrop_client/locale/hr/
+securedrop-client-0.7.0/securedrop_client/locale/hr/LC_MESSAGES/
+securedrop-client-0.7.0/securedrop_client/locale/hr/LC_MESSAGES/messages.mo
+securedrop-client-0.7.0/securedrop_client/locale/hr/LC_MESSAGES/messages.po
+securedrop-client-0.7.0/securedrop_client/locale/is/
+securedrop-client-0.7.0/securedrop_client/locale/is/LC_MESSAGES/
+securedrop-client-0.7.0/securedrop_client/locale/is/LC_MESSAGES/messages.mo
+securedrop-client-0.7.0/securedrop_client/locale/is/LC_MESSAGES/messages.po
+securedrop-client-0.7.0/securedrop_client/locale/messages.pot
+securedrop-client-0.7.0/securedrop_client/locale/sk/
+securedrop-client-0.7.0/securedrop_client/locale/sk/LC_MESSAGES/
+securedrop-client-0.7.0/securedrop_client/locale/sk/LC_MESSAGES/messages.mo
+securedrop-client-0.7.0/securedrop_client/locale/sk/LC_MESSAGES/messages.po
+securedrop-client-0.7.0/securedrop_client/logic.py
+securedrop-client-0.7.0/securedrop_client/queue.py
+securedrop-client-0.7.0/securedrop_client/resources/
+securedrop-client-0.7.0/securedrop_client/resources/__init__.py
+securedrop-client-0.7.0/securedrop_client/resources/css/
+securedrop-client-0.7.0/securedrop_client/resources/css/button.css
+securedrop-client-0.7.0/securedrop_client/resources/css/checker_tooltip.css
+securedrop-client-0.7.0/securedrop_client/resources/css/file_download_button.css
+securedrop-client-0.7.0/securedrop_client/resources/css/sdclient.css
+securedrop-client-0.7.0/securedrop_client/resources/css/sender_icon.css
+securedrop-client-0.7.0/securedrop_client/resources/css/source_menu.css
+securedrop-client-0.7.0/securedrop_client/resources/css/source_name.css
+securedrop-client-0.7.0/securedrop_client/resources/css/source_preview.css
+securedrop-client-0.7.0/securedrop_client/resources/css/source_timestamp.css
+securedrop-client-0.7.0/securedrop_client/resources/css/speech_bubble_message.css
+securedrop-client-0.7.0/securedrop_client/resources/css/speech_bubble_status_bar.css
+securedrop-client-0.7.0/securedrop_client/resources/fonts/
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-Black.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-BlackItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-Bold.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-BoldItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraBold.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraBoldItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraLight.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-ExtraLightItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-Light.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-LightItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-Medium.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-MediumItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-Regular.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-RegularItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-SemiBold.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-SemiBoldItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-Thin.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/Montserrat-ThinItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Montserrat/OFL.txt
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro/
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro/OFL.txt
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Black.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-BlackItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Bold.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-BoldItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-ExtraLight.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-ExtraLightItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Light.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-LightItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-RegularItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-SemiBold.ttf
+securedrop-client-0.7.0/securedrop_client/resources/fonts/Source_Sans_Pro/SourceSansPro-SemiBoldItalic.ttf
+securedrop-client-0.7.0/securedrop_client/resources/images/
+securedrop-client-0.7.0/securedrop_client/resources/images/activestate-wide.gif
+securedrop-client-0.7.0/securedrop_client/resources/images/blank.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/checkmark.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/checkmark_hover.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/cross.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/delete.png
+securedrop-client-0.7.0/securedrop_client/resources/images/delete_close.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/deleted-user.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/download_active.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/download_file.gif
+securedrop-client-0.7.0/securedrop_client/resources/images/download_file.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/download_file_hover.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/dropdown_arrow.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/ellipsis.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/error_icon.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/error_icon_white.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/eye_hidden.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/eye_visible.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/header_animation.gif
+securedrop-client-0.7.0/securedrop_client/resources/images/header_logo.png
+securedrop-client-0.7.0/securedrop_client/resources/images/hexes.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/icon.png
+securedrop-client-0.7.0/securedrop_client/resources/images/left_pane.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/left_pane_offline.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/loading-bar.gif
+securedrop-client-0.7.0/securedrop_client/resources/images/loading-cubes.gif
+securedrop-client-0.7.0/securedrop_client/resources/images/login_bg.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/logo.png
+securedrop-client-0.7.0/securedrop_client/resources/images/paperclip-disabled.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/paperclip.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/printer.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/refresh.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/refresh_active.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/refresh_offline.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/savetodisk.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/send-disabled.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/send.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/star_hover.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/star_off.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/star_on.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/sync.gif
+securedrop-client-0.7.0/securedrop_client/resources/images/sync.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/sync_active.gif
+securedrop-client-0.7.0/securedrop_client/resources/images/sync_disabled.gif
+securedrop-client-0.7.0/securedrop_client/resources/images/tear-big.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/tear-left.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/tear-right.svg
+securedrop-client-0.7.0/securedrop_client/resources/images/trash.png
+securedrop-client-0.7.0/securedrop_client/state/
+securedrop-client-0.7.0/securedrop_client/state/__init__.py
+securedrop-client-0.7.0/securedrop_client/state/domain.py
+securedrop-client-0.7.0/securedrop_client/state/state.py
+securedrop-client-0.7.0/securedrop_client/storage.py
+securedrop-client-0.7.0/securedrop_client/sync.py
+securedrop-client-0.7.0/securedrop_client/utils.py
+securedrop-client-0.7.0/securedrop_client.egg-info/
+securedrop-client-0.7.0/securedrop_client.egg-info/PKG-INFO
+securedrop-client-0.7.0/securedrop_client.egg-info/SOURCES.txt
+securedrop-client-0.7.0/securedrop_client.egg-info/dependency_links.txt
+securedrop-client-0.7.0/securedrop_client.egg-info/entry_points.txt
+securedrop-client-0.7.0/securedrop_client.egg-info/requires.txt
+securedrop-client-0.7.0/securedrop_client.egg-info/top_level.txt
+securedrop-client-0.7.0/setup.cfg
+securedrop-client-0.7.0/setup.py
+All hashes verified.
+Building package 'securedrop-client' from version '0.7.0'...
+/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client/
+dpkg-buildpackage: info: source package securedrop-client
+dpkg-buildpackage: info: source version 0.7.0+buster
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by SecureDrop Team <securedrop@freedom.press>
+dpkg-buildpackage: info: host architecture amd64
+ dpkg-source --before-build .
+ fakeroot debian/rules clean
+make[1]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+dh clean --with python-virtualenv
+   dh_clean
+make[1]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+ dpkg-source -b .
+dpkg-source: warning: no source format specified in debian/source/format, see dpkg-source(1)
+dpkg-source: info: using source format '1.0'
+dpkg-source: warning: source directory 'securedrop-client' is not <sourcepackage>-<upstreamversion> 'securedrop-client-0.7.0+buster'
+dpkg-source: info: building securedrop-client in securedrop-client_0.7.0+buster.tar.gz
+dpkg-source: info: building securedrop-client in securedrop-client_0.7.0+buster.dsc
+ debian/rules build
+make[1]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+dh build --with python-virtualenv
+   dh_update_autotools_config
+   dh_auto_configure
+dh_auto_configure: Please use the third-party "pybuild" build system instead of python-distutils
+dh_auto_configure: This feature will be removed in compat 12.
+make[1]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+ fakeroot debian/rules binary
+make[1]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+dh binary --with python-virtualenv
+   dh_testroot
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   debian/rules override_dh_virtualenv
+make[2]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+test -e requirements/build-requirements.txt
+dh_virtualenv \
+	--python /usr/bin/python3 \
+	--setuptools \
+	--use-system-packages \
+	--extra-pip-arg "--ignore-installed" \
+	--extra-pip-arg "--no-index" \
+	--extra-pip-arg "--find-links" \
+	--extra-pip-arg "/home/user/securedrop-debian-packaging/localwheels/" \
+	--extra-pip-arg "--no-deps" \
+	--extra-pip-arg "--no-cache-dir" \
+	--extra-pip-arg "--no-use-pep517" \
+	--requirements requirements/build-requirements.txt
+Already using interpreter /usr/bin/python3
+Using base prefix '/usr'
+New python executable in /home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client/debian/securedrop-client/opt/venvs/securedrop-client/bin/python3
+Also creating executable in /home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client/debian/securedrop-client/opt/venvs/securedrop-client/bin/python
+Installing setuptools, pip, wheel...done.
+Looking in links: /home/user/securedrop-debian-packaging/localwheels/
+Processing /home/user/securedrop-debian-packaging/localwheels/alembic-1.0.2-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/arrow-0.12.1-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/certifi-2021.5.30-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/charset_normalizer-2.0.4-py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/idna-3.2-py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/Mako-1.0.7-py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/MarkupSafe-2.0.1-cp37-cp37m-linux_x86_64.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/pathlib2-2.3.2-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/python_dateutil-2.7.5-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/python_editor-1.0.3-py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/requests-2.26.0-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/securedrop_sdk-0.4.0-py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/six-1.11.0-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/SQLAlchemy-1.3.3-cp37-cp37m-linux_x86_64.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/urllib3-1.26.6-py2.py3-none-any.whl
+Installing collected packages: six, python-editor, pathlib2, mako, certifi, arrow, urllib3, sqlalchemy, securedrop-sdk, requests, python-dateutil, markupsafe, idna, charset-normalizer, alembic
+Successfully installed alembic-1.0.2 arrow-0.12.1 certifi-2021.5.30 charset-normalizer-2.0.4 idna-3.2 mako-1.0.7 markupsafe-2.0.1 pathlib2-2.3.2 python-dateutil-2.7.5 python-editor-1.0.3 requests-2.26.0 securedrop-sdk-0.4.0 six-1.11.0 sqlalchemy-1.3.3 urllib3-1.26.6
+Looking in links: /home/user/securedrop-debian-packaging/localwheels/
+Processing /home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client
+  Preparing metadata (setup.py) ... done
+Building wheels for collected packages: securedrop-client
+  Building wheel for securedrop-client (setup.py) ... done
+  Created wheel for securedrop-client: filename=securedrop_client-0.7.0-py3-none-any.whl size=3916593 sha256=4bdb38da582fa5054dd14eb78928f75b9e20104f05a7529b8e8f549d214d0238
+  Stored in directory: /tmp/pip-ephem-wheel-cache-6zt400uw/wheels/38/28/9e/1e81c9a54606d405d437d7d0030ecf9861758c682fb92ee8d8
+Successfully built securedrop-client
+Installing collected packages: securedrop-client
+Successfully installed securedrop-client-0.7.0
+make[2]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+   dh_perl
+   dh_link
+   debian/rules override_dh_strip_nondeterminism
+make[2]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+find ./debian/ -type f -name '*.pyc' -delete
+find ./debian/ -type f -name 'pip-selfcheck.json' -delete
+find ./debian/ -type f -name 'direct_url.json' -delete
+find ./debian/ -type f -name 'RECORD' -delete
+dh_strip_nondeterminism override_dh_strip_nondeterminism
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.7/site-packages/securedrop_client/locale/sk/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.7/site-packages/securedrop_client/locale/hr/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.7/site-packages/securedrop_client/locale/es/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.7/site-packages/securedrop_client/locale/is/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.7/site-packages/securedrop_client/locale/de/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.7/site-packages/securedrop_client/locale/ca/LC_MESSAGES/messages.mo
+make[2]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+dpkg-gencontrol: warning: Depends field of package securedrop-client: substitution variable ${python3:Depends} used, but is not defined
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'securedrop-client' in '../securedrop-client_0.7.0+buster_all.deb'.
+make[1]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client'
+ dpkg-genbuildinfo
+ dpkg-genchanges  >../securedrop-client_0.7.0+buster_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
+Package location: /home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client_0.7.0+buster_all.deb
+user@sd-dev-dvm:~/securedrop-debian-packaging$ sha256sum /home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client_0.7.0+buster_all.deb 
+941b9ede4d4325beb7709bb4b07baffdcae83a11fd852b9aa9298578efe9186b  /home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-client_0.7.0+buster_all.deb
+
