@@ -1,0 +1,457 @@
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//update-local-repo.sh bullseye
+dpkg-scanpackages: info: Wrote 48 entries to output Packages file.
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye apt-get  update
+Get:1 file:/tmp/qubes-deb bullseye InRelease
+Ign:1 file:/tmp/qubes-deb bullseye InRelease
+Get:2 file:/tmp/qubes-deb bullseye Release [344 B]
+Get:2 file:/tmp/qubes-deb bullseye Release [344 B]
+Get:3 file:/tmp/qubes-deb bullseye Release.gpg
+Ign:3 file:/tmp/qubes-deb bullseye Release.gpg
+Get:4 file:/tmp/qubes-deb bullseye/main amd64 Packages [10.5 kB]
+Hit:5 https://deb.debian.org/debian bullseye InRelease
+Hit:6 https://deb.qubes-os.org/r4.1/vm bullseye InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/core-qrexec/debian/control
+hostname: Name or service not known
+dpkg-buildpackage: info: source package qubes-core-qrexec-build-deps
+dpkg-buildpackage: info: source version 4.1.18-1
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by Equivs Dummy Package Generator <root@>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+ debian/rules clean
+dh clean
+   dh_clean
+ debian/rules binary
+dh binary
+   dh_update_autotools_config
+   dh_autoreconf
+   create-stamp debian/debhelper-build-stamp
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-core-qrexec-build-deps' in '../qubes-core-qrexec-build-deps_4.1.18-1_all.deb'.
+ dpkg-genbuildinfo --build=binary
+ dpkg-genchanges --build=binary >../qubes-core-qrexec-build-deps_4.1.18-1_amd64.changes
+dpkg-genchanges: info: binary-only upload (no source code included)
+ dpkg-source --after-build .
+dpkg-buildpackage: info: binary-only upload (no source included)
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package qubes-core-qrexec-build-deps.
+(Reading database ... 40058 files and directories currently installed.)
+Preparing to unpack qubes-core-qrexec-build-deps_4.1.18-1_all.deb ...
+Unpacking qubes-core-qrexec-build-deps (4.1.18-1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Correcting dependencies... Done
+The following additional packages will be installed:
+  gir1.2-glib-2.0 libgirepository-1.0-1 libpam0g-dev python3-gbulb python3-gi
+  python3-setuptools
+Suggested packages:
+  python-setuptools-doc
+The following NEW packages will be installed:
+  gir1.2-glib-2.0 libgirepository-1.0-1 libpam0g-dev python3-gbulb python3-gi
+  python3-setuptools
+0 upgraded, 6 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+Need to get 1052 kB of archives.
+After this operation, 3832 kB of additional disk space will be used.
+Get:1 https://deb.debian.org/debian bullseye/main amd64 libpam0g-dev amd64 1.4.0-9+deb11u1 [191 kB]
+Get:2 https://deb.debian.org/debian bullseye/main amd64 python3-setuptools all 52.0.0-4 [366 kB]
+Get:3 https://deb.debian.org/debian bullseye/main amd64 libgirepository-1.0-1 amd64 1.66.1-1+b1 [96.7 kB]
+Get:4 https://deb.debian.org/debian bullseye/main amd64 gir1.2-glib-2.0 amd64 1.66.1-1+b1 [151 kB]
+Get:5 https://deb.debian.org/debian bullseye/main amd64 python3-gi amd64 3.38.0-2 [232 kB]
+Get:6 https://deb.qubes-os.org/r4.1/vm bullseye/main amd64 python3-gbulb all 0.6.1-5+deb11u1 [15.2 kB]
+Fetched 1052 kB in 1s (961 kB/s)
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (19: No such device)
+Selecting previously unselected package libpam0g-dev:amd64.
+(Reading database ... 40062 files and directories currently installed.)
+Preparing to unpack .../0-libpam0g-dev_1.4.0-9+deb11u1_amd64.deb ...
+Unpacking libpam0g-dev:amd64 (1.4.0-9+deb11u1) ...
+Selecting previously unselected package python3-setuptools.
+Preparing to unpack .../1-python3-setuptools_52.0.0-4_all.deb ...
+Unpacking python3-setuptools (52.0.0-4) ...
+Selecting previously unselected package libgirepository-1.0-1:amd64.
+Preparing to unpack .../2-libgirepository-1.0-1_1.66.1-1+b1_amd64.deb ...
+Unpacking libgirepository-1.0-1:amd64 (1.66.1-1+b1) ...
+Selecting previously unselected package gir1.2-glib-2.0:amd64.
+Preparing to unpack .../3-gir1.2-glib-2.0_1.66.1-1+b1_amd64.deb ...
+Unpacking gir1.2-glib-2.0:amd64 (1.66.1-1+b1) ...
+Selecting previously unselected package python3-gi.
+Preparing to unpack .../4-python3-gi_3.38.0-2_amd64.deb ...
+Unpacking python3-gi (3.38.0-2) ...
+Selecting previously unselected package python3-gbulb.
+Preparing to unpack .../5-python3-gbulb_0.6.1-5+deb11u1_all.deb ...
+Unpacking python3-gbulb (0.6.1-5+deb11u1) ...
+Setting up python3-setuptools (52.0.0-4) ...
+Setting up libpam0g-dev:amd64 (1.4.0-9+deb11u1) ...
+Setting up libgirepository-1.0-1:amd64 (1.66.1-1+b1) ...
+Setting up gir1.2-glib-2.0:amd64 (1.66.1-1+b1) ...
+Setting up python3-gi (3.38.0-2) ...
+Setting up python3-gbulb (0.6.1-5+deb11u1) ...
+Setting up qubes-core-qrexec-build-deps (4.1.18-1) ...
+Processing triggers for man-db (2.9.4-2) ...
+Processing triggers for libc-bin (2.31-13+deb11u3) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/..; GLOBIGNORE=qubes-core-qrexec_4.1.18*orig*; rm -f qubes-core-qrexec_4.1.18*; GLOBIGNORE=
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/deb/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/rpm/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/debian/..; /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/debian/changelog /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/debian/changelog.copy
+mv /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/debian/changelog.copy /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/debian/changelog
+echo "Building package in /home/user/qubes-src/core-qrexec"
+Building package in /home/user/qubes-src/core-qrexec
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb11u "Build for bullseye"; debchange -t --force-distribution -r -D bullseye bullseye
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/debian/changelog
+find /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec \! -newer /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye su user -c 'cd /home/user/qubes-src/core-qrexec/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package qubes-core-qrexec
+dpkg-buildpackage: info: source version 4.1.18-1+deb11u1
+dpkg-buildpackage: info: source distribution bullseye
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+ fakeroot debian/rules clean
+dh clean --with systemd,python3
+   dh_auto_clean
+	make -j2 clean
+make[1]: Entering directory '/home/user/qubes-src/core-qrexec'
+make -C libqrexec clean
+make[2]: Entering directory '/home/user/qubes-src/core-qrexec/libqrexec'
+rm -f *.o *~ *.a *.so *.so.* *.o.dep
+make[2]: Leaving directory '/home/user/qubes-src/core-qrexec/libqrexec'
+make -C daemon clean
+make[2]: Entering directory '/home/user/qubes-src/core-qrexec/daemon'
+rm -f *.o *~ qrexec-daemon qrexec-client *.o.dep
+make[2]: Leaving directory '/home/user/qubes-src/core-qrexec/daemon'
+make -C agent clean
+make[2]: Entering directory '/home/user/qubes-src/core-qrexec/agent'
+rm -f -- *.o *~ qrexec-agent qrexec-client-vm *.o.dep
+make[2]: Leaving directory '/home/user/qubes-src/core-qrexec/agent'
+make[1]: Leaving directory '/home/user/qubes-src/core-qrexec'
+   dh_clean
+ dpkg-source -b .
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building qubes-core-qrexec using existing ./qubes-core-qrexec_4.1.18.orig.tar.xz
+dpkg-source: info: building qubes-core-qrexec in qubes-core-qrexec_4.1.18-1+deb11u1.debian.tar.xz
+dpkg-source: info: building qubes-core-qrexec in qubes-core-qrexec_4.1.18-1+deb11u1.dsc
+ debian/rules build
+dh build --with systemd,python3
+   dh_update_autotools_config
+   dh_autoreconf
+   dh_auto_configure
+   debian/rules override_dh_auto_build
+make[1]: Entering directory '/home/user/qubes-src/core-qrexec'
+make all-base
+make[2]: Entering directory '/home/user/qubes-src/core-qrexec'
+make all -C libqrexec
+make[3]: Entering directory '/home/user/qubes-src/core-qrexec/libqrexec'
+gcc unix-server.c -c -o unix-server.o -I. -I../libqrexec -g -O2 -Wall -Wextra -Werror -I/usr/include/vchan-xen -fstack-protector -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIC -std=gnu11 -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -MD -MP -MF unix-server.o.dep
+gcc ioall.c -c -o ioall.o -I. -I../libqrexec -g -O2 -Wall -Wextra -Werror -I/usr/include/vchan-xen -fstack-protector -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIC -std=gnu11 -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -MD -MP -MF ioall.o.dep
+gcc buffer.c -c -o buffer.o -I. -I../libqrexec -g -O2 -Wall -Wextra -Werror -I/usr/include/vchan-xen -fstack-protector -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIC -std=gnu11 -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -MD -MP -MF buffer.o.dep
+gcc exec.c -c -o exec.o -I. -I../libqrexec -g -O2 -Wall -Wextra -Werror -I/usr/include/vchan-xen -fstack-protector -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIC -std=gnu11 -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -MD -MP -MF exec.o.dep
+gcc txrx-vchan.c -c -o txrx-vchan.o -I. -I../libqrexec -g -O2 -Wall -Wextra -Werror -I/usr/include/vchan-xen -fstack-protector -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIC -std=gnu11 -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -MD -MP -MF txrx-vchan.o.dep
+gcc write-stdin.c -c -o write-stdin.o -I. -I../libqrexec -g -O2 -Wall -Wextra -Werror -I/usr/include/vchan-xen -fstack-protector -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIC -std=gnu11 -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -MD -MP -MF write-stdin.o.dep
+gcc replace.c -c -o replace.o -I. -I../libqrexec -g -O2 -Wall -Wextra -Werror -I/usr/include/vchan-xen -fstack-protector -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIC -std=gnu11 -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -MD -MP -MF replace.o.dep
+gcc remote.c -c -o remote.o -I. -I../libqrexec -g -O2 -Wall -Wextra -Werror -I/usr/include/vchan-xen -fstack-protector -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIC -std=gnu11 -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -MD -MP -MF remote.o.dep
+gcc process_io.c -c -o process_io.o -I. -I../libqrexec -g -O2 -Wall -Wextra -Werror -I/usr/include/vchan-xen -fstack-protector -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIC -std=gnu11 -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -MD -MP -MF process_io.o.dep
+gcc log.c -c -o log.o -I. -I../libqrexec -g -O2 -Wall -Wextra -Werror -I/usr/include/vchan-xen -fstack-protector -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIC -std=gnu11 -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -MD -MP -MF log.o.dep
+gcc -Wl,-z,relro -pie -Wl,-z,relro,-z,now -shared -Wl,-soname,libqrexec-utils.so.3 -o libqrexec-utils.so.3 unix-server.o ioall.o buffer.o exec.o txrx-vchan.o write-stdin.o replace.o remote.o process_io.o log.o -lvchan-xen
+ln -sf libqrexec-utils.so.3 libqrexec-utils.so
+make[3]: Leaving directory '/home/user/qubes-src/core-qrexec/libqrexec'
+python3 setup.py build
+running build
+running build_py
+creating build
+creating build/lib
+creating build/lib/qrexec
+copying qrexec/__init__.py -> build/lib/qrexec
+copying qrexec/client.py -> build/lib/qrexec
+copying qrexec/exc.py -> build/lib/qrexec
+copying qrexec/server.py -> build/lib/qrexec
+copying qrexec/utils.py -> build/lib/qrexec
+creating build/lib/qrexec/tools
+copying qrexec/tools/__init__.py -> build/lib/qrexec/tools
+copying qrexec/tools/qrexec_policy_daemon.py -> build/lib/qrexec/tools
+copying qrexec/tools/qrexec_policy_exec.py -> build/lib/qrexec/tools
+copying qrexec/tools/qrexec_policy_restore.py -> build/lib/qrexec/tools
+copying qrexec/tools/qrexec_policy_graph.py -> build/lib/qrexec/tools
+copying qrexec/tools/qubes_policy.py -> build/lib/qrexec/tools
+copying qrexec/tools/qubes_policy_admin.py -> build/lib/qrexec/tools
+copying qrexec/tools/qrexec_policy_agent.py -> build/lib/qrexec/tools
+creating build/lib/qrexec/policy
+copying qrexec/policy/__init__.py -> build/lib/qrexec/policy
+copying qrexec/policy/admin_client.py -> build/lib/qrexec/policy
+copying qrexec/policy/parser_compat.py -> build/lib/qrexec/policy
+copying qrexec/policy/parser.py -> build/lib/qrexec/policy
+copying qrexec/policy/admin.py -> build/lib/qrexec/policy
+copying qrexec/policy/utils.py -> build/lib/qrexec/policy
+creating build/lib/qrexec/tests
+copying qrexec/tests/__init__.py -> build/lib/qrexec/tests
+copying qrexec/tests/gtkhelpers.py -> build/lib/qrexec/tests
+copying qrexec/tests/cli.py -> build/lib/qrexec/tests
+copying qrexec/tests/qrexec_policy_daemon.py -> build/lib/qrexec/tests
+copying qrexec/tests/policy_parser.py -> build/lib/qrexec/tests
+copying qrexec/tests/policy_admin.py -> build/lib/qrexec/tests
+copying qrexec/tests/rpcconfirmation.py -> build/lib/qrexec/tests
+copying qrexec/tests/server.py -> build/lib/qrexec/tests
+copying qrexec/tests/policy_cache.py -> build/lib/qrexec/tests
+creating build/lib/qrexec/tests/socket
+copying qrexec/tests/socket/__init__.py -> build/lib/qrexec/tests/socket
+copying qrexec/tests/socket/agent.py -> build/lib/qrexec/tests/socket
+copying qrexec/tests/socket/daemon.py -> build/lib/qrexec/tests/socket
+copying qrexec/tests/socket/qrexec.py -> build/lib/qrexec/tests/socket
+copying qrexec/tests/socket/util.py -> build/lib/qrexec/tests/socket
+creating build/lib/qrexec/glade
+copying qrexec/glade/RPCConfirmationWindow.glade -> build/lib/qrexec/glade
+make[2]: Leaving directory '/home/user/qubes-src/core-qrexec'
+make all-vm
+make[2]: Entering directory '/home/user/qubes-src/core-qrexec'
+make all -C agent
+make[3]: Entering directory '/home/user/qubes-src/core-qrexec/agent'
+cc qrexec-agent.c -c -o qrexec-agent.o -I. -I../libqrexec -g -O2 -Wall -Wextra -Werror -I/usr/include/vchan-xen -fstack-protector -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIC -std=gnu11 -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -DHAVE_PAM -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -MD -MP -MF qrexec-agent.o.dep
+cc qrexec-agent-data.c -c -o qrexec-agent-data.o -I. -I../libqrexec -g -O2 -Wall -Wextra -Werror -I/usr/include/vchan-xen -fstack-protector -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIC -std=gnu11 -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -DHAVE_PAM -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -MD -MP -MF qrexec-agent-data.o.dep
+cc -Wl,-z,relro -pie -Wl,-z,relro,-z,now -L../libqrexec -pie -g -o qrexec-agent qrexec-agent.o qrexec-agent-data.o -lqrexec-utils -lvchan-xen -lpam
+cc qrexec-client-vm.c -c -o qrexec-client-vm.o -I. -I../libqrexec -g -O2 -Wall -Wextra -Werror -I/usr/include/vchan-xen -fstack-protector -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIC -std=gnu11 -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -DHAVE_PAM -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -MD -MP -MF qrexec-client-vm.o.dep
+cc -Wl,-z,relro -pie -Wl,-z,relro,-z,now -L../libqrexec -pie -g -o qrexec-client-vm qrexec-client-vm.o qrexec-agent-data.o -lqrexec-utils -lvchan-xen -lpam
+cc qrexec-fork-server.c -c -o qrexec-fork-server.o -I. -I../libqrexec -g -O2 -Wall -Wextra -Werror -I/usr/include/vchan-xen -fstack-protector -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fPIC -std=gnu11 -D_POSIX_C_SOURCE=200809L -D_GNU_SOURCE -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -DHAVE_PAM -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-qrexec=. -fstack-protector-strong -Wformat -Werror=format-security -MD -MP -MF qrexec-fork-server.o.dep
+cc -Wl,-z,relro -pie -Wl,-z,relro,-z,now -L../libqrexec -pie -g -o qrexec-fork-server qrexec-fork-server.o qrexec-agent-data.o -lqrexec-utils -lvchan-xen -lpam
+pandoc qrexec-client-vm.rst > qrexec-client-vm.1
+gzip -f qrexec-client-vm.1
+make[3]: Leaving directory '/home/user/qubes-src/core-qrexec/agent'
+make[2]: Leaving directory '/home/user/qubes-src/core-qrexec'
+make[1]: Leaving directory '/home/user/qubes-src/core-qrexec'
+   dh_auto_test
+   create-stamp debian/debhelper-build-stamp
+ fakeroot debian/rules binary
+dh binary --with systemd,python3
+   dh_testroot
+   dh_prep
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/home/user/qubes-src/core-qrexec'
+make install-base
+make[2]: Entering directory '/home/user/qubes-src/core-qrexec'
+make all -C libqrexec
+make[3]: Entering directory '/home/user/qubes-src/core-qrexec/libqrexec'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/user/qubes-src/core-qrexec/libqrexec'
+python3 setup.py build
+running build
+running build_py
+make install -C libqrexec
+make[3]: Entering directory '/home/user/qubes-src/core-qrexec/libqrexec'
+install -d -m 0755 /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib
+install libqrexec-utils.so.3 /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib
+ln -sf libqrexec-utils.so.3 /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/libqrexec-utils.so
+install -d -m 0755 /home/user/qubes-src/core-qrexec/debian/tmp/usr/include
+install -m 0644 libqrexec-utils.h /home/user/qubes-src/core-qrexec/debian/tmp/usr/include
+install -m 0644 qrexec.h /home/user/qubes-src/core-qrexec/debian/tmp/usr/include
+make[3]: Leaving directory '/home/user/qubes-src/core-qrexec/libqrexec'
+python3 setup.py install -O1 --install-layout=deb --skip-build --root /home/user/qubes-src/core-qrexec/debian/tmp
+running install
+running install_lib
+creating /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3
+creating /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages
+creating /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec
+creating /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools
+copying build/lib/qrexec/tools/__init__.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools
+copying build/lib/qrexec/tools/qrexec_policy_daemon.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools
+copying build/lib/qrexec/tools/qrexec_policy_exec.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools
+copying build/lib/qrexec/tools/qrexec_policy_restore.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools
+copying build/lib/qrexec/tools/qrexec_policy_graph.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools
+copying build/lib/qrexec/tools/qubes_policy.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools
+copying build/lib/qrexec/tools/qubes_policy_admin.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools
+copying build/lib/qrexec/tools/qrexec_policy_agent.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools
+copying build/lib/qrexec/__init__.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec
+creating /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/policy
+copying build/lib/qrexec/policy/__init__.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/policy
+copying build/lib/qrexec/policy/admin_client.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/policy
+copying build/lib/qrexec/policy/parser_compat.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/policy
+copying build/lib/qrexec/policy/parser.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/policy
+copying build/lib/qrexec/policy/admin.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/policy
+copying build/lib/qrexec/policy/utils.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/policy
+creating /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/glade
+copying build/lib/qrexec/glade/RPCConfirmationWindow.glade -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/glade
+copying build/lib/qrexec/client.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec
+copying build/lib/qrexec/exc.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec
+copying build/lib/qrexec/server.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec
+copying build/lib/qrexec/utils.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec
+creating /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests
+copying build/lib/qrexec/tests/__init__.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests
+copying build/lib/qrexec/tests/gtkhelpers.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests
+copying build/lib/qrexec/tests/cli.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests
+copying build/lib/qrexec/tests/qrexec_policy_daemon.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests
+copying build/lib/qrexec/tests/policy_parser.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests
+copying build/lib/qrexec/tests/policy_admin.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests
+creating /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/socket
+copying build/lib/qrexec/tests/socket/__init__.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/socket
+copying build/lib/qrexec/tests/socket/agent.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/socket
+copying build/lib/qrexec/tests/socket/daemon.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/socket
+copying build/lib/qrexec/tests/socket/qrexec.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/socket
+copying build/lib/qrexec/tests/socket/util.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/socket
+copying build/lib/qrexec/tests/rpcconfirmation.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests
+copying build/lib/qrexec/tests/server.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests
+copying build/lib/qrexec/tests/policy_cache.py -> /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools/__init__.py to __init__.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools/qrexec_policy_daemon.py to qrexec_policy_daemon.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools/qrexec_policy_exec.py to qrexec_policy_exec.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools/qrexec_policy_restore.py to qrexec_policy_restore.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools/qrexec_policy_graph.py to qrexec_policy_graph.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools/qubes_policy.py to qubes_policy.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools/qubes_policy_admin.py to qubes_policy_admin.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tools/qrexec_policy_agent.py to qrexec_policy_agent.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/__init__.py to __init__.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/policy/__init__.py to __init__.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/policy/admin_client.py to admin_client.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/policy/parser_compat.py to parser_compat.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/policy/parser.py to parser.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/policy/admin.py to admin.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/policy/utils.py to utils.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/client.py to client.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/exc.py to exc.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/server.py to server.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/utils.py to utils.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/__init__.py to __init__.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/gtkhelpers.py to gtkhelpers.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/cli.py to cli.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/qrexec_policy_daemon.py to qrexec_policy_daemon.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/policy_parser.py to policy_parser.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/policy_admin.py to policy_admin.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/socket/__init__.py to __init__.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/socket/agent.py to agent.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/socket/daemon.py to daemon.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/socket/qrexec.py to qrexec.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/socket/util.py to util.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/rpcconfirmation.py to rpcconfirmation.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/server.py to server.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec/tests/policy_cache.py to policy_cache.cpython-39.pyc
+writing byte-compilation script '/tmp/tmpay8cmpfa.py'
+/usr/bin/python3 /tmp/tmpay8cmpfa.py
+removing /tmp/tmpay8cmpfa.py
+running install_egg_info
+running egg_info
+creating qrexec.egg-info
+writing qrexec.egg-info/PKG-INFO
+writing dependency_links to qrexec.egg-info/dependency_links.txt
+writing top-level names to qrexec.egg-info/top_level.txt
+writing manifest file 'qrexec.egg-info/SOURCES.txt'
+reading manifest file 'qrexec.egg-info/SOURCES.txt'
+writing manifest file 'qrexec.egg-info/SOURCES.txt'
+Copying qrexec.egg-info to /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/python3/dist-packages/qrexec-4.1.18.egg-info
+Skipping SOURCES.txt
+running install_scripts
+ln -s qrexec-policy-exec /home/user/qubes-src/core-qrexec/debian/tmp/usr/bin/qrexec-policy
+install -d /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/qubes -m 755
+install -t /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/qubes -m 755 lib/*
+install -d /home/user/qubes-src/core-qrexec/debian/tmp/etc/qubes-rpc -m 755
+ln -s /var/run/qubes/policy-agent.sock /home/user/qubes-src/core-qrexec/debian/tmp/etc/qubes-rpc/policy.Ask
+ln -s /var/run/qubes/policy-agent.sock /home/user/qubes-src/core-qrexec/debian/tmp/etc/qubes-rpc/policy.Notify
+install -d /home/user/qubes-src/core-qrexec/debian/tmp/etc/xdg/autostart -m 755
+install -m 644 policy-agent-extra/qrexec-policy-agent.desktop \
+	/home/user/qubes-src/core-qrexec/debian/tmp/etc/xdg/autostart/qrexec-policy-agent.desktop
+make[2]: Leaving directory '/home/user/qubes-src/core-qrexec'
+make install-vm
+make[2]: Entering directory '/home/user/qubes-src/core-qrexec'
+make all -C agent
+make[3]: Entering directory '/home/user/qubes-src/core-qrexec/agent'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/user/qubes-src/core-qrexec/agent'
+make install -C agent
+make[3]: Entering directory '/home/user/qubes-src/core-qrexec/agent'
+install -d /home/user/qubes-src/core-qrexec/debian/tmp/etc/qubes-rpc /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/qubes \
+	/home/user/qubes-src/core-qrexec/debian/tmp/usr/bin /home/user/qubes-src/core-qrexec/debian/tmp/usr/share/man/man1
+install qrexec-agent /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/qubes
+install qrexec-client-vm /home/user/qubes-src/core-qrexec/debian/tmp/usr/bin
+install -d /home/user/qubes-src/core-qrexec/debian/tmp/usr/share/man/man1
+install qrexec-client-vm.1.gz /home/user/qubes-src/core-qrexec/debian/tmp/usr/share/man/man1
+ln -s ../../bin/qrexec-client-vm /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/qubes/qrexec-client-vm
+ln -s ../../bin/qrexec-client-vm /home/user/qubes-src/core-qrexec/debian/tmp/usr/lib/qubes/qrexec_client_vm
+install qrexec-fork-server /home/user/qubes-src/core-qrexec/debian/tmp/usr/bin
+install -D -m 0644 qrexec.pam.debian /home/user/qubes-src/core-qrexec/debian/tmp/etc/pam.d/qrexec
+make[3]: Leaving directory '/home/user/qubes-src/core-qrexec/agent'
+install -d /home/user/qubes-src/core-qrexec/debian/tmp//lib/systemd/system -m 755
+install -t /home/user/qubes-src/core-qrexec/debian/tmp//lib/systemd/system -m 644 systemd/qubes-qrexec-agent.service
+install -m 0644 -D qubes-rpc-config/README /home/user/qubes-src/core-qrexec/debian/tmp/etc/qubes/rpc-config/README
+make[2]: Leaving directory '/home/user/qubes-src/core-qrexec'
+make[1]: Leaving directory '/home/user/qubes-src/core-qrexec'
+   debian/rules override_dh_install
+make[1]: Entering directory '/home/user/qubes-src/core-qrexec'
+dh_install --fail-missing
+dh_install: warning: Please use dh_missing --list-missing/--fail-missing instead
+dh_install: warning: This feature will be removed in compat 12.
+make[1]: Leaving directory '/home/user/qubes-src/core-qrexec'
+   dh_installdocs
+   dh_installchangelogs
+   dh_installman
+   dh_systemd_enable
+   dh_python3
+   debian/rules override_dh_systemd_start
+make[1]: Entering directory '/home/user/qubes-src/core-qrexec'
+dh_systemd_start --no-restart-on-upgrade
+make[1]: Leaving directory '/home/user/qubes-src/core-qrexec'
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_strip
+   dh_makeshlibs
+   dh_shlibdeps
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'libqrexec-utils2-dbgsym' in '../libqrexec-utils2-dbgsym_4.1.18-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-core-qrexec' in '../qubes-core-qrexec_4.1.18-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'libqrexec-utils-dev' in '../libqrexec-utils-dev_4.1.18-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-core-qrexec-dbgsym' in '../qubes-core-qrexec-dbgsym_4.1.18-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'python3-qrexec' in '../python3-qrexec_4.1.18-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'libqrexec-utils2' in '../libqrexec-utils2_4.1.18-1+deb11u1_amd64.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../qubes-core-qrexec_4.1.18-1+deb11u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload (original source is included)
+mkdir -p /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb
+mkdir -p qubes-src/core-qrexec/pkgs/vm-bullseye
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/debian/../..; \
+	cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-core-qrexec_4.1.18*.changes`
+cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb/ /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/debian/../../qubes-core-qrexec_4.1.18*.changes
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/debian/../..; \
+	mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/core-qrexec/pkgs/vm-bullseye  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-core-qrexec_4.1.18*.changes`
+mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/core-qrexec/pkgs/vm-bullseye /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-qrexec/debian/../../qubes-core-qrexec_4.1.18*.changes

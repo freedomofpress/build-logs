@@ -1,0 +1,259 @@
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//update-local-repo.sh bullseye
+dpkg-scanpackages: info: Wrote 82 entries to output Packages file.
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye apt-get  update
+Get:1 file:/tmp/qubes-deb bullseye InRelease
+Ign:1 file:/tmp/qubes-deb bullseye InRelease
+Get:2 file:/tmp/qubes-deb bullseye Release [344 B]
+Get:2 file:/tmp/qubes-deb bullseye Release [344 B]
+Get:3 file:/tmp/qubes-deb bullseye Release.gpg
+Ign:3 file:/tmp/qubes-deb bullseye Release.gpg
+Get:4 file:/tmp/qubes-deb bullseye/main amd64 Packages [17.6 kB]
+Hit:5 https://deb.debian.org/debian bullseye InRelease
+Hit:6 https://deb.qubes-os.org/r4.1/vm bullseye InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/app-linux-split-gpg/debian/control
+hostname: Name or service not known
+dpkg-buildpackage: info: source package qubes-gpg-split-build-deps
+dpkg-buildpackage: info: source version 2.0.60-1
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by Equivs Dummy Package Generator <root@>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+ debian/rules clean
+dh clean
+   dh_clean
+ debian/rules binary
+dh binary
+   dh_update_autotools_config
+   dh_autoreconf
+   create-stamp debian/debhelper-build-stamp
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-gpg-split-build-deps' in '../qubes-gpg-split-build-deps_2.0.60-1_all.deb'.
+ dpkg-genbuildinfo --build=binary
+ dpkg-genchanges --build=binary >../qubes-gpg-split-build-deps_2.0.60-1_amd64.changes
+dpkg-genchanges: info: binary-only upload (no source code included)
+ dpkg-source --after-build .
+dpkg-buildpackage: info: binary-only upload (no source included)
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package qubes-gpg-split-build-deps.
+(Reading database ... 42718 files and directories currently installed.)
+Preparing to unpack qubes-gpg-split-build-deps_2.0.60-1_all.deb ...
+Unpacking qubes-gpg-split-build-deps (2.0.60-1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+After this operation, 0 B of additional disk space will be used.
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (19: No such device)
+Setting up qubes-gpg-split-build-deps (2.0.60-1) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/..; GLOBIGNORE=qubes-gpg-split_2.0.60*orig*; rm -f qubes-gpg-split_2.0.60*; GLOBIGNORE=
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/deb/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/rpm/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/debian/..; /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/debian/changelog /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/debian/changelog.copy
+mv /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/debian/changelog.copy /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/debian/changelog
+echo "Building package in /home/user/qubes-src/app-linux-split-gpg"
+Building package in /home/user/qubes-src/app-linux-split-gpg
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb11u "Build for bullseye"; debchange -t --force-distribution -r -D bullseye bullseye
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/debian/changelog
+find /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg \! -newer /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye su user -c 'cd /home/user/qubes-src/app-linux-split-gpg/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package qubes-gpg-split
+dpkg-buildpackage: info: source version 2.0.60-1+deb11u1
+dpkg-buildpackage: info: source distribution bullseye
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+dpkg-source: info: using options from app-linux-split-gpg/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+ fakeroot debian/rules clean
+dh clean
+dh: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_auto_clean
+dh_auto_clean: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+	make -j1 clean
+make[1]: Entering directory '/home/user/qubes-src/app-linux-split-gpg'
+make -C src clean
+make[2]: Entering directory '/home/user/qubes-src/app-linux-split-gpg/src'
+rm -f ./*.o gpg-client gpg-server
+make[2]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg/src'
+make -C doc clean
+make[2]: Entering directory '/home/user/qubes-src/app-linux-split-gpg/doc'
+rm -f qubes-gpg-client-wrapper.1.gz qubes-gpg-client.1.gz qubes-gpg-import-key.1.gz
+make[2]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg/doc'
+rm -rf debian/changelog.*
+rm -rf pkgs
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg'
+   dh_clean
+dh_clean: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+ dpkg-source -b .
+dpkg-source: info: using options from app-linux-split-gpg/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building qubes-gpg-split using existing ./qubes-gpg-split_2.0.60.orig.tar.xz
+dpkg-source: info: building qubes-gpg-split in qubes-gpg-split_2.0.60-1+deb11u1.debian.tar.xz
+dpkg-source: info: building qubes-gpg-split in qubes-gpg-split_2.0.60-1+deb11u1.dsc
+ debian/rules build
+dh build
+dh: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_update_autotools_config
+   dh_auto_configure
+dh_auto_configure: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   debian/rules override_dh_auto_build
+make[1]: Entering directory '/home/user/qubes-src/app-linux-split-gpg'
+dh_clean --keep
+dh_clean: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh_clean: warning: dh_clean -k is deprecated; use dh_prep instead
+dh_clean: warning: This feature will be removed in compat 12.
+make build
+make[2]: Entering directory '/home/user/qubes-src/app-linux-split-gpg'
+make -C src
+make[3]: Entering directory '/home/user/qubes-src/app-linux-split-gpg/src'
+cc -g -O2 -ffile-prefix-map=/home/user/qubes-src/app-linux-split-gpg=. -fstack-protector-strong -Wformat -Werror=format-security -Wall -Wextra -Werror -O -g -fPIC -D_FORTIFY_SOURCE=2 -pthread -Wdate-time -D_FORTIFY_SOURCE=2  -c -o gpg-client.o gpg-client.c
+cc -g -O2 -ffile-prefix-map=/home/user/qubes-src/app-linux-split-gpg=. -fstack-protector-strong -Wformat -Werror=format-security -Wall -Wextra -Werror -O -g -fPIC -D_FORTIFY_SOURCE=2 -pthread -Wdate-time -D_FORTIFY_SOURCE=2  -c -o multiplex.o multiplex.c
+cc -g -O2 -ffile-prefix-map=/home/user/qubes-src/app-linux-split-gpg=. -fstack-protector-strong -Wformat -Werror=format-security -Wall -Wextra -Werror -O -g -fPIC -D_FORTIFY_SOURCE=2 -pthread -Wdate-time -D_FORTIFY_SOURCE=2  -c -o gpg-common.o gpg-common.c
+cc -g -O2 -ffile-prefix-map=/home/user/qubes-src/app-linux-split-gpg=. -fstack-protector-strong -Wformat -Werror=format-security -Wall -Wextra -Werror -O -g -fPIC -D_FORTIFY_SOURCE=2 -pthread -Wdate-time -D_FORTIFY_SOURCE=2  -c -o gpg-list-options.o gpg-list-options.c
+cc -Wl,-z,relro -Wl,-z,now  gpg-client.o multiplex.o gpg-common.o gpg-list-options.o  -pthread -fPIC -D_FORTIFY_SOURCE=2 -o gpg-client
+cc -g -O2 -ffile-prefix-map=/home/user/qubes-src/app-linux-split-gpg=. -fstack-protector-strong -Wformat -Werror=format-security -Wall -Wextra -Werror -O -g -fPIC -D_FORTIFY_SOURCE=2 -pthread -Wdate-time -D_FORTIFY_SOURCE=2  -c -o gpg-server.o gpg-server.c
+cc -Wl,-z,relro -Wl,-z,now  gpg-server.o multiplex.o gpg-common.o gpg-list-options.o  -pthread -fPIC -D_FORTIFY_SOURCE=2 -o gpg-server
+make[3]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg/src'
+make -C doc manpages
+make[3]: Entering directory '/home/user/qubes-src/app-linux-split-gpg/doc'
+pandoc -s -f rst -t man qubes-gpg-client-wrapper.rst > qubes-gpg-client-wrapper.1
+gzip -f qubes-gpg-client-wrapper.1
+pandoc -s -f rst -t man qubes-gpg-client.rst > qubes-gpg-client.1
+gzip -f qubes-gpg-client.1
+pandoc -s -f rst -t man qubes-gpg-import-key.rst > qubes-gpg-import-key.1
+gzip -f qubes-gpg-import-key.1
+make[3]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg/doc'
+make[2]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg'
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg'
+   dh_auto_test
+dh_auto_test: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+ fakeroot debian/rules binary
+dh binary
+dh: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_testroot
+   dh_prep
+   dh_installdirs
+dh_installdirs: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/home/user/qubes-src/app-linux-split-gpg'
+make install-vm-deb
+make[2]: Entering directory '/home/user/qubes-src/app-linux-split-gpg'
+install -d /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/lib/qubes-gpg-split
+install -t /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/lib/qubes-gpg-split src/gpg-server
+install -D src/gpg-client /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/bin/qubes-gpg-client
+install -D gpg-client-wrapper /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/bin/qubes-gpg-client-wrapper
+install -D gpg-import-key /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/bin/qubes-gpg-import-key
+install -D qubes.Gpg.service /home/user/qubes-src/app-linux-split-gpg/debian/tmp/etc/qubes-rpc/qubes.Gpg
+install -D qubes.GpgImportKey.service /home/user/qubes-src/app-linux-split-gpg/debian/tmp/etc/qubes-rpc/qubes.GpgImportKey
+install -D qubes-gpg.sh /home/user/qubes-src/app-linux-split-gpg/debian/tmp/etc/profile.d/qubes-gpg.sh
+install -d /home/user/qubes-src/app-linux-split-gpg/debian/tmp/var/run/qubes-gpg-split
+install -D qubes-gpg-split.tmpfiles /home/user/qubes-src/app-linux-split-gpg/debian/tmp/etc/tmpfiles.d/qubes-gpg-split.conf
+make -C tests install-vm
+make[3]: Entering directory '/home/user/qubes-src/app-linux-split-gpg/tests'
+install -d /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/lib/qubes-gpg-split
+install test_*.py /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/lib/qubes-gpg-split/
+make[3]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg/tests'
+make -C doc install
+make[3]: Entering directory '/home/user/qubes-src/app-linux-split-gpg/doc'
+install -d /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/share/man/man1
+install -D qubes-gpg-client-wrapper.1.gz qubes-gpg-client.1.gz qubes-gpg-import-key.1.gz /home/user/qubes-src/app-linux-split-gpg/debian/tmp/usr/share/man/man1/
+make[3]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg/doc'
+make -C tests install-vm-deb
+make[3]: Entering directory '/home/user/qubes-src/app-linux-split-gpg/tests'
+install -d /home/user/qubes-src/app-linux-split-gpg/debian/tmp/lib/systemd/system/bootclockrandomization.service.d/
+install whonix-clock-override.conf /home/user/qubes-src/app-linux-split-gpg/debian/tmp/lib/systemd/system/bootclockrandomization.service.d/override.conf
+make[3]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg/tests'
+make[2]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg'
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg'
+   debian/rules override_dh_install
+make[1]: Entering directory '/home/user/qubes-src/app-linux-split-gpg'
+dh_install --fail-missing
+dh_install: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh_install: warning: Please use dh_missing --list-missing/--fail-missing instead
+dh_install: warning: This feature will be removed in compat 12.
+make[1]: Leaving directory '/home/user/qubes-src/app-linux-split-gpg'
+   dh_installdocs
+dh_installdocs: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_installchangelogs
+dh_installchangelogs: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_installman
+dh_installman: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_installinit
+dh_installinit: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+dh_compress: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh_compress: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_fixperms
+   dh_missing
+dh_missing: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_strip
+dh_strip: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh_strip: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_makeshlibs
+dh_makeshlibs: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_shlibdeps
+dh_shlibdeps: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh_shlibdeps: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_installdeb
+dh_installdeb: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-gpg-split' in '../qubes-gpg-split_2.0.60-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-gpg-split-tests' in '../qubes-gpg-split-tests_2.0.60-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-gpg-split-dbgsym' in '../qubes-gpg-split-dbgsym_2.0.60-1+deb11u1_amd64.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../qubes-gpg-split_2.0.60-1+deb11u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-source: info: using options from app-linux-split-gpg/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-buildpackage: info: full upload (original source is included)
+mkdir -p /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb
+mkdir -p qubes-src/app-linux-split-gpg/pkgs/vm-bullseye
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/debian/../..; \
+	cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-gpg-split_2.0.60*.changes`
+cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb/ /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/debian/../../qubes-gpg-split_2.0.60*.changes
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/debian/../..; \
+	mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/app-linux-split-gpg/pkgs/vm-bullseye  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-gpg-split_2.0.60*.changes`
+mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/app-linux-split-gpg/pkgs/vm-bullseye /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/app-linux-split-gpg/debian/../../qubes-gpg-split_2.0.60*.changes

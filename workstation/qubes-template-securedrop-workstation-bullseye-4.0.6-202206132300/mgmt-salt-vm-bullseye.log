@@ -1,0 +1,215 @@
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//update-local-repo.sh bullseye
+dpkg-scanpackages: info: Wrote 0 entries to output Packages file.
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye apt-get  update
+Get:1 file:/tmp/qubes-deb bullseye InRelease
+Ign:1 file:/tmp/qubes-deb bullseye InRelease
+Get:2 file:/tmp/qubes-deb bullseye Release [337 B]
+Get:2 file:/tmp/qubes-deb bullseye Release [337 B]
+Get:3 file:/tmp/qubes-deb bullseye Release.gpg
+Ign:3 file:/tmp/qubes-deb bullseye Release.gpg
+Hit:4 https://deb.debian.org/debian bullseye InRelease
+Hit:5 https://deb.qubes-os.org/r4.1/vm bullseye InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/mgmt-salt/debian/control
+hostname: Name or service not known
+dpkg-buildpackage: info: source package qubes-mgmt-salt-build-deps
+dpkg-buildpackage: info: source version 4.1.14-1
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by Equivs Dummy Package Generator <root@>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+ debian/rules clean
+dh clean
+   dh_clean
+ debian/rules binary
+dh binary
+   dh_update_autotools_config
+   dh_autoreconf
+   create-stamp debian/debhelper-build-stamp
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-mgmt-salt-build-deps' in '../qubes-mgmt-salt-build-deps_4.1.14-1_all.deb'.
+ dpkg-genbuildinfo --build=binary
+ dpkg-genchanges --build=binary >../qubes-mgmt-salt-build-deps_4.1.14-1_amd64.changes
+dpkg-genchanges: info: binary-only upload (no source code included)
+ dpkg-source --after-build .
+dpkg-buildpackage: info: binary-only upload (no source included)
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package qubes-mgmt-salt-build-deps.
+(Reading database ... 34840 files and directories currently installed.)
+Preparing to unpack qubes-mgmt-salt-build-deps_4.1.14-1_all.deb ...
+Unpacking qubes-mgmt-salt-build-deps (4.1.14-1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Correcting dependencies... Done
+The following additional packages will be installed:
+  python3-yaml tree
+The following NEW packages will be installed:
+  python3-yaml tree
+0 upgraded, 2 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+Need to get 188 kB of archives.
+After this operation, 660 kB of additional disk space will be used.
+Get:1 https://deb.debian.org/debian bullseye/main amd64 python3-yaml amd64 5.3.1-5 [138 kB]
+Get:2 https://deb.debian.org/debian bullseye/main amd64 tree amd64 1.8.0-1+b1 [49.6 kB]
+Fetched 188 kB in 0s (577 kB/s)
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (2: No such file or directory)
+Selecting previously unselected package python3-yaml.
+(Reading database ... 34844 files and directories currently installed.)
+Preparing to unpack .../python3-yaml_5.3.1-5_amd64.deb ...
+Unpacking python3-yaml (5.3.1-5) ...
+Selecting previously unselected package tree.
+Preparing to unpack .../tree_1.8.0-1+b1_amd64.deb ...
+Unpacking tree (1.8.0-1+b1) ...
+Setting up python3-yaml (5.3.1-5) ...
+Setting up tree (1.8.0-1+b1) ...
+Setting up qubes-mgmt-salt-build-deps (4.1.14-1) ...
+Processing triggers for man-db (2.9.4-2) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/..; GLOBIGNORE=qubes-mgmt-salt_4.1.14*orig*; rm -f qubes-mgmt-salt_4.1.14*; GLOBIGNORE=
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/deb/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/rpm/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/debian/..; /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/debian/changelog /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/debian/changelog.copy
+mv /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/debian/changelog.copy /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/debian/changelog
+echo "Building package in /home/user/qubes-src/mgmt-salt"
+Building package in /home/user/qubes-src/mgmt-salt
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb11u "Build for bullseye"; debchange -t --force-distribution -r -D bullseye bullseye
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/debian/changelog
+find /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt \! -newer /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye su user -c 'cd /home/user/qubes-src/mgmt-salt/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package qubes-mgmt-salt
+dpkg-buildpackage: info: source version 4.1.14-1+deb11u1
+dpkg-buildpackage: info: source distribution bullseye
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+dpkg-source: info: using options from mgmt-salt/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm_spec/.*)$ --extend-diff-ignore=(^|/)(debian.*)$ --extend-diff-ignore=(^|/)(.*[.]vm)(/.*|)$ --extend-diff-ignore=(^|/)(.*[.]dom0)(/.*|)$
+ fakeroot debian/rules clean
+dh clean
+dh: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_auto_clean
+dh_auto_clean: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_clean
+dh_clean: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+ dpkg-source -b .
+dpkg-source: info: using options from mgmt-salt/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm_spec/.*)$ --extend-diff-ignore=(^|/)(debian.*)$ --extend-diff-ignore=(^|/)(.*[.]vm)(/.*|)$ --extend-diff-ignore=(^|/)(.*[.]dom0)(/.*|)$
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building qubes-mgmt-salt using existing ./qubes-mgmt-salt_4.1.14.orig.tar.xz
+dpkg-source: info: building qubes-mgmt-salt in qubes-mgmt-salt_4.1.14-1+deb11u1.debian.tar.xz
+dpkg-source: info: building qubes-mgmt-salt in qubes-mgmt-salt_4.1.14-1+deb11u1.dsc
+ debian/rules build
+dh build
+dh: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_update_autotools_config
+   dh_auto_configure
+dh_auto_configure: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   debian/rules override_dh_auto_build
+make[1]: Entering directory '/home/user/qubes-src/mgmt-salt'
+dh_clean --keep
+dh_clean: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh_clean: warning: dh_clean -k is deprecated; use dh_prep instead
+dh_clean: warning: This feature will be removed in compat 12.
+make[1]: Leaving directory '/home/user/qubes-src/mgmt-salt'
+   dh_auto_test
+dh_auto_test: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+ fakeroot debian/rules binary
+dh binary
+dh: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_testroot
+   dh_prep
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/home/user/qubes-src/mgmt-salt'
+make install DESTDIR=/home/user/qubes-src/mgmt-salt/debian/qubes-mgmt-salt-config BINDIR=/usr/bin SYSCONFDIR=/etc
+make[2]: Entering directory '/home/user/qubes-src/mgmt-salt'
+# Install qubesctl
+# Install /etc/salt/* and /srv/*
+umask 022; cp -Tr etc /home/user/qubes-src/mgmt-salt/debian/qubes-mgmt-salt-config/etc
+umask 022; cp -Tr srv /home/user/qubes-src/mgmt-salt/debian/qubes-mgmt-salt-config/srv
+make[2]: Leaving directory '/home/user/qubes-src/mgmt-salt'
+make install-vm DESTDIR=/home/user/qubes-src/mgmt-salt/debian/qubes-mgmt-salt-vm-connector BINDIR=/usr/bin SYSCONFDIR=/etc
+make[2]: Entering directory '/home/user/qubes-src/mgmt-salt'
+install -d /home/user/qubes-src/mgmt-salt/debian/qubes-mgmt-salt-vm-connector/usr/lib/qubes-vm-connector/ssh-wrapper
+install ssh-wrapper /home/user/qubes-src/mgmt-salt/debian/qubes-mgmt-salt-vm-connector/usr/lib/qubes-vm-connector/ssh-wrapper/ssh
+ln -s ssh /home/user/qubes-src/mgmt-salt/debian/qubes-mgmt-salt-vm-connector/usr/lib/qubes-vm-connector/ssh-wrapper/scp
+ln -s /bin/true /home/user/qubes-src/mgmt-salt/debian/qubes-mgmt-salt-vm-connector/usr/lib/qubes-vm-connector/ssh-wrapper/ssh-keygen
+install -d /home/user/qubes-src/mgmt-salt/debian/qubes-mgmt-salt-vm-connector/etc/qubes-rpc
+install qubes.SaltLinuxVM /home/user/qubes-src/mgmt-salt/debian/qubes-mgmt-salt-vm-connector/etc/qubes-rpc
+make[2]: Leaving directory '/home/user/qubes-src/mgmt-salt'
+make[1]: Leaving directory '/home/user/qubes-src/mgmt-salt'
+   dh_installdocs
+dh_installdocs: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_installchangelogs
+dh_installchangelogs: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+dh_compress: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh_compress: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   debian/rules override_dh_fixperms
+make[1]: Entering directory '/home/user/qubes-src/mgmt-salt'
+dh_fixperms -a -Xsrv -Xminion.d
+dh_fixperms: warning: You asked that all arch in(dep) packages be built, but there are none of that type.
+make[1]: Leaving directory '/home/user/qubes-src/mgmt-salt'
+   dh_missing
+dh_missing: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_installdeb
+dh_installdeb: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-mgmt-salt' in '../qubes-mgmt-salt_4.1.14-1+deb11u1_all.deb'.
+dpkg-deb: building package 'qubes-mgmt-salt-dom0-formulas' in '../qubes-mgmt-salt-dom0-formulas_4.1.14-1+deb11u1_all.deb'.
+dpkg-deb: building package 'qubes-mgmt-salt-vm-connector' in '../qubes-mgmt-salt-vm-connector_4.1.14-1+deb11u1_all.deb'.
+dpkg-deb: building package 'qubes-mgmt-salt-config' in '../qubes-mgmt-salt-config_4.1.14-1+deb11u1_all.deb'.
+dpkg-deb: building package 'qubes-mgmt-salt-dom0' in '../qubes-mgmt-salt-dom0_4.1.14-1+deb11u1_all.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../qubes-mgmt-salt_4.1.14-1+deb11u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-source: info: using options from mgmt-salt/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm_spec/.*)$ --extend-diff-ignore=(^|/)(debian.*)$ --extend-diff-ignore=(^|/)(.*[.]vm)(/.*|)$ --extend-diff-ignore=(^|/)(.*[.]dom0)(/.*|)$
+dpkg-buildpackage: info: full upload (original source is included)
+mkdir -p /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb
+mkdir -p qubes-src/mgmt-salt/pkgs/vm-bullseye
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/debian/../..; \
+	cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-mgmt-salt_4.1.14*.changes`
+cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb/ /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/debian/../../qubes-mgmt-salt_4.1.14*.changes
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/debian/../..; \
+	mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/mgmt-salt/pkgs/vm-bullseye  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-mgmt-salt_4.1.14*.changes`
+mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/mgmt-salt/pkgs/vm-bullseye /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/mgmt-salt/debian/../../qubes-mgmt-salt_4.1.14*.changes

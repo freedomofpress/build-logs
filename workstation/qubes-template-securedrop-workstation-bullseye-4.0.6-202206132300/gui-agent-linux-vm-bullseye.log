@@ -1,0 +1,994 @@
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//update-local-repo.sh bullseye
+dpkg-scanpackages: info: Wrote 70 entries to output Packages file.
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye apt-get  update
+Get:1 file:/tmp/qubes-deb bullseye InRelease
+Ign:1 file:/tmp/qubes-deb bullseye InRelease
+Get:2 file:/tmp/qubes-deb bullseye Release [344 B]
+Get:2 file:/tmp/qubes-deb bullseye Release [344 B]
+Get:3 file:/tmp/qubes-deb bullseye Release.gpg
+Ign:3 file:/tmp/qubes-deb bullseye Release.gpg
+Get:4 file:/tmp/qubes-deb bullseye/main amd64 Packages [15.4 kB]
+Hit:5 https://deb.debian.org/debian bullseye InRelease
+Hit:6 https://deb.qubes-os.org/r4.1/vm bullseye InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/gui-agent-linux/debian/control
+hostname: Name or service not known
+dpkg-buildpackage: info: source package qubes-gui-agent-build-deps
+dpkg-buildpackage: info: source version 4.1.25-1
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by Equivs Dummy Package Generator <root@>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+ debian/rules clean
+dh clean
+   dh_clean
+ debian/rules binary
+dh binary
+   dh_update_autotools_config
+   dh_autoreconf
+   create-stamp debian/debhelper-build-stamp
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-gui-agent-build-deps' in '../qubes-gui-agent-build-deps_4.1.25-1_all.deb'.
+ dpkg-genbuildinfo --build=binary
+ dpkg-genchanges --build=binary >../qubes-gui-agent-build-deps_4.1.25-1_amd64.changes
+dpkg-genchanges: info: binary-only upload (no source code included)
+ dpkg-source --after-build .
+dpkg-buildpackage: info: binary-only upload (no source included)
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package qubes-gui-agent-build-deps.
+(Reading database ... 41889 files and directories currently installed.)
+Preparing to unpack qubes-gui-agent-build-deps_4.1.25-1_all.deb ...
+Unpacking qubes-gui-agent-build-deps (4.1.25-1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Correcting dependencies... Done
+The following additional packages will be installed:
+  libasyncns0 libdbus-1-3 libflac8 libice-dev libice6 libogg0 libopus0
+  libpulse-dev libpulse-mainloop-glib0 libpulse0 libqubesdb libsm-dev libsm6
+  libsndfile1 libvorbis0a libvorbisenc2 libwrap0 libxcomposite-dev
+  libxcomposite1 libxdamage-dev libxext-dev libxfixes-dev libxt-dev libxt6
+  qubes-gui-common qubesdb-dev x11-common x11proto-xext-dev xutils-dev
+Suggested packages:
+  libice-doc opus-tools pulseaudio libsm-doc libxext-doc libxt-doc
+Recommended packages:
+  dbus
+The following NEW packages will be installed:
+  libasyncns0 libdbus-1-3 libflac8 libice-dev libice6 libogg0 libopus0
+  libpulse-dev libpulse-mainloop-glib0 libpulse0 libqubesdb libsm-dev libsm6
+  libsndfile1 libvorbis0a libvorbisenc2 libwrap0 libxcomposite-dev
+  libxcomposite1 libxdamage-dev libxext-dev libxfixes-dev libxt-dev libxt6
+  qubes-gui-common qubesdb-dev x11-common x11proto-xext-dev xutils-dev
+0 upgraded, 29 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+Need to get 2914 kB of archives.
+After this operation, 9413 kB of additional disk space will be used.
+Get:1 https://deb.debian.org/debian bullseye/main amd64 libasyncns0 amd64 0.8-6+b2 [12.9 kB]
+Get:2 https://deb.debian.org/debian bullseye/main amd64 libdbus-1-3 amd64 1.12.20-2 [219 kB]
+Get:3 https://deb.debian.org/debian bullseye/main amd64 libogg0 amd64 1.3.4-0.1 [27.3 kB]
+Get:4 https://deb.debian.org/debian bullseye/main amd64 libflac8 amd64 1.3.3-2+deb11u1 [112 kB]
+Get:5 https://deb.debian.org/debian bullseye/main amd64 libopus0 amd64 1.3.1-0.1 [190 kB]
+Get:6 https://deb.debian.org/debian bullseye/main amd64 libvorbis0a amd64 1.3.7-1 [93.0 kB]
+Get:7 https://deb.debian.org/debian bullseye/main amd64 libvorbisenc2 amd64 1.3.7-1 [80.6 kB]
+Get:8 https://deb.debian.org/debian bullseye/main amd64 libsndfile1 amd64 1.0.31-2 [188 kB]
+Get:9 https://deb.debian.org/debian bullseye/main amd64 libwrap0 amd64 7.6.q-31 [59.0 kB]
+Get:10 https://deb.debian.org/debian bullseye/main amd64 libpulse0 amd64 14.2-2 [285 kB]
+Get:11 https://deb.debian.org/debian bullseye/main amd64 libpulse-mainloop-glib0 amd64 14.2-2 [42.1 kB]
+Get:12 https://deb.debian.org/debian bullseye/main amd64 libpulse-dev amd64 14.2-2 [104 kB]
+Get:13 https://deb.debian.org/debian bullseye/main amd64 xutils-dev amd64 1:7.7+5+b1 [242 kB]
+Get:14 https://deb.debian.org/debian bullseye/main amd64 libxcomposite1 amd64 1:0.4.5-1 [16.6 kB]
+Get:15 https://deb.debian.org/debian bullseye/main amd64 libxfixes-dev amd64 1:5.0.3-2 [24.1 kB]
+Get:16 https://deb.debian.org/debian bullseye/main amd64 x11proto-xext-dev all 2020.1-1 [3404 B]
+Get:17 https://deb.debian.org/debian bullseye/main amd64 libxext-dev amd64 2:1.3.3-1.1 [107 kB]
+Get:18 https://deb.debian.org/debian bullseye/main amd64 libxcomposite-dev amd64 1:0.4.5-1 [20.1 kB]
+Get:19 https://deb.debian.org/debian bullseye/main amd64 libxdamage-dev amd64 1:1.1.5-2 [15.6 kB]
+Get:20 https://deb.debian.org/debian bullseye/main amd64 x11-common all 1:7.7+22 [252 kB]
+Get:21 https://deb.debian.org/debian bullseye/main amd64 libice6 amd64 2:1.0.10-1 [58.5 kB]
+Get:22 https://deb.debian.org/debian bullseye/main amd64 libsm6 amd64 2:1.2.3-1 [35.1 kB]
+Get:23 https://deb.debian.org/debian bullseye/main amd64 libxt6 amd64 1:1.2.0-1 [189 kB]
+Get:24 https://deb.debian.org/debian bullseye/main amd64 libice-dev amd64 2:1.0.10-1 [67.1 kB]
+Get:25 https://deb.debian.org/debian bullseye/main amd64 libsm-dev amd64 2:1.2.3-1 [38.0 kB]
+Get:26 https://deb.debian.org/debian bullseye/main amd64 libxt-dev amd64 1:1.2.0-1 [407 kB]
+Get:27 https://deb.qubes-os.org/r4.1/vm bullseye/main amd64 qubes-gui-common amd64 4.1.1+deb11u1 [4740 B]
+Get:28 https://deb.qubes-os.org/r4.1/vm bullseye/main amd64 libqubesdb amd64 4.1.13-1+deb11u1 [11.0 kB]
+Get:29 https://deb.qubes-os.org/r4.1/vm bullseye/main amd64 qubesdb-dev amd64 4.1.13-1+deb11u1 [9268 B]
+Fetched 2914 kB in 1s (2197 kB/s)
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (2: No such file or directory)
+Selecting previously unselected package libasyncns0:amd64.
+(Reading database ... 41893 files and directories currently installed.)
+Preparing to unpack .../00-libasyncns0_0.8-6+b2_amd64.deb ...
+Unpacking libasyncns0:amd64 (0.8-6+b2) ...
+Selecting previously unselected package libdbus-1-3:amd64.
+Preparing to unpack .../01-libdbus-1-3_1.12.20-2_amd64.deb ...
+Unpacking libdbus-1-3:amd64 (1.12.20-2) ...
+Selecting previously unselected package libogg0:amd64.
+Preparing to unpack .../02-libogg0_1.3.4-0.1_amd64.deb ...
+Unpacking libogg0:amd64 (1.3.4-0.1) ...
+Selecting previously unselected package libflac8:amd64.
+Preparing to unpack .../03-libflac8_1.3.3-2+deb11u1_amd64.deb ...
+Unpacking libflac8:amd64 (1.3.3-2+deb11u1) ...
+Selecting previously unselected package libopus0:amd64.
+Preparing to unpack .../04-libopus0_1.3.1-0.1_amd64.deb ...
+Unpacking libopus0:amd64 (1.3.1-0.1) ...
+Selecting previously unselected package libvorbis0a:amd64.
+Preparing to unpack .../05-libvorbis0a_1.3.7-1_amd64.deb ...
+Unpacking libvorbis0a:amd64 (1.3.7-1) ...
+Selecting previously unselected package libvorbisenc2:amd64.
+Preparing to unpack .../06-libvorbisenc2_1.3.7-1_amd64.deb ...
+Unpacking libvorbisenc2:amd64 (1.3.7-1) ...
+Selecting previously unselected package libsndfile1:amd64.
+Preparing to unpack .../07-libsndfile1_1.0.31-2_amd64.deb ...
+Unpacking libsndfile1:amd64 (1.0.31-2) ...
+Selecting previously unselected package libwrap0:amd64.
+Preparing to unpack .../08-libwrap0_7.6.q-31_amd64.deb ...
+Unpacking libwrap0:amd64 (7.6.q-31) ...
+Selecting previously unselected package libpulse0:amd64.
+Preparing to unpack .../09-libpulse0_14.2-2_amd64.deb ...
+Unpacking libpulse0:amd64 (14.2-2) ...
+Selecting previously unselected package libpulse-mainloop-glib0:amd64.
+Preparing to unpack .../10-libpulse-mainloop-glib0_14.2-2_amd64.deb ...
+Unpacking libpulse-mainloop-glib0:amd64 (14.2-2) ...
+Selecting previously unselected package libpulse-dev:amd64.
+Preparing to unpack .../11-libpulse-dev_14.2-2_amd64.deb ...
+Unpacking libpulse-dev:amd64 (14.2-2) ...
+Selecting previously unselected package xutils-dev.
+Preparing to unpack .../12-xutils-dev_1%3a7.7+5+b1_amd64.deb ...
+Unpacking xutils-dev (1:7.7+5+b1) ...
+Selecting previously unselected package libxcomposite1:amd64.
+Preparing to unpack .../13-libxcomposite1_1%3a0.4.5-1_amd64.deb ...
+Unpacking libxcomposite1:amd64 (1:0.4.5-1) ...
+Selecting previously unselected package libxfixes-dev:amd64.
+Preparing to unpack .../14-libxfixes-dev_1%3a5.0.3-2_amd64.deb ...
+Unpacking libxfixes-dev:amd64 (1:5.0.3-2) ...
+Selecting previously unselected package x11proto-xext-dev.
+Preparing to unpack .../15-x11proto-xext-dev_2020.1-1_all.deb ...
+Unpacking x11proto-xext-dev (2020.1-1) ...
+Selecting previously unselected package libxext-dev:amd64.
+Preparing to unpack .../16-libxext-dev_2%3a1.3.3-1.1_amd64.deb ...
+Unpacking libxext-dev:amd64 (2:1.3.3-1.1) ...
+Selecting previously unselected package libxcomposite-dev:amd64.
+Preparing to unpack .../17-libxcomposite-dev_1%3a0.4.5-1_amd64.deb ...
+Unpacking libxcomposite-dev:amd64 (1:0.4.5-1) ...
+Selecting previously unselected package libxdamage-dev:amd64.
+Preparing to unpack .../18-libxdamage-dev_1%3a1.1.5-2_amd64.deb ...
+Unpacking libxdamage-dev:amd64 (1:1.1.5-2) ...
+Selecting previously unselected package x11-common.
+Preparing to unpack .../19-x11-common_1%3a7.7+22_all.deb ...
+Unpacking x11-common (1:7.7+22) ...
+Selecting previously unselected package libice6:amd64.
+Preparing to unpack .../20-libice6_2%3a1.0.10-1_amd64.deb ...
+Unpacking libice6:amd64 (2:1.0.10-1) ...
+Selecting previously unselected package libsm6:amd64.
+Preparing to unpack .../21-libsm6_2%3a1.2.3-1_amd64.deb ...
+Unpacking libsm6:amd64 (2:1.2.3-1) ...
+Selecting previously unselected package libxt6:amd64.
+Preparing to unpack .../22-libxt6_1%3a1.2.0-1_amd64.deb ...
+Unpacking libxt6:amd64 (1:1.2.0-1) ...
+Selecting previously unselected package libice-dev:amd64.
+Preparing to unpack .../23-libice-dev_2%3a1.0.10-1_amd64.deb ...
+Unpacking libice-dev:amd64 (2:1.0.10-1) ...
+Selecting previously unselected package libsm-dev:amd64.
+Preparing to unpack .../24-libsm-dev_2%3a1.2.3-1_amd64.deb ...
+Unpacking libsm-dev:amd64 (2:1.2.3-1) ...
+Selecting previously unselected package libxt-dev:amd64.
+Preparing to unpack .../25-libxt-dev_1%3a1.2.0-1_amd64.deb ...
+Unpacking libxt-dev:amd64 (1:1.2.0-1) ...
+Selecting previously unselected package qubes-gui-common.
+Preparing to unpack .../26-qubes-gui-common_4.1.1+deb11u1_amd64.deb ...
+Unpacking qubes-gui-common (4.1.1+deb11u1) ...
+Selecting previously unselected package libqubesdb.
+Preparing to unpack .../27-libqubesdb_4.1.13-1+deb11u1_amd64.deb ...
+Unpacking libqubesdb (4.1.13-1+deb11u1) ...
+Selecting previously unselected package qubesdb-dev.
+Preparing to unpack .../28-qubesdb-dev_4.1.13-1+deb11u1_amd64.deb ...
+Unpacking qubesdb-dev (4.1.13-1+deb11u1) ...
+Setting up libogg0:amd64 (1.3.4-0.1) ...
+Setting up x11-common (1:7.7+22) ...
+Running in chroot, ignoring request.
+invoke-rc.d: policy-rc.d denied execution of start.
+Setting up libflac8:amd64 (1.3.3-2+deb11u1) ...
+Setting up libxfixes-dev:amd64 (1:5.0.3-2) ...
+Setting up libwrap0:amd64 (7.6.q-31) ...
+Setting up libdbus-1-3:amd64 (1.12.20-2) ...
+Setting up libopus0:amd64 (1.3.1-0.1) ...
+Setting up libvorbis0a:amd64 (1.3.7-1) ...
+Setting up libqubesdb (4.1.13-1+deb11u1) ...
+Setting up x11proto-xext-dev (2020.1-1) ...
+Setting up qubes-gui-common (4.1.1+deb11u1) ...
+Setting up xutils-dev (1:7.7+5+b1) ...
+Setting up libasyncns0:amd64 (0.8-6+b2) ...
+Setting up qubesdb-dev (4.1.13-1+deb11u1) ...
+Setting up libxcomposite1:amd64 (1:0.4.5-1) ...
+Setting up libvorbisenc2:amd64 (1.3.7-1) ...
+Setting up libxdamage-dev:amd64 (1:1.1.5-2) ...
+Setting up libice6:amd64 (2:1.0.10-1) ...
+Setting up libice-dev:amd64 (2:1.0.10-1) ...
+Setting up libxext-dev:amd64 (2:1.3.3-1.1) ...
+Setting up libsndfile1:amd64 (1.0.31-2) ...
+Setting up libsm6:amd64 (2:1.2.3-1) ...
+Setting up libpulse0:amd64 (14.2-2) ...
+Setting up libsm-dev:amd64 (2:1.2.3-1) ...
+Setting up libxcomposite-dev:amd64 (1:0.4.5-1) ...
+Setting up libpulse-mainloop-glib0:amd64 (14.2-2) ...
+Setting up libxt6:amd64 (1:1.2.0-1) ...
+Setting up libpulse-dev:amd64 (14.2-2) ...
+Setting up libxt-dev:amd64 (1:1.2.0-1) ...
+Setting up qubes-gui-agent-build-deps (4.1.25-1) ...
+Processing triggers for man-db (2.9.4-2) ...
+Processing triggers for libc-bin (2.31-13+deb11u3) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/..; GLOBIGNORE=qubes-gui-agent_4.1.25*orig*; rm -f qubes-gui-agent_4.1.25*; GLOBIGNORE=
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/deb/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/rpm/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/debian/..; /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/debian/changelog /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/debian/changelog.copy
+mv /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/debian/changelog.copy /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/debian/changelog
+echo "Building package in /home/user/qubes-src/gui-agent-linux"
+Building package in /home/user/qubes-src/gui-agent-linux
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb11u "Build for bullseye"; debchange -t --force-distribution -r -D bullseye bullseye
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/debian/changelog
+find /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux \! -newer /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye su user -c 'cd /home/user/qubes-src/gui-agent-linux/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package qubes-gui-agent
+dpkg-buildpackage: info: source version 4.1.25-1+deb11u1
+dpkg-buildpackage: info: source distribution bullseye
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+ fakeroot debian/rules clean
+dh clean --with systemd,xsf
+   dh_auto_clean
+	make -j2 clean
+make[1]: Entering directory '/home/user/qubes-src/gui-agent-linux'
+(cd common && make clean)
+make[2]: Entering directory '/home/user/qubes-src/gui-agent-linux/common'
+rm -f *.o
+make[2]: Leaving directory '/home/user/qubes-src/gui-agent-linux/common'
+(cd gui-agent && make clean)
+make[2]: Entering directory '/home/user/qubes-src/gui-agent-linux/gui-agent'
+rm -f qubes-gui *.o *~
+make[2]: Leaving directory '/home/user/qubes-src/gui-agent-linux/gui-agent'
+(cd gui-common && make clean)
+make[2]: Entering directory '/home/user/qubes-src/gui-agent-linux/gui-common'
+rm -f *.o
+make[2]: Leaving directory '/home/user/qubes-src/gui-agent-linux/gui-common'
+make -C pulse clean
+make[2]: Entering directory '/home/user/qubes-src/gui-agent-linux/pulse'
+rm -f *.so *.o *~
+make[2]: Leaving directory '/home/user/qubes-src/gui-agent-linux/pulse'
+make -C xf86-qubes-common clean
+make[2]: Entering directory '/home/user/qubes-src/gui-agent-linux/xf86-qubes-common'
+rm -f *.so
+make[2]: Leaving directory '/home/user/qubes-src/gui-agent-linux/xf86-qubes-common'
+(cd xf86-input-mfndev; if [ -e Makefile ] ; then \
+	make distclean; fi; ./bootstrap --clean || echo )
+/bin/sh: 2: ./bootstrap: not found
+
+rm -rf debian/changelog.*
+rm -rf pkgs
+make[1]: Leaving directory '/home/user/qubes-src/gui-agent-linux'
+   dh_clean
+ dpkg-source -b .
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building qubes-gui-agent using existing ./qubes-gui-agent_4.1.25.orig.tar.xz
+dpkg-source: info: building qubes-gui-agent in qubes-gui-agent_4.1.25-1+deb11u1.debian.tar.xz
+dpkg-source: info: building qubes-gui-agent in qubes-gui-agent_4.1.25-1+deb11u1.dsc
+ debian/rules build
+dh build --with systemd,xsf
+   dh_update_autotools_config
+   dh_autoreconf
+   dh_auto_configure
+   debian/rules override_dh_auto_build
+make[1]: Entering directory '/home/user/qubes-src/gui-agent-linux'
+make appvm
+make[2]: Entering directory '/home/user/qubes-src/gui-agent-linux'
+make -C gui-agent
+make[3]: Entering directory '/home/user/qubes-src/gui-agent-linux/gui-agent'
+cc -g -O2 -ffile-prefix-map=/home/user/qubes-src/gui-agent-linux=. -fstack-protector-strong -Wformat -Werror=format-security -I../include/ `pkg-config --cflags vchan` -g -Wall -Wextra -Werror -pie -fPIC -Wdate-time -D_FORTIFY_SOURCE=2  -c -o vmside.o vmside.c
+cc -g -O2 -ffile-prefix-map=/home/user/qubes-src/gui-agent-linux=. -fstack-protector-strong -Wformat -Werror=format-security -I../include/ `pkg-config --cflags vchan` -g -Wall -Wextra -Werror -pie -fPIC -Wdate-time -D_FORTIFY_SOURCE=2  -c -o ../gui-common/txrx-vchan.o ../gui-common/txrx-vchan.c
+cc -g -O2 -ffile-prefix-map=/home/user/qubes-src/gui-agent-linux=. -fstack-protector-strong -Wformat -Werror=format-security -I../include/ `pkg-config --cflags vchan` -g -Wall -Wextra -Werror -pie -fPIC -Wdate-time -D_FORTIFY_SOURCE=2  -c -o ../gui-common/error.o ../gui-common/error.c
+cc -g -O2 -ffile-prefix-map=/home/user/qubes-src/gui-agent-linux=. -fstack-protector-strong -Wformat -Werror=format-security -I../include/ `pkg-config --cflags vchan` -g -Wall -Wextra -Werror -pie -fPIC -Wdate-time -D_FORTIFY_SOURCE=2  -c -o ../common/list.o ../common/list.c
+cc -g -O2 -ffile-prefix-map=/home/user/qubes-src/gui-agent-linux=. -fstack-protector-strong -Wformat -Werror=format-security -I../include/ `pkg-config --cflags vchan` -g -Wall -Wextra -Werror -pie -fPIC -Wdate-time -D_FORTIFY_SOURCE=2  -c -o ../gui-common/encoding.o ../gui-common/encoding.c
+cc -Wl,-z,relro -Wl,-z,now -pie -g -o qubes-gui vmside.o ../gui-common/txrx-vchan.o ../gui-common/error.o ../common/list.o ../gui-common/encoding.o  \
+	-lX11 -lXdamage -lXcomposite -lXfixes `pkg-config --libs vchan` -lqubesdb
+make[3]: Leaving directory '/home/user/qubes-src/gui-agent-linux/gui-agent'
+make -C gui-common
+make[3]: Entering directory '/home/user/qubes-src/gui-agent-linux/gui-common'
+cc -g -O2 -ffile-prefix-map=/home/user/qubes-src/gui-agent-linux=. -fstack-protector-strong -Wformat -Werror=format-security -g -Wall -Wextra -Werror -pie -fPIC -Wdate-time -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wl,-z,now  qubes-gui-runuser.c  -lpam -o qubes-gui-runuser
+make[3]: Leaving directory '/home/user/qubes-src/gui-agent-linux/gui-common'
+make -C xf86-qubes-common libxf86-qubes-common.so
+make[3]: Entering directory '/home/user/qubes-src/gui-agent-linux/xf86-qubes-common'
+gcc -Wall -shared -fPIC -DPIC -fvisibility=hidden -I/usr/include/xorg -I/usr/include/pixman-1 -I/usr/include/libdrm -I/usr/include/X11/dri -g -O2 -ffile-prefix-map=/home/user/qubes-src/gui-agent-linux=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro -Wl,-z,now \
+	-o libxf86-qubes-common.so xf86-qubes-common.c
+make[3]: Leaving directory '/home/user/qubes-src/gui-agent-linux/xf86-qubes-common'
+(cd xf86-input-mfndev && ./autogen.sh && ./configure)
+autoreconf: Entering directory `.'
+autoreconf: configure.ac: not using Gettext
+autoreconf: running: aclocal 
+autoreconf: configure.ac: tracing
+autoreconf: running: libtoolize --copy
+libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, '.'.
+libtoolize: copying file './ltmain.sh'
+libtoolize: Consider adding 'AC_CONFIG_MACRO_DIRS([m4])' to configure.ac,
+libtoolize: and rerunning libtoolize and aclocal.
+libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.
+autoreconf: running: /usr/bin/autoconf
+autoreconf: running: /usr/bin/autoheader
+autoreconf: running: automake --add-missing --copy --no-force
+configure.ac:43: installing './compile'
+configure.ac:43: installing './config.guess'
+configure.ac:43: installing './config.sub'
+configure.ac:32: installing './install-sh'
+configure.ac:32: installing './missing'
+src/Makefile.am:34: warning: 'INCLUDES' is the old name for 'AM_CPPFLAGS' (or '*_CPPFLAGS')
+src/Makefile.am: installing './depcomp'
+autoreconf: Leaving directory `.'
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /usr/bin/mkdir -p
+checking for gawk... no
+checking for mawk... mawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether to enable maintainer-specific portions of Makefiles... yes
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking how to print strings... printf
+checking whether make supports the include directive... yes (GNU style)
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking whether gcc understands -c and -o together... yes
+checking dependency style of gcc... gcc3
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by gcc... /usr/bin/ld
+checking if the linker (/usr/bin/ld) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+checking the name lister (/usr/bin/nm -B) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 1572864
+checking how to convert x86_64-pc-linux-gnu file names to x86_64-pc-linux-gnu format... func_convert_file_noop
+checking how to convert x86_64-pc-linux-gnu file names to toolchain format... func_convert_file_noop
+checking for /usr/bin/ld option to reload object files... -r
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for ar... ar
+checking for archiver @FILE support... @
+checking for strip... strip
+checking for ranlib... ranlib
+checking command to parse /usr/bin/nm -B output from gcc object... ok
+checking for sysroot... no
+checking for a working dd... /usr/bin/dd
+checking how to truncate binary pipes... /usr/bin/dd bs=4096 count=1
+checking for mt... mt
+checking if mt is a manifest tool... no
+checking how to run the C preprocessor... gcc -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if gcc supports -fno-rtti -fno-exceptions... no
+checking for gcc option to produce PIC... -fPIC -DPIC
+checking if gcc PIC flag -fPIC -DPIC works... yes
+checking if gcc static flag -static works... yes
+checking if gcc supports -c -o file.o... yes
+checking if gcc supports -c -o file.o... (cached) yes
+checking whether the gcc linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+checking for gcc... (cached) gcc
+checking whether we are using the GNU C compiler... (cached) yes
+checking whether gcc accepts -g... (cached) yes
+checking for gcc option to accept ISO C89... (cached) none needed
+checking whether gcc understands -c and -o together... (cached) yes
+checking dependency style of gcc... (cached) gcc3
+checking for gcc option to accept ISO C99... none needed
+checking whether __clang__ is declared... no
+checking whether __INTEL_COMPILER is declared... no
+checking whether __SUNPRO_C is declared... no
+checking for pkg-config... /usr/bin/pkg-config
+checking pkg-config is at least version 0.9.0... yes
+checking if gcc supports -Werror=unknown-warning-option... no
+checking if gcc supports -Werror=unused-command-line-argument... no
+checking if gcc supports -Wall... yes
+checking if gcc supports -Wpointer-arith... yes
+checking if gcc supports -Wmissing-declarations... yes
+checking if gcc supports -Wformat=2... yes
+checking if gcc supports -Wstrict-prototypes... yes
+checking if gcc supports -Wmissing-prototypes... yes
+checking if gcc supports -Wnested-externs... yes
+checking if gcc supports -Wbad-function-cast... yes
+checking if gcc supports -Wold-style-definition... yes
+checking if gcc supports -Wdeclaration-after-statement... yes
+checking if gcc supports -Wunused... yes
+checking if gcc supports -Wuninitialized... yes
+checking if gcc supports -Wshadow... yes
+checking if gcc supports -Wmissing-noreturn... yes
+checking if gcc supports -Wmissing-format-attribute... yes
+checking if gcc supports -Wredundant-decls... yes
+checking if gcc supports -Wlogical-op... yes
+checking if gcc supports -Werror=implicit... yes
+checking if gcc supports -Werror=nonnull... yes
+checking if gcc supports -Werror=init-self... yes
+checking if gcc supports -Werror=main... yes
+checking if gcc supports -Werror=missing-braces... yes
+checking if gcc supports -Werror=sequence-point... yes
+checking if gcc supports -Werror=return-type... yes
+checking if gcc supports -Werror=trigraphs... yes
+checking if gcc supports -Werror=array-bounds... yes
+checking if gcc supports -Werror=write-strings... yes
+checking if gcc supports -Werror=address... yes
+checking if gcc supports -Werror=int-to-pointer-cast... yes
+checking if gcc supports -Werror=pointer-to-int-cast... yes
+checking if gcc supports -pedantic... yes
+checking if gcc supports -Werror... yes
+checking if gcc supports -Werror=attributes... yes
+checking whether make supports nested variables... (cached) yes
+checking for xorg-server xproto ... yes
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating src/Makefile
+config.status: creating xorg-qubes.pc
+config.status: creating config.h
+config.status: executing depfiles commands
+config.status: executing libtool commands
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /usr/bin/mkdir -p
+checking for gawk... no
+checking for mawk... mawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether to enable maintainer-specific portions of Makefiles... no
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking how to print strings... printf
+checking whether make supports the include directive... yes (GNU style)
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking whether gcc understands -c and -o together... yes
+checking dependency style of gcc... gcc3
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by gcc... /usr/bin/ld
+checking if the linker (/usr/bin/ld) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+checking the name lister (/usr/bin/nm -B) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 1572864
+checking how to convert x86_64-pc-linux-gnu file names to x86_64-pc-linux-gnu format... func_convert_file_noop
+checking how to convert x86_64-pc-linux-gnu file names to toolchain format... func_convert_file_noop
+checking for /usr/bin/ld option to reload object files... -r
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for ar... ar
+checking for archiver @FILE support... @
+checking for strip... strip
+checking for ranlib... ranlib
+checking command to parse /usr/bin/nm -B output from gcc object... ok
+checking for sysroot... no
+checking for a working dd... /usr/bin/dd
+checking how to truncate binary pipes... /usr/bin/dd bs=4096 count=1
+checking for mt... mt
+checking if mt is a manifest tool... no
+checking how to run the C preprocessor... gcc -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if gcc supports -fno-rtti -fno-exceptions... no
+checking for gcc option to produce PIC... -fPIC -DPIC
+checking if gcc PIC flag -fPIC -DPIC works... yes
+checking if gcc static flag -static works... yes
+checking if gcc supports -c -o file.o... yes
+checking if gcc supports -c -o file.o... (cached) yes
+checking whether the gcc linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+checking for gcc... (cached) gcc
+checking whether we are using the GNU C compiler... (cached) yes
+checking whether gcc accepts -g... (cached) yes
+checking for gcc option to accept ISO C89... (cached) none needed
+checking whether gcc understands -c and -o together... (cached) yes
+checking dependency style of gcc... (cached) gcc3
+checking for gcc option to accept ISO C99... none needed
+checking whether __clang__ is declared... no
+checking whether __INTEL_COMPILER is declared... no
+checking whether __SUNPRO_C is declared... no
+checking for pkg-config... /usr/bin/pkg-config
+checking pkg-config is at least version 0.9.0... yes
+checking if gcc supports -Werror=unknown-warning-option... no
+checking if gcc supports -Werror=unused-command-line-argument... no
+checking if gcc supports -Wall... yes
+checking if gcc supports -Wpointer-arith... yes
+checking if gcc supports -Wmissing-declarations... yes
+checking if gcc supports -Wformat=2... yes
+checking if gcc supports -Wstrict-prototypes... yes
+checking if gcc supports -Wmissing-prototypes... yes
+checking if gcc supports -Wnested-externs... yes
+checking if gcc supports -Wbad-function-cast... yes
+checking if gcc supports -Wold-style-definition... yes
+checking if gcc supports -Wdeclaration-after-statement... yes
+checking if gcc supports -Wunused... yes
+checking if gcc supports -Wuninitialized... yes
+checking if gcc supports -Wshadow... yes
+checking if gcc supports -Wmissing-noreturn... yes
+checking if gcc supports -Wmissing-format-attribute... yes
+checking if gcc supports -Wredundant-decls... yes
+checking if gcc supports -Wlogical-op... yes
+checking if gcc supports -Werror=implicit... yes
+checking if gcc supports -Werror=nonnull... yes
+checking if gcc supports -Werror=init-self... yes
+checking if gcc supports -Werror=main... yes
+checking if gcc supports -Werror=missing-braces... yes
+checking if gcc supports -Werror=sequence-point... yes
+checking if gcc supports -Werror=return-type... yes
+checking if gcc supports -Werror=trigraphs... yes
+checking if gcc supports -Werror=array-bounds... yes
+checking if gcc supports -Werror=write-strings... yes
+checking if gcc supports -Werror=address... yes
+checking if gcc supports -Werror=int-to-pointer-cast... yes
+checking if gcc supports -Werror=pointer-to-int-cast... yes
+checking if gcc supports -pedantic... yes
+checking if gcc supports -Werror... yes
+checking if gcc supports -Werror=attributes... yes
+checking whether make supports nested variables... (cached) yes
+checking for xorg-server xproto ... yes
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating src/Makefile
+config.status: creating xorg-qubes.pc
+config.status: creating config.h
+config.status: config.h is unchanged
+config.status: executing depfiles commands
+config.status: executing libtool commands
+make -C xf86-input-mfndev
+make[3]: Entering directory '/home/user/qubes-src/gui-agent-linux/xf86-input-mfndev'
+make  all-recursive
+make[4]: Entering directory '/home/user/qubes-src/gui-agent-linux/xf86-input-mfndev'
+Making all in src
+make[5]: Entering directory '/home/user/qubes-src/gui-agent-linux/xf86-input-mfndev/src'
+  CC       qubes.lo
+In file included from /usr/include/string.h:495,
+                 from /usr/include/xorg/os.h:53,
+                 from /usr/include/xorg/misc.h:117,
+                 from /usr/include/xorg/window.h:50,
+                 from /usr/include/xorg/globals.h:5,
+                 from /usr/include/xorg/opaque.h:34,
+                 from /usr/include/xorg/xf86_OSproc.h:109,
+                 from qubes.c:53:
+In function 'strncpy',
+    inlined from 'connect_unix_socket' at qubes.c:390:5:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:10: warning: '__builtin_strncpy' specified bound 108 equals destination size [-Wstringop-truncation]
+  106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  CCLD     qubes_drv.la
+make[5]: Leaving directory '/home/user/qubes-src/gui-agent-linux/xf86-input-mfndev/src'
+make[5]: Entering directory '/home/user/qubes-src/gui-agent-linux/xf86-input-mfndev'
+make[5]: Leaving directory '/home/user/qubes-src/gui-agent-linux/xf86-input-mfndev'
+make[4]: Leaving directory '/home/user/qubes-src/gui-agent-linux/xf86-input-mfndev'
+make[3]: Leaving directory '/home/user/qubes-src/gui-agent-linux/xf86-input-mfndev'
+(cd xf86-video-dummy && ./autogen.sh)
+autoreconf: Entering directory `.'
+autoreconf: configure.ac: not using Gettext
+autoreconf: running: aclocal 
+autoreconf: configure.ac: tracing
+autoreconf: running: libtoolize --copy
+libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, '.'.
+libtoolize: copying file './ltmain.sh'
+libtoolize: Consider adding 'AC_CONFIG_MACRO_DIRS([m4])' to configure.ac,
+libtoolize: and rerunning libtoolize and aclocal.
+libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.
+autoreconf: running: /usr/bin/autoconf
+autoreconf: running: /usr/bin/autoheader
+autoreconf: running: automake --add-missing --copy --no-force
+configure.ac:41: installing './compile'
+configure.ac:41: installing './config.guess'
+configure.ac:41: installing './config.sub'
+configure.ac:34: installing './install-sh'
+configure.ac:34: installing './missing'
+src/Makefile.am: installing './depcomp'
+autoreconf: Leaving directory `.'
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /usr/bin/mkdir -p
+checking for gawk... no
+checking for mawk... mawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether to enable maintainer-specific portions of Makefiles... yes
+checking whether make supports the include directive... yes (GNU style)
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking whether gcc understands -c and -o together... yes
+checking dependency style of gcc... gcc3
+checking for gcc option to accept ISO C99... none needed
+checking how to run the C preprocessor... gcc -E
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking whether __clang__ is declared... no
+checking whether __INTEL_COMPILER is declared... no
+checking whether __SUNPRO_C is declared... no
+checking for pkg-config... /usr/bin/pkg-config
+checking pkg-config is at least version 0.9.0... yes
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking for a sed that does not truncate output... /usr/bin/sed
+checking if gcc supports -Werror=unknown-warning-option... no
+checking if gcc supports -Werror=unused-command-line-argument... no
+checking if gcc supports -Wall... yes
+checking if gcc supports -Wpointer-arith... yes
+checking if gcc supports -Wmissing-declarations... yes
+checking if gcc supports -Wformat=2... yes
+checking if gcc supports -Wstrict-prototypes... yes
+checking if gcc supports -Wmissing-prototypes... yes
+checking if gcc supports -Wnested-externs... yes
+checking if gcc supports -Wbad-function-cast... yes
+checking if gcc supports -Wold-style-definition... yes
+checking if gcc supports -Wdeclaration-after-statement... yes
+checking if gcc supports -Wunused... yes
+checking if gcc supports -Wuninitialized... yes
+checking if gcc supports -Wshadow... yes
+checking if gcc supports -Wmissing-noreturn... yes
+checking if gcc supports -Wmissing-format-attribute... yes
+checking if gcc supports -Wredundant-decls... yes
+checking if gcc supports -Wlogical-op... yes
+checking if gcc supports -Werror=implicit... yes
+checking if gcc supports -Werror=nonnull... yes
+checking if gcc supports -Werror=init-self... yes
+checking if gcc supports -Werror=main... yes
+checking if gcc supports -Werror=missing-braces... yes
+checking if gcc supports -Werror=sequence-point... yes
+checking if gcc supports -Werror=return-type... yes
+checking if gcc supports -Werror=trigraphs... yes
+checking if gcc supports -Werror=array-bounds... yes
+checking if gcc supports -Werror=write-strings... yes
+checking if gcc supports -Werror=address... yes
+checking if gcc supports -Werror=int-to-pointer-cast... yes
+checking if gcc supports -Werror=pointer-to-int-cast... yes
+checking if gcc supports -pedantic... yes
+checking if gcc supports -Werror... yes
+checking if gcc supports -Werror=attributes... yes
+checking whether make supports nested variables... (cached) yes
+checking how to print strings... printf
+checking for a sed that does not truncate output... (cached) /usr/bin/sed
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by gcc... /usr/bin/ld
+checking if the linker (/usr/bin/ld) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+checking the name lister (/usr/bin/nm -B) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 1572864
+checking how to convert x86_64-pc-linux-gnu file names to x86_64-pc-linux-gnu format... func_convert_file_noop
+checking how to convert x86_64-pc-linux-gnu file names to toolchain format... func_convert_file_noop
+checking for /usr/bin/ld option to reload object files... -r
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for ar... ar
+checking for archiver @FILE support... @
+checking for strip... strip
+checking for ranlib... ranlib
+checking command to parse /usr/bin/nm -B output from gcc object... ok
+checking for sysroot... no
+checking for a working dd... /usr/bin/dd
+checking how to truncate binary pipes... /usr/bin/dd bs=4096 count=1
+checking for mt... mt
+checking if mt is a manifest tool... no
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if gcc supports -fno-rtti -fno-exceptions... no
+checking for gcc option to produce PIC... -fPIC -DPIC
+checking if gcc PIC flag -fPIC -DPIC works... yes
+checking if gcc static flag -static works... yes
+checking if gcc supports -c -o file.o... yes
+checking if gcc supports -c -o file.o... (cached) yes
+checking whether the gcc linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+checking if RANDR is defined... yes
+checking if RENDER is defined... yes
+checking if XV is defined... yes
+checking if XFreeXDGA is defined... yes
+checking for xorg-server >= 1.0.99.901 xproto fontsproto  randrproto renderproto videoproto xf86dgaproto... yes
+checking for xengntshr_open in -lxengnttab... yes
+checking for ANSI C header files... (cached) yes
+checking xengnttab.h usability... yes
+checking xengnttab.h presence... yes
+checking for xengnttab.h... yes
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating src/Makefile
+config.status: creating config.h
+config.status: executing depfiles commands
+config.status: executing libtool commands
+make -C xf86-video-dummy
+make[3]: Entering directory '/home/user/qubes-src/gui-agent-linux/xf86-video-dummy'
+make  all-recursive
+make[4]: Entering directory '/home/user/qubes-src/gui-agent-linux/xf86-video-dummy'
+Making all in src
+make[5]: Entering directory '/home/user/qubes-src/gui-agent-linux/xf86-video-dummy/src'
+  CC       dummy_cursor.lo
+  CC       dummy_driver.lo
+  CC       dummy_dga.lo
+  CCLD     dummyqbs_drv.la
+make[5]: Leaving directory '/home/user/qubes-src/gui-agent-linux/xf86-video-dummy/src'
+make[5]: Entering directory '/home/user/qubes-src/gui-agent-linux/xf86-video-dummy'
+make[5]: Leaving directory '/home/user/qubes-src/gui-agent-linux/xf86-video-dummy'
+make[4]: Leaving directory '/home/user/qubes-src/gui-agent-linux/xf86-video-dummy'
+make[3]: Leaving directory '/home/user/qubes-src/gui-agent-linux/xf86-video-dummy'
+rm -f pulse/pulsecore
+ln -s pulsecore-14.2 pulse/pulsecore
+make -C pulse module-vchan-sink.so
+make[3]: Entering directory '/home/user/qubes-src/gui-agent-linux/pulse'
+gcc -g -O2 -ffile-prefix-map=/home/user/qubes-src/gui-agent-linux=. -fstack-protector-strong -Wformat -Werror=format-security -Wall -Wextra -Werror -O2 -g -c `pkg-config --cflags vchan` -fPIC module-vchan-sink.c  -DHAVE_CONFIG_H -DHAVE_QUBESDB_CLIENT_H -I.
+gcc -shared -o module-vchan-sink.so module-vchan-sink.o \
+	`pkg-config --libs vchan` -lqubesdb
+make[3]: Leaving directory '/home/user/qubes-src/gui-agent-linux/pulse'
+make[2]: Leaving directory '/home/user/qubes-src/gui-agent-linux'
+make[1]: Leaving directory '/home/user/qubes-src/gui-agent-linux'
+   dh_auto_test
+   create-stamp debian/debhelper-build-stamp
+ fakeroot debian/rules binary
+dh binary --with systemd,xsf
+   dh_testroot
+   dh_prep
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/home/user/qubes-src/gui-agent-linux'
+make install-debian
+make[2]: Entering directory '/home/user/qubes-src/gui-agent-linux'
+install -D gui-agent/qubes-gui /home/user/qubes-src/gui-agent-linux/debian/tmp/usr/bin/qubes-gui
+install -D gui-common/qubes-gui-runuser /home/user/qubes-src/gui-agent-linux/debian/tmp/usr/bin/qubes-gui-runuser
+install -d /home/user/qubes-src/gui-agent-linux/debian/tmp/etc/qubes/post-install.d
+install -m 0755 appvm-scripts/etc/qubes/post-install.d/20-qubes-guivm-gui-agent.sh \
+                /home/user/qubes-src/gui-agent-linux/debian/tmp/etc/qubes/post-install.d/20-qubes-guivm-gui-agent.sh
+install -D appvm-scripts/usrbin/qubes-session \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/bin/qubes-session
+install -D appvm-scripts/usrbin/qubes-run-xorg \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/bin/qubes-run-xorg
+install -D appvm-scripts/usrbin/qubes-run-xephyr \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/bin/qubes-run-xephyr
+install -D appvm-scripts/usrbin/qubes-start-xephyr \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/bin/qubes-start-xephyr
+install -D appvm-scripts/usrbin/qubes-run-x11vnc \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/bin/qubes-run-x11vnc
+install -D appvm-scripts/usrbin/qubes-change-keyboard-layout \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/bin/qubes-change-keyboard-layout
+install -D appvm-scripts/usrbin/qubes-set-monitor-layout \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/bin/qubes-set-monitor-layout
+install -D xf86-qubes-common/libxf86-qubes-common.so \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/lib/libxf86-qubes-common.so
+install -D xf86-input-mfndev/src/.libs/qubes_drv.so \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/lib/xorg/modules/drivers/qubes_drv.so
+install -D xf86-video-dummy/src/.libs/dummyqbs_drv.so \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/lib/xorg/modules/drivers/dummyqbs_drv.so
+install -m 0644 -D appvm-scripts/etc/X11/xorg-qubes.conf.template \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/X11/xorg-qubes.conf.template
+install -m 0644 -D appvm-scripts/etc/X11/xorg-qubes-x11vnc.conf.template \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/X11/xorg-qubes-x11vnc.conf.template
+install -m 0644 -D appvm-scripts/etc/systemd/system/lightdm.service.d/qubes-guivm-vnc.conf \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/systemd/system/lightdm.service.d/qubes-guivm-vnc.conf
+install -m 0644 -D appvm-scripts/etc/profile.d/qubes-gui.sh \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/profile.d/qubes-gui.sh
+install -m 0644 -D appvm-scripts/etc/profile.d/qubes-gui.csh \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/profile.d/qubes-gui.csh
+install -m 0644 -D appvm-scripts/etc/securitylimits.d/90-qubes-gui.conf \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/security/limits.d/90-qubes-gui.conf
+install -m 0644 -D appvm-scripts/etc/xdg/Trolltech.conf \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/xdg/Trolltech.conf
+install -m 0644 -D appvm-scripts/qubes-gui-vm.gschema.override \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/share/glib-2.0/schemas/20_qubes-gui-vm.gschema.override
+install -d /home/user/qubes-src/gui-agent-linux/debian/tmp/etc/qubes-rpc
+ln -s ../../usr/bin/qubes-set-monitor-layout \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/qubes-rpc/qubes.SetMonitorLayout
+ln -s ../../usr/bin/qubes-start-xephyr \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/qubes-rpc/qubes.GuiVMSession
+install -D window-icon-updater/icon-sender \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/lib/qubes/icon-sender
+install -m 0644 -D window-icon-updater/qubes-icon-sender.desktop \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/xdg/autostart/qubes-icon-sender.desktop
+install -m 0644 -D appvm-scripts/etc/xdgautostart/qubes-qrexec-fork-server.desktop \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/xdg/autostart/qubes-qrexec-fork-server.desktop
+install -m 0644 -D appvm-scripts/etc/xdgautostart/qubes-keymap.desktop \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/xdg/autostart/qubes-keymap.desktop
+install -D -m 0644 appvm-scripts/usr/lib/sysctl.d/30-qubes-gui-agent.conf \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/lib/sysctl.d/30-qubes-gui-agent.conf
+install -D -m 0644 appvm-scripts/lib/udev/rules.d/70-master-of-seat.rules \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp//lib/udev/rules.d/70-master-of-seat.rules
+install -D appvm-scripts/usr/lib/qubes/qubes-gui-agent-pre.sh \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/lib/qubes/qubes-gui-agent-pre.sh
+install -D appvm-scripts/usr/lib/qubes/qubes-keymap.sh \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/lib/qubes/qubes-keymap.sh
+install -D -m 0644 appvm-scripts/etc/pam.d/qubes-gui-agent.debian \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/pam.d/qubes-gui-agent
+install -d /home/user/qubes-src/gui-agent-linux/debian/tmp/var/log/qubes
+install -D pulse/start-pulseaudio-with-vchan \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/bin/start-pulseaudio-with-vchan
+install -m 0644 -D pulse/qubes-default.pa \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/pulse/qubes-default.pa
+install -D pulse/module-vchan-sink.so \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/usr/lib/pulse-14.2/modules/module-vchan-sink.so
+install -m 0644 -D appvm-scripts/etc/tmpfiles.d/qubes-pulseaudio.conf \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp//usr/lib/tmpfiles.d/qubes-pulseaudio.conf
+install -m 0644 -D appvm-scripts/etc/xdgautostart/qubes-pulseaudio.desktop \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp/etc/xdg/autostart/qubes-pulseaudio.desktop
+install -m 0644 -D appvm-scripts/qubes-gui-agent.service \
+	/home/user/qubes-src/gui-agent-linux/debian/tmp//lib/systemd/system/qubes-gui-agent.service
+install -d /home/user/qubes-src/gui-agent-linux/debian/tmp/etc/X11/Xsession.d
+install -m 0644 appvm-scripts/etc/X11/Xsession.d/* /home/user/qubes-src/gui-agent-linux/debian/tmp/etc/X11/Xsession.d/
+install -d /home/user/qubes-src/gui-agent-linux/debian/tmp/etc/xdg
+install -m 0644 appvm-scripts/etc/xdg-debian/* /home/user/qubes-src/gui-agent-linux/debian/tmp/etc/xdg
+make[2]: Leaving directory '/home/user/qubes-src/gui-agent-linux'
+make[1]: Leaving directory '/home/user/qubes-src/gui-agent-linux'
+   debian/rules override_dh_install
+make[1]: Entering directory '/home/user/qubes-src/gui-agent-linux'
+dh_install --fail-missing
+dh_install: warning: Please use dh_missing --list-missing/--fail-missing instead
+dh_install: warning: This feature will be removed in compat 12.
+make[1]: Leaving directory '/home/user/qubes-src/gui-agent-linux'
+   dh_installdocs
+   dh_installchangelogs
+   dh_systemd_enable
+   dh_installinit
+   debian/rules override_dh_systemd_start
+make[1]: Entering directory '/home/user/qubes-src/gui-agent-linux'
+dh_systemd_start --no-restart-after-upgrade --no-restart-on-upgrade
+make[1]: Leaving directory '/home/user/qubes-src/gui-agent-linux'
+   dh_installgsettings
+   dh_lintian
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_strip
+   dh_makeshlibs
+   dh_shlibdeps
+dpkg-shlibdeps: warning: cannot find library libxf86-qubes-common.so needed by debian/xserver-xorg-video-dummyqbs/usr/lib/xorg/modules/drivers/dummyqbs_drv.so (ELF format: 'elf64-x86-64' abi: '0201003e00000000'; RPATH: '')
+dpkg-shlibdeps: warning: cannot find library libxf86-qubes-common.so needed by debian/xserver-xorg-input-qubes/usr/lib/xorg/modules/drivers/qubes_drv.so (ELF format: 'elf64-x86-64' abi: '0201003e00000000'; RPATH: '')
+   dh_installdeb
+   dh_xsf_substvars
+   debian/rules override_dh_gencontrol
+make[1]: Entering directory '/home/user/qubes-src/gui-agent-linux'
+echo "pulse:Depends=pulseaudio (>= 14.2), pulseaudio (<< 14.2.1)" >> debian/pulseaudio-qubes.substvars
+dh_gencontrol
+dpkg-gencontrol: warning: Depends field of package qubes-gui-agent-xfce: substitution variable ${shlibs:Depends} used, but is not defined
+dpkg-gencontrol: warning: Depends field of package qubes-gui-vnc: substitution variable ${shlibs:Depends} used, but is not defined
+make[1]: Leaving directory '/home/user/qubes-src/gui-agent-linux'
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'xserver-xorg-input-qubes' in '../xserver-xorg-input-qubes_4.1.25-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-gui-agent' in '../qubes-gui-agent_4.1.25-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'xserver-xorg-input-qubes-dbgsym' in '../xserver-xorg-input-qubes-dbgsym_4.1.25-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-gui-agent-dbgsym' in '../qubes-gui-agent-dbgsym_4.1.25-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'pulseaudio-qubes' in '../pulseaudio-qubes_4.1.25-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'xserver-xorg-qubes-common' in '../xserver-xorg-qubes-common_4.1.25-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'pulseaudio-qubes-dbgsym' in '../pulseaudio-qubes-dbgsym_4.1.25-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'xserver-xorg-qubes-common-dbgsym' in '../xserver-xorg-qubes-common-dbgsym_4.1.25-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-gui-agent-xfce' in '../qubes-gui-agent-xfce_4.1.25-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'xserver-xorg-video-dummyqbs' in '../xserver-xorg-video-dummyqbs_4.1.25-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-gui-vnc' in '../qubes-gui-vnc_4.1.25-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'xserver-xorg-video-dummyqbs-dbgsym' in '../xserver-xorg-video-dummyqbs-dbgsym_4.1.25-1+deb11u1_amd64.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../qubes-gui-agent_4.1.25-1+deb11u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload (original source is included)
+mkdir -p /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb
+mkdir -p qubes-src/gui-agent-linux/pkgs/vm-bullseye
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/debian/../..; \
+	cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-gui-agent_4.1.25*.changes`
+cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb/ /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/debian/../../qubes-gui-agent_4.1.25*.changes
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/debian/../..; \
+	mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/gui-agent-linux/pkgs/vm-bullseye  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-gui-agent_4.1.25*.changes`
+mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/gui-agent-linux/pkgs/vm-bullseye /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/gui-agent-linux/debian/../../qubes-gui-agent_4.1.25*.changes

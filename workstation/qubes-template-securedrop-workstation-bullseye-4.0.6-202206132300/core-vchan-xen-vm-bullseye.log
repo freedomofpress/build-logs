@@ -1,0 +1,290 @@
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//update-local-repo.sh bullseye
+dpkg-scanpackages: info: Wrote 37 entries to output Packages file.
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye apt-get  update
+Get:1 file:/tmp/qubes-deb bullseye InRelease
+Ign:1 file:/tmp/qubes-deb bullseye InRelease
+Get:2 file:/tmp/qubes-deb bullseye Release [343 B]
+Get:2 file:/tmp/qubes-deb bullseye Release [343 B]
+Get:3 file:/tmp/qubes-deb bullseye Release.gpg
+Ign:3 file:/tmp/qubes-deb bullseye Release.gpg
+Get:4 file:/tmp/qubes-deb bullseye/main amd64 Packages [8766 B]
+Hit:5 https://deb.debian.org/debian bullseye InRelease
+Hit:6 https://deb.qubes-os.org/r4.1/vm bullseye InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/core-vchan-xen/debian/control
+hostname: Name or service not known
+dpkg-buildpackage: info: source package libvchan-xen-build-deps
+dpkg-buildpackage: info: source version 4.1.7-1
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by Equivs Dummy Package Generator <root@>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+ debian/rules clean
+dh clean
+   dh_clean
+ debian/rules binary
+dh binary
+   dh_update_autotools_config
+   dh_autoreconf
+   create-stamp debian/debhelper-build-stamp
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'libvchan-xen-build-deps' in '../libvchan-xen-build-deps_4.1.7-1_all.deb'.
+ dpkg-genbuildinfo --build=binary
+ dpkg-genchanges --build=binary >../libvchan-xen-build-deps_4.1.7-1_amd64.changes
+dpkg-genchanges: info: binary-only upload (no source code included)
+ dpkg-source --after-build .
+dpkg-buildpackage: info: binary-only upload (no source included)
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package libvchan-xen-build-deps.
+(Reading database ... 38857 files and directories currently installed.)
+Preparing to unpack libvchan-xen-build-deps_4.1.7-1_all.deb ...
+Unpacking libvchan-xen-build-deps (4.1.7-1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Correcting dependencies... Done
+The following additional packages will be installed:
+  libxen-dev libxencall1 libxendevicemodel1 libxenevtchn1 libxenforeignmemory1
+  libxengnttab1 libxenhypfs1 libxenmisc4.14 libxenstore3.0 libxentoolcore1
+  libxentoollog1
+The following NEW packages will be installed:
+  libxen-dev libxencall1 libxendevicemodel1 libxenevtchn1 libxenforeignmemory1
+  libxengnttab1 libxenhypfs1 libxenmisc4.14 libxenstore3.0 libxentoolcore1
+  libxentoollog1
+0 upgraded, 11 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+Need to get 0 B/1583 kB of archives.
+After this operation, 6542 kB of additional disk space will be used.
+Get:1 file:/tmp/qubes-deb bullseye/main amd64 libxentoolcore1 amd64 4.14.5-2+deb11u1 [30.2 kB]
+Get:2 file:/tmp/qubes-deb bullseye/main amd64 libxentoollog1 amd64 4.14.5-2+deb11u1 [32.1 kB]
+Get:3 file:/tmp/qubes-deb bullseye/main amd64 libxencall1 amd64 4.14.5-2+deb11u1 [32.4 kB]
+Get:4 file:/tmp/qubes-deb bullseye/main amd64 libxendevicemodel1 amd64 4.14.5-2+deb11u1 [33.2 kB]
+Get:5 file:/tmp/qubes-deb bullseye/main amd64 libxenevtchn1 amd64 4.14.5-2+deb11u1 [30.8 kB]
+Get:6 file:/tmp/qubes-deb bullseye/main amd64 libxenforeignmemory1 amd64 4.14.5-2+deb11u1 [32.7 kB]
+Get:7 file:/tmp/qubes-deb bullseye/main amd64 libxengnttab1 amd64 4.14.5-2+deb11u1 [33.2 kB]
+Get:8 file:/tmp/qubes-deb bullseye/main amd64 libxenhypfs1 amd64 4.14.5-2+deb11u1 [32.8 kB]
+Get:9 file:/tmp/qubes-deb bullseye/main amd64 libxenstore3.0 amd64 4.14.5-2+deb11u1 [39.5 kB]
+Get:10 file:/tmp/qubes-deb bullseye/main amd64 libxenmisc4.14 amd64 4.14.5-2+deb11u1 [504 kB]
+Get:11 file:/tmp/qubes-deb bullseye/main amd64 libxen-dev amd64 4.14.5-2+deb11u1 [782 kB]
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (2: No such file or directory)
+Selecting previously unselected package libxentoolcore1:amd64.
+(Reading database ... 38861 files and directories currently installed.)
+Preparing to unpack .../00-libxentoolcore1_4.14.5-2+deb11u1_amd64.deb ...
+Unpacking libxentoolcore1:amd64 (4.14.5-2+deb11u1) ...
+Selecting previously unselected package libxentoollog1:amd64.
+Preparing to unpack .../01-libxentoollog1_4.14.5-2+deb11u1_amd64.deb ...
+Unpacking libxentoollog1:amd64 (4.14.5-2+deb11u1) ...
+Selecting previously unselected package libxencall1:amd64.
+Preparing to unpack .../02-libxencall1_4.14.5-2+deb11u1_amd64.deb ...
+Unpacking libxencall1:amd64 (4.14.5-2+deb11u1) ...
+Selecting previously unselected package libxendevicemodel1:amd64.
+Preparing to unpack .../03-libxendevicemodel1_4.14.5-2+deb11u1_amd64.deb ...
+Unpacking libxendevicemodel1:amd64 (4.14.5-2+deb11u1) ...
+Selecting previously unselected package libxenevtchn1:amd64.
+Preparing to unpack .../04-libxenevtchn1_4.14.5-2+deb11u1_amd64.deb ...
+Unpacking libxenevtchn1:amd64 (4.14.5-2+deb11u1) ...
+Selecting previously unselected package libxenforeignmemory1:amd64.
+Preparing to unpack .../05-libxenforeignmemory1_4.14.5-2+deb11u1_amd64.deb ...
+Unpacking libxenforeignmemory1:amd64 (4.14.5-2+deb11u1) ...
+Selecting previously unselected package libxengnttab1:amd64.
+Preparing to unpack .../06-libxengnttab1_4.14.5-2+deb11u1_amd64.deb ...
+Unpacking libxengnttab1:amd64 (4.14.5-2+deb11u1) ...
+Selecting previously unselected package libxenhypfs1:amd64.
+Preparing to unpack .../07-libxenhypfs1_4.14.5-2+deb11u1_amd64.deb ...
+Unpacking libxenhypfs1:amd64 (4.14.5-2+deb11u1) ...
+Selecting previously unselected package libxenstore3.0:amd64.
+Preparing to unpack .../08-libxenstore3.0_4.14.5-2+deb11u1_amd64.deb ...
+Unpacking libxenstore3.0:amd64 (4.14.5-2+deb11u1) ...
+Selecting previously unselected package libxenmisc4.14:amd64.
+Preparing to unpack .../09-libxenmisc4.14_4.14.5-2+deb11u1_amd64.deb ...
+Unpacking libxenmisc4.14:amd64 (4.14.5-2+deb11u1) ...
+Selecting previously unselected package libxen-dev.
+Preparing to unpack .../10-libxen-dev_4.14.5-2+deb11u1_amd64.deb ...
+Unpacking libxen-dev (4.14.5-2+deb11u1) ...
+Setting up libxentoollog1:amd64 (4.14.5-2+deb11u1) ...
+Setting up libxentoolcore1:amd64 (4.14.5-2+deb11u1) ...
+Setting up libxencall1:amd64 (4.14.5-2+deb11u1) ...
+Setting up libxenforeignmemory1:amd64 (4.14.5-2+deb11u1) ...
+Setting up libxenstore3.0:amd64 (4.14.5-2+deb11u1) ...
+Setting up libxengnttab1:amd64 (4.14.5-2+deb11u1) ...
+Setting up libxenevtchn1:amd64 (4.14.5-2+deb11u1) ...
+Setting up libxendevicemodel1:amd64 (4.14.5-2+deb11u1) ...
+Setting up libxenhypfs1:amd64 (4.14.5-2+deb11u1) ...
+Setting up libxenmisc4.14:amd64 (4.14.5-2+deb11u1) ...
+Setting up libxen-dev (4.14.5-2+deb11u1) ...
+Setting up libvchan-xen-build-deps (4.1.7-1) ...
+Processing triggers for libc-bin (2.31-13+deb11u3) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/..; GLOBIGNORE=libvchan-xen_4.1.7*orig*; rm -f libvchan-xen_4.1.7*; GLOBIGNORE=
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/deb/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/rpm/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/debian/..; /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/debian/changelog /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/debian/changelog.copy
+mv /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/debian/changelog.copy /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/debian/changelog
+echo "Building package in /home/user/qubes-src/core-vchan-xen"
+Building package in /home/user/qubes-src/core-vchan-xen
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb11u "Build for bullseye"; debchange -t --force-distribution -r -D bullseye bullseye
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/debian/changelog
+find /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen \! -newer /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye su user -c 'cd /home/user/qubes-src/core-vchan-xen/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package libvchan-xen
+dpkg-buildpackage: info: source version 4.1.7-1+deb11u1
+dpkg-buildpackage: info: source distribution bullseye
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+dpkg-source: info: using options from core-vchan-xen/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+ fakeroot debian/rules clean
+dh clean --with autotools-dev
+dh: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh: warning: The autotools-dev sequence is deprecated and replaced by dh in debhelper (>= 9.20160115)
+dh: warning: This feature will be removed in compat 12.
+   dh_auto_clean
+dh_auto_clean: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+	make -j1 clean
+make[1]: Entering directory '/home/user/qubes-src/core-vchan-xen'
+make -C vchan -f Makefile.linux clean
+make[2]: Entering directory '/home/user/qubes-src/core-vchan-xen/vchan'
+rm -f *.o *so *~ client server node node-select
+make[2]: Leaving directory '/home/user/qubes-src/core-vchan-xen/vchan'
+make[1]: Leaving directory '/home/user/qubes-src/core-vchan-xen'
+   dh_autotools-dev_restoreconfig
+dh_autotools-dev_restoreconfig: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh_autotools-dev_restoreconfig: warning: dh_autotools-dev_restoreconfig is deprecated; please see dh_autotools-dev_restoreconfig(1) for a replacement
+dh_autotools-dev_restoreconfig: warning: This feature will be removed in compat 12.
+   dh_clean
+dh_clean: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+ dpkg-source -b .
+dpkg-source: info: using options from core-vchan-xen/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building libvchan-xen using existing ./libvchan-xen_4.1.7.orig.tar.xz
+dpkg-source: info: building libvchan-xen in libvchan-xen_4.1.7-1+deb11u1.debian.tar.xz
+dpkg-source: info: building libvchan-xen in libvchan-xen_4.1.7-1+deb11u1.dsc
+ debian/rules build
+dh build --with autotools-dev
+dh: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh: warning: The autotools-dev sequence is deprecated and replaced by dh in debhelper (>= 9.20160115)
+dh: warning: This feature will be removed in compat 12.
+   dh_update_autotools_config
+   dh_autotools-dev_updateconfig
+dh_autotools-dev_updateconfig: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh_autotools-dev_updateconfig: warning: dh_autotools-dev_updateconfig is deprecated; please see dh_autotools-dev_updateconfig(1) for a replacement
+dh_autotools-dev_updateconfig: warning: This feature will be removed in compat 12.
+   dh_auto_configure
+dh_auto_configure: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   debian/rules override_dh_auto_build
+make[1]: Entering directory '/home/user/qubes-src/core-vchan-xen'
+make all LIBDIR=/usr/lib
+make[2]: Entering directory '/home/user/qubes-src/core-vchan-xen'
+make -C vchan -f Makefile.linux
+make[3]: Entering directory '/home/user/qubes-src/core-vchan-xen/vchan'
+cc -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-vchan-xen=. -fstack-protector-strong -Wformat -Werror=format-security -g -Wall -Wextra -Werror -fPIC -O2 -Wdate-time -D_FORTIFY_SOURCE=2  -c -o init.o init.c
+cc -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-vchan-xen=. -fstack-protector-strong -Wformat -Werror=format-security -g -Wall -Wextra -Werror -fPIC -O2 -Wdate-time -D_FORTIFY_SOURCE=2  -c -o io.o io.c
+cc -Wl,-z,relro -shared -o libvchan-xen.so init.o io.o -lxenvchan -lxenctrl
+sed -e "s/@VERSION@/`cat ../version`/" \
+	-e "s:@PREFIX@:/usr:" \
+	-e "s:@LIBDIR@:/usr/lib:" \
+	-e "s:@INCLUDEDIR@:/usr/include:" \
+	vchan-xen.pc.in > vchan-xen.pc
+make[3]: Leaving directory '/home/user/qubes-src/core-vchan-xen/vchan'
+make[2]: Leaving directory '/home/user/qubes-src/core-vchan-xen'
+make[1]: Leaving directory '/home/user/qubes-src/core-vchan-xen'
+   dh_auto_test
+dh_auto_test: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+ fakeroot debian/rules binary
+dh binary --with autotools-dev
+dh: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh: warning: The autotools-dev sequence is deprecated and replaced by dh in debhelper (>= 9.20160115)
+dh: warning: This feature will be removed in compat 12.
+   dh_testroot
+   dh_prep
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/home/user/qubes-src/core-vchan-xen'
+make install LIBDIR=/usr/lib
+make[2]: Entering directory '/home/user/qubes-src/core-vchan-xen'
+install -D -m 0644 vchan/libvchan.h /home/user/qubes-src/core-vchan-xen/debian/tmp/usr/include/vchan-xen/libvchan.h
+install -D -m 0644 vchan/vchan-xen.pc /home/user/qubes-src/core-vchan-xen/debian/tmp/usr/lib/pkgconfig/vchan-xen.pc
+install -D vchan/libvchan-xen.so /home/user/qubes-src/core-vchan-xen/debian/tmp/usr/lib/libvchan-xen.so
+cd /home/user/qubes-src/core-vchan-xen/debian/tmp/usr/lib/pkgconfig && ln -s vchan-xen.pc vchan.pc
+make[2]: Leaving directory '/home/user/qubes-src/core-vchan-xen'
+make[1]: Leaving directory '/home/user/qubes-src/core-vchan-xen'
+   dh_install
+dh_install: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_installdocs
+dh_installdocs: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_installchangelogs
+dh_installchangelogs: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+dh_compress: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh_compress: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_fixperms
+   dh_missing
+dh_missing: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_strip
+dh_strip: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh_strip: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_makeshlibs
+dh_makeshlibs: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_shlibdeps
+dh_shlibdeps: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+dh_shlibdeps: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_installdeb
+dh_installdeb: warning: Compatibility levels before 10 are deprecated (level 9 in use)
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'libvchan-xen' in '../libvchan-xen_4.1.7-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'libvchan-xen-dev' in '../libvchan-xen-dev_4.1.7-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'libvchan-xen-dbgsym' in '../libvchan-xen-dbgsym_4.1.7-1+deb11u1_amd64.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../libvchan-xen_4.1.7-1+deb11u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-source: info: using options from core-vchan-xen/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-buildpackage: info: full upload (original source is included)
+mkdir -p /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb
+mkdir -p qubes-src/core-vchan-xen/pkgs/vm-bullseye
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/debian/../..; \
+	cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' libvchan-xen_4.1.7*.changes`
+cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb/ /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/debian/../../libvchan-xen_4.1.7*.changes
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/debian/../..; \
+	mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/core-vchan-xen/pkgs/vm-bullseye  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' libvchan-xen_4.1.7*.changes`
+mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/core-vchan-xen/pkgs/vm-bullseye /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-vchan-xen/debian/../../libvchan-xen_4.1.7*.changes

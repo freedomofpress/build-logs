@@ -1,0 +1,340 @@
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//update-local-repo.sh bullseye
+dpkg-scanpackages: info: Wrote 54 entries to output Packages file.
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye apt-get  update
+Get:1 file:/tmp/qubes-deb bullseye InRelease
+Ign:1 file:/tmp/qubes-deb bullseye InRelease
+Get:2 file:/tmp/qubes-deb bullseye Release [344 B]
+Get:2 file:/tmp/qubes-deb bullseye Release [344 B]
+Get:3 file:/tmp/qubes-deb bullseye Release.gpg
+Ign:3 file:/tmp/qubes-deb bullseye Release.gpg
+Get:4 file:/tmp/qubes-deb bullseye/main amd64 Packages [11.7 kB]
+Hit:5 https://deb.debian.org/debian bullseye InRelease
+Hit:6 https://deb.qubes-os.org/r4.1/vm bullseye InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/linux-utils/debian/control
+hostname: Name or service not known
+dpkg-buildpackage: info: source package qubes-utils-build-deps
+dpkg-buildpackage: info: source version 4.1.16
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by Equivs Dummy Package Generator <root@>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+ debian/rules clean
+dh clean
+   dh_clean
+ debian/rules binary
+dh binary
+   dh_update_autotools_config
+   dh_autoreconf
+   create-stamp debian/debhelper-build-stamp
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-utils-build-deps' in '../qubes-utils-build-deps_4.1.16_all.deb'.
+ dpkg-genbuildinfo --build=binary
+ dpkg-genchanges --build=binary >../qubes-utils-build-deps_4.1.16_amd64.changes
+dpkg-genchanges: info: binary-only upload (no source code included)
+ dpkg-source --after-build .
+dpkg-buildpackage: info: binary-only upload (no source included)
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package qubes-utils-build-deps.
+(Reading database ... 40362 files and directories currently installed.)
+Preparing to unpack qubes-utils-build-deps_4.1.16_all.deb ...
+Unpacking qubes-utils-build-deps (4.1.16) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+After this operation, 0 B of additional disk space will be used.
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (2: No such file or directory)
+Setting up qubes-utils-build-deps (4.1.16) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/..; GLOBIGNORE=qubes-utils_4.1.16*orig*; rm -f qubes-utils_4.1.16*; GLOBIGNORE=
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/deb/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/rpm/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/debian/..; /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/debian/changelog /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/debian/changelog.copy
+mv /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/debian/changelog.copy /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/debian/changelog
+echo "Building package in /home/user/qubes-src/linux-utils"
+Building package in /home/user/qubes-src/linux-utils
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb11u "Build for bullseye"; debchange -t --force-distribution -r -D bullseye bullseye
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/debian/changelog
+find /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils \! -newer /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye su user -c 'cd /home/user/qubes-src/linux-utils/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package qubes-utils
+dpkg-buildpackage: info: source version 4.1.16+deb11u1
+dpkg-buildpackage: info: source distribution bullseye
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+ fakeroot debian/rules clean
+dh clean --with=systemd
+   dh_auto_clean
+	make -j2 clean
+make[1]: Entering directory '/home/user/qubes-src/linux-utils'
+make -C qrexec-lib clean
+make[2]: Entering directory '/home/user/qubes-src/linux-utils/qrexec-lib'
+rm -f *.o *~ *.a *.so.*
+make[2]: Leaving directory '/home/user/qubes-src/linux-utils/qrexec-lib'
+make -C qmemman clean
+make[2]: Entering directory '/home/user/qubes-src/linux-utils/qmemman'
+rm -f meminfo-writer xenstore-watch *.o
+make[2]: Leaving directory '/home/user/qubes-src/linux-utils/qmemman'
+make -C imgconverter clean
+make[2]: Entering directory '/home/user/qubes-src/linux-utils/imgconverter'
+python3 setup.py clean
+running clean
+make[2]: Leaving directory '/home/user/qubes-src/linux-utils/imgconverter'
+rm -rf debian/changelog.*
+rm -rf pkgs
+make[1]: Leaving directory '/home/user/qubes-src/linux-utils'
+   dh_clean
+ dpkg-source -b .
+dpkg-source: info: using source format '3.0 (native)'
+dpkg-source: info: building qubes-utils in qubes-utils_4.1.16+deb11u1.tar.xz
+dpkg-source: info: building qubes-utils in qubes-utils_4.1.16+deb11u1.dsc
+ debian/rules build
+dh build --with=systemd
+   dh_update_autotools_config
+   dh_autoreconf
+   dh_auto_configure
+   debian/rules override_dh_auto_build
+make[1]: Entering directory '/home/user/qubes-src/linux-utils'
+make all LIBDIR=/usr/lib DEBIANBUILD=1
+make[2]: Entering directory '/home/user/qubes-src/linux-utils'
+make -C qrexec-lib all
+make[3]: Entering directory '/home/user/qubes-src/linux-utils/qrexec-lib'
+gcc -g -O2 -ffile-prefix-map=/home/user/qubes-src/linux-utils=. -fstack-protector-strong -Wformat -Werror=format-security -I. -g -O2 -Wall -Wextra -Werror -pie -fPIC -Wdate-time -D_FORTIFY_SOURCE=2  -c -o ioall.o ioall.c
+gcc -g -O2 -ffile-prefix-map=/home/user/qubes-src/linux-utils=. -fstack-protector-strong -Wformat -Werror=format-security -I. -g -O2 -Wall -Wextra -Werror -pie -fPIC -Wdate-time -D_FORTIFY_SOURCE=2  -c -o copy-file.o copy-file.c
+gcc -g -O2 -ffile-prefix-map=/home/user/qubes-src/linux-utils=. -fstack-protector-strong -Wformat -Werror=format-security -I. -g -O2 -Wall -Wextra -Werror -pie -fPIC -Wdate-time -D_FORTIFY_SOURCE=2  -c -o crc32.o crc32.c
+gcc -g -O2 -ffile-prefix-map=/home/user/qubes-src/linux-utils=. -fstack-protector-strong -Wformat -Werror=format-security -I. -g -O2 -Wall -Wextra -Werror -pie -fPIC -Wdate-time -D_FORTIFY_SOURCE=2  -c -o unpack.o unpack.c
+gcc -g -O2 -ffile-prefix-map=/home/user/qubes-src/linux-utils=. -fstack-protector-strong -Wformat -Werror=format-security -I. -g -O2 -Wall -Wextra -Werror -pie -fPIC -Wdate-time -D_FORTIFY_SOURCE=2  -c -o pack.o pack.c
+gcc -Wl,-z,relro -shared -Wl,-soname,libqubes-rpc-filecopy.so.2 -o libqubes-rpc-filecopy.so.2 ioall.o copy-file.o crc32.o unpack.o pack.o
+make[3]: Leaving directory '/home/user/qubes-src/linux-utils/qrexec-lib'
+make -C qmemman all
+make[3]: Entering directory '/home/user/qubes-src/linux-utils/qmemman'
+gcc -g -O2 -ffile-prefix-map=/home/user/qubes-src/linux-utils=. -fstack-protector-strong -Wformat -Werror=format-security -Wall -Wextra -Werror -g -O3 -DUSE_XENSTORE_H -Wdate-time -D_FORTIFY_SOURCE=2  -c -o meminfo-writer.o meminfo-writer.c
+gcc -Wl,-z,relro -g -o meminfo-writer meminfo-writer.o -lxenstore
+make[3]: Leaving directory '/home/user/qubes-src/linux-utils/qmemman'
+make -C imgconverter all
+make[3]: Entering directory '/home/user/qubes-src/linux-utils/imgconverter'
+python3 setup.py build
+running build
+running build_py
+creating build
+creating build/lib
+creating build/lib/qubesimgconverter
+copying qubesimgconverter/__init__.py -> build/lib/qubesimgconverter
+copying qubesimgconverter/test_integ.py -> build/lib/qubesimgconverter
+copying qubesimgconverter/test.py -> build/lib/qubesimgconverter
+copying qubesimgconverter/imggen.py -> build/lib/qubesimgconverter
+make[3]: Leaving directory '/home/user/qubes-src/linux-utils/imgconverter'
+make[2]: Leaving directory '/home/user/qubes-src/linux-utils'
+make[1]: Leaving directory '/home/user/qubes-src/linux-utils'
+   dh_auto_test
+   create-stamp debian/debhelper-build-stamp
+ fakeroot debian/rules binary
+dh binary --with=systemd
+   dh_testroot
+   dh_prep
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/home/user/qubes-src/linux-utils'
+make install LIBDIR=/usr/lib DEBIANBUILD=1 PYTHON_PREFIX_ARG=--install-layout=deb
+make[2]: Entering directory '/home/user/qubes-src/linux-utils'
+make -C udev install
+make[3]: Entering directory '/home/user/qubes-src/linux-utils/udev'
+mkdir -p /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/udev/rules.d
+cp udev-qubes-block.rules /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/udev/rules.d/99-qubes-block.rules
+cp udev-qubes-usb.rules /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/udev/rules.d/99-qubes-usb.rules
+cp udev-qubes-misc.rules /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/udev/rules.d/99-qubes-misc.rules
+cp udev-qubes-dmroot.rules /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/udev/rules.d/90-qubes-dmroot.rules
+mkdir -p /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/tmpfiles.d
+cp xen-devices-qubes.conf /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/tmpfiles.d/xen-devices-qubes.conf
+mkdir -p /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/qubes
+cp udev-block-add-change /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/qubes
+cp udev-block-remove /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/qubes
+cp udev-usb-add-change /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/qubes
+cp udev-usb-remove /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/qubes
+make[3]: Leaving directory '/home/user/qubes-src/linux-utils/udev'
+make -C qrexec-lib install
+make[3]: Entering directory '/home/user/qubes-src/linux-utils/qrexec-lib'
+mkdir -p /home/user/qubes-src/linux-utils/debian/tmp/usr/lib
+cp libqubes-rpc-filecopy.so.2 /home/user/qubes-src/linux-utils/debian/tmp/usr/lib
+ln -s libqubes-rpc-filecopy.so.2 /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/libqubes-rpc-filecopy.so
+mkdir -p /home/user/qubes-src/linux-utils/debian/tmp/usr/include
+cp libqubes-rpc-filecopy.h /home/user/qubes-src/linux-utils/debian/tmp/usr/include
+make[3]: Leaving directory '/home/user/qubes-src/linux-utils/qrexec-lib'
+make -C qmemman install
+make[3]: Entering directory '/home/user/qubes-src/linux-utils/qmemman'
+install -D meminfo-writer /home/user/qubes-src/linux-utils/debian/tmp//usr/sbin/meminfo-writer
+install -d /home/user/qubes-src/linux-utils/debian/tmp/lib/systemd/system/
+install -m 0644 qubes-meminfo-writer.service /home/user/qubes-src/linux-utils/debian/tmp/lib/systemd/system/
+make[3]: Leaving directory '/home/user/qubes-src/linux-utils/qmemman'
+make -C imgconverter install
+make[3]: Entering directory '/home/user/qubes-src/linux-utils/imgconverter'
+python3 setup.py install -O1 --install-layout=deb --root /home/user/qubes-src/linux-utils/debian/tmp
+running install
+running build
+running build_py
+running install_lib
+creating /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/python3
+creating /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/python3/dist-packages
+creating /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/python3/dist-packages/qubesimgconverter
+copying build/lib/qubesimgconverter/__init__.py -> /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/python3/dist-packages/qubesimgconverter
+copying build/lib/qubesimgconverter/test_integ.py -> /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/python3/dist-packages/qubesimgconverter
+copying build/lib/qubesimgconverter/test.py -> /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/python3/dist-packages/qubesimgconverter
+copying build/lib/qubesimgconverter/imggen.py -> /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/python3/dist-packages/qubesimgconverter
+byte-compiling /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/python3/dist-packages/qubesimgconverter/__init__.py to __init__.cpython-39.pyc
+byte-compiling /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/python3/dist-packages/qubesimgconverter/test_integ.py to test_integ.cpython-39.pyc
+byte-compiling /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/python3/dist-packages/qubesimgconverter/test.py to test.cpython-39.pyc
+byte-compiling /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/python3/dist-packages/qubesimgconverter/imggen.py to imggen.cpython-39.pyc
+writing byte-compilation script '/tmp/tmp4skltx5p.py'
+/usr/bin/python3 /tmp/tmp4skltx5p.py
+removing /tmp/tmp4skltx5p.py
+running install_egg_info
+running egg_info
+creating qubesimgconverter.egg-info
+writing qubesimgconverter.egg-info/PKG-INFO
+writing dependency_links to qubesimgconverter.egg-info/dependency_links.txt
+writing entry points to qubesimgconverter.egg-info/entry_points.txt
+writing top-level names to qubesimgconverter.egg-info/top_level.txt
+writing manifest file 'qubesimgconverter.egg-info/SOURCES.txt'
+reading manifest file 'qubesimgconverter.egg-info/SOURCES.txt'
+writing manifest file 'qubesimgconverter.egg-info/SOURCES.txt'
+Copying qubesimgconverter.egg-info to /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/python3/dist-packages/qubesimgconverter-4.1.16.egg-info
+Skipping SOURCES.txt
+running install_scripts
+make[3]: Leaving directory '/home/user/qubes-src/linux-utils/imgconverter'
+make[2]: Leaving directory '/home/user/qubes-src/linux-utils'
+make install-debian-kernel-support LIBDIR=/usr/lib DEBIANBUILD=1 
+make[2]: Entering directory '/home/user/qubes-src/linux-utils'
+make -C initramfs-tools install
+make[3]: Entering directory '/home/user/qubes-src/linux-utils/initramfs-tools'
+install -D local-top/qubes_cow_setup.sh \
+	/home/user/qubes-src/linux-utils/debian/tmp/usr/share/initramfs-tools/scripts/local-top/qubes_cow_setup
+install -D local-top/scrub_pages.sh \
+	/home/user/qubes-src/linux-utils/debian/tmp/usr/share/initramfs-tools/scripts/local-top/scrub_pages
+install -D qubes_vm \
+	/home/user/qubes-src/linux-utils/debian/tmp/usr/share/initramfs-tools/hooks/qubes_vm
+make[3]: Leaving directory '/home/user/qubes-src/linux-utils/initramfs-tools'
+make -C dracut install
+make[3]: Entering directory '/home/user/qubes-src/linux-utils/dracut'
+make -C simple
+make[4]: Entering directory '/home/user/qubes-src/linux-utils/dracut/simple'
+install -d /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/dracut/modules.d/90qubes-vm-simple
+install module-setup.sh init.sh \
+	/home/user/qubes-src/linux-utils/debian/tmp/usr/lib/dracut/modules.d/90qubes-vm-simple/
+# flag indicating the module will (re-)enable scrub-pages option
+touch /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/dracut/modules.d/90qubes-vm-simple/xen-scrub-pages-supported
+make[4]: Leaving directory '/home/user/qubes-src/linux-utils/dracut/simple'
+make -C full-dmroot
+make[4]: Entering directory '/home/user/qubes-src/linux-utils/dracut/full-dmroot'
+install -d /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/dracut/modules.d/90qubes-vm
+install module-setup.sh qubes_cow_setup.sh \
+	/home/user/qubes-src/linux-utils/debian/tmp/usr/lib/dracut/modules.d/90qubes-vm/
+make[4]: Leaving directory '/home/user/qubes-src/linux-utils/dracut/full-dmroot'
+make -C full-modules
+make[4]: Entering directory '/home/user/qubes-src/linux-utils/dracut/full-modules'
+install -d /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/dracut/modules.d/90qubes-vm-modules
+install module-setup.sh mount_modules.sh \
+	/home/user/qubes-src/linux-utils/debian/tmp/usr/lib/dracut/modules.d/90qubes-vm-modules/
+make[4]: Leaving directory '/home/user/qubes-src/linux-utils/dracut/full-modules'
+make -C xen-balloon-scrub-pages
+make[4]: Entering directory '/home/user/qubes-src/linux-utils/dracut/xen-balloon-scrub-pages'
+install -d /home/user/qubes-src/linux-utils/debian/tmp/usr/lib/dracut/modules.d/80xen-scrub-pages
+install module-setup.sh scrub_pages.sh \
+	/home/user/qubes-src/linux-utils/debian/tmp/usr/lib/dracut/modules.d/80xen-scrub-pages/
+make[4]: Leaving directory '/home/user/qubes-src/linux-utils/dracut/xen-balloon-scrub-pages'
+make[3]: Leaving directory '/home/user/qubes-src/linux-utils/dracut'
+make -C kernel-modules install
+make[3]: Entering directory '/home/user/qubes-src/linux-utils/kernel-modules'
+install -d /home/user/qubes-src/linux-utils/debian/tmp/usr/sbin
+install qubes-prepare-vm-kernel /home/user/qubes-src/linux-utils/debian/tmp/usr/sbin
+make[3]: Leaving directory '/home/user/qubes-src/linux-utils/kernel-modules'
+make -C grub install-debian
+make[3]: Entering directory '/home/user/qubes-src/linux-utils/grub'
+install -D -m 0644 grub.qubes-kernel-vm-support \
+	/home/user/qubes-src/linux-utils/debian/tmp/etc/default/grub.d/30-qubes-kernel-vm-support.cfg
+make[3]: Leaving directory '/home/user/qubes-src/linux-utils/grub'
+make[2]: Leaving directory '/home/user/qubes-src/linux-utils'
+# dom0-only file
+rm -f /home/user/qubes-src/linux-utils/debian/tmp/usr/sbin/qubes-prepare-vm-kernel
+make[1]: Leaving directory '/home/user/qubes-src/linux-utils'
+   debian/rules override_dh_install
+make[1]: Entering directory '/home/user/qubes-src/linux-utils'
+dh_install --fail-missing
+dh_install: warning: Please use dh_missing --list-missing/--fail-missing instead
+dh_install: warning: This feature will be removed in compat 12.
+make[1]: Leaving directory '/home/user/qubes-src/linux-utils'
+   dh_installdocs
+   dh_installchangelogs
+   dh_systemd_enable
+   dh_installinit
+   dh_systemd_start
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_strip
+   dh_makeshlibs
+   dh_shlibdeps
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-utils' in '../qubes-utils_4.1.16+deb11u1_amd64.deb'.
+dpkg-deb: building package 'libqubes-rpc-filecopy2-dbgsym' in '../libqubes-rpc-filecopy2-dbgsym_4.1.16+deb11u1_amd64.deb'.
+dpkg-deb: building package 'libqubes-rpc-filecopy-dev' in '../libqubes-rpc-filecopy-dev_4.1.16+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-utils-dbgsym' in '../qubes-utils-dbgsym_4.1.16+deb11u1_amd64.deb'.
+dpkg-deb: building package 'python3-qubesimgconverter' in '../python3-qubesimgconverter_4.1.16+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-kernel-vm-support' in '../qubes-kernel-vm-support_4.1.16+deb11u1_amd64.deb'.
+dpkg-deb: building package 'libqubes-rpc-filecopy2' in '../libqubes-rpc-filecopy2_4.1.16+deb11u1_amd64.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../qubes-utils_4.1.16+deb11u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
+mkdir -p /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb
+mkdir -p qubes-src/linux-utils/pkgs/vm-bullseye
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/debian/../..; \
+	cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-utils_4.1.16+deb11u1*.changes`
+cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb/ /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/debian/../../qubes-utils_4.1.16+deb11u1*.changes
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/debian/../..; \
+	mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/linux-utils/pkgs/vm-bullseye  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-utils_4.1.16+deb11u1*.changes`
+mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/linux-utils/pkgs/vm-bullseye /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/linux-utils/debian/../../qubes-utils_4.1.16+deb11u1*.changes
