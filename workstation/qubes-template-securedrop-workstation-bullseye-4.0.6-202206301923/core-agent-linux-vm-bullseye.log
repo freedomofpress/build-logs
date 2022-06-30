@@ -1,0 +1,910 @@
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//update-local-repo.sh bullseye
+dpkg-scanpackages: info: Wrote 61 entries to output Packages file.
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye apt-get  update
+Get:1 file:/tmp/qubes-deb bullseye InRelease
+Ign:1 file:/tmp/qubes-deb bullseye InRelease
+Get:2 file:/tmp/qubes-deb bullseye Release [344 B]
+Get:2 file:/tmp/qubes-deb bullseye Release [344 B]
+Get:3 file:/tmp/qubes-deb bullseye Release.gpg
+Ign:3 file:/tmp/qubes-deb bullseye Release.gpg
+Get:4 file:/tmp/qubes-deb bullseye/main amd64 Packages [13.0 kB]
+Hit:5 https://deb.debian.org/debian bullseye InRelease
+Hit:6 https://deb.qubes-os.org/r4.1/vm bullseye InRelease
+Reading package lists...
+# check for CVE-2016-1252 - directly after debootstrap, still vulnerable
+# apt is installed
+wc -L "/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye/var/lib/apt/lists/"*InRelease | awk '$1 > 1024 {print; exit 1}'
+# update the base system inside
+sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye apt-get  dist-upgrade -y
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+# install build dependencies
+LC_ALL=C sudo chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye mk-build-deps -i -r -t "apt-get --no-install-recommends -y" /home/user/qubes-src/core-agent-linux/debian/control
+hostname: Name or service not known
+dpkg-buildpackage: info: source package qubes-core-agent-build-deps
+dpkg-buildpackage: info: source version 4.2.0-1
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by Equivs Dummy Package Generator <root@>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+ debian/rules clean
+dh clean
+   dh_clean
+ debian/rules binary
+dh binary
+   dh_update_autotools_config
+   dh_autoreconf
+   create-stamp debian/debhelper-build-stamp
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-core-agent-build-deps' in '../qubes-core-agent-build-deps_4.2.0-1_all.deb'.
+ dpkg-genbuildinfo --build=binary
+ dpkg-genchanges --build=binary >../qubes-core-agent-build-deps_4.2.0-1_amd64.changes
+dpkg-genchanges: info: binary-only upload (no source code included)
+ dpkg-source --after-build .
+dpkg-buildpackage: info: binary-only upload (no source included)
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+Selecting previously unselected package qubes-core-agent-build-deps.
+(Reading database ... 40366 files and directories currently installed.)
+Preparing to unpack qubes-core-agent-build-deps_4.2.0-1_all.deb ...
+Unpacking qubes-core-agent-build-deps (4.2.0-1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Correcting dependencies... Done
+The following additional packages will be installed:
+  config-package-dev desktop-file-utils libbrotli-dev libdrm-amdgpu1
+  libdrm-common libdrm-dev libdrm-intel1 libdrm-nouveau2 libdrm-radeon1
+  libdrm2 libfontenc-dev libfontenc1 libfreetype-dev libfreetype6-dev
+  libgl-dev libgl1 libgl1-mesa-dri libglapi-mesa libglvnd0 libglx-dev
+  libglx-mesa0 libglx0 libllvm11 libpciaccess-dev libpciaccess0 libpng-dev
+  libpthread-stubs0-dev libqubes-rpc-filecopy-dev libqubes-rpc-filecopy2
+  libsensors-config libsensors5 libvulkan1 libx11-dev libx11-xcb1 libxau-dev
+  libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-shm0
+  libxcb-sync1 libxcb-xfixes0 libxcb1-dev libxdamage1 libxdmcp-dev libxfixes3
+  libxfont-dev libxfont2 libxkbfile-dev libxkbfile1 libxshmfence1 libxxf86vm1
+  libz3-4 mesa-common-dev x11proto-dev xorg-sgml-doctools xserver-xorg-dev
+  xtrans-dev
+Suggested packages:
+  freetype2-doc pciutils lm-sensors libx11-doc libxcb-doc
+Recommended packages:
+  libpng-tools mesa-vulkan-drivers | vulkan-icd
+The following NEW packages will be installed:
+  config-package-dev desktop-file-utils libbrotli-dev libdrm-amdgpu1
+  libdrm-common libdrm-dev libdrm-intel1 libdrm-nouveau2 libdrm-radeon1
+  libdrm2 libfontenc-dev libfontenc1 libfreetype-dev libfreetype6-dev
+  libgl-dev libgl1 libgl1-mesa-dri libglapi-mesa libglvnd0 libglx-dev
+  libglx-mesa0 libglx0 libllvm11 libpciaccess-dev libpciaccess0 libpng-dev
+  libpthread-stubs0-dev libqubes-rpc-filecopy-dev libqubes-rpc-filecopy2
+  libsensors-config libsensors5 libvulkan1 libx11-dev libx11-xcb1 libxau-dev
+  libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-shm0
+  libxcb-sync1 libxcb-xfixes0 libxcb1-dev libxdamage1 libxdmcp-dev libxfixes3
+  libxfont-dev libxfont2 libxkbfile-dev libxkbfile1 libxshmfence1 libxxf86vm1
+  libz3-4 mesa-common-dev x11proto-dev xorg-sgml-doctools xserver-xorg-dev
+  xtrans-dev
+0 upgraded, 58 newly installed, 0 to remove and 0 not upgraded.
+1 not fully installed or removed.
+Need to get 44.1 MB of archives.
+After this operation, 167 MB of additional disk space will be used.
+Get:1 https://deb.debian.org/debian bullseye/main amd64 xorg-sgml-doctools all 1:1.11-1.1 [22.1 kB]
+Get:2 https://deb.debian.org/debian bullseye/main amd64 x11proto-dev all 2020.1-1 [594 kB]
+Get:3 https://deb.debian.org/debian bullseye/main amd64 libfontenc1 amd64 1:1.1.4-1 [24.3 kB]
+Get:4 https://deb.debian.org/debian bullseye/main amd64 libxfont2 amd64 1:2.0.4-1 [136 kB]
+Get:5 https://deb.debian.org/debian bullseye/main amd64 libxau-dev amd64 1:1.0.9-1 [22.9 kB]
+Get:6 https://deb.debian.org/debian bullseye/main amd64 libxdmcp-dev amd64 1:1.1.2-3 [42.2 kB]
+Get:7 https://deb.debian.org/debian bullseye/main amd64 xtrans-dev all 1.4.0-1 [98.7 kB]
+Get:8 https://deb.debian.org/debian bullseye/main amd64 libpthread-stubs0-dev amd64 0.4-1 [5344 B]
+Get:9 https://deb.debian.org/debian bullseye/main amd64 libxcb1-dev amd64 1.14-3 [176 kB]
+Get:10 https://deb.debian.org/debian bullseye/main amd64 libx11-dev amd64 2:1.7.2-1 [841 kB]
+Get:11 https://deb.qubes-os.org/r4.1/vm bullseye/main amd64 libqubes-rpc-filecopy2 amd64 4.1.16+deb11u1 [18.6 kB]
+Get:12 https://deb.debian.org/debian bullseye/main amd64 libbrotli-dev amd64 1.0.9-2+b2 [288 kB]
+Get:13 https://deb.debian.org/debian bullseye/main amd64 libpng-dev amd64 1.6.37-3 [298 kB]
+Get:14 https://deb.qubes-os.org/r4.1/vm bullseye/main amd64 libqubes-rpc-filecopy-dev amd64 4.1.16+deb11u1 [11.5 kB]
+Get:15 https://deb.debian.org/debian bullseye/main amd64 libfreetype-dev amd64 2.10.4+dfsg-1 [571 kB]
+Get:16 https://deb.debian.org/debian bullseye/main amd64 libfreetype6-dev amd64 2.10.4+dfsg-1 [82.4 kB]
+Get:17 https://deb.debian.org/debian bullseye/main amd64 libfontenc-dev amd64 1:1.1.4-1 [26.2 kB]
+Get:18 https://deb.debian.org/debian bullseye/main amd64 libxfont-dev amd64 1:2.0.4-1 [165 kB]
+Get:19 https://deb.debian.org/debian bullseye/main amd64 libxkbfile1 amd64 1:1.1.0-1 [75.2 kB]
+Get:20 https://deb.debian.org/debian bullseye/main amd64 libxkbfile-dev amd64 1:1.1.0-1 [86.2 kB]
+Get:21 https://deb.debian.org/debian bullseye/main amd64 libpciaccess0 amd64 0.16-1 [53.6 kB]
+Get:22 https://deb.debian.org/debian bullseye/main amd64 libpciaccess-dev amd64 0.16-1 [56.9 kB]
+Get:23 https://deb.debian.org/debian bullseye/main amd64 libglvnd0 amd64 1.3.2-1 [53.6 kB]
+Get:24 https://deb.debian.org/debian bullseye/main amd64 libdrm-common all 2.4.104-1 [14.9 kB]
+Get:25 https://deb.debian.org/debian bullseye/main amd64 libdrm2 amd64 2.4.104-1 [41.5 kB]
+Get:26 https://deb.debian.org/debian bullseye/main amd64 libglapi-mesa amd64 20.3.5-1 [71.7 kB]
+Get:27 https://deb.debian.org/debian bullseye/main amd64 libx11-xcb1 amd64 2:1.7.2-1 [203 kB]
+Get:28 https://deb.debian.org/debian bullseye/main amd64 libxcb-dri2-0 amd64 1.14-3 [103 kB]
+Get:29 https://deb.debian.org/debian bullseye/main amd64 libxcb-dri3-0 amd64 1.14-3 [102 kB]
+Get:30 https://deb.debian.org/debian bullseye/main amd64 libxcb-glx0 amd64 1.14-3 [118 kB]
+Get:31 https://deb.debian.org/debian bullseye/main amd64 libxcb-present0 amd64 1.14-3 [101 kB]
+Get:32 https://deb.debian.org/debian bullseye/main amd64 libxcb-shm0 amd64 1.14-3 [101 kB]
+Get:33 https://deb.debian.org/debian bullseye/main amd64 libxcb-sync1 amd64 1.14-3 [105 kB]
+Get:34 https://deb.debian.org/debian bullseye/main amd64 libxcb-xfixes0 amd64 1.14-3 [105 kB]
+Get:35 https://deb.debian.org/debian bullseye/main amd64 libxdamage1 amd64 1:1.1.5-2 [15.7 kB]
+Get:36 https://deb.debian.org/debian bullseye/main amd64 libxfixes3 amd64 1:5.0.3-2 [22.1 kB]
+Get:37 https://deb.debian.org/debian bullseye/main amd64 libxshmfence1 amd64 1.3-1 [8820 B]
+Get:38 https://deb.debian.org/debian bullseye/main amd64 libxxf86vm1 amd64 1:1.1.4-1+b2 [20.8 kB]
+Get:39 https://deb.debian.org/debian bullseye/main amd64 libdrm-amdgpu1 amd64 2.4.104-1 [28.5 kB]
+Get:40 https://deb.debian.org/debian bullseye/main amd64 libdrm-intel1 amd64 2.4.104-1 [71.8 kB]
+Get:41 https://deb.debian.org/debian bullseye/main amd64 libdrm-nouveau2 amd64 2.4.104-1 [26.8 kB]
+Get:42 https://deb.debian.org/debian bullseye/main amd64 libdrm-radeon1 amd64 2.4.104-1 [30.2 kB]
+Get:43 https://deb.debian.org/debian bullseye/main amd64 libz3-4 amd64 4.8.10-1 [6949 kB]
+Get:44 https://deb.debian.org/debian bullseye/main amd64 libllvm11 amd64 1:11.0.1-2 [17.9 MB]
+Get:45 https://deb.debian.org/debian bullseye/main amd64 libsensors-config all 1:3.6.0-7 [32.3 kB]
+Get:46 https://deb.debian.org/debian bullseye/main amd64 libsensors5 amd64 1:3.6.0-7 [52.3 kB]
+Get:47 https://deb.debian.org/debian bullseye/main amd64 libvulkan1 amd64 1.2.162.0-1 [103 kB]
+Get:48 https://deb.debian.org/debian bullseye/main amd64 libgl1-mesa-dri amd64 20.3.5-1 [9633 kB]
+Get:49 https://deb.debian.org/debian bullseye/main amd64 libglx-mesa0 amd64 20.3.5-1 [186 kB]
+Get:50 https://deb.debian.org/debian bullseye/main amd64 libglx0 amd64 1.3.2-1 [35.7 kB]
+Get:51 https://deb.debian.org/debian bullseye/main amd64 libgl1 amd64 1.3.2-1 [89.5 kB]
+Get:52 https://deb.debian.org/debian bullseye/main amd64 libglx-dev amd64 1.3.2-1 [16.3 kB]
+Get:53 https://deb.debian.org/debian bullseye/main amd64 libgl-dev amd64 1.3.2-1 [100 kB]
+Get:54 https://deb.debian.org/debian bullseye/main amd64 libdrm-dev amd64 2.4.104-1 [141 kB]
+Get:55 https://deb.debian.org/debian bullseye/main amd64 mesa-common-dev amd64 20.3.5-1 [1287 kB]
+Get:56 https://deb.debian.org/debian bullseye/main amd64 xserver-xorg-dev amd64 2:1.20.11-1+deb11u1 [2457 kB]
+Get:57 https://deb.debian.org/debian bullseye/main amd64 config-package-dev all 5.5 [31.3 kB]
+Get:58 https://deb.debian.org/debian bullseye/main amd64 desktop-file-utils amd64 0.26-1 [91.2 kB]
+Fetched 44.1 MB in 10s (4291 kB/s)
+E: Can not write log (Is /dev/pts mounted?) - posix_openpt (19: No such device)
+Selecting previously unselected package libqubes-rpc-filecopy2.
+(Reading database ... 40370 files and directories currently installed.)
+Preparing to unpack .../00-libqubes-rpc-filecopy2_4.1.16+deb11u1_amd64.deb ...
+Unpacking libqubes-rpc-filecopy2 (4.1.16+deb11u1) ...
+Selecting previously unselected package libqubes-rpc-filecopy-dev.
+Preparing to unpack .../01-libqubes-rpc-filecopy-dev_4.1.16+deb11u1_amd64.deb ...
+Unpacking libqubes-rpc-filecopy-dev (4.1.16+deb11u1) ...
+Selecting previously unselected package xorg-sgml-doctools.
+Preparing to unpack .../02-xorg-sgml-doctools_1%3a1.11-1.1_all.deb ...
+Unpacking xorg-sgml-doctools (1:1.11-1.1) ...
+Selecting previously unselected package x11proto-dev.
+Preparing to unpack .../03-x11proto-dev_2020.1-1_all.deb ...
+Unpacking x11proto-dev (2020.1-1) ...
+Selecting previously unselected package libfontenc1:amd64.
+Preparing to unpack .../04-libfontenc1_1%3a1.1.4-1_amd64.deb ...
+Unpacking libfontenc1:amd64 (1:1.1.4-1) ...
+Selecting previously unselected package libxfont2:amd64.
+Preparing to unpack .../05-libxfont2_1%3a2.0.4-1_amd64.deb ...
+Unpacking libxfont2:amd64 (1:2.0.4-1) ...
+Selecting previously unselected package libxau-dev:amd64.
+Preparing to unpack .../06-libxau-dev_1%3a1.0.9-1_amd64.deb ...
+Unpacking libxau-dev:amd64 (1:1.0.9-1) ...
+Selecting previously unselected package libxdmcp-dev:amd64.
+Preparing to unpack .../07-libxdmcp-dev_1%3a1.1.2-3_amd64.deb ...
+Unpacking libxdmcp-dev:amd64 (1:1.1.2-3) ...
+Selecting previously unselected package xtrans-dev.
+Preparing to unpack .../08-xtrans-dev_1.4.0-1_all.deb ...
+Unpacking xtrans-dev (1.4.0-1) ...
+Selecting previously unselected package libpthread-stubs0-dev:amd64.
+Preparing to unpack .../09-libpthread-stubs0-dev_0.4-1_amd64.deb ...
+Unpacking libpthread-stubs0-dev:amd64 (0.4-1) ...
+Selecting previously unselected package libxcb1-dev:amd64.
+Preparing to unpack .../10-libxcb1-dev_1.14-3_amd64.deb ...
+Unpacking libxcb1-dev:amd64 (1.14-3) ...
+Selecting previously unselected package libx11-dev:amd64.
+Preparing to unpack .../11-libx11-dev_2%3a1.7.2-1_amd64.deb ...
+Unpacking libx11-dev:amd64 (2:1.7.2-1) ...
+Selecting previously unselected package libbrotli-dev:amd64.
+Preparing to unpack .../12-libbrotli-dev_1.0.9-2+b2_amd64.deb ...
+Unpacking libbrotli-dev:amd64 (1.0.9-2+b2) ...
+Selecting previously unselected package libpng-dev:amd64.
+Preparing to unpack .../13-libpng-dev_1.6.37-3_amd64.deb ...
+Unpacking libpng-dev:amd64 (1.6.37-3) ...
+Selecting previously unselected package libfreetype-dev:amd64.
+Preparing to unpack .../14-libfreetype-dev_2.10.4+dfsg-1_amd64.deb ...
+Unpacking libfreetype-dev:amd64 (2.10.4+dfsg-1) ...
+Selecting previously unselected package libfreetype6-dev:amd64.
+Preparing to unpack .../15-libfreetype6-dev_2.10.4+dfsg-1_amd64.deb ...
+Unpacking libfreetype6-dev:amd64 (2.10.4+dfsg-1) ...
+Selecting previously unselected package libfontenc-dev:amd64.
+Preparing to unpack .../16-libfontenc-dev_1%3a1.1.4-1_amd64.deb ...
+Unpacking libfontenc-dev:amd64 (1:1.1.4-1) ...
+Selecting previously unselected package libxfont-dev.
+Preparing to unpack .../17-libxfont-dev_1%3a2.0.4-1_amd64.deb ...
+Unpacking libxfont-dev (1:2.0.4-1) ...
+Selecting previously unselected package libxkbfile1:amd64.
+Preparing to unpack .../18-libxkbfile1_1%3a1.1.0-1_amd64.deb ...
+Unpacking libxkbfile1:amd64 (1:1.1.0-1) ...
+Selecting previously unselected package libxkbfile-dev:amd64.
+Preparing to unpack .../19-libxkbfile-dev_1%3a1.1.0-1_amd64.deb ...
+Unpacking libxkbfile-dev:amd64 (1:1.1.0-1) ...
+Selecting previously unselected package libpciaccess0:amd64.
+Preparing to unpack .../20-libpciaccess0_0.16-1_amd64.deb ...
+Unpacking libpciaccess0:amd64 (0.16-1) ...
+Selecting previously unselected package libpciaccess-dev:amd64.
+Preparing to unpack .../21-libpciaccess-dev_0.16-1_amd64.deb ...
+Unpacking libpciaccess-dev:amd64 (0.16-1) ...
+Selecting previously unselected package libglvnd0:amd64.
+Preparing to unpack .../22-libglvnd0_1.3.2-1_amd64.deb ...
+Unpacking libglvnd0:amd64 (1.3.2-1) ...
+Selecting previously unselected package libdrm-common.
+Preparing to unpack .../23-libdrm-common_2.4.104-1_all.deb ...
+Unpacking libdrm-common (2.4.104-1) ...
+Selecting previously unselected package libdrm2:amd64.
+Preparing to unpack .../24-libdrm2_2.4.104-1_amd64.deb ...
+Unpacking libdrm2:amd64 (2.4.104-1) ...
+Selecting previously unselected package libglapi-mesa:amd64.
+Preparing to unpack .../25-libglapi-mesa_20.3.5-1_amd64.deb ...
+Unpacking libglapi-mesa:amd64 (20.3.5-1) ...
+Selecting previously unselected package libx11-xcb1:amd64.
+Preparing to unpack .../26-libx11-xcb1_2%3a1.7.2-1_amd64.deb ...
+Unpacking libx11-xcb1:amd64 (2:1.7.2-1) ...
+Selecting previously unselected package libxcb-dri2-0:amd64.
+Preparing to unpack .../27-libxcb-dri2-0_1.14-3_amd64.deb ...
+Unpacking libxcb-dri2-0:amd64 (1.14-3) ...
+Selecting previously unselected package libxcb-dri3-0:amd64.
+Preparing to unpack .../28-libxcb-dri3-0_1.14-3_amd64.deb ...
+Unpacking libxcb-dri3-0:amd64 (1.14-3) ...
+Selecting previously unselected package libxcb-glx0:amd64.
+Preparing to unpack .../29-libxcb-glx0_1.14-3_amd64.deb ...
+Unpacking libxcb-glx0:amd64 (1.14-3) ...
+Selecting previously unselected package libxcb-present0:amd64.
+Preparing to unpack .../30-libxcb-present0_1.14-3_amd64.deb ...
+Unpacking libxcb-present0:amd64 (1.14-3) ...
+Selecting previously unselected package libxcb-shm0:amd64.
+Preparing to unpack .../31-libxcb-shm0_1.14-3_amd64.deb ...
+Unpacking libxcb-shm0:amd64 (1.14-3) ...
+Selecting previously unselected package libxcb-sync1:amd64.
+Preparing to unpack .../32-libxcb-sync1_1.14-3_amd64.deb ...
+Unpacking libxcb-sync1:amd64 (1.14-3) ...
+Selecting previously unselected package libxcb-xfixes0:amd64.
+Preparing to unpack .../33-libxcb-xfixes0_1.14-3_amd64.deb ...
+Unpacking libxcb-xfixes0:amd64 (1.14-3) ...
+Selecting previously unselected package libxdamage1:amd64.
+Preparing to unpack .../34-libxdamage1_1%3a1.1.5-2_amd64.deb ...
+Unpacking libxdamage1:amd64 (1:1.1.5-2) ...
+Selecting previously unselected package libxfixes3:amd64.
+Preparing to unpack .../35-libxfixes3_1%3a5.0.3-2_amd64.deb ...
+Unpacking libxfixes3:amd64 (1:5.0.3-2) ...
+Selecting previously unselected package libxshmfence1:amd64.
+Preparing to unpack .../36-libxshmfence1_1.3-1_amd64.deb ...
+Unpacking libxshmfence1:amd64 (1.3-1) ...
+Selecting previously unselected package libxxf86vm1:amd64.
+Preparing to unpack .../37-libxxf86vm1_1%3a1.1.4-1+b2_amd64.deb ...
+Unpacking libxxf86vm1:amd64 (1:1.1.4-1+b2) ...
+Selecting previously unselected package libdrm-amdgpu1:amd64.
+Preparing to unpack .../38-libdrm-amdgpu1_2.4.104-1_amd64.deb ...
+Unpacking libdrm-amdgpu1:amd64 (2.4.104-1) ...
+Selecting previously unselected package libdrm-intel1:amd64.
+Preparing to unpack .../39-libdrm-intel1_2.4.104-1_amd64.deb ...
+Unpacking libdrm-intel1:amd64 (2.4.104-1) ...
+Selecting previously unselected package libdrm-nouveau2:amd64.
+Preparing to unpack .../40-libdrm-nouveau2_2.4.104-1_amd64.deb ...
+Unpacking libdrm-nouveau2:amd64 (2.4.104-1) ...
+Selecting previously unselected package libdrm-radeon1:amd64.
+Preparing to unpack .../41-libdrm-radeon1_2.4.104-1_amd64.deb ...
+Unpacking libdrm-radeon1:amd64 (2.4.104-1) ...
+Selecting previously unselected package libz3-4:amd64.
+Preparing to unpack .../42-libz3-4_4.8.10-1_amd64.deb ...
+Unpacking libz3-4:amd64 (4.8.10-1) ...
+Selecting previously unselected package libllvm11:amd64.
+Preparing to unpack .../43-libllvm11_1%3a11.0.1-2_amd64.deb ...
+Unpacking libllvm11:amd64 (1:11.0.1-2) ...
+Selecting previously unselected package libsensors-config.
+Preparing to unpack .../44-libsensors-config_1%3a3.6.0-7_all.deb ...
+Unpacking libsensors-config (1:3.6.0-7) ...
+Selecting previously unselected package libsensors5:amd64.
+Preparing to unpack .../45-libsensors5_1%3a3.6.0-7_amd64.deb ...
+Unpacking libsensors5:amd64 (1:3.6.0-7) ...
+Selecting previously unselected package libvulkan1:amd64.
+Preparing to unpack .../46-libvulkan1_1.2.162.0-1_amd64.deb ...
+Unpacking libvulkan1:amd64 (1.2.162.0-1) ...
+Selecting previously unselected package libgl1-mesa-dri:amd64.
+Preparing to unpack .../47-libgl1-mesa-dri_20.3.5-1_amd64.deb ...
+Unpacking libgl1-mesa-dri:amd64 (20.3.5-1) ...
+Selecting previously unselected package libglx-mesa0:amd64.
+Preparing to unpack .../48-libglx-mesa0_20.3.5-1_amd64.deb ...
+Unpacking libglx-mesa0:amd64 (20.3.5-1) ...
+Selecting previously unselected package libglx0:amd64.
+Preparing to unpack .../49-libglx0_1.3.2-1_amd64.deb ...
+Unpacking libglx0:amd64 (1.3.2-1) ...
+Selecting previously unselected package libgl1:amd64.
+Preparing to unpack .../50-libgl1_1.3.2-1_amd64.deb ...
+Unpacking libgl1:amd64 (1.3.2-1) ...
+Selecting previously unselected package libglx-dev:amd64.
+Preparing to unpack .../51-libglx-dev_1.3.2-1_amd64.deb ...
+Unpacking libglx-dev:amd64 (1.3.2-1) ...
+Selecting previously unselected package libgl-dev:amd64.
+Preparing to unpack .../52-libgl-dev_1.3.2-1_amd64.deb ...
+Unpacking libgl-dev:amd64 (1.3.2-1) ...
+Selecting previously unselected package libdrm-dev:amd64.
+Preparing to unpack .../53-libdrm-dev_2.4.104-1_amd64.deb ...
+Unpacking libdrm-dev:amd64 (2.4.104-1) ...
+Selecting previously unselected package mesa-common-dev:amd64.
+Preparing to unpack .../54-mesa-common-dev_20.3.5-1_amd64.deb ...
+Unpacking mesa-common-dev:amd64 (20.3.5-1) ...
+Selecting previously unselected package xserver-xorg-dev.
+Preparing to unpack .../55-xserver-xorg-dev_2%3a1.20.11-1+deb11u1_amd64.deb ...
+Unpacking xserver-xorg-dev (2:1.20.11-1+deb11u1) ...
+Selecting previously unselected package config-package-dev.
+Preparing to unpack .../56-config-package-dev_5.5_all.deb ...
+Unpacking config-package-dev (5.5) ...
+Selecting previously unselected package desktop-file-utils.
+Preparing to unpack .../57-desktop-file-utils_0.26-1_amd64.deb ...
+Unpacking desktop-file-utils (0.26-1) ...
+Setting up libxcb-dri3-0:amd64 (1.14-3) ...
+Setting up libx11-xcb1:amd64 (2:1.7.2-1) ...
+Setting up libpciaccess0:amd64 (0.16-1) ...
+Setting up libxdamage1:amd64 (1:1.1.5-2) ...
+Setting up libpciaccess-dev:amd64 (0.16-1) ...
+Setting up libxcb-xfixes0:amd64 (1.14-3) ...
+Setting up desktop-file-utils (0.26-1) ...
+Setting up libglvnd0:amd64 (1.3.2-1) ...
+Setting up libxcb-glx0:amd64 (1.14-3) ...
+Setting up libpng-dev:amd64 (1.6.37-3) ...
+Setting up libsensors-config (1:3.6.0-7) ...
+Setting up libxcb-shm0:amd64 (1.14-3) ...
+Setting up libpthread-stubs0-dev:amd64 (0.4-1) ...
+Setting up libxxf86vm1:amd64 (1:1.1.4-1+b2) ...
+Setting up libqubes-rpc-filecopy2 (4.1.16+deb11u1) ...
+Setting up libxcb-present0:amd64 (1.14-3) ...
+Setting up xtrans-dev (1.4.0-1) ...
+Setting up libfontenc1:amd64 (1:1.1.4-1) ...
+Setting up libz3-4:amd64 (4.8.10-1) ...
+Setting up libllvm11:amd64 (1:11.0.1-2) ...
+Setting up config-package-dev (5.5) ...
+Setting up libxfixes3:amd64 (1:5.0.3-2) ...
+Setting up libxcb-sync1:amd64 (1.14-3) ...
+Setting up libsensors5:amd64 (1:3.6.0-7) ...
+Setting up libglapi-mesa:amd64 (20.3.5-1) ...
+Setting up libvulkan1:amd64 (1.2.162.0-1) ...
+Setting up libxcb-dri2-0:amd64 (1.14-3) ...
+Setting up libxshmfence1:amd64 (1.3-1) ...
+Setting up xorg-sgml-doctools (1:1.11-1.1) ...
+Setting up libxkbfile1:amd64 (1:1.1.0-1) ...
+Setting up libdrm-common (2.4.104-1) ...
+Setting up libxfont2:amd64 (1:2.0.4-1) ...
+Setting up libbrotli-dev:amd64 (1.0.9-2+b2) ...
+Setting up x11proto-dev (2020.1-1) ...
+Setting up libxau-dev:amd64 (1:1.0.9-1) ...
+Setting up libfontenc-dev:amd64 (1:1.1.4-1) ...
+Setting up libqubes-rpc-filecopy-dev (4.1.16+deb11u1) ...
+Setting up libfreetype-dev:amd64 (2.10.4+dfsg-1) ...
+Setting up libxdmcp-dev:amd64 (1:1.1.2-3) ...
+Setting up libdrm2:amd64 (2.4.104-1) ...
+Setting up libdrm-amdgpu1:amd64 (2.4.104-1) ...
+Setting up libdrm-nouveau2:amd64 (2.4.104-1) ...
+Setting up libxcb1-dev:amd64 (1.14-3) ...
+Setting up libdrm-radeon1:amd64 (2.4.104-1) ...
+Setting up libdrm-intel1:amd64 (2.4.104-1) ...
+Setting up libgl1-mesa-dri:amd64 (20.3.5-1) ...
+Setting up libx11-dev:amd64 (2:1.7.2-1) ...
+Setting up libfreetype6-dev:amd64 (2.10.4+dfsg-1) ...
+Setting up libxkbfile-dev:amd64 (1:1.1.0-1) ...
+Setting up libdrm-dev:amd64 (2.4.104-1) ...
+Setting up libglx-mesa0:amd64 (20.3.5-1) ...
+Setting up libglx0:amd64 (1.3.2-1) ...
+Setting up libxfont-dev (1:2.0.4-1) ...
+Setting up libgl1:amd64 (1.3.2-1) ...
+Setting up libglx-dev:amd64 (1.3.2-1) ...
+Setting up libgl-dev:amd64 (1.3.2-1) ...
+Setting up mesa-common-dev:amd64 (20.3.5-1) ...
+Setting up xserver-xorg-dev (2:1.20.11-1+deb11u1) ...
+Setting up qubes-core-agent-build-deps (4.2.0-1) ...
+Processing triggers for man-db (2.9.4-2) ...
+Processing triggers for mailcap (3.69) ...
+Processing triggers for libc-bin (2.31-13+deb11u3) ...
+# Cleanup; delete any old builds, except leave the orig that may have
+# been created on copy-in build stage
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/..; GLOBIGNORE=qubes-core-agent_4.2.0*orig*; rm -f qubes-core-agent_4.2.0*; GLOBIGNORE=
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/deb/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/rpm/*
+rm -rf /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/pkgs/*
+# break the release build if changelog does not match version file
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/debian/..; /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/debian-changelog.sh --verify
+# Break the hardlink
+cp /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/debian/changelog /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/debian/changelog.copy
+mv /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/debian/changelog.copy /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/debian/changelog
+echo "Building package in /home/user/qubes-src/core-agent-linux"
+Building package in /home/user/qubes-src/core-agent-linux
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/debian/..; export LC_ALL=C DEBFULLNAME=Builder DEBEMAIL=user@localhost; \
+	debchange -t -l+deb11u "Build for bullseye"; debchange -t --force-distribution -r -D bullseye bullseye
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+/home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/builder-debian//scripts/clamp-changelog-entry-date /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/debian/changelog
+find /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux \! -newer /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/debian/changelog \
+	-exec touch --no-dereference --reference=/home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/debian/changelog {} +
+sudo BACKEND_VMM=xen  chroot /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye su user -c 'cd /home/user/qubes-src/core-agent-linux/debian/..; export LC_ALL=C; dpkg-buildpackage -sa -uc -us'
+dpkg-buildpackage: info: source package qubes-core-agent
+dpkg-buildpackage: info: source version 4.2.0-1+deb11u1
+dpkg-buildpackage: info: source distribution bullseye
+dpkg-buildpackage: info: source changed by Builder <user@localhost>
+ dpkg-source --before-build .
+dpkg-buildpackage: info: host architecture amd64
+dpkg-source: info: using options from core-agent-linux/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-source: info: using patch list from debian/patches/series
+dpkg-source: info: applying 01_add_anacron.patch
+ fakeroot debian/rules clean
+dh clean --with systemd,python3 --with=config-package
+   dh_auto_clean
+	make -j2 clean
+make[1]: Entering directory '/home/user/qubes-src/core-agent-linux'
+make -C misc clean
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux'
+make[2]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rule.
+rm -f marker-vm
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/misc'
+make -C qubes-rpc clean
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux'
+make[2]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rule.
+rm -f qopen-in-vm qfile-agent qfile-unpacker tar2qfile vm-file-editor *.o
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/qubes-rpc'
+make -C doc clean
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux'
+make[2]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rule.
+rm -f vm-tools/qvm-copy.1.gz vm-tools/qvm-open-in-dvm.1.gz vm-tools/qvm-open-in-vm.1.gz vm-tools/qvm-run-vm.1.gz
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/doc'
+rm -rf qubesagent/*.pyc qubesagent/__pycache__
+rm -rf test-packages/__pycache__
+rm -rf test-packages/qubesagent.egg-info
+rm -rf __pycache__
+rm -rf debian/changelog.*
+rm -rf pkgs
+rm -f .coverage
+make[1]: Leaving directory '/home/user/qubes-src/core-agent-linux'
+   dh_clean
+ dpkg-source -b .
+dpkg-source: info: using options from core-agent-linux/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-source: info: using source format '3.0 (quilt)'
+dpkg-source: info: building qubes-core-agent using existing ./qubes-core-agent_4.2.0.orig.tar.xz
+dpkg-source: info: using patch list from debian/patches/series
+dpkg-source: info: building qubes-core-agent in qubes-core-agent_4.2.0-1+deb11u1.debian.tar.xz
+dpkg-source: info: building qubes-core-agent in qubes-core-agent_4.2.0-1+deb11u1.dsc
+ debian/rules build
+dh build --with systemd,python3 --with=config-package
+   dh_update_autotools_config
+   dh_autoreconf
+   dh_auto_configure
+   debian/rules override_dh_auto_build
+make[1]: Entering directory '/home/user/qubes-src/core-agent-linux'
+make all
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux'
+make -C misc VERSION=4.2.0
+make[3]: Entering directory '/home/user/qubes-src/core-agent-linux/misc'
+printf "4.2.0" | cut -f 1,2 -d . | cat marker-vm.in - > marker-vm
+# temporarily force 4.1, until repository for 4.2 packages is created
+printf "4.1" | cut -f 1,2 -d . | cat marker-vm.in - > marker-vm
+umask 022 && export XDG_DATA_HOME=. && \
+update-desktop-database applications && \
+update-mime-database mime && \
+rm -f mime/icons && \
+sed '1s/^\[MIME Cache]$/[Default Applications]/;s/;$//' \
+	applications/mimeinfo.cache > applications/mimeapps.list && \
+cp applications/mimeapps.list applications/defaults.list
+make[3]: Leaving directory '/home/user/qubes-src/core-agent-linux/misc'
+make -C qubes-rpc
+make[3]: Entering directory '/home/user/qubes-src/core-agent-linux/qubes-rpc'
+cc -g -O2 -Wall -Wextra -Werror -fPIC -pie -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-agent-linux=. -fstack-protector-strong -Wformat -Werror=format-security -I.  -c -o vm-file-editor.o vm-file-editor.c
+cc -g -pie -Wl,-z,relro  vm-file-editor.o  -lqubes-rpc-filecopy -o vm-file-editor
+cc -g -O2 -Wall -Wextra -Werror -fPIC -pie -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-agent-linux=. -fstack-protector-strong -Wformat -Werror=format-security -I.  -c -o qopen-in-vm.o qopen-in-vm.c
+cc -g -O2 -Wall -Wextra -Werror -fPIC -pie -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-agent-linux=. -fstack-protector-strong -Wformat -Werror=format-security -I.  -c -o gui-fatal.o gui-fatal.c
+cc -g -pie -Wl,-z,relro  qopen-in-vm.o gui-fatal.o  -lqubes-rpc-filecopy -o qopen-in-vm
+cc -g -O2 -Wall -Wextra -Werror -fPIC -pie -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-agent-linux=. -fstack-protector-strong -Wformat -Werror=format-security -I.  -c -o qfile-agent.o qfile-agent.c
+cc -g -pie -Wl,-z,relro  qfile-agent.o gui-fatal.o  -lqubes-rpc-filecopy -o qfile-agent
+cc -g -O2 -Wall -Wextra -Werror -fPIC -pie -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-agent-linux=. -fstack-protector-strong -Wformat -Werror=format-security -I.  -c -o qfile-unpacker.o qfile-unpacker.c
+cc -g -pie -Wl,-z,relro  qfile-unpacker.o gui-fatal.o  -lqubes-rpc-filecopy -o qfile-unpacker
+cc -g -O2 -Wall -Wextra -Werror -fPIC -pie -g -O2 -ffile-prefix-map=/home/user/qubes-src/core-agent-linux=. -fstack-protector-strong -Wformat -Werror=format-security -I.  -c -o tar2qfile.o tar2qfile.c
+cc -g -pie -Wl,-z,relro  tar2qfile.o gui-fatal.o  -lqubes-rpc-filecopy -o tar2qfile
+make[3]: Leaving directory '/home/user/qubes-src/core-agent-linux/qubes-rpc'
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux'
+make[1]: Leaving directory '/home/user/qubes-src/core-agent-linux'
+   dh_auto_test
+   create-stamp debian/debhelper-build-stamp
+ fakeroot debian/rules binary
+dh binary --with systemd,python3 --with=config-package
+   dh_testroot
+   dh_prep
+   dh_installdirs
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/home/user/qubes-src/core-agent-linux'
+make install-deb
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux'
+make -C doc install
+make[3]: Entering directory '/home/user/qubes-src/core-agent-linux/doc'
+pandoc -s -f rst -t man vm-tools/qvm-copy.rst > vm-tools/qvm-copy.1
+gzip -f vm-tools/qvm-copy.1
+pandoc -s -f rst -t man vm-tools/qvm-open-in-dvm.rst > vm-tools/qvm-open-in-dvm.1
+gzip -f vm-tools/qvm-open-in-dvm.1
+pandoc -s -f rst -t man vm-tools/qvm-open-in-vm.rst > vm-tools/qvm-open-in-vm.1
+gzip -f vm-tools/qvm-open-in-vm.1
+pandoc -s -f rst -t man vm-tools/qvm-run-vm.rst > vm-tools/qvm-run-vm.1
+gzip -f vm-tools/qvm-run-vm.1
+mkdir -p /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/man/man1
+cp vm-tools/qvm-copy.1.gz vm-tools/qvm-open-in-dvm.1.gz vm-tools/qvm-open-in-vm.1.gz vm-tools/qvm-run-vm.1.gz /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/man/man1/
+make[3]: Leaving directory '/home/user/qubes-src/core-agent-linux/doc'
+make -C autostart-dropins install
+make[3]: Entering directory '/home/user/qubes-src/core-agent-linux/autostart-dropins'
+for f in *.desktop; do install -m 0644 -D $f /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/autostart/$f.d/30_qubes.conf; done
+install -m 0644 README.txt /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/autostart/
+make[3]: Leaving directory '/home/user/qubes-src/core-agent-linux/autostart-dropins'
+make -C applications-dropins install
+make[3]: Entering directory '/home/user/qubes-src/core-agent-linux/applications-dropins'
+for f in *.desktop; do install -m 0644 -D $f /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/applications/$f.d/30_qubes.conf; done
+install -m 0644 README.txt /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/applications/
+make[3]: Leaving directory '/home/user/qubes-src/core-agent-linux/applications-dropins'
+# force /usr/bin before /bin to have /usr/bin/python instead of /bin/python
+PATH="/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/lib/snapd/snap/bin" /usr/bin/python3 setup.py install --install-layout=deb -O1 --root /home/user/qubes-src/core-agent-linux/debian/tmp
+running install
+running build
+running build_py
+creating build
+creating build/lib
+creating build/lib/qubesagent
+copying qubesagent/__init__.py -> build/lib/qubesagent
+copying qubesagent/firewall.py -> build/lib/qubesagent
+copying qubesagent/vmexec.py -> build/lib/qubesagent
+copying qubesagent/test_vmexec.py -> build/lib/qubesagent
+copying qubesagent/test_firewall.py -> build/lib/qubesagent
+copying qubesagent/test_xdg.py -> build/lib/qubesagent
+copying qubesagent/xdg.py -> build/lib/qubesagent
+running install_lib
+creating /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib
+creating /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3
+creating /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages
+creating /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent
+copying build/lib/qubesagent/__init__.py -> /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent
+copying build/lib/qubesagent/firewall.py -> /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent
+copying build/lib/qubesagent/vmexec.py -> /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent
+copying build/lib/qubesagent/test_vmexec.py -> /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent
+copying build/lib/qubesagent/test_firewall.py -> /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent
+copying build/lib/qubesagent/test_xdg.py -> /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent
+copying build/lib/qubesagent/xdg.py -> /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent
+byte-compiling /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent/__init__.py to __init__.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent/firewall.py to firewall.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent/vmexec.py to vmexec.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent/test_vmexec.py to test_vmexec.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent/test_firewall.py to test_firewall.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent/test_xdg.py to test_xdg.cpython-39.pyc
+byte-compiling /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent/xdg.py to xdg.cpython-39.pyc
+writing byte-compilation script '/tmp/tmpjngxsq4i.py'
+/usr/bin/python3 /tmp/tmpjngxsq4i.py
+removing /tmp/tmpjngxsq4i.py
+running install_egg_info
+running egg_info
+creating qubesagent.egg-info
+writing qubesagent.egg-info/PKG-INFO
+writing dependency_links to qubesagent.egg-info/dependency_links.txt
+writing top-level names to qubesagent.egg-info/top_level.txt
+writing manifest file 'qubesagent.egg-info/SOURCES.txt'
+reading manifest file 'qubesagent.egg-info/SOURCES.txt'
+writing manifest file 'qubesagent.egg-info/SOURCES.txt'
+Copying qubesagent.egg-info to /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/python3/dist-packages/qubesagent-4.2.0.egg-info
+Skipping SOURCES.txt
+running install_scripts
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes/init
+# FIXME: do a source code move vm-systemd/*.sh to init/
+# since those scripts are shared between sysvinit and systemd.
+install -m 0755 init/*.sh vm-systemd/*.sh /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes/init/
+install -m 0644 init/functions /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes/init/
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/lib/systemd/system{,-preset} /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes/init /home/user/qubes-src/core-agent-linux/debian/tmp/lib/modules-load.d /home/user/qubes-src/core-agent-linux/debian/tmp/etc/systemd/system /home/user/qubes-src/core-agent-linux/debian/tmp/lib/systemd/network
+install -m 0644 vm-systemd/qubes-early-vm-config.service vm-systemd/qubes-misc-post.service vm-systemd/qubes-mount-dirs.service vm-systemd/qubes-network-uplink.service vm-systemd/qubes-network-uplink@.service vm-systemd/qubes-network.service vm-systemd/qubes-rootfs-resize.service vm-systemd/qubes-sync-time.service vm-systemd/qubes-sysinit.service vm-systemd/qubes-update-check.service vm-systemd/qubes-updates-proxy-forwarder@.service vm-systemd/dev-xvdc1-swap.service /home/user/qubes-src/core-agent-linux/debian/tmp/lib/systemd/system/
+install -m 0644 vm-systemd/qubes-*.timer /home/user/qubes-src/core-agent-linux/debian/tmp/lib/systemd/system/
+install -m 0644 vm-systemd/75-qubes-vm.preset /home/user/qubes-src/core-agent-linux/debian/tmp/lib/systemd/system-preset/
+install -D -m 0644 vm-systemd/75-qubes-vm.user-preset \
+	/home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/systemd/user-preset/75-qubes-vm.preset
+install -m 0644 vm-systemd/qubes-core.conf /home/user/qubes-src/core-agent-linux/debian/tmp/lib/modules-load.d/
+install -m 0644 vm-systemd/xendriverdomain.service /home/user/qubes-src/core-agent-linux/debian/tmp/etc/systemd/system/
+install -m 0644 vm-systemd/80-qubes-vif.link /home/user/qubes-src/core-agent-linux/debian/tmp/lib/systemd/network/
+# Install system dropins
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/lib/systemd/system/sysinit.target.requires
+ln -sf ../systemd-random-seed.service /home/user/qubes-src/core-agent-linux/debian/tmp/lib/systemd/system/sysinit.target.requires
+# Install user dropins
+# Install system dropins
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/lib/systemd/system
+install -m 0644 vm-systemd/qubes-*.socket /home/user/qubes-src/core-agent-linux/debian/tmp/lib/systemd/system/
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes/
+install network/qubes-fix-nm-conf.sh /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes/
+install network/network-manager-prepare-conf-dir /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes/
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/etc/NetworkManager/dispatcher.d/
+install network/{qubes-nmhook,30-qubes-external-ip} /home/user/qubes-src/core-agent-linux/debian/tmp/etc/NetworkManager/dispatcher.d/
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/NetworkManager/conf.d
+install -m 0644 network/nm-30-qubes.conf /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/NetworkManager/conf.d/30-qubes.conf
+install -m 0644 network/nm-31-randomize-mac.conf /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/NetworkManager/conf.d/31-randomize-mac.conf
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/etc/xdg/autostart
+install -m 0755 network/show-hide-nm-applet.sh /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes/
+install -m 0644 network/show-hide-nm-applet.desktop /home/user/qubes-src/core-agent-linux/debian/tmp/etc/xdg/autostart/00-qubes-show-hide-nm-applet.desktop
+install -D -m 0644 vm-systemd/qubes-firewall.service vm-systemd/qubes-iptables.service vm-systemd/qubes-updates-proxy.service /home/user/qubes-src/core-agent-linux/debian/tmp/lib/systemd/system/
+install -D -m 0755 network/qubes-iptables /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes/init/qubes-iptables
+install -D -m 0644 vm-systemd/qubes-core-agent-linux.tmpfiles \
+	/home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/tmpfiles.d/qubes-core-agent-linux.conf
+install -D network/qubes-setup-dnat-to-ns /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes/qubes-setup-dnat-to-ns
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/etc/dhclient.d
+ln -s ../../usr/lib/qubes/qubes-setup-dnat-to-ns /home/user/qubes-src/core-agent-linux/debian/tmp/etc/dhclient.d/qubes-setup-dnat-to-ns.sh
+install -D network/vif-route-qubes /home/user/qubes-src/core-agent-linux/debian/tmp/etc/xen/scripts/vif-route-qubes
+install -D network/vif-qubes-nat.sh /home/user/qubes-src/core-agent-linux/debian/tmp/etc/xen/scripts/vif-qubes-nat.sh
+install -m 0644 -D network/tinyproxy-updates.conf /home/user/qubes-src/core-agent-linux/debian/tmp/etc/tinyproxy/tinyproxy-updates.conf
+install -m 0644 -D network/updates-blacklist /home/user/qubes-src/core-agent-linux/debian/tmp/etc/tinyproxy/updates-blacklist
+install -m 0400 -D network/iptables /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/iptables.rules
+install -m 0400 -D network/ip6tables /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/ip6tables.rules
+install -m 0400 -D network/ip6tables-enabled /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/ip6tables-enabled.rules
+install -m 0755 -D qubes-rpc/qubes.UpdatesProxy /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes-rpc/qubes.UpdatesProxy
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/etc/sysctl.d
+install -m 644 network/80-qubes.conf /home/user/qubes-src/core-agent-linux/debian/tmp/etc/sysctl.d/
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/etc/needrestart/conf.d
+install -D -m 0644 misc/50_qubes.conf /home/user/qubes-src/core-agent-linux/debian/tmp/etc/needrestart/conf.d/50_qubes.conf
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux'
+make -C app-menu install
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux/app-menu'
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes \
+	qubes-trigger-sync-appmenus.sh
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/bin
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/bin \
+	qubes-desktop-run \
+	qubes-run-gnome-terminal \
+	qubes-run-terminal \
+	qubes-session-autostart
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp//usr/share/applications
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp//usr/share/applications -m 0644 qubes-run-terminal.desktop
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp//usr/share/applications -m 0644 qubes-open-file-manager.desktop
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp//usr/share/applications -m 0644 qvm-open-in-dvm.desktop
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/app-menu'
+make -C config-overrides install
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux/config-overrides'
+install -D -m 0644 profile.d_qt_x11_no_mitshm.sh /home/user/qubes-src/core-agent-linux/debian/tmp/etc/profile.d/qt_x11_no_mitshm.sh
+install -D -m 0644 profile.d_qubes_disable_lesspipe.sh /home/user/qubes-src/core-agent-linux/debian/tmp/etc/profile.d/zqubes_disable_lesspipe.sh
+install -d -m 0750 /home/user/qubes-src/core-agent-linux/debian/tmp/etc/sudoers.d
+install -D -m 0440 sudoers.d_qt_x11_no_mitshm /home/user/qubes-src/core-agent-linux/debian/tmp/etc/sudoers.d/qt_x11_no_mitshm
+install -D -m 0440 sudoers.d_umask /home/user/qubes-src/core-agent-linux/debian/tmp/etc/sudoers.d/umask
+install -D -m 0644 20_tcp_timestamps.conf /home/user/qubes-src/core-agent-linux/debian/tmp/etc/sysctl.d/20_tcp_timestamps.conf
+install -D -m 0644 dconf-db-local-dpi /home/user/qubes-src/core-agent-linux/debian/tmp/etc/dconf/db/local.d/dpi
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/glib-2.0/schemas
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/glib-2.0/schemas -m 0644 \
+	20_org.gnome.desktop.wm.preferences.qubes.gschema.override \
+	20_org.gnome.nautilus.qubes.gschema.override \
+	20_org.gnome.settings-daemon.plugins.updates.qubes.gschema.override \
+	20_org.mate.NotificationDaemon.qubes.gschema.override
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/config-overrides'
+make -C filesystem install
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux/filesystem'
+install -D -m 0644 fstab /home/user/qubes-src/core-agent-linux/debian/tmp/etc/fstab
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes-bind-dirs.d
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes-bind-dirs.d -m 0644 30_cron.conf
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/var/lib/qubes
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/mnt/removable
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/rw
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/filesystem'
+make -C misc install
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux/misc'
+install -m 0755 -d /home/user/qubes-src/core-agent-linux/debian/tmp/lib/udev/rules.d
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/lib/udev/rules.d -m 0644 50-qubes-mem-hotplug.rules
+install -m 0755 -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/qubes/xdg-override
+install -D -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/qubes -m 0644 \
+    marker-vm \
+    qubes-master-key.asc
+install -D -m 0644 mime-globs /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/qubes/mime-override/globs
+IFS=; while read -r i; do \
+	case $i in \
+		(''|'#'*) continue;; \
+		(*[!A-Za-z0-9._-]*) \
+			printf 'ERROR: bad data directory "%s"\n' "$i" >&2; exit 1;;\
+	esac; \
+	ln -sf "../../$i" /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/qubes/xdg-override; \
+done < data-dirs
+rm -f mime/icons
+umask 022 && cp -r applications mime '/home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/qubes/xdg-override'
+install -m 0755 -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/bin
+install -m 0755 -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/bin qvm-features-request
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/misc'
+make -C network install
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux/network'
+install -D -m 0644 udev-qubes-network.rules /home/user/qubes-src/core-agent-linux/debian/tmp/etc/udev/rules.d/99-qubes-network.rules
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes \
+	setup-ip \
+	tinyproxy-wrapper \
+	get-dns-from-resolved \
+	update-proxy-configs
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/bin
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/bin \
+	qvm-connect-tcp
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/network'
+make -C package-managers install
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux/package-managers'
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes \
+	qubes-download-dom0-updates.sh \
+	upgrades-installed-check \
+	upgrades-status-notify
+install -d -m 2775 /home/user/qubes-src/core-agent-linux/debian/tmp/var/lib/qubes/dom0-updates
+install -D -m 0644 dnf-plugin-download.py \
+	/home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes/dnf-plugins/download.py
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/package-managers'
+make -C package-managers install-apt
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux/package-managers'
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/etc/apt/sources.list.d
+sed "s/@DIST@/bullseye/" apt-qubes-r4.list.in \
+	> /home/user/qubes-src/core-agent-linux/debian/tmp/etc/apt/sources.list.d/qubes-r4.list
+install -D -m 0644 apt-qubes-archive-keyring.gpg \
+	/home/user/qubes-src/core-agent-linux/debian/tmp/etc/apt/trusted.gpg.d/qubes-archive-keyring.gpg
+install -D -m 0644 apt-conf-00notify-hook \
+	/home/user/qubes-src/core-agent-linux/debian/tmp/etc/apt/apt.conf.d/00notify-hook
+install -D -m 0644 apt-conf-70no-unattended \
+	/home/user/qubes-src/core-agent-linux/debian/tmp/etc/apt/apt.conf.d/70no-unattended
+install -D -m 0644 apt-conf-10no-cache \
+	/home/user/qubes-src/core-agent-linux/debian/tmp/etc/apt/apt.conf.d/10no-cache
+install -D -m 0644 apt-conf-41error-on-any \
+	/home/user/qubes-src/core-agent-linux/debian/tmp/etc/apt/apt.conf.d/41error-on-any
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/package-managers'
+make -C passwordless-root install install-debian
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux/passwordless-root'
+install -d -m 0750 /home/user/qubes-src/core-agent-linux/debian/tmp/etc/sudoers.d
+if [ -f /etc/redhat-release ] || [ -f /etc/debian_version ]; then \
+	exec install -D -m 0440 qubes.sudoers /home/user/qubes-src/core-agent-linux/debian/tmp/etc/sudoers.d/qubes; \
+else \
+	sed -E '/^[^#]/s/\<(ROLE|TYPE)=[A-Za-z0-9_]+[[:space:]]+//g' qubes.sudoers | \
+	install -D -m 0440 /dev/stdin /home/user/qubes-src/core-agent-linux/debian/tmp/etc/sudoers.d/qubes; \
+fi
+install -D -m 0644 polkit-1-qubes-allow-all.pkla /home/user/qubes-src/core-agent-linux/debian/tmp/etc/polkit-1/localauthority/50-local.d/qubes-allow-all.pkla
+install -d -m 0750 /home/user/qubes-src/core-agent-linux/debian/tmp/etc/polkit-1/rules.d
+install -D -m 0644 polkit-1-qubes-allow-all.rules /home/user/qubes-src/core-agent-linux/debian/tmp/etc/polkit-1/rules.d/00-qubes-allow-all.rules
+install -D -m 0644 pam-configs_su.qubes /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/pam-configs//su.qubes
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/passwordless-root'
+make -C qubes-rpc install
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux/qubes-rpc'
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/bin
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/bin \
+	qubes-open \
+	qvm-open-in-vm qvm-run-vm qvm-sync-clock
+ln -sf qvm-open-in-vm /home/user/qubes-src/core-agent-linux/debian/tmp/usr/bin/qvm-open-in-dvm
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/bin qvm-copy
+ln -sf qvm-copy /home/user/qubes-src/core-agent-linux/debian/tmp/usr/bin/qvm-move-to-vm
+ln -sf qvm-copy /home/user/qubes-src/core-agent-linux/debian/tmp/usr/bin/qvm-move
+ln -sf qvm-copy /home/user/qubes-src/core-agent-linux/debian/tmp/usr/bin/qvm-copy-to-vm
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes qvm-copy-to-vm.gnome
+ln -sf qvm-copy-to-vm.gnome /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes/qvm-move-to-vm.gnome
+ln -sf qvm-copy-to-vm.gnome /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes/qvm-copy-to-vm.kde
+ln -sf qvm-copy-to-vm.gnome /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes/qvm-move-to-vm.kde
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes \
+	prepare-suspend resize-rootfs \
+	qfile-agent qopen-in-vm qrun-in-vm qubes-sync-clock \
+	tar2qfile vm-file-editor xdg-icon qvm-template-repo-query
+# Install qfile-unpacker as SUID, because it will fail to receive
+# files from other vm.
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes -m 4755 qfile-unpacker
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes-rpc
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes-rpc \
+	qubes.Filecopy qubes.OpenInVM qubes.VMShell \
+	qubes.VMRootShell \
+	qubes.VMExec \
+	qubes.OpenURL \
+	qubes.SuspendPre qubes.SuspendPost qubes.GetAppmenus \
+	qubes.SuspendPreAll \
+	qubes.SuspendPostAll \
+	qubes.WaitForSession \
+	qubes.DetachPciDevice \
+	qubes.Backup qubes.Restore \
+	qubes.RegisterBackupLocation \
+	qubes.RestoreById \
+	qubes.SelectFile qubes.SelectDirectory \
+	qubes.GetImageRGBA \
+	qubes.SetDateTime \
+	qubes.InstallUpdatesGUI \
+	qubes.ResizeDisk \
+	qubes.StartApp \
+	qubes.PostInstall \
+	qubes.GetDate \
+	qubes.ShowInTerminal \
+	qubes.ConnectTCP \
+	qubes.TemplateSearch \
+	qubes.TemplateDownload
+ln -sf qubes.VMExec /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes-rpc/qubes.VMExecGUI
+for config in *.config; do \
+	install -D -m 0644 "$config" "/home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/rpc-config/${config%.config}"; \
+done
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/etc
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/etc -m 0644 qubes-suspend-module-blacklist
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/suspend-pre.d
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/suspend-pre.d -m 0644 suspend-pre.d/README
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/suspend-post.d
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/suspend-post.d -m 0644 suspend-post.d/README
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/suspend-post.d suspend-post.d/*.sh
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/post-install.d
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/post-install.d -m 0644 post-install.d/README
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/etc/qubes/post-install.d post-install.d/*.sh
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/qubes-rpc'
+make -C qubes-rpc/kde install
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux/qubes-rpc/kde'
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/kde4/services
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/kde4/services -m 0644 *.desktop
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/kservices5/ServiceMenus
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/kservices5/ServiceMenus -m 0644 *.desktop
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/qubes-rpc/kde'
+make -C qubes-rpc/nautilus install
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux/qubes-rpc/nautilus'
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/nautilus-python/extensions
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/share/nautilus-python/extensions -m 0644 *.py
+install -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes -m 0755 *.sh
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/qubes-rpc/nautilus'
+make -C qubes-rpc/thunar install
+make[2]: Entering directory '/home/user/qubes-src/core-agent-linux/qubes-rpc/thunar'
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes
+install -D -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes qvm-actions.sh
+install -D -t /home/user/qubes-src/core-agent-linux/debian/tmp/usr/lib/qubes -m 0644 uca_qubes.xml
+install -d /home/user/qubes-src/core-agent-linux/debian/tmp/etc/xdg/xfce4/xfconf/xfce-perchannel-xml
+install -D -t /home/user/qubes-src/core-agent-linux/debian/tmp/etc/xdg/xfce4/xfconf/xfce-perchannel-xml -m 0644 thunar.xml
+make[2]: Leaving directory '/home/user/qubes-src/core-agent-linux/qubes-rpc/thunar'
+install -D -m 0644 boot/grub.qubes /home/user/qubes-src/core-agent-linux/debian/tmp/etc/default/grub.d/30-qubes.cfg
+make[1]: Leaving directory '/home/user/qubes-src/core-agent-linux'
+   debian/rules override_dh_install
+make[1]: Entering directory '/home/user/qubes-src/core-agent-linux'
+dh_install --fail-missing
+dh_install: warning: Please use dh_missing --list-missing/--fail-missing instead
+dh_install: warning: This feature will be removed in compat 12.
+make[1]: Leaving directory '/home/user/qubes-src/core-agent-linux'
+   dh_installdocs
+   dh_installchangelogs
+   dh_installman
+   dh_systemd_enable
+   dh_python3
+   dh_installinit
+   debian/rules override_dh_systemd_start
+make[1]: Entering directory '/home/user/qubes-src/core-agent-linux'
+dh_systemd_start --no-restart-on-upgrade
+make[1]: Leaving directory '/home/user/qubes-src/core-agent-linux'
+   dh_installmodules
+   dh_installgsettings
+   dh_perl
+   dh_configpackage
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   debian/rules override_dh_fixperms
+make[1]: Entering directory '/home/user/qubes-src/core-agent-linux'
+dh_fixperms -a -Xqfile-unpacker
+make[1]: Leaving directory '/home/user/qubes-src/core-agent-linux'
+   dh_missing
+   dh_strip
+   dh_makeshlibs
+   dh_shlibdeps
+   dh_installdeb
+   debian/rules override_dh_gencontrol
+make[1]: Entering directory '/home/user/qubes-src/core-agent-linux'
+echo "pythonver:Depends=python3" >> debian/qubes-core-agent-nautilus.substvars
+dh_gencontrol
+dpkg-gencontrol: warning: Conflicts field of package qubes-core-agent-passwordless-root: substitution variable ${diverted-files} used, but is not defined
+dpkg-gencontrol: warning: Provides field of package qubes-core-agent-passwordless-root: substitution variable ${diverted-files} used, but is not defined
+make[1]: Leaving directory '/home/user/qubes-src/core-agent-linux'
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'qubes-core-agent-dom0-updates' in '../qubes-core-agent-dom0-updates_4.2.0-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-core-agent' in '../qubes-core-agent_4.2.0-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-core-agent-networking' in '../qubes-core-agent-networking_4.2.0-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-core-agent-network-manager' in '../qubes-core-agent-network-manager_4.2.0-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-core-agent-passwordless-root' in '../qubes-core-agent-passwordless-root_4.2.0-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-core-agent-dbgsym' in '../qubes-core-agent-dbgsym_4.2.0-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-core-agent-nautilus' in '../qubes-core-agent-nautilus_4.2.0-1+deb11u1_amd64.deb'.
+dpkg-deb: building package 'qubes-core-agent-thunar' in '../qubes-core-agent-thunar_4.2.0-1+deb11u1_amd64.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges -sa >../qubes-core-agent_4.2.0-1+deb11u1_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-source: info: using options from core-agent-linux/debian/source/options: --extend-diff-ignore=(^|/)(.git/.*)$ --extend-diff-ignore=(^|/)(deb/.*)$ --extend-diff-ignore=(^|/)(pkgs/.*)$ --extend-diff-ignore=(^|/)(rpm/.*)$
+dpkg-source: info: unapplying 01_add_anacron.patch
+dpkg-buildpackage: info: full upload (original source is included)
+mkdir -p /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb
+mkdir -p qubes-src/core-agent-linux/pkgs/vm-bullseye
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/debian/../..; \
+	cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-core-agent_4.2.0*.changes`
+cp -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-packages-mirror-repo/vm-bullseye/deb/ /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/debian/../../qubes-core-agent_4.2.0*.changes
+cd /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/debian/../..; \
+	mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/core-agent-linux/pkgs/vm-bullseye  `awk 'section == "Files:" { print $5 } /^[A-Z].*.$/ { section=$1 }' qubes-core-agent_4.2.0*.changes`
+mv -t /home/user/qubes-template-securedrop-workstation/qubes-builder/qubes-src/core-agent-linux/pkgs/vm-bullseye /home/user/qubes-template-securedrop-workstation/qubes-builder/chroot-vm-bullseye//home/user/qubes-src/core-agent-linux/debian/../../qubes-core-agent_4.2.0*.changes
