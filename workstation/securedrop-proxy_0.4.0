@@ -1,0 +1,283 @@
+user@disp5424:~$ git clone https://github.com/freedomofpress/securedrop-debian-packaging
+Cloning into 'securedrop-debian-packaging'...
+remote: Enumerating objects: 3418, done.
+remote: Counting objects: 100% (1197/1197), done.
+remote: Compressing objects: 100% (654/654), done.
+remote: Total 3418 (delta 529), reused 1099 (delta 452), pack-reused 2221
+Receiving objects: 100% (3418/3418), 2.30 MiB | 3.97 MiB/s, done.
+Resolving deltas: 100% (1599/1599), done.
+Filtering content: 100% (129/129), 46.19 MiB | 1.73 MiB/s, done.
+user@disp5424:~$ git clone https://github.com/freedomofpress/securedrop-proxy
+Cloning into 'securedrop-proxy'...
+remote: Enumerating objects: 770, done.
+remote: Counting objects: 100% (168/168), done.
+remote: Compressing objects: 100% (86/86), done.
+remote: Total 770 (delta 77), reused 163 (delta 76), pack-reused 602
+Receiving objects: 100% (770/770), 349.67 KiB | 1.16 MiB/s, done.
+Resolving deltas: 100% (397/397), done.
+user@disp5424:~$ curl -L https://media.securedrop.org/media/documents/securedrop-release-key-2021-1.asc | gpg --import -
+gpg: keybox '/home/user/.gnupg/pubring.kbx' created
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  3204  100  3204    0     0  10402      0 --:--:-- --:--:-- --:--:-- 10402
+gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
+gpg: key 188EDD3B7B22E6A3: public key "SecureDrop Release Signing Key <securedrop-release-key-2021@freedom.press>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+user@disp5424:~$ cd securedrop-proxy/
+user@disp5424:~/securedrop-proxy$ git tag -v 0.4.0
+object 782190ea28aa012e99537c4d483829697925e2f5
+type commit
+tag 0.4.0
+tagger Allie Crevier <allie@freedom.press> 1657063541 -0400
+
+securedrop-proxy 0.4.0
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEs7w4of7eC4courm/EXOOCajrhkUFAmLEyHUACgkQEXOOCajr
+hkUCNA//fgntmj9T4lEw81iy9Jg77iKnDvnMmO3oTuwLPtRylmnT6oZD3yIO88m3
+TuQyaUPp+UWHNMqhc4qJGmaOdpIDC5ZDLZBPfHQtdeGVoLS8wUa59reEuTo8NQfK
+VcGNtFWMrH2gAsmsuYfCvD5KIFj9S2z150kwJ+mWUbd6QgJGrL8Io8FlIPU4ukW8
+iN9/PRa6Q4N0P0fuiJe4kt33lbyunxoQRYa2iCAYNl5exjcFth7iryURQ738dMl7
+sGVpAy/zFBf9Olgvh23nQzhLNqNlxZfqUjBJd3XC7i2vxvvUpvJATLwSrregvb9w
+gTtflOOXIf+rVu1XcFJvZPosU5UUULJo7x1isNL634GebFFkW6v/d5kWGgUxyyxR
+dcLM2fmtN6kJmaIprWj9uvUSgDs+ZGpTQ/7yoyMrPTDvTK9f7onrPBRl8eJeLkBG
+luCsDASrAZNZnrImrRuKDlAAtxZVAk3M8M4sPu+y22FhHaCq+E8k7EUgrBftoMWf
+T440ExhOI1NmbMUhIUzd0TPhjJB5XARqE5FC7iGtFkVgqiUgQdqzKwEjPus9M7IY
+cEYzFw2gWeC7sfvck8++QltxEQ+dya6gu4876Est8xeSuptfaSMFq6nbKrVEmLYH
+Pz4RdFR4u+2s5Vk2b44wC3pTdiI6DCqeoC9Q6VareLpWHEuUUCY=
+=qzZB
+-----END PGP SIGNATURE-----
+gpg: Signature made Tue 05 Jul 2022 09:03:38 PM EDT
+gpg:                using RSA key 2359E6538C0613E652955E6C188EDD3B7B22E6A3
+gpg: Good signature from "SecureDrop Release Signing Key <securedrop-release-key-2021@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2359 E653 8C06 13E6 5295  5E6C 188E DD3B 7B22 E6A3
+user@disp5424:~/securedrop-proxy$ cd ../securedrop-debian-packaging/
+user@disp5424:~/securedrop-debian-packaging$ make install-deps
+./scripts/install-deps
+Hit:1 https://deb.debian.org/debian bullseye InRelease
+Get:2 https://deb.debian.org/debian-security bullseye-security InRelease [44.1 kB]
+Get:3 https://deb.debian.org/debian-security bullseye-security/main amd64 Packages [164 kB]
+Get:4 https://deb.debian.org/debian-security bullseye-security/main Translation-en [103 kB]
+Hit:5 https://deb.qubes-os.org/r4.0/vm bullseye InRelease             
+Fetched 311 kB in 1s (310 kB/s)
+Reading package lists... Done
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+build-essential is already the newest version (12.9).
+curl is already the newest version (7.74.0-1.3+deb11u1).
+desktop-file-utils is already the newest version (0.26-1).
+desktop-file-utils set to manually installed.
+devscripts is already the newest version (2.21.3+deb11u1).
+dh-make is already the newest version (2.202003).
+dh-python is already the newest version (4.20201102+nmu1).
+dh-virtualenv is already the newest version (1.2.2-1.1).
+git-lfs is already the newest version (2.13.2-1+b5).
+libffi-dev is already the newest version (3.3-6).
+libyaml-dev is already the newest version (0.2.2-1).
+python3-pip is already the newest version (20.3.4-4+deb11u1).
+python3-virtualenv is already the newest version (20.4.0+ds-2+deb11u1).
+python3-virtualenv set to manually installed.
+python3-all is already the newest version (3.9.2-3).
+python3-venv is already the newest version (3.9.2-3).
+python3-setuptools is already the newest version (52.0.0-4).
+libssl-dev is already the newest version (1.1.1n-0+deb11u3).
+0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
+Creating local virtualenv...
+Looking in links: ./bootstrap/
+Processing ./bootstrap/build-0.3.0-py2.py3-none-any.whl
+Processing ./bootstrap/click-7.1.2-py2.py3-none-any.whl
+Processing ./bootstrap/Cython-0.29.22-cp39-cp39-linux_x86_64.whl
+Processing ./bootstrap/flit_core-2.3.0-py2.py3-none-any.whl
+Processing ./bootstrap/importlib_metadata-3.7.0-py3-none-any.whl
+Processing ./bootstrap/packaging-20.9-py2.py3-none-any.whl
+Processing ./bootstrap/pep517-0.9.1-py2.py3-none-any.whl
+Processing ./bootstrap/pip_tools-6.0.1-py3-none-any.whl
+Processing ./bootstrap/pyparsing-2.4.7-py2.py3-none-any.whl
+Processing ./bootstrap/pytest_runner-5.3.0-py3-none-any.whl
+Processing ./bootstrap/pytoml-0.1.21-py2.py3-none-any.whl
+Processing ./bootstrap/setuptools_scm-5.0.2-py2.py3-none-any.whl
+Processing ./bootstrap/toml-0.10.2-py2.py3-none-any.whl
+Processing ./bootstrap/typing_extensions-3.7.4.3-py3-none-any.whl
+Processing ./bootstrap/wheel-0.36.2-py2.py3-none-any.whl
+Processing ./bootstrap/zipp-3.4.1-py3-none-any.whl
+Processing ./bootstrap/pip-21.3.1-py3-none-any.whl
+Processing ./bootstrap/setuptools-54.0.0-py3-none-any.whl
+Installing collected packages: zipp, wheel, typing-extensions, toml, setuptools-scm, setuptools, pytoml, pytest-runner, pyparsing, pip-tools, pip, pep517, packaging, importlib-metadata, flit-core, cython, click, build
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 44.1.1
+    Uninstalling setuptools-44.1.1:
+      Successfully uninstalled setuptools-44.1.1
+  Attempting uninstall: pip
+    Found existing installation: pip 20.3.4
+    Uninstalling pip-20.3.4:
+      Successfully uninstalled pip-20.3.4
+Successfully installed build-0.3.0 click-7.1.2 cython-0.29.22 flit-core-2.3.0 importlib-metadata-3.7.0 packaging-20.9 pep517-0.9.1 pip-21.3.1 pip-tools-6.0.1 pyparsing-2.4.7 pytest-runner-5.3.0 pytoml-0.1.21 setuptools-54.0.0 setuptools-scm-5.0.2 toml-0.10.2 typing-extensions-3.7.4.3 wheel-0.36.2 zipp-3.4.1
+user@disp5424:~/securedrop-debian-packaging$ PKG_VERSION=0.4.0 make securedrop-proxy
+WHEELS_DIR="/home/user/securedrop-debian-packaging/localwheels/" PKG_NAME="securedrop-proxy" ./scripts/build-debianpackage
+gpg: key 9232DAD3105B8D58: public key "Allie Crevier <allie@freedom.press>" imported
+gpg: key F08893B959CAB065: public key "Conor Schaefer <conor@freedom.press>" imported
+gpg: key 07AD35D378D10BA0: public key "Cory Francis Myers <cory@freedom.press>" imported
+gpg: key 99D3D09825B8D1DB: public key "Gonzalo Bulnes Guilpain <gonzalo@gonzalobulnes.com>" imported
+gpg: key ACFE4353173015EA: public key "Kevin O'Gorman <kog@freedom.press>" imported
+gpg: key 52FC8E7BEDB7FCA2: public key "Kunal Mehta <legoktm@riseup.net>" imported
+gpg: key D8219C8C43F6C5E1: public key "Kushal Das <kushal@freedom.press>" imported
+gpg: key FB1BED6507701B45: public key "Michael Z <michael@freedom.press>" imported
+gpg: key 188EDD3B7B22E6A3: public key "SecureDrop Release Signing Key <securedrop-release-key-2021@freedom.press>" imported
+gpg: key FC72AA838C444B47: public key "Rowen S <ro@freedom.press>" imported
+gpg: Total number processed: 10
+gpg:               imported: 10
+gpg: Signature made Fri 03 Jun 2022 03:31:46 PM EDT
+gpg:                using RSA key D8CB59F05DBB9E0538C4819DF105F8101B05269B
+gpg: Good signature from "Kunal Mehta <legoktm@riseup.net>" [unknown]
+gpg:                 aka "Kunal Mehta <legoktm@debian.org>" [unknown]
+gpg:                 aka "Kunal Mehta <legoktm@gmail.com>" [unknown]
+gpg:                 aka "Kunal Mehta <kunalm@legoktm.com>" [unknown]
+gpg:                 aka "Kunal Mehta <kunal@freedom.press>" [unknown]
+gpg:                 aka "Kunal Mehta <legoktm@member.fsf.org>" [unknown]
+gpg:                 aka "Kunal Mehta <legoktm@wikimedia.org>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: FA1E 9F9A 41E7 F435 02CA  5D63 52FC 8E7B EDB7 FCA2
+     Subkey fingerprint: D8CB 59F0 5DBB 9E05 38C4  819D F105 F810 1B05 269B
+Checking that SHA256SUMs from mirror match signed file...  OK
+securedrop-proxy is a Python package
+PKG_PATH not set, building from source (version 0.4.0)...
+Cloning into '/tmp/securedrop-proxy'...
+remote: Enumerating objects: 770, done.
+remote: Counting objects: 100% (168/168), done.
+remote: Compressing objects: 100% (86/86), done.
+remote: Total 770 (delta 77), reused 163 (delta 76), pack-reused 602
+Receiving objects: 100% (770/770), 349.67 KiB | 1.10 MiB/s, done.
+Resolving deltas: 100% (397/397), done.
+Note: switching to '0.4.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 782190e Merge pull request #103 from freedomofpress/release/securedrop-proxy-0.4.0
+All hashes verified.
+Copying over legacy debian/ directory for securedrop-proxy
+Building package 'securedrop-proxy' from version '0.4.0'...
+/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-proxy/
+Moving legacy bullseye changelog into place
+dpkg-buildpackage: info: source package securedrop-proxy
+dpkg-buildpackage: info: source version 0.4.0+bullseye
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by SecureDrop Team <securedrop@freedom.press>
+dpkg-buildpackage: info: host architecture amd64
+ dpkg-source --before-build .
+ fakeroot debian/rules clean
+make[1]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-proxy'
+dh clean --with python-virtualenv
+   dh_clean
+make[1]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-proxy'
+ dpkg-source -b .
+dpkg-source: warning: no source format specified in debian/source/format, see dpkg-source(1)
+dpkg-source: info: using source format '1.0'
+dpkg-source: warning: source directory 'securedrop-proxy' is not <sourcepackage>-<upstreamversion> 'securedrop-proxy-0.4.0+bullseye'
+dpkg-source: info: building securedrop-proxy in securedrop-proxy_0.4.0+bullseye.tar.gz
+dpkg-source: info: building securedrop-proxy in securedrop-proxy_0.4.0+bullseye.dsc
+ debian/rules build
+make[1]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-proxy'
+dh build --with python-virtualenv
+   dh_update_autotools_config
+   dh_autoreconf
+   dh_auto_configure
+   create-stamp debian/debhelper-build-stamp
+make[1]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-proxy'
+ fakeroot debian/rules binary
+make[1]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-proxy'
+dh binary --with python-virtualenv
+   dh_testroot
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   debian/rules override_dh_virtualenv
+make[2]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-proxy'
+test -e requirements/build-requirements.txt
+dh_virtualenv \
+	--python /usr/bin/python3 \
+	--extra-pip-arg "--ignore-installed" \
+	--extra-pip-arg "--no-index" \
+	--extra-pip-arg "--find-links" \
+	--extra-pip-arg "/home/user/securedrop-debian-packaging/localwheels/" \
+	--extra-pip-arg "--no-deps" \
+	--extra-pip-arg "--no-cache-dir" \
+	--extra-pip-arg "--no-use-pep517" \
+	--requirements requirements/build-requirements.txt
+/usr/bin/dh_virtualenv:60: DeprecationWarning: inspect.getargspec() is deprecated since Python 3.0, use inspect.signature() or inspect.getfullargspec()
+  arguments = inspect.getargspec(DebHelper.__init__).args
+created virtual environment CPython3.9.2.final.0-64 in 205ms
+  creator CPython3Posix(dest=/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-proxy/debian/securedrop-proxy/opt/venvs/securedrop-proxy, clear=False, no_vcs_ignore=False, global=False)
+  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=/home/user/.local/share/virtualenv)
+    added seed packages: pip==20.3.4, pkg_resources==0.0.0, setuptools==44.1.1, wheel==0.34.2
+  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+Looking in links: /home/user/securedrop-debian-packaging/localwheels/
+Processing /home/user/securedrop-debian-packaging/localwheels/certifi-2021.5.30-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/charset_normalizer-2.0.4-py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/furl-2.0.0-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/idna-3.2-py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/orderedmultidict-1.0-py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/PyYAML-5.4.1-cp39-cp39-linux_x86_64.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/requests-2.26.0-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/six-1.11.0-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/urllib3-1.26.6-py2.py3-none-any.whl
+Processing /home/user/securedrop-debian-packaging/localwheels/Werkzeug-2.0.2-py3-none-any.whl
+Installing collected packages: werkzeug, urllib3, six, requests, pyyaml, orderedmultidict, idna, furl, charset-normalizer, certifi
+Successfully installed certifi-2021.5.30 charset-normalizer-2.0.4 furl-2.0.0 idna-3.2 orderedmultidict-1.0 pyyaml-5.4.1 requests-2.26.0 six-1.11.0 urllib3-1.26.6 werkzeug-2.0.2
+Looking in links: /home/user/securedrop-debian-packaging/localwheels/
+Processing /home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-proxy
+Building wheels for collected packages: securedrop-proxy
+  Building wheel for securedrop-proxy (setup.py) ... done
+  Created wheel for securedrop-proxy: filename=securedrop_proxy-0.4.0-py3-none-any.whl size=23300 sha256=29e6e7384ab7aa80bb012e9a323f5319a32fa63d5273fc45175a9c83824e02d0
+  Stored in directory: /tmp/pip-ephem-wheel-cache-vknrlb6t/wheels/91/6c/33/9b0dc8684e12495fe2cdd3f22ad68596deff12567336f67b2b
+Successfully built securedrop-proxy
+Installing collected packages: securedrop-proxy
+Successfully installed securedrop-proxy-0.4.0
+make[2]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-proxy'
+   dh_perl
+   dh_link
+   debian/rules override_dh_strip_nondeterminism
+make[2]: Entering directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-proxy'
+find ./debian/ -type f -name '*.pyc' -delete
+find ./debian/ -type f -name 'pip-selfcheck.json' -delete
+find ./debian/ -type f -name 'direct_url.json' -delete
+find ./debian/ -type f -name 'RECORD' -delete
+dh_strip_nondeterminism override_dh_strip_nondeterminism
+make[2]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-proxy'
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+dpkg-gencontrol: warning: Depends field of package securedrop-proxy: substitution variable ${python3:Depends} used, but is not defined
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'securedrop-proxy' in '../securedrop-proxy_0.4.0+bullseye_all.deb'.
+make[1]: Leaving directory '/home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-proxy'
+ dpkg-genbuildinfo
+ dpkg-genchanges  >../securedrop-proxy_0.4.0+bullseye_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
+Package location: /home/user/securedrop-debian-packaging/build/debbuild/packaging/securedrop-proxy_0.4.0+bullseye_all.deb
+user@disp5424:~/securedrop-debian-packaging$ sha256sum build/debbuild/packaging/securedrop-proxy_0.4.0+bullseye_all.deb 
+e57f27e9aa7f0d10bbe8dfe7c8c27a2e728ab2895b0c353b0ff4b773f9c8ab7e  build/debbuild/packaging/securedrop-proxy_0.4.0+bullseye_all.deb
+
