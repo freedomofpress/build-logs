@@ -1,0 +1,196 @@
+user@sd-dvm:~/securedrop-builder$ cd ../securedrop-client/
+user@sd-dvm:~/securedrop-client$ git status
+HEAD detached at 0.9.0-rc1
+nothing to commit, working tree clean
+user@sd-dvm:~/securedrop-client$ git log -1
+commit 2e9805cbf0512432bc2962e2b40874fa89fe8ee2 (HEAD, tag: 0.9.0-rc1, origin/release/0.9.0)
+Author: Kevin O'Gorman <kog@freedom.press>
+Date:   Thu Mar 9 13:29:16 2023 -0500
+
+    Updated strings, updated version to 0.9.0, added provisional 0.9.0 changelog
+user@sd-dvm:~/securedrop-client$ cd ../securedrop-builder/
+user@sd-dvm:~/securedrop-builder$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+user@sd-dvm:~/securedrop-builder$ git log -1
+commit a294b6676c28a9f04d544f188e55bcc96ed24ad4 (HEAD -> main, origin/main, origin/HEAD)
+Merge: d093eed ba2c611
+Author: Gonzalo Bulnes Guilpain <gon.bulnes@fastmail.com>
+Date:   Thu Feb 23 07:58:37 2023 +1100
+
+    Merge pull request #400 from freedomofpress/creviera-readme-update
+    
+    Update README.md
+user@sd-dvm:~/securedrop-builder$ PKG_VERSION=0.9.0-rc1 ./scripts/update-changelog securedrop-client
+dch warning: Previous package version was Debian native whilst new version is not
+user@sd-dvm:~/securedrop-builder$ PKG_PATH=../securedrop-client make securedrop-client
+PKG_NAME="securedrop-client" ./scripts/build-debianpackage
+Checking that SHA256SUMs signed by a key in pubkeys/...
+gpg: key 9232DAD3105B8D58: public key "Allie Crevier <allie@freedom.press>" imported
+gpg: key F08893B959CAB065: public key "Conor Schaefer <conor@freedom.press>" imported
+gpg: key 07AD35D378D10BA0: public key "Cory Francis Myers <cory@freedom.press>" imported
+gpg: key 99D3D09825B8D1DB: public key "Gonzalo Bulnes Guilpain <gonzalo@gonzalobulnes.com>" imported
+gpg: key ACFE4353173015EA: public key "Kevin O'Gorman <kog@freedom.press>" imported
+gpg: key 52FC8E7BEDB7FCA2: public key "Kunal Mehta <legoktm@riseup.net>" imported
+gpg: key D8219C8C43F6C5E1: public key "Kushal Das <kushal@freedom.press>" imported
+gpg: key FB1BED6507701B45: public key "Michael Z <michael@freedom.press>" imported
+gpg: key 188EDD3B7B22E6A3: public key "SecureDrop Release Signing Key <securedrop-release-key-2021@freedom.press>" imported
+gpg: key FC72AA838C444B47: public key "Rowen S <ro@freedom.press>" imported
+gpg: Total number processed: 10
+gpg:               imported: 10
+gpg: Signature made Tue 31 Jan 2023 05:04:48 PM EST
+gpg:                using RSA key D8CB59F05DBB9E0538C4819DF105F8101B05269B
+gpg: Good signature from "Kunal Mehta <legoktm@riseup.net>" [expired]
+gpg:                 aka "Kunal Mehta <legoktm@debian.org>" [expired]
+gpg:                 aka "Kunal Mehta <legoktm@gmail.com>" [expired]
+gpg:                 aka "Kunal Mehta <kunalm@legoktm.com>" [expired]
+gpg:                 aka "Kunal Mehta <kunal@freedom.press>" [expired]
+gpg:                 aka "Kunal Mehta <legoktm@member.fsf.org>" [expired]
+gpg:                 aka "Kunal Mehta <legoktm@wikimedia.org>" [expired]
+gpg: Note: This key has expired!
+Primary key fingerprint: FA1E 9F9A 41E7 F435 02CA  5D63 52FC 8E7B EDB7 FCA2
+     Subkey fingerprint: D8CB 59F0 5DBB 9E05 38C4  819D F105 F810 1B05 269B
+Checking that SHA256SUMs from mirror match signed file... alembic-1.0.2-py2.py3-none-any.whl	       MarkupSafe-2.0.1-cp39-cp39-linux_x86_64.whl
+alembic-1.1.0-py2.py3-none-any.whl	       pathlib2-2.3.2-py2.py3-none-any.whl
+arrow-0.12.1-py2.py3-none-any.whl	       python_dateutil-2.7.5-py2.py3-none-any.whl
+certifi-2021.5.30-py2.py3-none-any.whl	       python_editor-1.0.3-py3-none-any.whl
+certifi-2022.12.7-py3-none-any.whl	       requests-2.26.0-py2.py3-none-any.whl
+charset_normalizer-2.0.4-py3-none-any.whl      securedrop_sdk-0.4.0-py3-none-any.whl
+idna-3.2-py3-none-any.whl		       six-1.11.0-py2.py3-none-any.whl
+Jinja2-3.0.2-py3-none-any.whl		       SQLAlchemy-1.3.3-cp311-cp311-linux_x86_64.whl
+Mako-1.0.7-py3-none-any.whl		       SQLAlchemy-1.3.3-cp39-cp39-linux_x86_64.whl
+Mako-1.2.2-py3-none-any.whl		       urllib3-1.26.6-py2.py3-none-any.whl
+MarkupSafe-2.0.1-cp311-cp311-linux_x86_64.whl
+ OK
+PKG_VERSION not set, inferring from recent releases...
+Using PKG_VERSION: 0.8.1
+securedrop-client is a Python package
+All hashes verified.
+Copying over legacy debian/ directory for securedrop-client
+Building package 'securedrop-client' from version '0.8.1'...
+/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client/
+Moving legacy buster changelog into place
+dpkg-buildpackage: info: source package securedrop-client
+dpkg-buildpackage: info: source version 0.9.0-rc1+bullseye
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by SecureDrop Team <securedrop@freedom.press>
+dpkg-buildpackage: info: host architecture amd64
+ dpkg-source --before-build .
+ fakeroot debian/rules clean
+make[1]: Entering directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+dh clean --with python-virtualenv
+   dh_clean
+make[1]: Leaving directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+ dpkg-source -b .
+dpkg-source: warning: no source format specified in debian/source/format, see dpkg-source(1)
+dpkg-source: info: using source format '1.0'
+dpkg-source: warning: native package version may not have a revision
+dpkg-source: warning: source directory 'securedrop-client' is not <sourcepackage>-<upstreamversion> 'securedrop-client-0.9.0'
+dpkg-source: info: building securedrop-client in securedrop-client_0.9.0-rc1+bullseye.tar.gz
+dpkg-source: info: building securedrop-client in securedrop-client_0.9.0-rc1+bullseye.dsc
+ debian/rules build
+make[1]: Entering directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+dh build --with python-virtualenv
+   dh_update_autotools_config
+   dh_autoreconf
+   dh_auto_configure
+   create-stamp debian/debhelper-build-stamp
+make[1]: Leaving directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+ fakeroot debian/rules binary
+make[1]: Entering directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+dh binary --with python-virtualenv
+   dh_testroot
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   debian/rules override_dh_virtualenv
+make[2]: Entering directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+test -e requirements/build-requirements.txt
+dh_virtualenv \
+	--python /usr/bin/python3 \
+	--use-system-packages \
+	--extra-pip-arg "--ignore-installed" \
+	--extra-pip-arg "--no-index" \
+	--extra-pip-arg "--find-links" \
+	--extra-pip-arg "/home/user/securedrop-builder/securedrop-client/wheels" \
+	--extra-pip-arg "--no-deps" \
+	--extra-pip-arg "--no-cache-dir" \
+	--extra-pip-arg "--no-use-pep517" \
+	--requirements requirements/build-requirements.txt
+/usr/bin/dh_virtualenv:60: DeprecationWarning: inspect.getargspec() is deprecated since Python 3.0, use inspect.signature() or inspect.getfullargspec()
+  arguments = inspect.getargspec(DebHelper.__init__).args
+created virtual environment CPython3.9.2.final.0-64 in 175ms
+  creator CPython3Posix(dest=/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client/debian/securedrop-client/opt/venvs/securedrop-client, clear=False, no_vcs_ignore=False, global=True)
+  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=/home/user/.local/share/virtualenv)
+    added seed packages: pip==20.3.4, pkg_resources==0.0.0, setuptools==44.1.1, wheel==0.34.2
+  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+Looking in links: /home/user/securedrop-builder/securedrop-client/wheels
+Processing /home/user/securedrop-builder/securedrop-client/wheels/alembic-1.1.0-py2.py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/arrow-0.12.1-py2.py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/certifi-2022.12.7-py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/charset_normalizer-2.0.4-py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/idna-3.2-py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/Jinja2-3.0.2-py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/Mako-1.2.2-py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/MarkupSafe-2.0.1-cp39-cp39-linux_x86_64.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/pathlib2-2.3.2-py2.py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/python_dateutil-2.7.5-py2.py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/python_editor-1.0.3-py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/requests-2.26.0-py2.py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/securedrop_sdk-0.4.0-py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/six-1.11.0-py2.py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/SQLAlchemy-1.3.3-cp39-cp39-linux_x86_64.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/urllib3-1.26.6-py2.py3-none-any.whl
+Installing collected packages: urllib3, sqlalchemy, six, securedrop-sdk, requests, python-editor, python-dateutil, pathlib2, markupsafe, mako, jinja2, idna, charset-normalizer, certifi, arrow, alembic
+Successfully installed alembic-1.1.0 arrow-0.12.1 certifi-2022.12.7 charset-normalizer-2.0.4 idna-3.2 jinja2-3.0.2 mako-1.2.2 markupsafe-2.0.1 pathlib2-2.3.2 python-dateutil-2.7.5 python-editor-1.0.3 requests-2.26.0 securedrop-sdk-0.4.0 six-1.11.0 sqlalchemy-1.3.3 urllib3-1.26.6
+Looking in links: /home/user/securedrop-builder/securedrop-client/wheels
+Processing /home/user/securedrop-builder/build/debbuild/packaging/securedrop-client
+Building wheels for collected packages: securedrop-client
+  Building wheel for securedrop-client (setup.py) ... done
+  Created wheel for securedrop-client: filename=securedrop_client-0.9.0-py3-none-any.whl size=3895104 sha256=a58febc6def9bce8bdd211f5ed50ce822e1739119e3ebaa9d9ef832455069579
+  Stored in directory: /tmp/pip-ephem-wheel-cache-8hafn50s/wheels/b7/f4/ba/5557e5a7c73969c6e6919f34b1c2a795add154acd3b1072b76
+Successfully built securedrop-client
+Installing collected packages: securedrop-client
+Successfully installed securedrop-client-0.9.0
+make[2]: Leaving directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+   dh_perl
+   dh_link
+   debian/rules override_dh_strip_nondeterminism
+make[2]: Entering directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+find ./debian/ -type f -name '*.pyc' -delete
+find ./debian/ -type f -name 'pip-selfcheck.json' -delete
+find ./debian/ -type f -name 'direct_url.json' -delete
+find ./debian/ -type f -name 'RECORD' -delete
+dh_strip_nondeterminism override_dh_strip_nondeterminism
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.9/site-packages/securedrop_client/locale/zh_Hans/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.9/site-packages/securedrop_client/locale/pt_PT/LC_MESSAGES/messages.mo
+make[2]: Leaving directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+dpkg-gencontrol: warning: Depends field of package securedrop-client: substitution variable ${python3:Depends} used, but is not defined
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'securedrop-client' in '../securedrop-client_0.9.0-rc1+bullseye_all.deb'.
+make[1]: Leaving directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+ dpkg-genbuildinfo
+ dpkg-genchanges  >../securedrop-client_0.9.0-rc1+bullseye_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
+Could not find package, look in /home/user/securedrop-builder/build/debbuild/packaging
+user@sd-dvm:~/securedrop-builder$ shasum -a 256 build/debbuild/packaging/securedrop-client
+securedrop-client/
+securedrop-client_0.9.0-rc1+bullseye_all.deb
+securedrop-client_0.9.0-rc1+bullseye_amd64.buildinfo
+securedrop-client_0.9.0-rc1+bullseye_amd64.changes
+securedrop-client_0.9.0-rc1+bullseye.dsc
+securedrop-client_0.9.0-rc1+bullseye.tar.gz
+user@sd-dvm:~/securedrop-builder$ shasum -a 256 build/debbuild/packaging/securedrop-client*.deb
+2e3772e29eaf372549e233c23e6a3cd2f9817b13daf491497df189a634281dfd  build/debbuild/packaging/securedrop-client_0.9.0-rc1+bullseye_all.deb
+
