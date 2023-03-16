@@ -1,0 +1,399 @@
+user@sd-dvm:~$ cd securedrop-client/
+user@sd-dvm:~/securedrop-client$ git fetch
+Warning: Permanently added the ECDSA host key for IP address '140.82.114.4' to the list of known hosts.
+From github.com:freedomofpress/securedrop-client
+ * [new tag]         0.9.0-rc3  -> 0.9.0-rc3
+user@sd-dvm:~/securedrop-client$ git checkout 0.9.0-rc3
+Note: switching to '0.9.0-rc3'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at d9d2fd1 Merge pull request #1649 from freedomofpress/backport-1648
+user@sd-dvm:~/securedrop-client$ git log -1
+commit d9d2fd1bbe47f6e681654bff3f28b53fbfcb0536 (HEAD, tag: 0.9.0-rc3, origin/release/0.9.0)
+Merge: a550297 fc8cf5a
+Author: Kunal Mehta <legoktm@debian.org>
+Date:   Thu Mar 16 11:59:40 2023 -0400
+
+    Merge pull request #1649 from freedomofpress/backport-1648
+    
+    Backport unicode transcript fix
+user@sd-dvm:~/securedrop-client$ git verify-commit d9d2fd1bbe47f6e681654bff3f28b53fbfcb0536
+gpg: Signature made Thu Mar 16 11:59:40 2023 EDT
+gpg:                using RSA key 4AEE18F83AFDEB23
+gpg: Good signature from "GitHub (web-flow commit signing) <noreply@github.com>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 5DE3 E050 9C47 EA3C F04A  42D3 4AEE 18F8 3AFD EB23
+user@sd-dvm:~/securedrop-client$ cd ../securedrop-builder
+user@sd-dvm:~/securedrop-builder$ make install-deps
+./scripts/install-deps
++ VIRTUAL_ENV=
++ sudo apt-get update
+Hit:1 https://download.docker.com/linux/debian bullseye InRelease
+Hit:2 https://deb.debian.org/debian bullseye InRelease                                                
+Hit:3 https://deb.debian.org/debian-security bullseye-security InRelease                              
+Hit:4 https://contrib.qubes-os.org/deb/r4.1/vm bullseye InRelease                                     
+Hit:5 https://deb.qubes-os.org/r4.1/vm bullseye InRelease
+Reading package lists... Done
++ sudo apt-get install build-essential curl devscripts dh-make dh-python dh-virtualenv git-lfs libffi-dev libssl-dev libyaml-dev python3-all python3-pip python3-virtualenv python3-venv python3-setuptools desktop-file-utils -y
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+build-essential is already the newest version (12.9).
+build-essential set to manually installed.
+desktop-file-utils is already the newest version (0.26-1).
+desktop-file-utils set to manually installed.
+devscripts is already the newest version (2.21.3+deb11u1).
+git-lfs is already the newest version (2.13.2-1+b5).
+python3-pip is already the newest version (20.3.4-4+deb11u1).
+python3-pip set to manually installed.
+python3-virtualenv is already the newest version (20.4.0+ds-2+deb11u1).
+python3-virtualenv set to manually installed.
+python3-setuptools is already the newest version (52.0.0-4).
+python3-setuptools set to manually installed.
+The following packages were automatically installed and are no longer required:
+  ethtool libbotan-2-17 libtspi1 linux-image-5.10.0-10-amd64 linux-image-5.10.0-14-amd64
+  linux-image-5.10.0-15-amd64 linux-image-5.10.0-17-amd64 linux-image-5.10.0-19-amd64 net-tools
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  libcurl4 python3.9-venv sphinx-rtd-theme-common
+Suggested packages:
+  libssl-doc libyaml-doc
+The following NEW packages will be installed:
+  dh-make dh-python dh-virtualenv libffi-dev libssl-dev libyaml-dev python3-all python3-venv
+  python3.9-venv sphinx-rtd-theme-common
+The following packages will be upgraded:
+  curl libcurl4
+2 upgraded, 10 newly installed, 0 to remove and 19 not upgraded.
+Need to get 3,768 kB of archives.
+After this operation, 11.1 MB of additional disk space will be used.
+Get:1 https://deb.debian.org/debian-security bullseye-security/main amd64 curl amd64 7.74.0-1.3+deb11u7 [270 kB]
+Get:2 https://deb.debian.org/debian-security bullseye-security/main amd64 libcurl4 amd64 7.74.0-1.3+deb11u7 [346 kB]
+Get:3 https://deb.debian.org/debian bullseye/main amd64 dh-make all 2.202003 [43.5 kB]
+Get:4 https://deb.debian.org/debian bullseye/main amd64 dh-python all 4.20201102+nmu1 [99.4 kB]
+Get:5 https://deb.debian.org/debian bullseye/main amd64 sphinx-rtd-theme-common all 0.5.1+dfsg-1 [995 kB]
+Get:6 https://deb.debian.org/debian bullseye/main amd64 python3.9-venv amd64 3.9.2-1 [5,396 B]
+Get:7 https://deb.debian.org/debian bullseye/main amd64 dh-virtualenv all 1.2.2-1.1 [71.9 kB]
+Get:8 https://deb.debian.org/debian bullseye/main amd64 libffi-dev amd64 3.3-6 [56.5 kB]
+Get:9 https://deb.debian.org/debian-security bullseye-security/main amd64 libssl-dev amd64 1.1.1n-0+deb11u4 [1,817 kB]
+Get:10 https://deb.debian.org/debian bullseye/main amd64 libyaml-dev amd64 0.2.2-1 [60.1 kB]
+Get:11 https://deb.debian.org/debian bullseye/main amd64 python3-all amd64 3.9.2-3 [1,056 B]
+Get:12 https://deb.debian.org/debian bullseye/main amd64 python3-venv amd64 3.9.2-3 [1,188 B]
+Fetched 3,768 kB in 1s (5,528 kB/s)       
+apt-listchanges: Reading changelogs...
+(Reading database ... 138020 files and directories currently installed.)
+Preparing to unpack .../00-curl_7.74.0-1.3+deb11u7_amd64.deb ...
+Unpacking curl (7.74.0-1.3+deb11u7) over (7.74.0-1.3+deb11u5) ...
+Preparing to unpack .../01-libcurl4_7.74.0-1.3+deb11u7_amd64.deb ...
+Unpacking libcurl4:amd64 (7.74.0-1.3+deb11u7) over (7.74.0-1.3+deb11u5) ...
+Selecting previously unselected package dh-make.
+Preparing to unpack .../02-dh-make_2.202003_all.deb ...
+Unpacking dh-make (2.202003) ...
+Selecting previously unselected package dh-python.
+Preparing to unpack .../03-dh-python_4.20201102+nmu1_all.deb ...
+Unpacking dh-python (4.20201102+nmu1) ...
+Selecting previously unselected package sphinx-rtd-theme-common.
+Preparing to unpack .../04-sphinx-rtd-theme-common_0.5.1+dfsg-1_all.deb ...
+Unpacking sphinx-rtd-theme-common (0.5.1+dfsg-1) ...
+Selecting previously unselected package python3.9-venv.
+Preparing to unpack .../05-python3.9-venv_3.9.2-1_amd64.deb ...
+Unpacking python3.9-venv (3.9.2-1) ...
+Selecting previously unselected package dh-virtualenv.
+Preparing to unpack .../06-dh-virtualenv_1.2.2-1.1_all.deb ...
+Unpacking dh-virtualenv (1.2.2-1.1) ...
+Selecting previously unselected package libffi-dev:amd64.
+Preparing to unpack .../07-libffi-dev_3.3-6_amd64.deb ...
+Unpacking libffi-dev:amd64 (3.3-6) ...
+Selecting previously unselected package libssl-dev:amd64.
+Preparing to unpack .../08-libssl-dev_1.1.1n-0+deb11u4_amd64.deb ...
+Unpacking libssl-dev:amd64 (1.1.1n-0+deb11u4) ...
+Selecting previously unselected package libyaml-dev:amd64.
+Preparing to unpack .../09-libyaml-dev_0.2.2-1_amd64.deb ...
+Unpacking libyaml-dev:amd64 (0.2.2-1) ...
+Selecting previously unselected package python3-all.
+Preparing to unpack .../10-python3-all_3.9.2-3_amd64.deb ...
+Unpacking python3-all (3.9.2-3) ...
+Selecting previously unselected package python3-venv.
+Preparing to unpack .../11-python3-venv_3.9.2-3_amd64.deb ...
+Unpacking python3-venv (3.9.2-3) ...
+Setting up dh-python (4.20201102+nmu1) ...
+Setting up libyaml-dev:amd64 (0.2.2-1) ...
+Setting up python3-all (3.9.2-3) ...
+Setting up libffi-dev:amd64 (3.3-6) ...
+Setting up dh-make (2.202003) ...
+Setting up libssl-dev:amd64 (1.1.1n-0+deb11u4) ...
+Setting up libcurl4:amd64 (7.74.0-1.3+deb11u7) ...
+Setting up python3.9-venv (3.9.2-1) ...
+Setting up curl (7.74.0-1.3+deb11u7) ...
+Setting up sphinx-rtd-theme-common (0.5.1+dfsg-1) ...
+Setting up python3-venv (3.9.2-3) ...
+Setting up dh-virtualenv (1.2.2-1.1) ...
+Processing triggers for libc-bin (2.31-13+deb11u5) ...
+Processing triggers for man-db (2.9.4-2) ...
+Processing triggers for install-info (6.7.0.dfsg.2-6) ...
+++ find workstation-bootstrap/ -type f -iname '*.whl' -exec file --mime-type '{}' +
+++ perl '-F:\s+' -lanE 'say $F[-1]'
+++ sort -u
++ wheel_mime_types=application/zip
++ [[ application/zip != \a\p\p\l\i\c\a\t\i\o\n\/\z\i\p ]]
++ [[ -z '' ]]
++ echo 'Creating local virtualenv...'
+Creating local virtualenv...
++ python3 -m venv .venv
++ . .venv/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /bin/bash -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/home/user/securedrop-builder/.venv
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+++ PATH=/home/user/securedrop-builder/.venv/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ PS1='(.venv) '
+++ export PS1
+++ '[' -n /bin/bash -o -n '' ']'
+++ hash -r
++ pip install --require-hashes --no-index --no-deps --no-cache-dir -r ./workstation-bootstrap/build-requirements.txt --find-links ./workstation-bootstrap/wheels/
+Looking in links: ./workstation-bootstrap/wheels/
+Processing ./workstation-bootstrap/wheels/build-0.3.0-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/click-8.0.3-py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/Cython-0.29.33-cp39-cp39-linux_x86_64.whl
+Processing ./workstation-bootstrap/wheels/flit_core-2.3.0-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/packaging-20.9-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/pep517-0.9.1-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/pip_tools-6.0.1-py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/pyparsing-2.4.7-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/pytest_runner-5.3.0-py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/pytoml-0.1.21-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/setuptools_scm-5.0.2-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/toml-0.10.2-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/wheel-0.36.2-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/pip-21.3.1-py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/setuptools-54.0.0-py3-none-any.whl
+Installing collected packages: wheel, toml, setuptools-scm, setuptools, pytoml, pytest-runner, pyparsing, pip-tools, pip, pep517, packaging, flit-core, cython, click, build
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 44.1.1
+    Uninstalling setuptools-44.1.1:
+      Successfully uninstalled setuptools-44.1.1
+  Attempting uninstall: pip
+    Found existing installation: pip 20.3.4
+    Uninstalling pip-20.3.4:
+      Successfully uninstalled pip-20.3.4
+Successfully installed build-0.3.0 click-8.0.3 cython-0.29.33 flit-core-2.3.0 packaging-20.9 pep517-0.9.1 pip-21.3.1 pip-tools-6.0.1 pyparsing-2.4.7 pytest-runner-5.3.0 pytoml-0.1.21 setuptools-54.0.0 setuptools-scm-5.0.2 toml-0.10.2 wheel-0.36.2
+user@sd-dvm:~/securedrop-builder$ source .venv/bin/activate
+(.venv) user@sd-dvm:~/securedrop-builder$ PKG_VERSION=0.9.0-rc3 ./scripts/update-changelog securedrop-client
+
+Select an editor.  To change later, run 'select-editor'.
+  1. /usr/bin/vim.nox
+  2. /bin/nano        <---- easiest
+  3. /usr/bin/vim.tiny
+  4. /usr/bin/emacs
+
+Choose 1-4 [2]: 1
+(.venv) user@sd-dvm:~/securedrop-builder$ git diff origin/main
+diff --git a/securedrop-client/debian/changelog-buster b/securedrop-client/debian/changelog-buster
+index ab92aa4..3782e2d 100644
+--- a/securedrop-client/debian/changelog-buster
++++ b/securedrop-client/debian/changelog-buster
+@@ -1,3 +1,9 @@
++securedrop-client (0.9.0-rc3+bullseye) unstable; urgency=medium
++
++  * See changelog.md 
++
++ -- SecureDrop Team <securedrop@freedom.press>  Thu, 16 Mar 2023 13:14:06 -0400
++
+ securedrop-client (0.9.0-rc2+bullseye) unstable; urgency=medium
+ 
+   * see changelog.md 
+(.venv) user@sd-dvm:~/securedrop-builder$ PKG_PATH=../securedrop-client make securedrop-client
+PKG_NAME="securedrop-client" ./scripts/build-debianpackage
+Checking that SHA256SUMs signed by a key in pubkeys/...
+gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
+gpg: key 9232DAD3105B8D58: public key "Allie Crevier <allie@freedom.press>" imported
+gpg: key F08893B959CAB065: public key "Conor Schaefer <conor@freedom.press>" imported
+gpg: key 07AD35D378D10BA0: public key "Cory Francis Myers <cory@freedom.press>" imported
+gpg: key 99D3D09825B8D1DB: public key "Gonzalo Bulnes Guilpain <gonzalo@gonzalobulnes.com>" imported
+gpg: key ACFE4353173015EA: public key "Kevin O'Gorman <kog@freedom.press>" imported
+gpg: key 52FC8E7BEDB7FCA2: public key "Kunal Mehta <legoktm@riseup.net>" imported
+gpg: key D8219C8C43F6C5E1: public key "Kushal Das <kushal@freedom.press>" imported
+gpg: key FB1BED6507701B45: public key "Michael Z <michael@freedom.press>" imported
+gpg: key 188EDD3B7B22E6A3: public key "SecureDrop Release Signing Key <securedrop-release-key-2021@freedom.press>" imported
+gpg: key FC72AA838C444B47: public key "Rowen S <ro@freedom.press>" imported
+gpg: Total number processed: 10
+gpg:               imported: 10
+gpg: Signature made Tue 31 Jan 2023 05:04:48 PM EST
+gpg:                using RSA key D8CB59F05DBB9E0538C4819DF105F8101B05269B
+gpg: Good signature from "Kunal Mehta <legoktm@riseup.net>" [unknown]
+gpg:                 aka "Kunal Mehta <legoktm@debian.org>" [unknown]
+gpg:                 aka "Kunal Mehta <legoktm@gmail.com>" [unknown]
+gpg:                 aka "Kunal Mehta <kunalm@legoktm.com>" [unknown]
+gpg:                 aka "Kunal Mehta <kunal@freedom.press>" [unknown]
+gpg:                 aka "Kunal Mehta <legoktm@member.fsf.org>" [unknown]
+gpg:                 aka "Kunal Mehta <legoktm@wikimedia.org>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: FA1E 9F9A 41E7 F435 02CA  5D63 52FC 8E7B EDB7 FCA2
+     Subkey fingerprint: D8CB 59F0 5DBB 9E05 38C4  819D F105 F810 1B05 269B
+Checking that SHA256SUMs from mirror match signed file... alembic-1.0.2-py2.py3-none-any.whl	       MarkupSafe-2.0.1-cp39-cp39-linux_x86_64.whl
+alembic-1.1.0-py2.py3-none-any.whl	       pathlib2-2.3.2-py2.py3-none-any.whl
+arrow-0.12.1-py2.py3-none-any.whl	       python_dateutil-2.7.5-py2.py3-none-any.whl
+certifi-2021.5.30-py2.py3-none-any.whl	       python_editor-1.0.3-py3-none-any.whl
+certifi-2022.12.7-py3-none-any.whl	       requests-2.26.0-py2.py3-none-any.whl
+charset_normalizer-2.0.4-py3-none-any.whl      securedrop_sdk-0.4.0-py3-none-any.whl
+idna-3.2-py3-none-any.whl		       six-1.11.0-py2.py3-none-any.whl
+Jinja2-3.0.2-py3-none-any.whl		       SQLAlchemy-1.3.3-cp311-cp311-linux_x86_64.whl
+Mako-1.0.7-py3-none-any.whl		       SQLAlchemy-1.3.3-cp39-cp39-linux_x86_64.whl
+Mako-1.2.2-py3-none-any.whl		       urllib3-1.26.6-py2.py3-none-any.whl
+MarkupSafe-2.0.1-cp311-cp311-linux_x86_64.whl
+ OK
+PKG_VERSION not set, inferring from recent releases...
+Using PKG_VERSION: 0.8.1
+securedrop-client is a Python package
+All hashes verified.
+Copying over legacy debian/ directory for securedrop-client
+Building package 'securedrop-client' from version '0.8.1'...
+/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client/
+Moving legacy buster changelog into place
+dpkg-buildpackage: info: source package securedrop-client
+dpkg-buildpackage: info: source version 0.9.0-rc3+bullseye
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by SecureDrop Team <securedrop@freedom.press>
+dpkg-buildpackage: info: host architecture amd64
+ dpkg-source --before-build .
+ fakeroot debian/rules clean
+make[1]: Entering directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+dh clean --with python-virtualenv
+   dh_clean
+make[1]: Leaving directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+ dpkg-source -b .
+dpkg-source: warning: no source format specified in debian/source/format, see dpkg-source(1)
+dpkg-source: info: using source format '1.0'
+dpkg-source: warning: native package version may not have a revision
+dpkg-source: warning: source directory 'securedrop-client' is not <sourcepackage>-<upstreamversion> 'securedrop-client-0.9.0'
+dpkg-source: info: building securedrop-client in securedrop-client_0.9.0-rc3+bullseye.tar.gz
+dpkg-source: info: building securedrop-client in securedrop-client_0.9.0-rc3+bullseye.dsc
+ debian/rules build
+make[1]: Entering directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+dh build --with python-virtualenv
+   dh_update_autotools_config
+   dh_autoreconf
+   dh_auto_configure
+   create-stamp debian/debhelper-build-stamp
+make[1]: Leaving directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+ fakeroot debian/rules binary
+make[1]: Entering directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+dh binary --with python-virtualenv
+   dh_testroot
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   debian/rules override_dh_virtualenv
+make[2]: Entering directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+test -e requirements/build-requirements.txt
+dh_virtualenv \
+	--python /usr/bin/python3 \
+	--use-system-packages \
+	--extra-pip-arg "--ignore-installed" \
+	--extra-pip-arg "--no-index" \
+	--extra-pip-arg "--find-links" \
+	--extra-pip-arg "/home/user/securedrop-builder/securedrop-client/wheels" \
+	--extra-pip-arg "--no-deps" \
+	--extra-pip-arg "--no-cache-dir" \
+	--extra-pip-arg "--no-use-pep517" \
+	--requirements requirements/build-requirements.txt
+/usr/bin/dh_virtualenv:60: DeprecationWarning: inspect.getargspec() is deprecated since Python 3.0, use inspect.signature() or inspect.getfullargspec()
+  arguments = inspect.getargspec(DebHelper.__init__).args
+created virtual environment CPython3.9.2.final.0-64 in 231ms
+  creator CPython3Posix(dest=/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client/debian/securedrop-client/opt/venvs/securedrop-client, clear=False, no_vcs_ignore=False, global=True)
+  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=/home/user/.local/share/virtualenv)
+    added seed packages: pip==20.3.4, pkg_resources==0.0.0, setuptools==44.1.1, wheel==0.34.2
+  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+Looking in links: /home/user/securedrop-builder/securedrop-client/wheels
+Processing /home/user/securedrop-builder/securedrop-client/wheels/alembic-1.1.0-py2.py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/arrow-0.12.1-py2.py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/certifi-2022.12.7-py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/charset_normalizer-2.0.4-py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/idna-3.2-py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/Jinja2-3.0.2-py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/Mako-1.2.2-py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/MarkupSafe-2.0.1-cp39-cp39-linux_x86_64.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/pathlib2-2.3.2-py2.py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/python_dateutil-2.7.5-py2.py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/python_editor-1.0.3-py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/requests-2.26.0-py2.py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/securedrop_sdk-0.4.0-py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/six-1.11.0-py2.py3-none-any.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/SQLAlchemy-1.3.3-cp39-cp39-linux_x86_64.whl
+Processing /home/user/securedrop-builder/securedrop-client/wheels/urllib3-1.26.6-py2.py3-none-any.whl
+Installing collected packages: urllib3, sqlalchemy, six, securedrop-sdk, requests, python-editor, python-dateutil, pathlib2, markupsafe, mako, jinja2, idna, charset-normalizer, certifi, arrow, alembic
+Successfully installed alembic-1.1.0 arrow-0.12.1 certifi-2022.12.7 charset-normalizer-2.0.4 idna-3.2 jinja2-3.0.2 mako-1.2.2 markupsafe-2.0.1 pathlib2-2.3.2 python-dateutil-2.7.5 python-editor-1.0.3 requests-2.26.0 securedrop-sdk-0.4.0 six-1.11.0 sqlalchemy-1.3.3 urllib3-1.26.6
+Looking in links: /home/user/securedrop-builder/securedrop-client/wheels
+Processing /home/user/securedrop-builder/build/debbuild/packaging/securedrop-client
+Building wheels for collected packages: securedrop-client
+  Building wheel for securedrop-client (setup.py) ... done
+  Created wheel for securedrop-client: filename=securedrop_client-0.9.0-py3-none-any.whl size=3895122 sha256=16882cd5440837d1245044298ff2a30c29bb0d85d468da6103bc25f723c5f863
+  Stored in directory: /tmp/pip-ephem-wheel-cache-8cg5_xrj/wheels/b7/f4/ba/5557e5a7c73969c6e6919f34b1c2a795add154acd3b1072b76
+Successfully built securedrop-client
+Installing collected packages: securedrop-client
+Successfully installed securedrop-client-0.9.0
+make[2]: Leaving directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+   dh_perl
+   dh_link
+   debian/rules override_dh_strip_nondeterminism
+make[2]: Entering directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+find ./debian/ -type f -name '*.pyc' -delete
+find ./debian/ -type f -name 'pip-selfcheck.json' -delete
+find ./debian/ -type f -name 'direct_url.json' -delete
+find ./debian/ -type f -name 'RECORD' -delete
+dh_strip_nondeterminism override_dh_strip_nondeterminism
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.9/site-packages/securedrop_client/locale/zh_Hans/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.9/site-packages/securedrop_client/locale/pt_PT/LC_MESSAGES/messages.mo
+make[2]: Leaving directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+dpkg-gencontrol: warning: Depends field of package securedrop-client: substitution variable ${python3:Depends} used, but is not defined
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'securedrop-client' in '../securedrop-client_0.9.0-rc3+bullseye_all.deb'.
+make[1]: Leaving directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-client'
+ dpkg-genbuildinfo
+ dpkg-genchanges  >../securedrop-client_0.9.0-rc3+bullseye_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
+Could not find package, look in /home/user/securedrop-builder/build/debbuild/packaging
+(.venv) user@sd-dvm:~/securedrop-builder$ shasum -a 256 build/debbuild/packaging/securedrop-client_0.9.0-rc3+bullseye_all.deb 
+4f4c5b6afb826b9e45cb80e69eff190f9f8efbfe8f3d9b9baae18cb2b4bd351d  build/debbuild/packaging/securedrop-client_0.9.0-rc3+bullseye_all.deb
+(.venv) user@sd-dvm:~/securedrop-builder$ shasum -a 256 build/debbuild/packaging/securedrop-client_0.9.0-rc3+bullseye*
+4f4c5b6afb826b9e45cb80e69eff190f9f8efbfe8f3d9b9baae18cb2b4bd351d  build/debbuild/packaging/securedrop-client_0.9.0-rc3+bullseye_all.deb
+99756cd27e38ddefe4db3be523de1969e2c1cc60df82206ef929cc989a82a3cc  build/debbuild/packaging/securedrop-client_0.9.0-rc3+bullseye_amd64.buildinfo
+5002084e3f49e5360761ab12603438d5156858494fa3748d17f993eadc717a3c  build/debbuild/packaging/securedrop-client_0.9.0-rc3+bullseye_amd64.changes
+7418faed079ab05e3faaf98032b18947022a38ef6268ee26a18a17df56cb7c12  build/debbuild/packaging/securedrop-client_0.9.0-rc3+bullseye.dsc
+33779299e8960a3246a3f05aedbfea47662eb61512ea4f024a7776e322647d66  build/debbuild/packaging/securedrop-client_0.9.0-rc3+bullseye.tar.gz
+
