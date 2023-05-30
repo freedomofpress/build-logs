@@ -1,0 +1,207 @@
+user@disp5211:~$ git clone https://github.com/freedomofpress-securedrop-builder
+Cloning into 'freedomofpress-securedrop-builder'...
+remote: Not Found
+fatal: repository 'https://github.com/freedomofpress-securedrop-builder/' not found
+user@disp5211:~$ git clone https://github.com/freedomofpress/securedrop-builder
+Cloning into 'securedrop-builder'...
+remote: Enumerating objects: 4183, done.
+remote: Counting objects: 100% (423/423), done.
+remote: Compressing objects: 100% (246/246), done.
+remote: Total 4183 (delta 194), reused 360 (delta 153), pack-reused 3760
+Receiving objects: 100% (4183/4183), 2.57 MiB | 1.12 MiB/s, done.
+Resolving deltas: 100% (1953/1953), done.
+Filtering content: 100% (94/94), 43.52 MiB | 1.80 MiB/s, done.
+user@disp5211:~$ cd securedrop-builder/
+user@disp5211:~/securedrop-builder$ git tag -v securedrop-keyring-0.2.0 
+object ea72a7b3417c77c5d71ad683e1344f2a37bb84fb
+type commit
+tag securedrop-keyring-0.2.0
+tagger Ro <ro@freedom.press> 1685393461 -0700
+
+securedrop-keyring 0.2.0
+gpg: directory '/home/user/.gnupg' created
+gpg: keybox '/home/user/.gnupg/pubring.kbx' created
+gpg: Signature made Mon 29 May 2023 04:44:27 PM PDT
+gpg:                using RSA key 2359E6538C0613E652955E6C188EDD3B7B22E6A3
+gpg: Can't check signature: No public key
+user@disp5211:~/securedrop-builder$ gpg --recv-key 2359E6538C0613E652955E6C188EDD3B7B22E6A3
+gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
+gpg: key 188EDD3B7B22E6A3: public key "SecureDrop Release Signing Key <securedrop-release-key-2021@freedom.press>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+user@disp5211:~/securedrop-builder$ git checkout securedrop-keyring-0.2.0 
+Note: switching to 'securedrop-keyring-0.2.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at ea72a7b Merge pull request #445 from freedomofpress/update-release-signing-key
+user@disp5211:~/securedrop-builder$ make install-deps
+./scripts/install-deps
++ VIRTUAL_ENV=
++ sudo apt-get update
+Hit:1 https://deb.debian.org/debian bullseye InRelease                         
+Get:2 https://deb.debian.org/debian-security bullseye-security InRelease [48.4 kB]
+Get:3 https://deb.qubes-os.org/r4.1/vm bullseye InRelease [2,510 B]
+Get:4 https://deb.debian.org/debian-security bullseye-security/main amd64 Packages [245 kB]
+Get:5 https://deb.debian.org/debian-security bullseye-security/main Translation-en [160 kB]
+Get:6 https://deb.qubes-os.org/r4.1/vm bullseye/main amd64 Packages [42.2 kB]
+Fetched 498 kB in 2s (288 kB/s)     
+Reading package lists... Done
++ sudo apt-get install build-essential curl devscripts dh-make dh-python dh-virtualenv git-lfs libffi-dev libssl-dev libyaml-dev python3-all python3-pip python3-virtualenv python3-venv python3-setuptools desktop-file-utils -y
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+build-essential is already the newest version (12.9).
+curl is already the newest version (7.74.0-1.3+deb11u7).
+curl set to manually installed.
+desktop-file-utils is already the newest version (0.26-1).
+devscripts is already the newest version (2.21.3+deb11u1).
+dh-make is already the newest version (2.202003).
+dh-python is already the newest version (4.20201102+nmu1).
+dh-virtualenv is already the newest version (1.2.2-1.1).
+git-lfs is already the newest version (2.13.2-1+b5).
+libffi-dev is already the newest version (3.3-6).
+libyaml-dev is already the newest version (0.2.2-1).
+libssl-dev is already the newest version (1.1.1n-0+deb11u4).
+python3-pip is already the newest version (20.3.4-4+deb11u1).
+python3-virtualenv is already the newest version (20.4.0+ds-2+deb11u1).
+python3-virtualenv set to manually installed.
+python3-all is already the newest version (3.9.2-3).
+python3-venv is already the newest version (3.9.2-3).
+python3-setuptools is already the newest version (52.0.0-4).
+The following packages were automatically installed and are no longer required:
+  ethtool libbotan-2-17 libopengl0 libtspi1 linux-image-5.10.0-10-amd64
+  linux-image-5.10.0-16-amd64 linux-image-5.10.0-17-amd64
+  linux-image-5.10.0-19-amd64 linux-image-5.10.0-20-amd64 net-tools
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 37 not upgraded.
+++ find workstation-bootstrap/ -type f -iname '*.whl' -exec file --mime-type '{}' +
+++ sort -u
+++ perl '-F:\s+' -lanE 'say $F[-1]'
++ wheel_mime_types=application/zip
++ [[ application/zip != \a\p\p\l\i\c\a\t\i\o\n\/\z\i\p ]]
++ [[ -z '' ]]
++ echo 'Creating local virtualenv...'
+Creating local virtualenv...
++ python3 -m venv .venv
++ . .venv/bin/activate
+++ deactivate nondestructive
+++ '[' -n '' ']'
+++ '[' -n '' ']'
+++ '[' -n /bin/bash -o -n '' ']'
+++ hash -r
+++ '[' -n '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/home/user/securedrop-builder/.venv
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+++ PATH=/home/user/securedrop-builder/.venv/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+++ export PATH
+++ '[' -n '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ PS1='(.venv) '
+++ export PS1
+++ '[' -n /bin/bash -o -n '' ']'
+++ hash -r
++ pip install --require-hashes --no-index --no-deps --no-cache-dir -r ./workstation-bootstrap/build-requirements.txt --find-links ./workstation-bootstrap/wheels/
+Looking in links: ./workstation-bootstrap/wheels/
+Processing ./workstation-bootstrap/wheels/build-0.3.0-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/click-8.0.3-py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/Cython-0.29.33-cp39-cp39-linux_x86_64.whl
+Processing ./workstation-bootstrap/wheels/flit_core-2.3.0-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/packaging-20.9-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/pep517-0.9.1-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/pip_tools-6.0.1-py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/pyparsing-2.4.7-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/pytest_runner-5.3.0-py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/pytoml-0.1.21-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/setuptools_scm-5.0.2-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/toml-0.10.2-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/wheel-0.36.2-py2.py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/pip-21.3.1-py3-none-any.whl
+Processing ./workstation-bootstrap/wheels/setuptools-54.0.0-py3-none-any.whl
+Installing collected packages: wheel, toml, setuptools-scm, setuptools, pytoml, pytest-runner, pyparsing, pip-tools, pip, pep517, packaging, flit-core, cython, click, build
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 44.1.1
+    Uninstalling setuptools-44.1.1:
+      Successfully uninstalled setuptools-44.1.1
+  Attempting uninstall: pip
+    Found existing installation: pip 20.3.4
+    Uninstalling pip-20.3.4:
+      Successfully uninstalled pip-20.3.4
+Successfully installed build-0.3.0 click-8.0.3 cython-0.29.33 flit-core-2.3.0 packaging-20.9 pep517-0.9.1 pip-21.3.1 pip-tools-6.0.1 pyparsing-2.4.7 pytest-runner-5.3.0 pytoml-0.1.21 setuptools-54.0.0 setuptools-scm-5.0.2 toml-0.10.2 wheel-0.36.2
+user@disp5211:~/securedrop-builder$ PKG_PATH=/home/user/securedrop-builder/securedrop-keyring/ make securedrop-keyring
+PKG_NAME="securedrop-keyring" ./scripts/build-debianpackage
+Package is a metapackage
+/home/user/securedrop-builder/build/debbuild/packaging/securedrop-keyring/
+Moving legacy buster changelog into place
+Building package 'securedrop-keyring' with version '0.2.0+bullseye'...
+dpkg-buildpackage: info: source package securedrop-keyring
+dpkg-buildpackage: info: source version 0.2.0+bullseye
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by SecureDrop Team <securedrop@freedom.press>
+dpkg-buildpackage: info: host architecture amd64
+ dpkg-source --before-build .
+ fakeroot debian/rules clean
+make[1]: Entering directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-keyring'
+dh clean
+   dh_clean
+make[1]: Leaving directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-keyring'
+ dpkg-source -b .
+dpkg-source: info: using source format '3.0 (native)'
+dpkg-source: info: building securedrop-keyring in securedrop-keyring_0.2.0+bullseye.tar.xz
+dpkg-source: info: building securedrop-keyring in securedrop-keyring_0.2.0+bullseye.dsc
+ debian/rules build
+make[1]: Entering directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-keyring'
+dh build
+   dh_update_autotools_config
+   dh_autoreconf
+   create-stamp debian/debhelper-build-stamp
+make[1]: Leaving directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-keyring'
+ fakeroot debian/rules binary
+make[1]: Entering directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-keyring'
+dh binary
+   dh_testroot
+   dh_prep
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'securedrop-keyring' in '../securedrop-keyring_0.2.0+bullseye_all.deb'.
+make[1]: Leaving directory '/home/user/securedrop-builder/build/debbuild/packaging/securedrop-keyring'
+ dpkg-genbuildinfo
+ dpkg-genchanges  >../securedrop-keyring_0.2.0+bullseye_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
+Package location: /home/user/securedrop-builder/build/debbuild/packaging/securedrop-keyring_0.2.0+bullseye_all.deb
+user@disp5211:~/securedrop-builder$ sha256sum /home/user/securedrop-builder/build/debbuild/packaging/securedrop-keyring_0.2.0+bullseye
+sha256sum: /home/user/securedrop-builder/build/debbuild/packaging/securedrop-keyring_0.2.0+bullseye: No such file or directory
+user@disp5211:~/securedrop-builder$ sha256sum /home/user/securedrop-builder/build/debbuild/packaging/securedrop-keyring_0.2.0+bullseye_all.deb 
+378548f323dfc9770a13612c1f10c03b373582026fdb4a44fef3949685585785  /home/user/securedrop-builder/build/debbuild/packaging/securedrop-keyring_0.2.0+bullseye_all.deb
+user@disp5211:~/securedrop-builder$ 
+
