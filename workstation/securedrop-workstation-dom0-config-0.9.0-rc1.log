@@ -1,0 +1,1860 @@
+user@sd-dvm:~/securedrop-workstation$ git checkout 0.9.0-rc1 
+HEAD is now at cda91cc updated version to 0.9.0-rc1
+user@sd-dvm:~/securedrop-workstation$ git log -1
+commit cda91cc92cd04f4d838b01ef7ffb99b8da077b92 (HEAD, tag: 0.9.0-rc1, origin/release/0.9.0)
+Author: Kevin O'Gorman <kog@freedom.press>
+Date:   Thu Nov 23 17:34:20 2023 -0500
+
+    updated version to 0.9.0-rc1
+user@sd-dvm:~/securedrop-workstation$ git verify-commit cda91cc92cd04f4d838b01ef7ffb99b8da077b92
+gpg: Signature made Thu Nov 23 17:34:20 2023 EST
+gpg:                using RSA key A05ACE4F7E0BCA9BAD8D42F4ACFE4353173015EA
+gpg: Good signature from "Kevin O'Gorman <kog@stunbunny.org>" [unknown]
+gpg:                 aka "Kevin O'Gorman <kog@freedom.press>" [unknown]
+gpg:                 aka "Kevin O'Gorman <kevin.ogorman@gmail.com>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: A05A CE4F 7E0B CA9B AD8D  42F4 ACFE 4353 1730 15EA
+user@sd-dvm:~/securedrop-workstation$ make build-rpm 
+grep: /etc/fedora-release: No such file or directory
+STEP 1: FROM registry.fedoraproject.org/fedora:32
+Getting image source signatures
+Copying blob 480478cefb5d done  
+Copying config 27a9790209 done  
+Writing manifest to image destination
+Storing signatures
+STEP 2: LABEL org="Freedom of the Press"
+--> e19bb95b385
+STEP 3: LABEL image_name="securedrop-workstation-qubes-4.1"
+--> dcc7cc3ffde
+STEP 4: ARG USER_NAME
+--> 3671665f0f1
+STEP 5: ENV USER_NAME ${USER_NAME:-root}
+--> bb45e78e1df
+STEP 6: ARG USER_ID
+--> ed149e05380
+STEP 7: ENV USER_ID ${USER_ID:-0}
+--> c2ede29bceb
+STEP 8: RUN dnf install -y make
+Fedora 32 openh264 (From Cisco) - x86_64        3.1 kB/s | 2.5 kB     00:00    
+Fedora Modular 32 - x86_64                      3.8 MB/s | 4.9 MB     00:01    
+Fedora Modular 32 - x86_64 - Updates            3.2 MB/s | 4.6 MB     00:01    
+Fedora 32 - x86_64 - Updates                    2.7 MB/s |  30 MB     00:11    
+Fedora 32 - x86_64                              4.8 MB/s |  70 MB     00:14    
+Dependencies resolved.
+================================================================================
+ Package             Architecture  Version                  Repository     Size
+================================================================================
+Installing:
+ make                x86_64        1:4.2.1-16.fc32          fedora        494 k
+Installing dependencies:
+ gc                  x86_64        8.0.4-3.fc32             fedora        113 k
+ guile22             x86_64        2.2.6-4.fc32             fedora        6.6 M
+ libtool-ltdl        x86_64        2.4.6-33.fc32            fedora         37 k
+
+Transaction Summary
+================================================================================
+Install  4 Packages
+
+Total download size: 7.2 M
+Installed size: 46 M
+Downloading Packages:
+(1/4): libtool-ltdl-2.4.6-33.fc32.x86_64.rpm    414 kB/s |  37 kB     00:00    
+(2/4): gc-8.0.4-3.fc32.x86_64.rpm               882 kB/s | 113 kB     00:00    
+(3/4): make-4.2.1-16.fc32.x86_64.rpm            2.2 MB/s | 494 kB     00:00    
+(4/4): guile22-2.2.6-4.fc32.x86_64.rpm          4.4 MB/s | 6.6 MB     00:01    
+--------------------------------------------------------------------------------
+Total                                           4.0 MB/s | 7.2 MB     00:01     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : libtool-ltdl-2.4.6-33.fc32.x86_64                      1/4 
+  Installing       : gc-8.0.4-3.fc32.x86_64                                 2/4 
+  Installing       : guile22-2.2.6-4.fc32.x86_64                            3/4 
+  Running scriptlet: guile22-2.2.6-4.fc32.x86_64                            3/4 
+  Installing       : make-1:4.2.1-16.fc32.x86_64                            4/4 
+  Running scriptlet: make-1:4.2.1-16.fc32.x86_64                            4/4 
+  Verifying        : gc-8.0.4-3.fc32.x86_64                                 1/4 
+  Verifying        : guile22-2.2.6-4.fc32.x86_64                            2/4 
+  Verifying        : libtool-ltdl-2.4.6-33.fc32.x86_64                      3/4 
+  Verifying        : make-1:4.2.1-16.fc32.x86_64                            4/4 
+
+Installed:
+  gc-8.0.4-3.fc32.x86_64                    guile22-2.2.6-4.fc32.x86_64        
+  libtool-ltdl-2.4.6-33.fc32.x86_64         make-1:4.2.1-16.fc32.x86_64        
+
+Complete!
+--> 41a4b295ad3
+STEP 9: COPY Makefile Makefile
+--> d80a91fc48e
+STEP 10: RUN make install-deps
+make: hostname: Command not found
+sudo dnf install -y \
+        git file python3-devel python3-pip python3-qt5 python3-wheel \
+	xorg-x11-server-Xvfb rpmdevtools rpmlint which libfaketime ShellCheck \
+	hostname
+Last metadata expiration check: 0:00:47 ago on Fri Nov 24 18:22:01 2023.
+Dependencies resolved.
+=============================================================================================
+ Package                        Arch    Version                                Repo      Size
+=============================================================================================
+Installing:
+ ShellCheck                     x86_64  0.7.0-3.fc32                           fedora   2.4 M
+ file                           x86_64  5.38-4.fc32                            updates   50 k
+ git                            x86_64  2.26.3-2.fc32                          updates  122 k
+ hostname                       x86_64  3.23-2.fc32                            fedora    28 k
+ libfaketime                    x86_64  0.9.8-6.fc32                           fedora    65 k
+ python3-devel                  x86_64  3.8.10-1.fc32                          updates  202 k
+ python3-pip                    noarch  19.3.1-4.fc32                          updates  1.7 M
+ python3-qt5                    x86_64  5.14.2-3.fc32                          updates  1.2 M
+ python3-wheel                  noarch  1:0.33.6-3.fc32                        fedora    49 k
+ rpmdevtools                    noarch  8.10-10.fc32                           fedora    90 k
+ rpmlint                        noarch  1.11-16.fc32                           updates  202 k
+ which                          x86_64  2.21-19.fc32                           fedora    42 k
+ xorg-x11-server-Xvfb           x86_64  1.20.11-1.fc32                         updates  880 k
+Upgrading:
+ elfutils-libelf                x86_64  0.183-1.fc32                           updates  192 k
+ elfutils-libs                  x86_64  0.183-1.fc32                           updates  263 k
+ pcre2                          x86_64  10.36-4.fc32                           updates  233 k
+ pcre2-syntax                   noarch  10.36-4.fc32                           updates  142 k
+ python3                        x86_64  3.8.10-1.fc32                          updates   28 k
+ python3-libs                   x86_64  3.8.10-1.fc32                          updates  7.4 M
+ python3-rpm                    x86_64  4.15.1.1-1.fc32.1                      updates   94 k
+ rpm                            x86_64  4.15.1.1-1.fc32.1                      updates  495 k
+ rpm-build-libs                 x86_64  4.15.1.1-1.fc32.1                      updates   93 k
+ rpm-libs                       x86_64  4.15.1.1-1.fc32.1                      updates  298 k
+ rpm-sign-libs                  x86_64  4.15.1.1-1.fc32.1                      updates   22 k
+Installing dependencies:
+ alsa-lib                       x86_64  1.2.3.2-1.fc32                         updates  474 k
+ avahi-libs                     x86_64  0.7-24.fc32                            updates   63 k
+ binutils                       x86_64  2.34-6.fc32                            updates  5.4 M
+ binutils-gold                  x86_64  2.34-6.fc32                            updates  852 k
+ bluez-libs                     x86_64  5.55-1.fc32                            updates   89 k
+ bzip2                          x86_64  1.0.8-2.fc32                           fedora    52 k
+ cairo                          x86_64  1.16.0-8.fc32                          updates  712 k
+ cairo-gobject                  x86_64  1.16.0-8.fc32                          updates   19 k
+ cdparanoia-libs                x86_64  10.2-31.fc32                           fedora    54 k
+ cpio                           x86_64  2.13-6.fc32                            updates  283 k
+ cups-libs                      x86_64  1:2.3.3op2-5.fc32                      updates  276 k
+ dbus-libs                      x86_64  1:1.12.20-1.fc32                       updates  163 k
+ dejavu-sans-fonts              noarch  2.37-8.fc32                            updates  1.3 M
+ desktop-file-utils             x86_64  0.24-2.fc32                            fedora    73 k
+ diffutils                      x86_64  3.7-4.fc32                             fedora   397 k
+ dwz                            x86_64  0.13-2.fc32                            fedora   109 k
+ efi-srpm-macros                noarch  4-4.fc32                               fedora    22 k
+ elfutils                       x86_64  0.183-1.fc32                           updates  530 k
+ elfutils-debuginfod-client     x86_64  0.183-1.fc32                           updates   33 k
+ emacs-filesystem               noarch  1:27.1-2.fc32                          updates  7.9 k
+ enchant                        x86_64  1:1.6.0-25.fc32                        fedora    60 k
+ fakeroot                       x86_64  1.25.2-1.fc32                          updates   92 k
+ fakeroot-libs                  x86_64  1.25.2-1.fc32                          updates   38 k
+ fdk-aac-free                   x86_64  2.0.0-3.fc32                           fedora   401 k
+ findutils                      x86_64  1:4.7.0-4.fc32                         updates  552 k
+ flac-libs                      x86_64  1.3.3-2.fc32                           fedora   224 k
+ fontconfig                     x86_64  2.13.92-9.fc32                         updates  265 k
+ fonts-filesystem               noarch  2.0.3-1.fc32                           fedora   7.8 k
+ fonts-srpm-macros              noarch  2.0.3-1.fc32                           fedora    26 k
+ fpc-srpm-macros                noarch  1.3-1.fc32                             fedora   7.6 k
+ freetype                       x86_64  2.10.4-1.fc32                          updates  392 k
+ fribidi                        x86_64  1.0.9-1.fc32                           fedora    85 k
+ gdb-minimal                    x86_64  9.1-7.fc32                             updates  3.5 M
+ gdk-pixbuf2                    x86_64  2.40.0-2.fc32                          fedora   464 k
+ ghc-srpm-macros                noarch  1.5.0-2.fc32                           fedora   7.7 k
+ git-core                       x86_64  2.26.3-2.fc32                          updates  4.9 M
+ git-core-doc                   noarch  2.26.3-2.fc32                          updates  2.2 M
+ glib-networking                x86_64  2.64.3-1.fc32                          updates  160 k
+ glx-utils                      x86_64  8.4.0-6.20181118git1830dcb.fc32        fedora    41 k
+ gnat-srpm-macros               noarch  4-11.fc32                              fedora   8.2 k
+ go-srpm-macros                 noarch  3.0.10-1.fc32                          updates   24 k
+ graphene                       x86_64  1.10.4-1.fc32                          updates   64 k
+ graphite2                      x86_64  1.3.14-1.fc32                          updates  103 k
+ groff-base                     x86_64  1.22.3-22.fc32                         updates  1.0 M
+ gsettings-desktop-schemas      x86_64  3.36.1-1.fc32                          updates  670 k
+ gsm                            x86_64  1.0.18-6.fc32                          fedora    33 k
+ gssdp                          x86_64  1.0.5-1.fc32                           updates   51 k
+ gstreamer1                     x86_64  1.16.2-2.fc32                          fedora   1.3 M
+ gstreamer1-plugins-bad-free    x86_64  1.16.2-4.fc32                          updates  1.9 M
+ gstreamer1-plugins-base        x86_64  1.16.2-3.fc32                          updates  2.0 M
+ gupnp                          x86_64  1.0.6-1.fc32                           updates   97 k
+ gupnp-igd                      x86_64  0.2.5-8.fc32                           fedora    34 k
+ harfbuzz                       x86_64  2.6.4-3.fc32                           fedora   599 k
+ hunspell                       x86_64  1.7.0-5.fc32                           fedora   348 k
+ hunspell-en-US                 noarch  0.20140811.1-16.fc32                   fedora   176 k
+ hwdata                         noarch  0.347-1.fc32                           updates  1.5 M
+ iso-codes                      noarch  4.4-2.fc32                             fedora   3.3 M
+ json-glib                      x86_64  1.4.4-4.fc32                           fedora   144 k
+ langpacks-core-font-en         noarch  3.0-3.fc32                             fedora   9.4 k
+ lcms2                          x86_64  2.9-7.fc32                             fedora   167 k
+ less                           x86_64  551-3.fc32                             fedora   156 k
+ libICE                         x86_64  1.0.10-3.fc32                          fedora    71 k
+ libSM                          x86_64  1.2.3-5.fc32                           fedora    42 k
+ libX11                         x86_64  1.6.12-1.fc32                          updates  659 k
+ libX11-common                  noarch  1.6.12-1.fc32                          updates  153 k
+ libX11-xcb                     x86_64  1.6.12-1.fc32                          updates   11 k
+ libXau                         x86_64  1.0.9-3.fc32                           fedora    31 k
+ libXdamage                     x86_64  1.1.5-2.fc32                           fedora    22 k
+ libXdmcp                       x86_64  1.1.3-3.fc32                           fedora    36 k
+ libXext                        x86_64  1.3.4-3.fc32                           fedora    39 k
+ libXfixes                      x86_64  5.0.3-11.fc32                          fedora    19 k
+ libXfont2                      x86_64  2.0.3-7.fc32                           fedora   151 k
+ libXft                         x86_64  2.3.3-3.fc32                           fedora    64 k
+ libXi                          x86_64  1.7.10-3.fc32                          fedora    38 k
+ libXmu                         x86_64  1.1.3-3.fc32                           fedora    75 k
+ libXrender                     x86_64  0.9.10-11.fc32                         fedora    27 k
+ libXt                          x86_64  1.2.0-1.fc32                           fedora   183 k
+ libXtst                        x86_64  1.2.3-11.fc32                          fedora    20 k
+ libXv                          x86_64  1.0.11-11.fc32                         fedora    18 k
+ libXxf86vm                     x86_64  1.1.4-13.fc32                          fedora    18 k
+ libappstream-glib              x86_64  0.7.17-1.fc32                          fedora   335 k
+ libasyncns                     x86_64  0.8-18.fc32                            fedora    30 k
+ libcbor                        x86_64  0.5.0-7.fc32                           fedora    46 k
+ libdatrie                      x86_64  0.2.9-11.fc32                          fedora    32 k
+ libdrm                         x86_64  2.4.102-1.fc32                         updates  159 k
+ libdvdnav                      x86_64  6.0.1-3.fc32                           fedora    58 k
+ libdvdread                     x86_64  6.0.2-3.fc32                           fedora    70 k
+ libedit                        x86_64  3.1-32.20191231cvs.fc32                fedora   106 k
+ libevdev                       x86_64  1.9.0-1.fc32                           fedora    44 k
+ libfido2                       x86_64  1.3.1-2.fc32                           updates   65 k
+ libfontenc                     x86_64  1.1.3-12.fc32                          fedora    31 k
+ libglvnd                       x86_64  1:1.3.2-1.fc32                         updates  143 k
+ libglvnd-egl                   x86_64  1:1.3.2-1.fc32                         updates   44 k
+ libglvnd-gles                  x86_64  1:1.3.2-1.fc32                         updates   36 k
+ libglvnd-glx                   x86_64  1:1.3.2-1.fc32                         updates  157 k
+ libgudev                       x86_64  232-7.fc32                             fedora    34 k
+ libicu                         x86_64  65.1-2.fc32                            fedora   9.6 M
+ libinput                       x86_64  1.16.1-1.fc32                          updates  206 k
+ libjpeg-turbo                  x86_64  2.0.4-3.fc32                           updates  168 k
+ libmodman                      x86_64  2.0.1-21.fc32                          fedora    34 k
+ libnice                        x86_64  0.1.17-2.fc32                          updates  194 k
+ libogg                         x86_64  2:1.3.4-2.fc32                         fedora    33 k
+ libpciaccess                   x86_64  0.16-2.fc32                            fedora    27 k
+ libpipeline                    x86_64  1.5.2-2.fc32                           fedora    55 k
+ libpkgconf                     x86_64  1.6.3-3.fc32                           fedora    35 k
+ libpng                         x86_64  2:1.6.37-3.fc32                        fedora   116 k
+ libproxy                       x86_64  0.4.15-19.fc32                         updates   72 k
+ librsvg2                       x86_64  2.48.9-1.fc32                          updates  3.3 M
+ libsndfile                     x86_64  1.0.31-3.fc32                          updates  213 k
+ libsoup                        x86_64  2.70.0-1.fc32                          fedora   388 k
+ libsrtp                        x86_64  2.3.0-2.fc32                           fedora    58 k
+ libstemmer                     x86_64  0-14.585svn.fc32                       fedora    84 k
+ libthai                        x86_64  0.1.28-4.fc32                          fedora   213 k
+ libtheora                      x86_64  1:1.1.1-25.fc32                        fedora   175 k
+ libunwind                      x86_64  1.3.1-7.fc32                           updates   66 k
+ libvisual                      x86_64  1:0.4.0-28.fc32                        fedora   148 k
+ libvorbis                      x86_64  1:1.3.6-6.fc32                         fedora   199 k
+ libwacom                       x86_64  1.5-1.fc32                             updates   36 k
+ libwacom-data                  noarch  1.5-1.fc32                             updates   90 k
+ libwayland-client              x86_64  1.18.0-1.fc32                          fedora    35 k
+ libwayland-cursor              x86_64  1.18.0-1.fc32                          fedora    20 k
+ libwayland-egl                 x86_64  1.18.0-1.fc32                          fedora    13 k
+ libwayland-server              x86_64  1.18.0-1.fc32                          fedora    43 k
+ libwebp                        x86_64  1.2.0-1.fc32                           updates  277 k
+ libxcb                         x86_64  1.13.1-4.fc32                          fedora   231 k
+ libxkbcommon                   x86_64  0.10.0-2.fc32                          fedora   121 k
+ libxkbcommon-x11               x86_64  0.10.0-2.fc32                          fedora    22 k
+ libxkbfile                     x86_64  1.1.0-3.fc32                           fedora    89 k
+ libxshmfence                   x86_64  1.3-6.fc32                             fedora    12 k
+ lilv                           x86_64  0.24.6-3.fc32                          updates   80 k
+ llvm-libs                      x86_64  10.0.1-4.fc32                          updates   20 M
+ lua-srpm-macros                noarch  1-3.fc32                               updates  8.0 k
+ man-db                         x86_64  2.9.0-3.fc32                           updates  1.1 M
+ mesa-filesystem                x86_64  20.2.3-1.fc32                          updates   16 k
+ mesa-libEGL                    x86_64  20.2.3-1.fc32                          updates  123 k
+ mesa-libGL                     x86_64  20.2.3-1.fc32                          updates  182 k
+ mesa-libgbm                    x86_64  20.2.3-1.fc32                          updates   43 k
+ mesa-libglapi                  x86_64  20.2.3-1.fc32                          updates   53 k
+ mtdev                          x86_64  1.1.5-16.fc32                          fedora    20 k
+ nim-srpm-macros                noarch  3-2.fc32                               fedora   8.3 k
+ nspr                           x86_64  4.30.0-1.fc32                          updates  138 k
+ nss                            x86_64  3.63.0-1.fc32                          updates  687 k
+ nss-softokn                    x86_64  3.63.0-1.fc32                          updates  450 k
+ nss-softokn-freebl             x86_64  3.63.0-1.fc32                          updates  330 k
+ nss-sysinit                    x86_64  3.63.0-1.fc32                          updates   19 k
+ nss-util                       x86_64  3.63.0-1.fc32                          updates   90 k
+ ocaml-srpm-macros              noarch  6-2.fc32                               fedora   7.7 k
+ openal-soft                    x86_64  1.19.1-5.fc32                          fedora   548 k
+ openblas-srpm-macros           noarch  2-7.fc32                               fedora   7.2 k
+ openssh                        x86_64  8.3p1-3.fc32                           updates  480 k
+ openssh-clients                x86_64  8.3p1-3.fc32                           updates  657 k
+ opus                           x86_64  1.3.1-3.fc32                           fedora   216 k
+ orc                            x86_64  0.4.31-2.fc32                          fedora   185 k
+ pango                          x86_64  1.44.7-2.fc32                          fedora   293 k
+ patch                          x86_64  2.7.6-12.fc32                          fedora   135 k
+ pcre2-utf16                    x86_64  10.36-4.fc32                           updates  212 k
+ perl-Carp                      noarch  1.50-440.fc32                          fedora    29 k
+ perl-Data-Dumper               x86_64  2.174-444.fc32                         updates   56 k
+ perl-Digest                    noarch  1.19-1.fc32                            updates   25 k
+ perl-Digest-MD5                x86_64  2.58-1.fc32                            updates   36 k
+ perl-Encode                    x86_64  4:3.08-458.fc32                        updates  1.8 M
+ perl-Errno                     x86_64  1.30-461.fc32                          updates   22 k
+ perl-Error                     noarch  1:0.17029-1.fc32                       fedora    42 k
+ perl-Exporter                  noarch  5.74-2.fc32                            fedora    32 k
+ perl-File-Path                 noarch  2.17-1.fc32                            updates   35 k
+ perl-File-Temp                 noarch  1:0.230.900-440.fc32                   fedora    60 k
+ perl-Getopt-Long               noarch  1:2.52-1.fc32                          updates   60 k
+ perl-Git                       noarch  2.26.3-2.fc32                          updates   40 k
+ perl-HTTP-Tiny                 noarch  0.076-440.fc32                         fedora    55 k
+ perl-IO                        x86_64  1.40-461.fc32                          updates   89 k
+ perl-MIME-Base64               x86_64  3.15-440.fc32                          fedora    30 k
+ perl-Net-SSLeay                x86_64  1.88-5.fc32                            fedora   351 k
+ perl-PathTools                 x86_64  3.78-442.fc32                          updates   85 k
+ perl-Pod-Escapes               noarch  1:1.07-440.fc32                        fedora    20 k
+ perl-Pod-Perldoc               noarch  3.28.01-443.fc32                       fedora    85 k
+ perl-Pod-Simple                noarch  1:3.40-2.fc32                          fedora   215 k
+ perl-Pod-Usage                 noarch  4:2.01-1.fc32                          updates   41 k
+ perl-Scalar-List-Utils         x86_64  3:1.54-440.fc32                        fedora    69 k
+ perl-Socket                    x86_64  4:2.031-1.fc32                         updates   56 k
+ perl-Storable                  x86_64  1:3.15-443.fc32                        fedora    97 k
+ perl-Term-ANSIColor            noarch  5.01-2.fc32                            fedora    49 k
+ perl-Term-Cap                  noarch  1.17-440.fc32                          fedora    22 k
+ perl-TermReadKey               x86_64  2.38-6.fc32                            fedora    36 k
+ perl-Text-ParseWords           noarch  3.30-440.fc32                          fedora    16 k
+ perl-Text-Tabs+Wrap            noarch  2013.0523-440.fc32                     fedora    23 k
+ perl-Time-Local                noarch  2:1.300-2.fc32                         fedora    34 k
+ perl-URI                       noarch  1.76-6.fc32                            fedora   109 k
+ perl-Unicode-Normalize         x86_64  1.26-440.fc32                          fedora    97 k
+ perl-constant                  noarch  1.33-441.fc32                          fedora    23 k
+ perl-interpreter               x86_64  4:5.30.3-461.fc32                      updates  6.1 M
+ perl-libnet                    noarch  3.13-1.fc32                            updates  126 k
+ perl-libs                      x86_64  4:5.30.3-461.fc32                      updates  1.7 M
+ perl-macros                    noarch  4:5.30.3-461.fc32                      updates   18 k
+ perl-parent                    noarch  1:0.238-1.fc32                         fedora    14 k
+ perl-podlators                 noarch  1:4.14-2.fc32                          fedora   113 k
+ perl-srpm-macros               noarch  1-34.fc32                              fedora   8.3 k
+ perl-threads                   x86_64  1:2.22-442.fc32                        fedora    59 k
+ perl-threads-shared            x86_64  1.60-441.fc32                          fedora    44 k
+ pixman                         x86_64  0.40.0-1.fc32                          updates  270 k
+ pkgconf                        x86_64  1.6.3-3.fc32                           fedora    41 k
+ pkgconf-m4                     noarch  1.6.3-3.fc32                           fedora    14 k
+ pkgconf-pkg-config             x86_64  1.6.3-3.fc32                           fedora   9.7 k
+ pulseaudio-libs                x86_64  14.0-1.fc32                            updates  690 k
+ python-qt5-rpm-macros          noarch  5.14.2-3.fc32                          updates   11 k
+ python-rpm-macros              noarch  3-60.fc32                              updates   12 k
+ python-srpm-macros             noarch  3-60.fc32                              updates   16 k
+ python3-dbus                   x86_64  1.2.16-1.fc32                          fedora   134 k
+ python3-enchant                noarch  2.0.0-11.fc32                          fedora   104 k
+ python3-magic                  noarch  5.38-4.fc32                            updates   18 k
+ python3-pyqt5-sip              x86_64  4.19.21-1.fc32                         fedora    96 k
+ python3-qt5-base               x86_64  5.14.2-3.fc32                          updates  3.2 M
+ python3-rpm-generators         noarch  10-4.fc32                              fedora    24 k
+ python3-rpm-macros             noarch  3-60.fc32                              updates   11 k
+ python3-setuptools             noarch  41.6.0-2.fc32                          fedora   588 k
+ qt-settings                    noarch  32.0-3.fc32                            fedora   9.3 k
+ qt5-qtbase                     x86_64  5.14.2-6.fc32                          updates  3.4 M
+ qt5-qtbase-common              noarch  5.14.2-6.fc32                          updates   10 k
+ qt5-qtbase-gui                 x86_64  5.14.2-6.fc32                          updates  5.8 M
+ qt5-qtconnectivity             x86_64  5.14.2-1.fc32                          updates  510 k
+ qt5-qtdeclarative              x86_64  5.14.2-1.fc32                          updates  3.9 M
+ qt5-qtlocation                 x86_64  5.14.2-2.fc32                          updates  3.0 M
+ qt5-qtmultimedia               x86_64  5.14.2-1.fc32                          updates  804 k
+ qt5-qtsensors                  x86_64  5.14.2-1.fc32                          updates  228 k
+ qt5-qtserialport               x86_64  5.14.2-1.fc32                          updates   65 k
+ qt5-qtsvg                      x86_64  5.14.2-1.fc32                          updates  182 k
+ qt5-qttools-common             noarch  5.14.2-1.fc32                          updates   11 k
+ qt5-qttools-libs-designer      x86_64  5.14.2-1.fc32                          updates  2.7 M
+ qt5-qttools-libs-help          x86_64  5.14.2-1.fc32                          updates  133 k
+ qt5-qtwebchannel               x86_64  5.14.2-1.fc32                          updates   97 k
+ qt5-qtwebsockets               x86_64  5.14.2-1.fc32                          updates   90 k
+ qt5-qtx11extras                x86_64  5.14.2-1.fc32                          updates   35 k
+ qt5-qtxmlpatterns              x86_64  5.14.2-1.fc32                          updates  1.1 M
+ qt5-srpm-macros                noarch  5.14.2-3.fc32                          updates  8.4 k
+ redhat-rpm-config              noarch  151-1.fc32                             updates   60 k
+ rpm-build                      x86_64  4.15.1.1-1.fc32.1                      updates  112 k
+ rust-srpm-macros               noarch  14-1.fc32                              updates  9.6 k
+ serd                           x86_64  0.30.2-2.fc32                          fedora    70 k
+ shared-mime-info               x86_64  1.15-3.fc32                            fedora   303 k
+ sord                           x86_64  0.16.4-4.fc32                          updates   43 k
+ soundtouch                     x86_64  2.1.1-4.fc32                           fedora    78 k
+ sratom                         x86_64  0.6.4-2.fc32                           fedora    26 k
+ unzip                          x86_64  6.0-47.fc32                            fedora   179 k
+ webrtc-audio-processing        x86_64  0.3.1-4.fc32                           fedora   313 k
+ xcb-util                       x86_64  0.4.0-14.fc32                          fedora    19 k
+ xcb-util-image                 x86_64  0.4.0-14.fc32                          fedora    19 k
+ xcb-util-keysyms               x86_64  0.4.0-12.fc32                          fedora    14 k
+ xcb-util-renderutil            x86_64  0.3.9-15.fc32                          fedora    17 k
+ xcb-util-wm                    x86_64  0.4.1-17.fc32                          fedora    31 k
+ xemacs-filesystem              noarch  21.5.34-35.20190323hgc0ed7ef9a5a1.fc32 fedora   9.4 k
+ xkeyboard-config               noarch  2.29-1.fc32                            fedora   772 k
+ xml-common                     noarch  0.6.3-54.fc32                          fedora    31 k
+ xorg-x11-server-common         x86_64  1.20.11-1.fc32                         updates   35 k
+ xorg-x11-xauth                 x86_64  1:1.1-3.fc32                           fedora    36 k
+ xorg-x11-xkb-utils             x86_64  7.7-32.fc32                            fedora   114 k
+ xxhash-libs                    x86_64  0.8.0-1.fc32                           updates   41 k
+ xz                             x86_64  5.2.5-1.fc32                           fedora   187 k
+ zip                            x86_64  3.0-26.fc32                            fedora   260 k
+ zstd                           x86_64  1.4.9-1.fc32                           updates  643 k
+Installing weak dependencies:
+ abattis-cantarell-fonts        noarch  0.201-2.fc32                           fedora   336 k
+ adobe-source-code-pro-fonts    noarch  2.030.1.050-8.fc32                     fedora   834 k
+ compat-f32-dejavu-sans-fonts   noarch  2.37-8.fc32                            updates  8.5 k
+ mesa-dri-drivers               x86_64  20.2.3-1.fc32                          updates   18 M
+ perl-IO-Socket-IP              noarch  0.39-441.fc32                          fedora    42 k
+ perl-IO-Socket-SSL             noarch  2.068-1.fc32                           fedora   217 k
+ perl-Mozilla-CA                noarch  20200520-1.fc32                        updates   12 k
+ python-unversioned-command     noarch  3.8.10-1.fc32                          updates   11 k
+
+Transaction Summary
+=============================================================================================
+Install  279 Packages
+Upgrade   11 Packages
+
+Total download size: 161 M
+Downloading Packages:
+(1/290): avahi-libs-0.7-24.fc32.x86_64.rpm      643 kB/s |  63 kB     00:00    
+(2/290): alsa-lib-1.2.3.2-1.fc32.x86_64.rpm     1.9 MB/s | 474 kB     00:00    
+(3/290): bluez-libs-5.55-1.fc32.x86_64.rpm      1.7 MB/s |  89 kB     00:00    
+(4/290): cairo-1.16.0-8.fc32.x86_64.rpm         2.6 MB/s | 712 kB     00:00    
+(5/290): cairo-gobject-1.16.0-8.fc32.x86_64.rpm 667 kB/s |  19 kB     00:00    
+(6/290): compat-f32-dejavu-sans-fonts-2.37-8.fc 349 kB/s | 8.5 kB     00:00    
+(7/290): binutils-gold-2.34-6.fc32.x86_64.rpm   1.5 MB/s | 852 kB     00:00    
+(8/290): cpio-2.13-6.fc32.x86_64.rpm            2.4 MB/s | 283 kB     00:00    
+(9/290): dbus-libs-1.12.20-1.fc32.x86_64.rpm    2.0 MB/s | 163 kB     00:00    
+(10/290): cups-libs-2.3.3op2-5.fc32.x86_64.rpm  1.6 MB/s | 276 kB     00:00    
+(11/290): elfutils-0.183-1.fc32.x86_64.rpm      1.4 MB/s | 530 kB     00:00    
+(12/290): elfutils-debuginfod-client-0.183-1.fc 824 kB/s |  33 kB     00:00    
+(13/290): emacs-filesystem-27.1-2.fc32.noarch.r 255 kB/s | 7.9 kB     00:00    
+(14/290): dejavu-sans-fonts-2.37-8.fc32.noarch. 2.7 MB/s | 1.3 MB     00:00    
+(15/290): fakeroot-libs-1.25.2-1.fc32.x86_64.rp 1.1 MB/s |  38 kB     00:00    
+(16/290): fakeroot-1.25.2-1.fc32.x86_64.rpm     1.4 MB/s |  92 kB     00:00    
+(17/290): file-5.38-4.fc32.x86_64.rpm           1.3 MB/s |  50 kB     00:00    
+(18/290): fontconfig-2.13.92-9.fc32.x86_64.rpm  2.1 MB/s | 265 kB     00:00    
+(19/290): findutils-4.7.0-4.fc32.x86_64.rpm     1.6 MB/s | 552 kB     00:00    
+(20/290): freetype-2.10.4-1.fc32.x86_64.rpm     2.1 MB/s | 392 kB     00:00    
+(21/290): git-2.26.3-2.fc32.x86_64.rpm          1.0 MB/s | 122 kB     00:00    
+(22/290): binutils-2.34-6.fc32.x86_64.rpm       2.1 MB/s | 5.4 MB     00:02    
+(23/290): gdb-minimal-9.1-7.fc32.x86_64.rpm     2.0 MB/s | 3.5 MB     00:01    
+(24/290): git-core-doc-2.26.3-2.fc32.noarch.rpm 2.3 MB/s | 2.2 MB     00:00    
+(25/290): glib-networking-2.64.3-1.fc32.x86_64. 1.8 MB/s | 160 kB     00:00    
+(26/290): go-srpm-macros-3.0.10-1.fc32.noarch.r 579 kB/s |  24 kB     00:00    
+(27/290): graphene-1.10.4-1.fc32.x86_64.rpm     1.6 MB/s |  64 kB     00:00    
+(28/290): graphite2-1.3.14-1.fc32.x86_64.rpm    1.0 MB/s | 103 kB     00:00    
+(29/290): gsettings-desktop-schemas-3.36.1-1.fc 1.5 MB/s | 670 kB     00:00    
+(30/290): groff-base-1.22.3-22.fc32.x86_64.rpm  1.9 MB/s | 1.0 MB     00:00    
+(31/290): gssdp-1.0.5-1.fc32.x86_64.rpm         698 kB/s |  51 kB     00:00    
+(32/290): git-core-2.26.3-2.fc32.x86_64.rpm     1.8 MB/s | 4.9 MB     00:02    
+(33/290): gupnp-1.0.6-1.fc32.x86_64.rpm         1.0 MB/s |  97 kB     00:00    
+(34/290): gstreamer1-plugins-bad-free-1.16.2-4. 1.7 MB/s | 1.9 MB     00:01    
+(35/290): gstreamer1-plugins-base-1.16.2-3.fc32 1.8 MB/s | 2.0 MB     00:01    
+(36/290): hwdata-0.347-1.fc32.noarch.rpm        2.1 MB/s | 1.5 MB     00:00    
+(37/290): libX11-xcb-1.6.12-1.fc32.x86_64.rpm   390 kB/s |  11 kB     00:00    
+(38/290): libX11-common-1.6.12-1.fc32.noarch.rp 1.7 MB/s | 153 kB     00:00    
+(39/290): libfido2-1.3.1-2.fc32.x86_64.rpm      1.2 MB/s |  65 kB     00:00    
+(40/290): libdrm-2.4.102-1.fc32.x86_64.rpm      1.7 MB/s | 159 kB     00:00    
+(41/290): libglvnd-egl-1.3.2-1.fc32.x86_64.rpm  1.1 MB/s |  44 kB     00:00    
+(42/290): libglvnd-1.3.2-1.fc32.x86_64.rpm      2.0 MB/s | 143 kB     00:00    
+(43/290): libglvnd-gles-1.3.2-1.fc32.x86_64.rpm 1.0 MB/s |  36 kB     00:00    
+(44/290): libX11-1.6.12-1.fc32.x86_64.rpm       2.3 MB/s | 659 kB     00:00    
+(45/290): libglvnd-glx-1.3.2-1.fc32.x86_64.rpm  1.6 MB/s | 157 kB     00:00    
+(46/290): libinput-1.16.1-1.fc32.x86_64.rpm     2.0 MB/s | 206 kB     00:00    
+(47/290): libjpeg-turbo-2.0.4-3.fc32.x86_64.rpm 1.8 MB/s | 168 kB     00:00    
+(48/290): libproxy-0.4.15-19.fc32.x86_64.rpm    1.8 MB/s |  72 kB     00:00    
+(49/290): libnice-0.1.17-2.fc32.x86_64.rpm      1.7 MB/s | 194 kB     00:00    
+(50/290): libunwind-1.3.1-7.fc32.x86_64.rpm     1.4 MB/s |  66 kB     00:00    
+(51/290): libsndfile-1.0.31-3.fc32.x86_64.rpm   2.0 MB/s | 213 kB     00:00    
+(52/290): libwacom-1.5-1.fc32.x86_64.rpm        1.1 MB/s |  36 kB     00:00    
+(53/290): libwacom-data-1.5-1.fc32.noarch.rpm   1.2 MB/s |  90 kB     00:00    
+(54/290): lilv-0.24.6-3.fc32.x86_64.rpm         1.6 MB/s |  80 kB     00:00    
+(55/290): libwebp-1.2.0-1.fc32.x86_64.rpm       2.0 MB/s | 277 kB     00:00    
+(56/290): lua-srpm-macros-1-3.fc32.noarch.rpm   261 kB/s | 8.0 kB     00:00    
+(57/290): man-db-2.9.0-3.fc32.x86_64.rpm        1.0 MB/s | 1.1 MB     00:01    
+(58/290): librsvg2-2.48.9-1.fc32.x86_64.rpm     1.6 MB/s | 3.3 MB     00:02    
+(59/290): mesa-filesystem-20.2.3-1.fc32.x86_64. 455 kB/s |  16 kB     00:00    
+(60/290): mesa-libEGL-20.2.3-1.fc32.x86_64.rpm  272 kB/s | 123 kB     00:00    
+(61/290): mesa-libGL-20.2.3-1.fc32.x86_64.rpm   1.1 MB/s | 182 kB     00:00    
+(62/290): mesa-libgbm-20.2.3-1.fc32.x86_64.rpm  1.2 MB/s |  43 kB     00:00    
+(63/290): mesa-libglapi-20.2.3-1.fc32.x86_64.rp 967 kB/s |  53 kB     00:00    
+(64/290): nspr-4.30.0-1.fc32.x86_64.rpm         1.5 MB/s | 138 kB     00:00    
+(65/290): nss-3.63.0-1.fc32.x86_64.rpm          1.9 MB/s | 687 kB     00:00    
+(66/290): nss-softokn-3.63.0-1.fc32.x86_64.rpm  2.2 MB/s | 450 kB     00:00    
+(67/290): nss-softokn-freebl-3.63.0-1.fc32.x86_ 2.1 MB/s | 330 kB     00:00    
+(68/290): nss-sysinit-3.63.0-1.fc32.x86_64.rpm  743 kB/s |  19 kB     00:00    
+(69/290): nss-util-3.63.0-1.fc32.x86_64.rpm     1.7 MB/s |  90 kB     00:00    
+(70/290): openssh-8.3p1-3.fc32.x86_64.rpm       3.1 MB/s | 480 kB     00:00    
+(71/290): openssh-clients-8.3p1-3.fc32.x86_64.r 3.0 MB/s | 657 kB     00:00    
+(72/290): pcre2-utf16-10.36-4.fc32.x86_64.rpm   2.3 MB/s | 212 kB     00:00    
+(73/290): perl-Data-Dumper-2.174-444.fc32.x86_6 1.8 MB/s |  56 kB     00:00    
+(74/290): perl-Digest-1.19-1.fc32.noarch.rpm    861 kB/s |  25 kB     00:00    
+(75/290): perl-Digest-MD5-2.58-1.fc32.x86_64.rp 1.2 MB/s |  36 kB     00:00    
+(76/290): perl-Encode-3.08-458.fc32.x86_64.rpm  1.0 MB/s | 1.8 MB     00:01    
+(77/290): perl-Errno-1.30-461.fc32.x86_64.rpm   546 kB/s |  22 kB     00:00    
+(78/290): perl-File-Path-2.17-1.fc32.noarch.rpm 609 kB/s |  35 kB     00:00    
+(79/290): perl-Getopt-Long-2.52-1.fc32.noarch.r 867 kB/s |  60 kB     00:00    
+(80/290): perl-Git-2.26.3-2.fc32.noarch.rpm     546 kB/s |  40 kB     00:00    
+(81/290): perl-IO-1.40-461.fc32.x86_64.rpm      773 kB/s |  89 kB     00:00    
+(82/290): perl-Mozilla-CA-20200520-1.fc32.noarc 377 kB/s |  12 kB     00:00    
+(83/290): perl-PathTools-3.78-442.fc32.x86_64.r 781 kB/s |  85 kB     00:00    
+(84/290): perl-Pod-Usage-2.01-1.fc32.noarch.rpm 577 kB/s |  41 kB     00:00    
+(85/290): perl-Socket-2.031-1.fc32.x86_64.rpm   101 kB/s |  56 kB     00:00    
+(86/290): perl-interpreter-5.30.3-461.fc32.x86_ 1.4 MB/s | 6.1 MB     00:04    
+(87/290): perl-libnet-3.13-1.fc32.noarch.rpm    1.1 MB/s | 126 kB     00:00    
+(88/290): mesa-dri-drivers-20.2.3-1.fc32.x86_64 1.7 MB/s |  18 MB     00:10    
+(89/290): perl-macros-5.30.3-461.fc32.noarch.rp 532 kB/s |  18 kB     00:00    
+(90/290): pixman-0.40.0-1.fc32.x86_64.rpm       2.4 MB/s | 270 kB     00:00    
+(91/290): pulseaudio-libs-14.0-1.fc32.x86_64.rp 2.0 MB/s | 690 kB     00:00    
+(92/290): python-qt5-rpm-macros-5.14.2-3.fc32.n 234 kB/s |  11 kB     00:00    
+(93/290): python-rpm-macros-3-60.fc32.noarch.rp 244 kB/s |  12 kB     00:00    
+(94/290): python-srpm-macros-3-60.fc32.noarch.r 597 kB/s |  16 kB     00:00    
+(95/290): python-unversioned-command-3.8.10-1.f 442 kB/s |  11 kB     00:00    
+(96/290): python3-devel-3.8.10-1.fc32.x86_64.rp 1.9 MB/s | 202 kB     00:00    
+(97/290): perl-libs-5.30.3-461.fc32.x86_64.rpm  1.6 MB/s | 1.7 MB     00:01    
+(98/290): python3-magic-5.38-4.fc32.noarch.rpm   96 kB/s |  18 kB     00:00    
+(99/290): llvm-libs-10.0.1-4.fc32.x86_64.rpm    1.5 MB/s |  20 MB     00:13    
+(100/290): python3-qt5-5.14.2-3.fc32.x86_64.rpm 1.7 MB/s | 1.2 MB     00:00    
+(101/290): python3-rpm-macros-3-60.fc32.noarch. 195 kB/s |  11 kB     00:00    
+(102/290): python3-pip-19.3.1-4.fc32.noarch.rpm 1.8 MB/s | 1.7 MB     00:00    
+(103/290): qt5-qtbase-common-5.14.2-6.fc32.noar 218 kB/s |  10 kB     00:00    
+(104/290): python3-qt5-base-5.14.2-3.fc32.x86_6 2.3 MB/s | 3.2 MB     00:01    
+(105/290): qt5-qtconnectivity-5.14.2-1.fc32.x86 1.9 MB/s | 510 kB     00:00    
+(106/290): qt5-qtbase-5.14.2-6.fc32.x86_64.rpm  1.9 MB/s | 3.4 MB     00:01    
+(107/290): qt5-qtbase-gui-5.14.2-6.fc32.x86_64. 1.6 MB/s | 5.8 MB     00:03    
+(108/290): qt5-qtlocation-5.14.2-2.fc32.x86_64. 1.5 MB/s | 3.0 MB     00:01    
+(109/290): qt5-qtsensors-5.14.2-1.fc32.x86_64.r 1.9 MB/s | 228 kB     00:00    
+(110/290): qt5-qtdeclarative-5.14.2-1.fc32.x86_ 1.7 MB/s | 3.9 MB     00:02    
+(111/290): qt5-qtserialport-5.14.2-1.fc32.x86_6 1.0 MB/s |  65 kB     00:00    
+(112/290): qt5-qttools-common-5.14.2-1.fc32.noa 366 kB/s |  11 kB     00:00    
+(113/290): qt5-qtsvg-5.14.2-1.fc32.x86_64.rpm   1.7 MB/s | 182 kB     00:00    
+(114/290): qt5-qttools-libs-help-5.14.2-1.fc32. 1.5 MB/s | 133 kB     00:00    
+(115/290): qt5-qtmultimedia-5.14.2-1.fc32.x86_6 1.9 MB/s | 804 kB     00:00    
+(116/290): qt5-qtwebchannel-5.14.2-1.fc32.x86_6 1.5 MB/s |  97 kB     00:00    
+(117/290): qt5-qtwebsockets-5.14.2-1.fc32.x86_6 1.4 MB/s |  90 kB     00:00    
+(118/290): qt5-qtx11extras-5.14.2-1.fc32.x86_64 1.1 MB/s |  35 kB     00:00    
+(119/290): qt5-srpm-macros-5.14.2-3.fc32.noarch 323 kB/s | 8.4 kB     00:00    
+(120/290): redhat-rpm-config-151-1.fc32.noarch. 946 kB/s |  60 kB     00:00    
+(121/290): rpm-build-4.15.1.1-1.fc32.1.x86_64.r 976 kB/s | 112 kB     00:00    
+(122/290): rpmlint-1.11-16.fc32.noarch.rpm      932 kB/s | 202 kB     00:00    
+(123/290): rust-srpm-macros-14-1.fc32.noarch.rp 373 kB/s | 9.6 kB     00:00    
+(124/290): sord-0.16.4-4.fc32.x86_64.rpm        794 kB/s |  43 kB     00:00    
+(125/290): qt5-qtxmlpatterns-5.14.2-1.fc32.x86_ 1.7 MB/s | 1.1 MB     00:00    
+(126/290): xorg-x11-server-common-1.20.11-1.fc3 729 kB/s |  35 kB     00:00    
+(127/290): qt5-qttools-libs-designer-5.14.2-1.f 2.5 MB/s | 2.7 MB     00:01    
+(128/290): xorg-x11-server-Xvfb-1.20.11-1.fc32. 1.5 MB/s | 880 kB     00:00    
+(129/290): zstd-1.4.9-1.fc32.x86_64.rpm         2.4 MB/s | 643 kB     00:00    
+(130/290): xxhash-libs-0.8.0-1.fc32.x86_64.rpm   95 kB/s |  41 kB     00:00    
+(131/290): abattis-cantarell-fonts-0.201-2.fc32 2.0 MB/s | 336 kB     00:00    
+(132/290): bzip2-1.0.8-2.fc32.x86_64.rpm        1.2 MB/s |  52 kB     00:00    
+(133/290): cdparanoia-libs-10.2-31.fc32.x86_64. 1.4 MB/s |  54 kB     00:00    
+(134/290): desktop-file-utils-0.24-2.fc32.x86_6 1.7 MB/s |  73 kB     00:00    
+(135/290): diffutils-3.7-4.fc32.x86_64.rpm      2.0 MB/s | 397 kB     00:00    
+(136/290): dwz-0.13-2.fc32.x86_64.rpm           1.3 MB/s | 109 kB     00:00    
+(137/290): efi-srpm-macros-4-4.fc32.noarch.rpm  578 kB/s |  22 kB     00:00    
+(138/290): enchant-1.6.0-25.fc32.x86_64.rpm     1.5 MB/s |  60 kB     00:00    
+(139/290): adobe-source-code-pro-fonts-2.030.1. 1.3 MB/s | 834 kB     00:00    
+(140/290): fdk-aac-free-2.0.0-3.fc32.x86_64.rpm 2.4 MB/s | 401 kB     00:00    
+(141/290): flac-libs-1.3.3-2.fc32.x86_64.rpm    1.5 MB/s | 224 kB     00:00    
+(142/290): fonts-filesystem-2.0.3-1.fc32.noarch 330 kB/s | 7.8 kB     00:00    
+(143/290): fonts-srpm-macros-2.0.3-1.fc32.noarc 1.1 MB/s |  26 kB     00:00    
+(144/290): fpc-srpm-macros-1.3-1.fc32.noarch.rp 300 kB/s | 7.6 kB     00:00    
+(145/290): fribidi-1.0.9-1.fc32.x86_64.rpm      1.8 MB/s |  85 kB     00:00    
+(146/290): ghc-srpm-macros-1.5.0-2.fc32.noarch. 258 kB/s | 7.7 kB     00:00    
+(147/290): glx-utils-8.4.0-6.20181118git1830dcb 1.1 MB/s |  41 kB     00:00    
+(148/290): gnat-srpm-macros-4-11.fc32.noarch.rp 243 kB/s | 8.2 kB     00:00    
+(149/290): gdk-pixbuf2-2.40.0-2.fc32.x86_64.rpm 2.7 MB/s | 464 kB     00:00    
+(150/290): gsm-1.0.18-6.fc32.x86_64.rpm         969 kB/s |  33 kB     00:00    
+(151/290): gupnp-igd-0.2.5-8.fc32.x86_64.rpm    1.2 MB/s |  34 kB     00:00    
+(152/290): ShellCheck-0.7.0-3.fc32.x86_64.rpm   2.0 MB/s | 2.4 MB     00:01    
+(153/290): hostname-3.23-2.fc32.x86_64.rpm      632 kB/s |  28 kB     00:00    
+(154/290): harfbuzz-2.6.4-3.fc32.x86_64.rpm     2.2 MB/s | 599 kB     00:00    
+(155/290): hunspell-en-US-0.20140811.1-16.fc32. 2.3 MB/s | 176 kB     00:00    
+(156/290): hunspell-1.7.0-5.fc32.x86_64.rpm     1.3 MB/s | 348 kB     00:00    
+(157/290): json-glib-1.4.4-4.fc32.x86_64.rpm    1.2 MB/s | 144 kB     00:00    
+(158/290): gstreamer1-1.16.2-2.fc32.x86_64.rpm  2.0 MB/s | 1.3 MB     00:00    
+(159/290): langpacks-core-font-en-3.0-3.fc32.no 274 kB/s | 9.4 kB     00:00    
+(160/290): lcms2-2.9-7.fc32.x86_64.rpm          1.4 MB/s | 167 kB     00:00    
+(161/290): less-551-3.fc32.x86_64.rpm           1.1 MB/s | 156 kB     00:00    
+(162/290): libICE-1.0.10-3.fc32.x86_64.rpm      1.2 MB/s |  71 kB     00:00    
+(163/290): libSM-1.2.3-5.fc32.x86_64.rpm        1.2 MB/s |  42 kB     00:00    
+(164/290): libXau-1.0.9-3.fc32.x86_64.rpm       1.1 MB/s |  31 kB     00:00    
+(165/290): libXdamage-1.1.5-2.fc32.x86_64.rpm   700 kB/s |  22 kB     00:00    
+(166/290): libXdmcp-1.1.3-3.fc32.x86_64.rpm     1.1 MB/s |  36 kB     00:00    
+(167/290): libXext-1.3.4-3.fc32.x86_64.rpm      1.1 MB/s |  39 kB     00:00    
+(168/290): libXfixes-5.0.3-11.fc32.x86_64.rpm   610 kB/s |  19 kB     00:00    
+(169/290): libXft-2.3.3-3.fc32.x86_64.rpm       936 kB/s |  64 kB     00:00    
+(170/290): libXfont2-2.0.3-7.fc32.x86_64.rpm    1.3 MB/s | 151 kB     00:00    
+(171/290): libXi-1.7.10-3.fc32.x86_64.rpm       1.0 MB/s |  38 kB     00:00    
+(172/290): libXrender-0.9.10-11.fc32.x86_64.rpm 713 kB/s |  27 kB     00:00    
+(173/290): libXmu-1.1.3-3.fc32.x86_64.rpm       1.2 MB/s |  75 kB     00:00    
+(174/290): libXtst-1.2.3-11.fc32.x86_64.rpm     513 kB/s |  20 kB     00:00    
+(175/290): libXv-1.0.11-11.fc32.x86_64.rpm      482 kB/s |  18 kB     00:00    
+(176/290): libXt-1.2.0-1.fc32.x86_64.rpm        1.7 MB/s | 183 kB     00:00    
+(177/290): libXxf86vm-1.1.4-13.fc32.x86_64.rpm  639 kB/s |  18 kB     00:00    
+(178/290): libasyncns-0.8-18.fc32.x86_64.rpm    776 kB/s |  30 kB     00:00    
+(179/290): libcbor-0.5.0-7.fc32.x86_64.rpm      1.0 MB/s |  46 kB     00:00    
+(180/290): libdatrie-0.2.9-11.fc32.x86_64.rpm   773 kB/s |  32 kB     00:00    
+(181/290): iso-codes-4.4-2.fc32.noarch.rpm      3.4 MB/s | 3.3 MB     00:00    
+(182/290): libappstream-glib-0.7.17-1.fc32.x86_ 1.8 MB/s | 335 kB     00:00    
+(183/290): libdvdnav-6.0.1-3.fc32.x86_64.rpm    1.0 MB/s |  58 kB     00:00    
+(184/290): libdvdread-6.0.2-3.fc32.x86_64.rpm   2.1 MB/s |  70 kB     00:00    
+(185/290): libevdev-1.9.0-1.fc32.x86_64.rpm     1.4 MB/s |  44 kB     00:00    
+(186/290): libfaketime-0.9.8-6.fc32.x86_64.rpm  1.8 MB/s |  65 kB     00:00    
+(187/290): libedit-3.1-32.20191231cvs.fc32.x86_ 1.5 MB/s | 106 kB     00:00    
+(188/290): libfontenc-1.1.3-12.fc32.x86_64.rpm  1.1 MB/s |  31 kB     00:00    
+(189/290): libgudev-232-7.fc32.x86_64.rpm       1.3 MB/s |  34 kB     00:00    
+(190/290): libmodman-2.0.1-21.fc32.x86_64.rpm   1.1 MB/s |  34 kB     00:00    
+(191/290): libogg-1.3.4-2.fc32.x86_64.rpm       1.3 MB/s |  33 kB     00:00    
+(192/290): libpciaccess-0.16-2.fc32.x86_64.rpm  913 kB/s |  27 kB     00:00    
+(193/290): libpipeline-1.5.2-2.fc32.x86_64.rpm  1.6 MB/s |  55 kB     00:00    
+(194/290): libpkgconf-1.6.3-3.fc32.x86_64.rpm   1.1 MB/s |  35 kB     00:00    
+(195/290): libpng-1.6.37-3.fc32.x86_64.rpm      2.5 MB/s | 116 kB     00:00    
+(196/290): libsrtp-2.3.0-2.fc32.x86_64.rpm      1.8 MB/s |  58 kB     00:00    
+(197/290): libstemmer-0-14.585svn.fc32.x86_64.r 2.5 MB/s |  84 kB     00:00    
+(198/290): libsoup-2.70.0-1.fc32.x86_64.rpm     1.5 MB/s | 388 kB     00:00    
+(199/290): libtheora-1.1.1-25.fc32.x86_64.rpm   2.0 MB/s | 175 kB     00:00    
+(200/290): libvisual-0.4.0-28.fc32.x86_64.rpm   2.0 MB/s | 148 kB     00:00    
+(201/290): libvorbis-1.3.6-6.fc32.x86_64.rpm    2.0 MB/s | 199 kB     00:00    
+(202/290): libwayland-client-1.18.0-1.fc32.x86_ 1.1 MB/s |  35 kB     00:00    
+(203/290): libwayland-cursor-1.18.0-1.fc32.x86_ 751 kB/s |  20 kB     00:00    
+(204/290): libwayland-egl-1.18.0-1.fc32.x86_64. 542 kB/s |  13 kB     00:00    
+(205/290): libthai-0.1.28-4.fc32.x86_64.rpm     404 kB/s | 213 kB     00:00    
+(206/290): libwayland-server-1.18.0-1.fc32.x86_ 1.2 MB/s |  43 kB     00:00    
+(207/290): libxkbcommon-0.10.0-2.fc32.x86_64.rp 1.8 MB/s | 121 kB     00:00    
+(208/290): libxkbcommon-x11-0.10.0-2.fc32.x86_6 629 kB/s |  22 kB     00:00    
+(209/290): libxcb-1.13.1-4.fc32.x86_64.rpm      1.7 MB/s | 231 kB     00:00    
+(210/290): libxshmfence-1.3-6.fc32.x86_64.rpm   414 kB/s |  12 kB     00:00    
+(211/290): libxkbfile-1.1.0-3.fc32.x86_64.rpm   1.5 MB/s |  89 kB     00:00    
+(212/290): mtdev-1.1.5-16.fc32.x86_64.rpm       722 kB/s |  20 kB     00:00    
+(213/290): nim-srpm-macros-3-2.fc32.noarch.rpm  340 kB/s | 8.3 kB     00:00    
+(214/290): ocaml-srpm-macros-6-2.fc32.noarch.rp 342 kB/s | 7.7 kB     00:00    
+(215/290): openblas-srpm-macros-2-7.fc32.noarch 263 kB/s | 7.2 kB     00:00    
+(216/290): opus-1.3.1-3.fc32.x86_64.rpm         2.0 MB/s | 216 kB     00:00    
+(217/290): openal-soft-1.19.1-5.fc32.x86_64.rpm 1.8 MB/s | 548 kB     00:00    
+(218/290): orc-0.4.31-2.fc32.x86_64.rpm         918 kB/s | 185 kB     00:00    
+(219/290): patch-2.7.6-12.fc32.x86_64.rpm       1.4 MB/s | 135 kB     00:00    
+(220/290): pango-1.44.7-2.fc32.x86_64.rpm       1.7 MB/s | 293 kB     00:00    
+(221/290): perl-Carp-1.50-440.fc32.noarch.rpm   1.1 MB/s |  29 kB     00:00    
+(222/290): perl-Error-0.17029-1.fc32.noarch.rpm 1.2 MB/s |  42 kB     00:00    
+(223/290): perl-Exporter-5.74-2.fc32.noarch.rpm 913 kB/s |  32 kB     00:00    
+(224/290): perl-HTTP-Tiny-0.076-440.fc32.noarch 1.4 MB/s |  55 kB     00:00    
+(225/290): perl-File-Temp-0.230.900-440.fc32.no 1.1 MB/s |  60 kB     00:00    
+(226/290): perl-IO-Socket-IP-0.39-441.fc32.noar 1.5 MB/s |  42 kB     00:00    
+(227/290): perl-MIME-Base64-3.15-440.fc32.x86_6 1.1 MB/s |  30 kB     00:00    
+(228/290): perl-IO-Socket-SSL-2.068-1.fc32.noar 1.5 MB/s | 217 kB     00:00    
+(229/290): perl-Pod-Escapes-1.07-440.fc32.noarc 671 kB/s |  20 kB     00:00    
+(230/290): perl-Net-SSLeay-1.88-5.fc32.x86_64.r 2.2 MB/s | 351 kB     00:00    
+(231/290): perl-Pod-Perldoc-3.28.01-443.fc32.no 1.3 MB/s |  85 kB     00:00    
+(232/290): perl-Scalar-List-Utils-1.54-440.fc32 1.1 MB/s |  69 kB     00:00    
+(233/290): perl-Pod-Simple-3.40-2.fc32.noarch.r 2.0 MB/s | 215 kB     00:00    
+(234/290): perl-Term-ANSIColor-5.01-2.fc32.noar 1.7 MB/s |  49 kB     00:00    
+(235/290): perl-Term-Cap-1.17-440.fc32.noarch.r 864 kB/s |  22 kB     00:00    
+(236/290): perl-Storable-3.15-443.fc32.x86_64.r 1.4 MB/s |  97 kB     00:00    
+(237/290): perl-TermReadKey-2.38-6.fc32.x86_64. 1.3 MB/s |  36 kB     00:00    
+(238/290): perl-Text-ParseWords-3.30-440.fc32.n 611 kB/s |  16 kB     00:00    
+(239/290): perl-Text-Tabs+Wrap-2013.0523-440.fc 901 kB/s |  23 kB     00:00    
+(240/290): perl-Time-Local-1.300-2.fc32.noarch. 1.0 MB/s |  34 kB     00:00    
+(241/290): perl-URI-1.76-6.fc32.noarch.rpm      1.7 MB/s | 109 kB     00:00    
+(242/290): perl-Unicode-Normalize-1.26-440.fc32 1.5 MB/s |  97 kB     00:00    
+(243/290): perl-constant-1.33-441.fc32.noarch.r 949 kB/s |  23 kB     00:00    
+(244/290): perl-parent-0.238-1.fc32.noarch.rpm  560 kB/s |  14 kB     00:00    
+(245/290): perl-srpm-macros-1-34.fc32.noarch.rp 289 kB/s | 8.3 kB     00:00    
+(246/290): perl-podlators-4.14-2.fc32.noarch.rp 2.1 MB/s | 113 kB     00:00    
+(247/290): perl-threads-2.22-442.fc32.x86_64.rp 1.6 MB/s |  59 kB     00:00    
+(248/290): perl-threads-shared-1.60-441.fc32.x8 1.1 MB/s |  44 kB     00:00    
+(249/290): pkgconf-1.6.3-3.fc32.x86_64.rpm      1.3 MB/s |  41 kB     00:00    
+(250/290): pkgconf-m4-1.6.3-3.fc32.noarch.rpm   540 kB/s |  14 kB     00:00    
+(251/290): pkgconf-pkg-config-1.6.3-3.fc32.x86_ 406 kB/s | 9.7 kB     00:00    
+(252/290): python3-dbus-1.2.16-1.fc32.x86_64.rp 1.9 MB/s | 134 kB     00:00    
+(253/290): python3-enchant-2.0.0-11.fc32.noarch 1.4 MB/s | 104 kB     00:00    
+(254/290): python3-pyqt5-sip-4.19.21-1.fc32.x86 1.8 MB/s |  96 kB     00:00    
+(255/290): python3-rpm-generators-10-4.fc32.noa 677 kB/s |  24 kB     00:00    
+(256/290): python3-wheel-0.33.6-3.fc32.noarch.r 1.3 MB/s |  49 kB     00:00    
+(257/290): qt-settings-32.0-3.fc32.noarch.rpm   368 kB/s | 9.3 kB     00:00    
+(258/290): rpmdevtools-8.10-10.fc32.noarch.rpm  1.1 MB/s |  90 kB     00:00    
+(259/290): serd-0.30.2-2.fc32.x86_64.rpm        563 kB/s |  70 kB     00:00    
+(260/290): python3-setuptools-41.6.0-2.fc32.noa 1.5 MB/s | 588 kB     00:00    
+(261/290): soundtouch-2.1.1-4.fc32.x86_64.rpm   1.2 MB/s |  78 kB     00:00    
+(262/290): shared-mime-info-1.15-3.fc32.x86_64. 1.6 MB/s | 303 kB     00:00    
+(263/290): sratom-0.6.4-2.fc32.x86_64.rpm       823 kB/s |  26 kB     00:00    
+(264/290): unzip-6.0-47.fc32.x86_64.rpm         1.4 MB/s | 179 kB     00:00    
+(265/290): which-2.21-19.fc32.x86_64.rpm        706 kB/s |  42 kB     00:00    
+(266/290): webrtc-audio-processing-0.3.1-4.fc32 1.7 MB/s | 313 kB     00:00    
+(267/290): xcb-util-image-0.4.0-14.fc32.x86_64. 650 kB/s |  19 kB     00:00    
+(268/290): xcb-util-0.4.0-14.fc32.x86_64.rpm    285 kB/s |  19 kB     00:00    
+(269/290): xcb-util-keysyms-0.4.0-12.fc32.x86_6 530 kB/s |  14 kB     00:00    
+(270/290): xcb-util-renderutil-0.3.9-15.fc32.x8 678 kB/s |  17 kB     00:00    
+(271/290): xcb-util-wm-0.4.1-17.fc32.x86_64.rpm 1.1 MB/s |  31 kB     00:00    
+(272/290): xemacs-filesystem-21.5.34-35.2019032 326 kB/s | 9.4 kB     00:00    
+(273/290): xml-common-0.6.3-54.fc32.noarch.rpm  730 kB/s |  31 kB     00:00    
+(274/290): xorg-x11-xauth-1.1-3.fc32.x86_64.rpm 1.1 MB/s |  36 kB     00:00    
+(275/290): xorg-x11-xkb-utils-7.7-32.fc32.x86_6 1.1 MB/s | 114 kB     00:00    
+(276/290): xz-5.2.5-1.fc32.x86_64.rpm           1.2 MB/s | 187 kB     00:00    
+(277/290): xkeyboard-config-2.29-1.fc32.noarch. 2.0 MB/s | 772 kB     00:00    
+(278/290): elfutils-libelf-0.183-1.fc32.x86_64. 1.7 MB/s | 192 kB     00:00    
+(279/290): zip-3.0-26.fc32.x86_64.rpm           1.6 MB/s | 260 kB     00:00    
+(280/290): elfutils-libs-0.183-1.fc32.x86_64.rp 1.7 MB/s | 263 kB     00:00    
+(281/290): pcre2-10.36-4.fc32.x86_64.rpm        1.5 MB/s | 233 kB     00:00    
+(282/290): python3-3.8.10-1.fc32.x86_64.rpm     713 kB/s |  28 kB     00:00    
+(283/290): pcre2-syntax-10.36-4.fc32.noarch.rpm 1.8 MB/s | 142 kB     00:00    
+(284/290): libicu-65.1-2.fc32.x86_64.rpm        2.6 MB/s | 9.6 MB     00:03    
+(285/290): python3-rpm-4.15.1.1-1.fc32.1.x86_64 1.0 MB/s |  94 kB     00:00    
+(286/290): rpm-build-libs-4.15.1.1-1.fc32.1.x86 1.1 MB/s |  93 kB     00:00    
+(287/290): rpm-4.15.1.1-1.fc32.1.x86_64.rpm     2.2 MB/s | 495 kB     00:00    
+(288/290): rpm-sign-libs-4.15.1.1-1.fc32.1.x86_ 558 kB/s |  22 kB     00:00    
+(289/290): rpm-libs-4.15.1.1-1.fc32.1.x86_64.rp 1.9 MB/s | 298 kB     00:00    
+(290/290): python3-libs-3.8.10-1.fc32.x86_64.rp 2.9 MB/s | 7.4 MB     00:02    
+--------------------------------------------------------------------------------
+Total                                           4.8 MB/s | 161 MB     00:33     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : perl-Carp-1.50-440.fc32.noarch                       1/301 
+  Installing       : perl-Exporter-5.74-2.fc32.noarch                     2/301 
+  Installing       : perl-libs-4:5.30.3-461.fc32.x86_64                   3/301 
+  Upgrading        : elfutils-libelf-0.183-1.fc32.x86_64                  4/301 
+  Installing       : perl-Scalar-List-Utils-3:1.54-440.fc32.x86_64        5/301 
+  Installing       : libpng-2:1.6.37-3.fc32.x86_64                        6/301 
+  Installing       : freetype-2.10.4-1.fc32.x86_64                        7/301 
+  Installing       : nspr-4.30.0-1.fc32.x86_64                            8/301 
+  Installing       : perl-parent-1:0.238-1.fc32.noarch                    9/301 
+  Installing       : libX11-xcb-1.6.12-1.fc32.x86_64                     10/301 
+  Installing       : nss-util-3.63.0-1.fc32.x86_64                       11/301 
+  Upgrading        : rpm-libs-4.15.1.1-1.fc32.1.x86_64                   12/301 
+  Upgrading        : rpm-4.15.1.1-1.fc32.1.x86_64                        13/301 
+  Installing       : libogg-2:1.3.4-2.fc32.x86_64                        14/301 
+  Installing       : dbus-libs-1:1.12.20-1.fc32.x86_64                   15/301 
+  Installing       : serd-0.30.2-2.fc32.x86_64                           16/301 
+  Installing       : libwayland-client-1.18.0-1.fc32.x86_64              17/301 
+  Installing       : libICE-1.0.10-3.fc32.x86_64                         18/301 
+  Installing       : fonts-filesystem-2.0.3-1.fc32.noarch                19/301 
+  Installing       : pixman-0.40.0-1.fc32.x86_64                         20/301 
+  Installing       : file-5.38-4.fc32.x86_64                             21/301 
+  Installing       : dejavu-sans-fonts-2.37-8.fc32.noarch                22/301 
+  Installing       : libSM-1.2.3-5.fc32.x86_64                           23/301 
+  Installing       : sord-0.16.4-4.fc32.x86_64                           24/301 
+  Upgrading        : elfutils-libs-0.183-1.fc32.x86_64                   25/301 
+  Installing       : elfutils-debuginfod-client-0.183-1.fc32.x86_64      26/301 
+  Installing       : binutils-gold-2.34-6.fc32.x86_64                    27/301 
+  Installing       : binutils-2.34-6.fc32.x86_64                         28/301 
+  Running scriptlet: binutils-2.34-6.fc32.x86_64                         28/301 
+  Installing       : opus-1.3.1-3.fc32.x86_64                            29/301 
+  Installing       : libxshmfence-1.3-6.fc32.x86_64                      30/301 
+  Installing       : libXau-1.0.9-3.fc32.x86_64                          31/301 
+  Installing       : libxcb-1.13.1-4.fc32.x86_64                         32/301 
+  Installing       : gstreamer1-1.16.2-2.fc32.x86_64                     33/301 
+  Installing       : mesa-libglapi-20.2.3-1.fc32.x86_64                  34/301 
+  Installing       : libglvnd-1:1.3.2-1.fc32.x86_64                      35/301 
+  Running scriptlet: groff-base-1.22.3-22.fc32.x86_64                    36/301 
+  Installing       : groff-base-1.22.3-22.fc32.x86_64                    36/301 
+  Running scriptlet: groff-base-1.22.3-22.fc32.x86_64                    36/301 
+  Installing       : findutils-1:4.7.0-4.fc32.x86_64                     37/301 
+  Installing       : emacs-filesystem-1:27.1-2.fc32.noarch               38/301 
+  Upgrading        : rpm-build-libs-4.15.1.1-1.fc32.1.x86_64             39/301 
+  Installing       : sratom-0.6.4-2.fc32.x86_64                          40/301 
+  Installing       : libvorbis-1:1.3.6-6.fc32.x86_64                     41/301 
+  Installing       : perl-Text-ParseWords-3.30-440.fc32.noarch           42/301 
+  Installing       : hunspell-en-US-0.20140811.1-16.fc32.noarch          43/301 
+  Installing       : hunspell-1.7.0-5.fc32.x86_64                        44/301 
+  Upgrading        : pcre2-syntax-10.36-4.fc32.noarch                    45/301 
+  Installing       : xz-5.2.5-1.fc32.x86_64                              46/301 
+  Installing       : xkeyboard-config-2.29-1.fc32.noarch                 47/301 
+  Installing       : libxkbcommon-0.10.0-2.fc32.x86_64                   48/301 
+  Installing       : unzip-6.0-47.fc32.x86_64                            49/301 
+  Installing       : orc-0.4.31-2.fc32.x86_64                            50/301 
+  Installing       : libwayland-server-1.18.0-1.fc32.x86_64              51/301 
+  Installing       : libicu-65.1-2.fc32.x86_64                           52/301 
+  Installing       : libgudev-232-7.fc32.x86_64                          53/301 
+  Installing       : libedit-3.1-32.20191231cvs.fc32.x86_64              54/301 
+  Installing       : libdvdread-6.0.2-3.fc32.x86_64                      55/301 
+  Installing       : less-551-3.fc32.x86_64                              56/301 
+  Installing       : gsm-1.0.18-6.fc32.x86_64                            57/301 
+  Installing       : diffutils-3.7-4.fc32.x86_64                         58/301 
+  Installing       : bzip2-1.0.8-2.fc32.x86_64                           59/301 
+  Installing       : qt5-qttools-common-5.14.2-1.fc32.noarch             60/301 
+  Installing       : cpio-2.13-6.fc32.x86_64                             61/301 
+  Installing       : alsa-lib-1.2.3.2-1.fc32.x86_64                      62/301 
+  Installing       : libdvdnav-6.0.1-3.fc32.x86_64                       63/301 
+  Installing       : llvm-libs-10.0.1-4.fc32.x86_64                      64/301 
+  Installing       : zip-3.0-26.fc32.x86_64                              65/301 
+  Installing       : libxkbcommon-x11-0.10.0-2.fc32.x86_64               66/301 
+  Installing       : pcre2-utf16-10.36-4.fc32.x86_64                     67/301 
+  Upgrading        : pcre2-10.36-4.fc32.x86_64                           68/301 
+  Installing       : enchant-1:1.6.0-25.fc32.x86_64                      69/301 
+  Installing       : desktop-file-utils-0.24-2.fc32.x86_64               70/301 
+  Installing       : xcb-util-0.4.0-14.fc32.x86_64                       71/301 
+  Installing       : xcb-util-image-0.4.0-14.fc32.x86_64                 72/301 
+  Installing       : xcb-util-keysyms-0.4.0-12.fc32.x86_64               73/301 
+  Installing       : xcb-util-renderutil-0.3.9-15.fc32.x86_64            74/301 
+  Installing       : xcb-util-wm-0.4.1-17.fc32.x86_64                    75/301 
+  Installing       : elfutils-0.183-1.fc32.x86_64                        76/301 
+  Installing       : langpacks-core-font-en-3.0-3.fc32.noarch            77/301 
+  Installing       : fontconfig-2.13.92-9.fc32.x86_64                    78/301 
+  Running scriptlet: fontconfig-2.13.92-9.fc32.x86_64                    78/301 
+  Installing       : abattis-cantarell-fonts-0.201-2.fc32.noarch         79/301 
+  Installing       : adobe-source-code-pro-fonts-2.030.1.050-8.fc32.n    80/301 
+  Installing       : gsettings-desktop-schemas-3.36.1-1.fc32.x86_64      81/301 
+  Installing       : libwayland-cursor-1.18.0-1.fc32.x86_64              82/301 
+  Installing       : avahi-libs-0.7-24.fc32.x86_64                       83/301 
+  Installing       : cups-libs-1:2.3.3op2-5.fc32.x86_64                  84/301 
+  Installing       : flac-libs-1.3.3-2.fc32.x86_64                       85/301 
+  Installing       : libsndfile-1.0.31-3.fc32.x86_64                     86/301 
+  Installing       : lilv-0.24.6-3.fc32.x86_64                           87/301 
+  Installing       : libtheora-1:1.1.1-25.fc32.x86_64                    88/301 
+  Installing       : lua-srpm-macros-1-3.fc32.noarch                     89/301 
+  Installing       : efi-srpm-macros-4-4.fc32.noarch                     90/301 
+  Upgrading        : rpm-sign-libs-4.15.1.1-1.fc32.1.x86_64              91/301 
+  Installing       : nss-softokn-freebl-3.63.0-1.fc32.x86_64             92/301 
+  Installing       : nss-softokn-3.63.0-1.fc32.x86_64                    93/301 
+  Installing       : nss-3.63.0-1.fc32.x86_64                            94/301 
+  Running scriptlet: nss-3.63.0-1.fc32.x86_64                            94/301 
+  Installing       : nss-sysinit-3.63.0-1.fc32.x86_64                    95/301 
+  Installing       : libsrtp-2.3.0-2.fc32.x86_64                         96/301 
+  Installing       : dwz-0.13-2.fc32.x86_64                              97/301 
+  Installing       : perl-Term-ANSIColor-5.01-2.fc32.noarch              98/301 
+  Installing       : perl-Unicode-Normalize-1.26-440.fc32.x86_64         99/301 
+  Installing       : perl-Digest-1.19-1.fc32.noarch                     100/301 
+  Installing       : perl-Digest-MD5-2.58-1.fc32.x86_64                 101/301 
+  Installing       : perl-Data-Dumper-2.174-444.fc32.x86_64             102/301 
+  Installing       : perl-libnet-3.13-1.fc32.noarch                     103/301 
+  Installing       : perl-Net-SSLeay-1.88-5.fc32.x86_64                 104/301 
+  Installing       : perl-URI-1.76-6.fc32.noarch                        105/301 
+  Installing       : perl-Pod-Escapes-1:1.07-440.fc32.noarch            106/301 
+  Installing       : perl-Mozilla-CA-20200520-1.fc32.noarch             107/301 
+  Installing       : perl-IO-Socket-IP-0.39-441.fc32.noarch             108/301 
+  Installing       : perl-Time-Local-2:1.300-2.fc32.noarch              109/301 
+  Installing       : perl-IO-Socket-SSL-2.068-1.fc32.noarch             110/301 
+  Installing       : perl-Term-Cap-1.17-440.fc32.noarch                 111/301 
+  Installing       : perl-File-Temp-1:0.230.900-440.fc32.noarch         112/301 
+  Installing       : perl-HTTP-Tiny-0.076-440.fc32.noarch               113/301 
+  Installing       : perl-Pod-Simple-1:3.40-2.fc32.noarch               114/301 
+  Installing       : perl-podlators-1:4.14-2.fc32.noarch                115/301 
+  Installing       : perl-Pod-Perldoc-3.28.01-443.fc32.noarch           116/301 
+  Installing       : perl-Pod-Usage-4:2.01-1.fc32.noarch                117/301 
+  Installing       : perl-Errno-1.30-461.fc32.x86_64                    118/301 
+  Installing       : perl-Socket-4:2.031-1.fc32.x86_64                  119/301 
+  Installing       : perl-MIME-Base64-3.15-440.fc32.x86_64              120/301 
+  Installing       : perl-Storable-1:3.15-443.fc32.x86_64               121/301 
+  Installing       : perl-Getopt-Long-1:2.52-1.fc32.noarch              122/301 
+  Installing       : perl-macros-4:5.30.3-461.fc32.noarch               123/301 
+  Installing       : perl-Text-Tabs+Wrap-2013.0523-440.fc32.noarch      124/301 
+  Installing       : perl-File-Path-2.17-1.fc32.noarch                  125/301 
+  Installing       : perl-IO-1.40-461.fc32.x86_64                       126/301 
+  Installing       : perl-PathTools-3.78-442.fc32.x86_64                127/301 
+  Installing       : perl-constant-1.33-441.fc32.noarch                 128/301 
+  Installing       : perl-threads-1:2.22-442.fc32.x86_64                129/301 
+  Installing       : perl-threads-shared-1.60-441.fc32.x86_64           130/301 
+  Installing       : perl-Encode-4:3.08-458.fc32.x86_64                 131/301 
+  Installing       : perl-interpreter-4:5.30.3-461.fc32.x86_64          132/301 
+  Installing       : perl-Error-1:0.17029-1.fc32.noarch                 133/301 
+  Installing       : perl-TermReadKey-2.38-6.fc32.x86_64                134/301 
+  Installing       : python3-pip-19.3.1-4.fc32.noarch                   135/301 
+  Installing       : python3-setuptools-41.6.0-2.fc32.noarch            136/301 
+  Upgrading        : python3-libs-3.8.10-1.fc32.x86_64                  137/301 
+  Upgrading        : python3-3.8.10-1.fc32.x86_64                       138/301 
+  Installing       : python-unversioned-command-3.8.10-1.fc32.noarch    139/301 
+  Upgrading        : python3-rpm-4.15.1.1-1.fc32.1.x86_64               140/301 
+  Installing       : python3-magic-5.38-4.fc32.noarch                   141/301 
+  Installing       : python3-dbus-1.2.16-1.fc32.x86_64                  142/301 
+  Installing       : python3-enchant-2.0.0-11.fc32.noarch               143/301 
+  Installing       : python3-pyqt5-sip-4.19.21-1.fc32.x86_64            144/301 
+  Installing       : python3-rpm-generators-10-4.fc32.noarch            145/301 
+  Running scriptlet: xml-common-0.6.3-54.fc32.noarch                    146/301 
+  Installing       : xml-common-0.6.3-54.fc32.noarch                    146/301 
+  Installing       : iso-codes-4.4-2.fc32.noarch                        147/301 
+  Installing       : xemacs-filesystem-21.5.34-35.20190323hgc0ed7ef9a   148/301 
+  Installing       : webrtc-audio-processing-0.3.1-4.fc32.x86_64        149/301 
+  Installing       : soundtouch-2.1.1-4.fc32.x86_64                     150/301 
+  Installing       : shared-mime-info-1.15-3.fc32.x86_64                151/301 
+  Running scriptlet: shared-mime-info-1.15-3.fc32.x86_64                151/301 
+  Installing       : gdk-pixbuf2-2.40.0-2.fc32.x86_64                   152/301 
+  Installing       : qt-settings-32.0-3.fc32.noarch                     153/301 
+  Installing       : qt5-qtbase-common-5.14.2-6.fc32.noarch             154/301 
+  Running scriptlet: qt5-qtbase-5.14.2-6.fc32.x86_64                    155/301 
+  Installing       : qt5-qtbase-5.14.2-6.fc32.x86_64                    155/301 
+  Running scriptlet: qt5-qtbase-5.14.2-6.fc32.x86_64                    155/301 
+  Installing       : qt5-qtserialport-5.14.2-1.fc32.x86_64              156/301 
+  Installing       : qt5-qtwebsockets-5.14.2-1.fc32.x86_64              157/301 
+  Installing       : pkgconf-m4-1.6.3-3.fc32.noarch                     158/301 
+  Installing       : perl-srpm-macros-1-34.fc32.noarch                  159/301 
+  Installing       : patch-2.7.6-12.fc32.x86_64                         160/301 
+  Installing       : openblas-srpm-macros-2-7.fc32.noarch               161/301 
+  Installing       : openal-soft-1.19.1-5.fc32.x86_64                   162/301 
+  Installing       : ocaml-srpm-macros-6-2.fc32.noarch                  163/301 
+  Installing       : nim-srpm-macros-3-2.fc32.noarch                    164/301 
+  Installing       : mtdev-1.1.5-16.fc32.x86_64                         165/301 
+  Installing       : libwayland-egl-1.18.0-1.fc32.x86_64                166/301 
+  Installing       : libvisual-1:0.4.0-28.fc32.x86_64                   167/301 
+  Installing       : libstemmer-0-14.585svn.fc32.x86_64                 168/301 
+  Installing       : libpkgconf-1.6.3-3.fc32.x86_64                     169/301 
+  Installing       : pkgconf-1.6.3-3.fc32.x86_64                        170/301 
+  Installing       : pkgconf-pkg-config-1.6.3-3.fc32.x86_64             171/301 
+  Installing       : libpipeline-1.5.2-2.fc32.x86_64                    172/301 
+  Running scriptlet: man-db-2.9.0-3.fc32.x86_64                         173/301 
+  Installing       : man-db-2.9.0-3.fc32.x86_64                         173/301 
+  Running scriptlet: man-db-2.9.0-3.fc32.x86_64                         173/301 
+  Installing       : libmodman-2.0.1-21.fc32.x86_64                     174/301 
+  Installing       : libproxy-0.4.15-19.fc32.x86_64                     175/301 
+  Installing       : glib-networking-2.64.3-1.fc32.x86_64               176/301 
+  Installing       : libsoup-2.70.0-1.fc32.x86_64                       177/301 
+  Installing       : gssdp-1.0.5-1.fc32.x86_64                          178/301 
+  Installing       : gupnp-1.0.6-1.fc32.x86_64                          179/301 
+  Installing       : gupnp-igd-0.2.5-8.fc32.x86_64                      180/301 
+  Installing       : libnice-0.1.17-2.fc32.x86_64                       181/301 
+  Installing       : libfontenc-1.1.3-12.fc32.x86_64                    182/301 
+  Installing       : libXfont2-2.0.3-7.fc32.x86_64                      183/301 
+  Installing       : libevdev-1.9.0-1.fc32.x86_64                       184/301 
+  Installing       : libdatrie-0.2.9-11.fc32.x86_64                     185/301 
+  Installing       : libthai-0.1.28-4.fc32.x86_64                       186/301 
+  Installing       : libcbor-0.5.0-7.fc32.x86_64                        187/301 
+  Installing       : libfido2-1.3.1-2.fc32.x86_64                       188/301 
+  Installing       : libasyncns-0.8-18.fc32.x86_64                      189/301 
+  Installing       : libXdmcp-1.1.3-3.fc32.x86_64                       190/301 
+  Installing       : lcms2-2.9-7.fc32.x86_64                            191/301 
+  Installing       : json-glib-1.4.4-4.fc32.x86_64                      192/301 
+  Installing       : libappstream-glib-0.7.17-1.fc32.x86_64             193/301 
+  Installing       : gnat-srpm-macros-4-11.fc32.noarch                  194/301 
+  Installing       : ghc-srpm-macros-1.5.0-2.fc32.noarch                195/301 
+  Installing       : fribidi-1.0.9-1.fc32.x86_64                        196/301 
+  Installing       : fpc-srpm-macros-1.3-1.fc32.noarch                  197/301 
+  Installing       : fdk-aac-free-2.0.0-3.fc32.x86_64                   198/301 
+  Installing       : cdparanoia-libs-10.2-31.fc32.x86_64                199/301 
+  Installing       : zstd-1.4.9-1.fc32.x86_64                           200/301 
+  Installing       : xxhash-libs-0.8.0-1.fc32.x86_64                    201/301 
+  Installing       : gdb-minimal-9.1-7.fc32.x86_64                      202/301 
+  Installing       : rust-srpm-macros-14-1.fc32.noarch                  203/301 
+  Installing       : qt5-srpm-macros-5.14.2-3.fc32.noarch               204/301 
+  Installing       : go-srpm-macros-3.0.10-1.fc32.noarch                205/301 
+  Installing       : python-srpm-macros-3-60.fc32.noarch                206/301 
+  Installing       : fonts-srpm-macros-2.0.3-1.fc32.noarch              207/301 
+  Installing       : redhat-rpm-config-151-1.fc32.noarch                208/301 
+  Installing       : python-rpm-macros-3-60.fc32.noarch                 209/301 
+  Installing       : python3-rpm-macros-3-60.fc32.noarch                210/301 
+  Installing       : rpm-build-4.15.1.1-1.fc32.1.x86_64                 211/301 
+  Installing       : python-qt5-rpm-macros-5.14.2-3.fc32.noarch         212/301 
+  Running scriptlet: openssh-8.3p1-3.fc32.x86_64                        213/301 
+  Installing       : openssh-8.3p1-3.fc32.x86_64                        213/301 
+  Installing       : openssh-clients-8.3p1-3.fc32.x86_64                214/301 
+  Installing       : git-core-2.26.3-2.fc32.x86_64                      215/301 
+  Installing       : git-core-doc-2.26.3-2.fc32.noarch                  216/301 
+  Installing       : perl-Git-2.26.3-2.fc32.noarch                      217/301 
+  Installing       : git-2.26.3-2.fc32.x86_64                           218/301 
+  Installing       : mesa-filesystem-20.2.3-1.fc32.x86_64               219/301 
+  Installing       : libwebp-1.2.0-1.fc32.x86_64                        220/301 
+  Installing       : libwacom-data-1.5-1.fc32.noarch                    221/301 
+  Installing       : libwacom-1.5-1.fc32.x86_64                         222/301 
+  Installing       : libinput-1.16.1-1.fc32.x86_64                      223/301 
+  Running scriptlet: libinput-1.16.1-1.fc32.x86_64                      223/301 
+  Installing       : libunwind-1.3.1-7.fc32.x86_64                      224/301 
+  Installing       : libjpeg-turbo-2.0.4-3.fc32.x86_64                  225/301 
+  Installing       : libX11-common-1.6.12-1.fc32.noarch                 226/301 
+  Installing       : libX11-1.6.12-1.fc32.x86_64                        227/301 
+  Installing       : libXext-1.3.4-3.fc32.x86_64                        228/301 
+  Installing       : libXrender-0.9.10-11.fc32.x86_64                   229/301 
+  Installing       : cairo-1.16.0-8.fc32.x86_64                         230/301 
+  Installing       : libXfixes-5.0.3-11.fc32.x86_64                     231/301 
+  Installing       : libXdamage-1.1.5-2.fc32.x86_64                     232/301 
+  Installing       : cairo-gobject-1.16.0-8.fc32.x86_64                 233/301 
+  Installing       : libXft-2.3.3-3.fc32.x86_64                         234/301 
+  Installing       : libXi-1.7.10-3.fc32.x86_64                         235/301 
+  Installing       : libXtst-1.2.3-11.fc32.x86_64                       236/301 
+  Installing       : pulseaudio-libs-14.0-1.fc32.x86_64                 237/301 
+  Installing       : libXv-1.0.11-11.fc32.x86_64                        238/301 
+  Installing       : libXxf86vm-1.1.4-13.fc32.x86_64                    239/301 
+  Installing       : libXt-1.2.0-1.fc32.x86_64                          240/301 
+  Installing       : libXmu-1.1.3-3.fc32.x86_64                         241/301 
+  Installing       : xorg-x11-xauth-1:1.1-3.fc32.x86_64                 242/301 
+  Installing       : libxkbfile-1.1.0-3.fc32.x86_64                     243/301 
+  Installing       : xorg-x11-xkb-utils-7.7-32.fc32.x86_64              244/301 
+  Installing       : xorg-x11-server-common-1.20.11-1.fc32.x86_64       245/301 
+  Installing       : hwdata-0.347-1.fc32.noarch                         246/301 
+  Installing       : libpciaccess-0.16-2.fc32.x86_64                    247/301 
+  Installing       : libdrm-2.4.102-1.fc32.x86_64                       248/301 
+  Installing       : mesa-libgbm-20.2.3-1.fc32.x86_64                   249/301 
+  Installing       : libglvnd-egl-1:1.3.2-1.fc32.x86_64                 250/301 
+  Installing       : mesa-libEGL-20.2.3-1.fc32.x86_64                   251/301 
+  Installing       : libglvnd-gles-1:1.3.2-1.fc32.x86_64                252/301 
+  Installing       : mesa-dri-drivers-20.2.3-1.fc32.x86_64              253/301 
+  Installing       : libglvnd-glx-1:1.3.2-1.fc32.x86_64                 254/301 
+  Installing       : mesa-libGL-20.2.3-1.fc32.x86_64                    255/301 
+  Installing       : glx-utils-8.4.0-6.20181118git1830dcb.fc32.x86_64   256/301 
+  Installing       : graphite2-1.3.14-1.fc32.x86_64                     257/301 
+  Installing       : harfbuzz-2.6.4-3.fc32.x86_64                       258/301 
+  Installing       : qt5-qtbase-gui-5.14.2-6.fc32.x86_64                259/301 
+  Installing       : qt5-qtdeclarative-5.14.2-1.fc32.x86_64             260/301 
+  Installing       : pango-1.44.7-2.fc32.x86_64                         261/301 
+  Installing       : librsvg2-2.48.9-1.fc32.x86_64                      262/301 
+  Installing       : python3-qt5-base-5.14.2-3.fc32.x86_64              263/301 
+  Installing       : qt5-qtlocation-5.14.2-2.fc32.x86_64                264/301 
+  Installing       : qt5-qtsensors-5.14.2-1.fc32.x86_64                 265/301 
+  Installing       : qt5-qtwebchannel-5.14.2-1.fc32.x86_64              266/301 
+  Installing       : qt5-qtxmlpatterns-5.14.2-1.fc32.x86_64             267/301 
+  Installing       : qt5-qtsvg-5.14.2-1.fc32.x86_64                     268/301 
+  Installing       : qt5-qttools-libs-designer-5.14.2-1.fc32.x86_64     269/301 
+  Installing       : qt5-qttools-libs-help-5.14.2-1.fc32.x86_64         270/301 
+  Installing       : qt5-qtx11extras-5.14.2-1.fc32.x86_64               271/301 
+  Installing       : graphene-1.10.4-1.fc32.x86_64                      272/301 
+  Installing       : gstreamer1-plugins-base-1.16.2-3.fc32.x86_64       273/301 
+  Installing       : gstreamer1-plugins-bad-free-1.16.2-4.fc32.x86_64   274/301 
+  Installing       : qt5-qtmultimedia-5.14.2-1.fc32.x86_64              275/301 
+  Installing       : fakeroot-libs-1.25.2-1.fc32.x86_64                 276/301 
+  Installing       : fakeroot-1.25.2-1.fc32.x86_64                      277/301 
+  Running scriptlet: fakeroot-1.25.2-1.fc32.x86_64                      277/301 
+  Installing       : bluez-libs-5.55-1.fc32.x86_64                      278/301 
+  Installing       : qt5-qtconnectivity-5.14.2-1.fc32.x86_64            279/301 
+  Installing       : python3-qt5-5.14.2-3.fc32.x86_64                   280/301 
+  Installing       : rpmdevtools-8.10-10.fc32.noarch                    281/301 
+  Installing       : xorg-x11-server-Xvfb-1.20.11-1.fc32.x86_64         282/301 
+  Installing       : python3-devel-3.8.10-1.fc32.x86_64                 283/301 
+  Installing       : rpmlint-1.11-16.fc32.noarch                        284/301 
+  Installing       : python3-wheel-1:0.33.6-3.fc32.noarch               285/301 
+  Installing       : compat-f32-dejavu-sans-fonts-2.37-8.fc32.noarch    286/301 
+  Installing       : which-2.21-19.fc32.x86_64                          287/301 
+  Installing       : libfaketime-0.9.8-6.fc32.x86_64                    288/301 
+  Installing       : hostname-3.23-2.fc32.x86_64                        289/301 
+  Running scriptlet: hostname-3.23-2.fc32.x86_64                        289/301 
+  Installing       : ShellCheck-0.7.0-3.fc32.x86_64                     290/301 
+  Cleanup          : python3-rpm-4.15.1-3.fc32.1.x86_64                 291/301 
+  Cleanup          : rpm-build-libs-4.15.1-3.fc32.1.x86_64              292/301 
+  Cleanup          : elfutils-libs-0.182-1.fc32.x86_64                  293/301 
+  Cleanup          : rpm-sign-libs-4.15.1-3.fc32.1.x86_64               294/301 
+  Cleanup          : python3-3.8.6-1.fc32.x86_64                        295/301 
+  Cleanup          : rpm-4.15.1-3.fc32.1.x86_64                         296/301 
+  Cleanup          : rpm-libs-4.15.1-3.fc32.1.x86_64                    297/301 
+  Cleanup          : pcre2-10.36-1.fc32.x86_64                          298/301 
+  Cleanup          : pcre2-syntax-10.36-1.fc32.noarch                   299/301 
+  Cleanup          : python3-libs-3.8.6-1.fc32.x86_64                   300/301 
+  Cleanup          : elfutils-libelf-0.182-1.fc32.x86_64                301/301 
+  Running scriptlet: elfutils-libelf-0.182-1.fc32.x86_64                301/301 
+  Verifying        : alsa-lib-1.2.3.2-1.fc32.x86_64                       1/301 
+  Verifying        : avahi-libs-0.7-24.fc32.x86_64                        2/301 
+  Verifying        : binutils-2.34-6.fc32.x86_64                          3/301 
+  Verifying        : binutils-gold-2.34-6.fc32.x86_64                     4/301 
+  Verifying        : bluez-libs-5.55-1.fc32.x86_64                        5/301 
+  Verifying        : cairo-1.16.0-8.fc32.x86_64                           6/301 
+  Verifying        : cairo-gobject-1.16.0-8.fc32.x86_64                   7/301 
+  Verifying        : compat-f32-dejavu-sans-fonts-2.37-8.fc32.noarch      8/301 
+  Verifying        : cpio-2.13-6.fc32.x86_64                              9/301 
+  Verifying        : cups-libs-1:2.3.3op2-5.fc32.x86_64                  10/301 
+  Verifying        : dbus-libs-1:1.12.20-1.fc32.x86_64                   11/301 
+  Verifying        : dejavu-sans-fonts-2.37-8.fc32.noarch                12/301 
+  Verifying        : elfutils-0.183-1.fc32.x86_64                        13/301 
+  Verifying        : elfutils-debuginfod-client-0.183-1.fc32.x86_64      14/301 
+  Verifying        : emacs-filesystem-1:27.1-2.fc32.noarch               15/301 
+  Verifying        : fakeroot-1.25.2-1.fc32.x86_64                       16/301 
+  Verifying        : fakeroot-libs-1.25.2-1.fc32.x86_64                  17/301 
+  Verifying        : file-5.38-4.fc32.x86_64                             18/301 
+  Verifying        : findutils-1:4.7.0-4.fc32.x86_64                     19/301 
+  Verifying        : fontconfig-2.13.92-9.fc32.x86_64                    20/301 
+  Verifying        : freetype-2.10.4-1.fc32.x86_64                       21/301 
+  Verifying        : gdb-minimal-9.1-7.fc32.x86_64                       22/301 
+  Verifying        : git-2.26.3-2.fc32.x86_64                            23/301 
+  Verifying        : git-core-2.26.3-2.fc32.x86_64                       24/301 
+  Verifying        : git-core-doc-2.26.3-2.fc32.noarch                   25/301 
+  Verifying        : glib-networking-2.64.3-1.fc32.x86_64                26/301 
+  Verifying        : go-srpm-macros-3.0.10-1.fc32.noarch                 27/301 
+  Verifying        : graphene-1.10.4-1.fc32.x86_64                       28/301 
+  Verifying        : graphite2-1.3.14-1.fc32.x86_64                      29/301 
+  Verifying        : groff-base-1.22.3-22.fc32.x86_64                    30/301 
+  Verifying        : gsettings-desktop-schemas-3.36.1-1.fc32.x86_64      31/301 
+  Verifying        : gssdp-1.0.5-1.fc32.x86_64                           32/301 
+  Verifying        : gstreamer1-plugins-bad-free-1.16.2-4.fc32.x86_64    33/301 
+  Verifying        : gstreamer1-plugins-base-1.16.2-3.fc32.x86_64        34/301 
+  Verifying        : gupnp-1.0.6-1.fc32.x86_64                           35/301 
+  Verifying        : hwdata-0.347-1.fc32.noarch                          36/301 
+  Verifying        : libX11-1.6.12-1.fc32.x86_64                         37/301 
+  Verifying        : libX11-common-1.6.12-1.fc32.noarch                  38/301 
+  Verifying        : libX11-xcb-1.6.12-1.fc32.x86_64                     39/301 
+  Verifying        : libdrm-2.4.102-1.fc32.x86_64                        40/301 
+  Verifying        : libfido2-1.3.1-2.fc32.x86_64                        41/301 
+  Verifying        : libglvnd-1:1.3.2-1.fc32.x86_64                      42/301 
+  Verifying        : libglvnd-egl-1:1.3.2-1.fc32.x86_64                  43/301 
+  Verifying        : libglvnd-gles-1:1.3.2-1.fc32.x86_64                 44/301 
+  Verifying        : libglvnd-glx-1:1.3.2-1.fc32.x86_64                  45/301 
+  Verifying        : libinput-1.16.1-1.fc32.x86_64                       46/301 
+  Verifying        : libjpeg-turbo-2.0.4-3.fc32.x86_64                   47/301 
+  Verifying        : libnice-0.1.17-2.fc32.x86_64                        48/301 
+  Verifying        : libproxy-0.4.15-19.fc32.x86_64                      49/301 
+  Verifying        : librsvg2-2.48.9-1.fc32.x86_64                       50/301 
+  Verifying        : libsndfile-1.0.31-3.fc32.x86_64                     51/301 
+  Verifying        : libunwind-1.3.1-7.fc32.x86_64                       52/301 
+  Verifying        : libwacom-1.5-1.fc32.x86_64                          53/301 
+  Verifying        : libwacom-data-1.5-1.fc32.noarch                     54/301 
+  Verifying        : libwebp-1.2.0-1.fc32.x86_64                         55/301 
+  Verifying        : lilv-0.24.6-3.fc32.x86_64                           56/301 
+  Verifying        : llvm-libs-10.0.1-4.fc32.x86_64                      57/301 
+  Verifying        : lua-srpm-macros-1-3.fc32.noarch                     58/301 
+  Verifying        : man-db-2.9.0-3.fc32.x86_64                          59/301 
+  Verifying        : mesa-dri-drivers-20.2.3-1.fc32.x86_64               60/301 
+  Verifying        : mesa-filesystem-20.2.3-1.fc32.x86_64                61/301 
+  Verifying        : mesa-libEGL-20.2.3-1.fc32.x86_64                    62/301 
+  Verifying        : mesa-libGL-20.2.3-1.fc32.x86_64                     63/301 
+  Verifying        : mesa-libgbm-20.2.3-1.fc32.x86_64                    64/301 
+  Verifying        : mesa-libglapi-20.2.3-1.fc32.x86_64                  65/301 
+  Verifying        : nspr-4.30.0-1.fc32.x86_64                           66/301 
+  Verifying        : nss-3.63.0-1.fc32.x86_64                            67/301 
+  Verifying        : nss-softokn-3.63.0-1.fc32.x86_64                    68/301 
+  Verifying        : nss-softokn-freebl-3.63.0-1.fc32.x86_64             69/301 
+  Verifying        : nss-sysinit-3.63.0-1.fc32.x86_64                    70/301 
+  Verifying        : nss-util-3.63.0-1.fc32.x86_64                       71/301 
+  Verifying        : openssh-8.3p1-3.fc32.x86_64                         72/301 
+  Verifying        : openssh-clients-8.3p1-3.fc32.x86_64                 73/301 
+  Verifying        : pcre2-utf16-10.36-4.fc32.x86_64                     74/301 
+  Verifying        : perl-Data-Dumper-2.174-444.fc32.x86_64              75/301 
+  Verifying        : perl-Digest-1.19-1.fc32.noarch                      76/301 
+  Verifying        : perl-Digest-MD5-2.58-1.fc32.x86_64                  77/301 
+  Verifying        : perl-Encode-4:3.08-458.fc32.x86_64                  78/301 
+  Verifying        : perl-Errno-1.30-461.fc32.x86_64                     79/301 
+  Verifying        : perl-File-Path-2.17-1.fc32.noarch                   80/301 
+  Verifying        : perl-Getopt-Long-1:2.52-1.fc32.noarch               81/301 
+  Verifying        : perl-Git-2.26.3-2.fc32.noarch                       82/301 
+  Verifying        : perl-IO-1.40-461.fc32.x86_64                        83/301 
+  Verifying        : perl-Mozilla-CA-20200520-1.fc32.noarch              84/301 
+  Verifying        : perl-PathTools-3.78-442.fc32.x86_64                 85/301 
+  Verifying        : perl-Pod-Usage-4:2.01-1.fc32.noarch                 86/301 
+  Verifying        : perl-Socket-4:2.031-1.fc32.x86_64                   87/301 
+  Verifying        : perl-interpreter-4:5.30.3-461.fc32.x86_64           88/301 
+  Verifying        : perl-libnet-3.13-1.fc32.noarch                      89/301 
+  Verifying        : perl-libs-4:5.30.3-461.fc32.x86_64                  90/301 
+  Verifying        : perl-macros-4:5.30.3-461.fc32.noarch                91/301 
+  Verifying        : pixman-0.40.0-1.fc32.x86_64                         92/301 
+  Verifying        : pulseaudio-libs-14.0-1.fc32.x86_64                  93/301 
+  Verifying        : python-qt5-rpm-macros-5.14.2-3.fc32.noarch          94/301 
+  Verifying        : python-rpm-macros-3-60.fc32.noarch                  95/301 
+  Verifying        : python-srpm-macros-3-60.fc32.noarch                 96/301 
+  Verifying        : python-unversioned-command-3.8.10-1.fc32.noarch     97/301 
+  Verifying        : python3-devel-3.8.10-1.fc32.x86_64                  98/301 
+  Verifying        : python3-magic-5.38-4.fc32.noarch                    99/301 
+  Verifying        : python3-pip-19.3.1-4.fc32.noarch                   100/301 
+  Verifying        : python3-qt5-5.14.2-3.fc32.x86_64                   101/301 
+  Verifying        : python3-qt5-base-5.14.2-3.fc32.x86_64              102/301 
+  Verifying        : python3-rpm-macros-3-60.fc32.noarch                103/301 
+  Verifying        : qt5-qtbase-5.14.2-6.fc32.x86_64                    104/301 
+  Verifying        : qt5-qtbase-common-5.14.2-6.fc32.noarch             105/301 
+  Verifying        : qt5-qtbase-gui-5.14.2-6.fc32.x86_64                106/301 
+  Verifying        : qt5-qtconnectivity-5.14.2-1.fc32.x86_64            107/301 
+  Verifying        : qt5-qtdeclarative-5.14.2-1.fc32.x86_64             108/301 
+  Verifying        : qt5-qtlocation-5.14.2-2.fc32.x86_64                109/301 
+  Verifying        : qt5-qtmultimedia-5.14.2-1.fc32.x86_64              110/301 
+  Verifying        : qt5-qtsensors-5.14.2-1.fc32.x86_64                 111/301 
+  Verifying        : qt5-qtserialport-5.14.2-1.fc32.x86_64              112/301 
+  Verifying        : qt5-qtsvg-5.14.2-1.fc32.x86_64                     113/301 
+  Verifying        : qt5-qttools-common-5.14.2-1.fc32.noarch            114/301 
+  Verifying        : qt5-qttools-libs-designer-5.14.2-1.fc32.x86_64     115/301 
+  Verifying        : qt5-qttools-libs-help-5.14.2-1.fc32.x86_64         116/301 
+  Verifying        : qt5-qtwebchannel-5.14.2-1.fc32.x86_64              117/301 
+  Verifying        : qt5-qtwebsockets-5.14.2-1.fc32.x86_64              118/301 
+  Verifying        : qt5-qtx11extras-5.14.2-1.fc32.x86_64               119/301 
+  Verifying        : qt5-qtxmlpatterns-5.14.2-1.fc32.x86_64             120/301 
+  Verifying        : qt5-srpm-macros-5.14.2-3.fc32.noarch               121/301 
+  Verifying        : redhat-rpm-config-151-1.fc32.noarch                122/301 
+  Verifying        : rpm-build-4.15.1.1-1.fc32.1.x86_64                 123/301 
+  Verifying        : rpmlint-1.11-16.fc32.noarch                        124/301 
+  Verifying        : rust-srpm-macros-14-1.fc32.noarch                  125/301 
+  Verifying        : sord-0.16.4-4.fc32.x86_64                          126/301 
+  Verifying        : xorg-x11-server-Xvfb-1.20.11-1.fc32.x86_64         127/301 
+  Verifying        : xorg-x11-server-common-1.20.11-1.fc32.x86_64       128/301 
+  Verifying        : xxhash-libs-0.8.0-1.fc32.x86_64                    129/301 
+  Verifying        : zstd-1.4.9-1.fc32.x86_64                           130/301 
+  Verifying        : ShellCheck-0.7.0-3.fc32.x86_64                     131/301 
+  Verifying        : abattis-cantarell-fonts-0.201-2.fc32.noarch        132/301 
+  Verifying        : adobe-source-code-pro-fonts-2.030.1.050-8.fc32.n   133/301 
+  Verifying        : bzip2-1.0.8-2.fc32.x86_64                          134/301 
+  Verifying        : cdparanoia-libs-10.2-31.fc32.x86_64                135/301 
+  Verifying        : desktop-file-utils-0.24-2.fc32.x86_64              136/301 
+  Verifying        : diffutils-3.7-4.fc32.x86_64                        137/301 
+  Verifying        : dwz-0.13-2.fc32.x86_64                             138/301 
+  Verifying        : efi-srpm-macros-4-4.fc32.noarch                    139/301 
+  Verifying        : enchant-1:1.6.0-25.fc32.x86_64                     140/301 
+  Verifying        : fdk-aac-free-2.0.0-3.fc32.x86_64                   141/301 
+  Verifying        : flac-libs-1.3.3-2.fc32.x86_64                      142/301 
+  Verifying        : fonts-filesystem-2.0.3-1.fc32.noarch               143/301 
+  Verifying        : fonts-srpm-macros-2.0.3-1.fc32.noarch              144/301 
+  Verifying        : fpc-srpm-macros-1.3-1.fc32.noarch                  145/301 
+  Verifying        : fribidi-1.0.9-1.fc32.x86_64                        146/301 
+  Verifying        : gdk-pixbuf2-2.40.0-2.fc32.x86_64                   147/301 
+  Verifying        : ghc-srpm-macros-1.5.0-2.fc32.noarch                148/301 
+  Verifying        : glx-utils-8.4.0-6.20181118git1830dcb.fc32.x86_64   149/301 
+  Verifying        : gnat-srpm-macros-4-11.fc32.noarch                  150/301 
+  Verifying        : gsm-1.0.18-6.fc32.x86_64                           151/301 
+  Verifying        : gstreamer1-1.16.2-2.fc32.x86_64                    152/301 
+  Verifying        : gupnp-igd-0.2.5-8.fc32.x86_64                      153/301 
+  Verifying        : harfbuzz-2.6.4-3.fc32.x86_64                       154/301 
+  Verifying        : hostname-3.23-2.fc32.x86_64                        155/301 
+  Verifying        : hunspell-1.7.0-5.fc32.x86_64                       156/301 
+  Verifying        : hunspell-en-US-0.20140811.1-16.fc32.noarch         157/301 
+  Verifying        : iso-codes-4.4-2.fc32.noarch                        158/301 
+  Verifying        : json-glib-1.4.4-4.fc32.x86_64                      159/301 
+  Verifying        : langpacks-core-font-en-3.0-3.fc32.noarch           160/301 
+  Verifying        : lcms2-2.9-7.fc32.x86_64                            161/301 
+  Verifying        : less-551-3.fc32.x86_64                             162/301 
+  Verifying        : libICE-1.0.10-3.fc32.x86_64                        163/301 
+  Verifying        : libSM-1.2.3-5.fc32.x86_64                          164/301 
+  Verifying        : libXau-1.0.9-3.fc32.x86_64                         165/301 
+  Verifying        : libXdamage-1.1.5-2.fc32.x86_64                     166/301 
+  Verifying        : libXdmcp-1.1.3-3.fc32.x86_64                       167/301 
+  Verifying        : libXext-1.3.4-3.fc32.x86_64                        168/301 
+  Verifying        : libXfixes-5.0.3-11.fc32.x86_64                     169/301 
+  Verifying        : libXfont2-2.0.3-7.fc32.x86_64                      170/301 
+  Verifying        : libXft-2.3.3-3.fc32.x86_64                         171/301 
+  Verifying        : libXi-1.7.10-3.fc32.x86_64                         172/301 
+  Verifying        : libXmu-1.1.3-3.fc32.x86_64                         173/301 
+  Verifying        : libXrender-0.9.10-11.fc32.x86_64                   174/301 
+  Verifying        : libXt-1.2.0-1.fc32.x86_64                          175/301 
+  Verifying        : libXtst-1.2.3-11.fc32.x86_64                       176/301 
+  Verifying        : libXv-1.0.11-11.fc32.x86_64                        177/301 
+  Verifying        : libXxf86vm-1.1.4-13.fc32.x86_64                    178/301 
+  Verifying        : libappstream-glib-0.7.17-1.fc32.x86_64             179/301 
+  Verifying        : libasyncns-0.8-18.fc32.x86_64                      180/301 
+  Verifying        : libcbor-0.5.0-7.fc32.x86_64                        181/301 
+  Verifying        : libdatrie-0.2.9-11.fc32.x86_64                     182/301 
+  Verifying        : libdvdnav-6.0.1-3.fc32.x86_64                      183/301 
+  Verifying        : libdvdread-6.0.2-3.fc32.x86_64                     184/301 
+  Verifying        : libedit-3.1-32.20191231cvs.fc32.x86_64             185/301 
+  Verifying        : libevdev-1.9.0-1.fc32.x86_64                       186/301 
+  Verifying        : libfaketime-0.9.8-6.fc32.x86_64                    187/301 
+  Verifying        : libfontenc-1.1.3-12.fc32.x86_64                    188/301 
+  Verifying        : libgudev-232-7.fc32.x86_64                         189/301 
+  Verifying        : libicu-65.1-2.fc32.x86_64                          190/301 
+  Verifying        : libmodman-2.0.1-21.fc32.x86_64                     191/301 
+  Verifying        : libogg-2:1.3.4-2.fc32.x86_64                       192/301 
+  Verifying        : libpciaccess-0.16-2.fc32.x86_64                    193/301 
+  Verifying        : libpipeline-1.5.2-2.fc32.x86_64                    194/301 
+  Verifying        : libpkgconf-1.6.3-3.fc32.x86_64                     195/301 
+  Verifying        : libpng-2:1.6.37-3.fc32.x86_64                      196/301 
+  Verifying        : libsoup-2.70.0-1.fc32.x86_64                       197/301 
+  Verifying        : libsrtp-2.3.0-2.fc32.x86_64                        198/301 
+  Verifying        : libstemmer-0-14.585svn.fc32.x86_64                 199/301 
+  Verifying        : libthai-0.1.28-4.fc32.x86_64                       200/301 
+  Verifying        : libtheora-1:1.1.1-25.fc32.x86_64                   201/301 
+  Verifying        : libvisual-1:0.4.0-28.fc32.x86_64                   202/301 
+  Verifying        : libvorbis-1:1.3.6-6.fc32.x86_64                    203/301 
+  Verifying        : libwayland-client-1.18.0-1.fc32.x86_64             204/301 
+  Verifying        : libwayland-cursor-1.18.0-1.fc32.x86_64             205/301 
+  Verifying        : libwayland-egl-1.18.0-1.fc32.x86_64                206/301 
+  Verifying        : libwayland-server-1.18.0-1.fc32.x86_64             207/301 
+  Verifying        : libxcb-1.13.1-4.fc32.x86_64                        208/301 
+  Verifying        : libxkbcommon-0.10.0-2.fc32.x86_64                  209/301 
+  Verifying        : libxkbcommon-x11-0.10.0-2.fc32.x86_64              210/301 
+  Verifying        : libxkbfile-1.1.0-3.fc32.x86_64                     211/301 
+  Verifying        : libxshmfence-1.3-6.fc32.x86_64                     212/301 
+  Verifying        : mtdev-1.1.5-16.fc32.x86_64                         213/301 
+  Verifying        : nim-srpm-macros-3-2.fc32.noarch                    214/301 
+  Verifying        : ocaml-srpm-macros-6-2.fc32.noarch                  215/301 
+  Verifying        : openal-soft-1.19.1-5.fc32.x86_64                   216/301 
+  Verifying        : openblas-srpm-macros-2-7.fc32.noarch               217/301 
+  Verifying        : opus-1.3.1-3.fc32.x86_64                           218/301 
+  Verifying        : orc-0.4.31-2.fc32.x86_64                           219/301 
+  Verifying        : pango-1.44.7-2.fc32.x86_64                         220/301 
+  Verifying        : patch-2.7.6-12.fc32.x86_64                         221/301 
+  Verifying        : perl-Carp-1.50-440.fc32.noarch                     222/301 
+  Verifying        : perl-Error-1:0.17029-1.fc32.noarch                 223/301 
+  Verifying        : perl-Exporter-5.74-2.fc32.noarch                   224/301 
+  Verifying        : perl-File-Temp-1:0.230.900-440.fc32.noarch         225/301 
+  Verifying        : perl-HTTP-Tiny-0.076-440.fc32.noarch               226/301 
+  Verifying        : perl-IO-Socket-IP-0.39-441.fc32.noarch             227/301 
+  Verifying        : perl-IO-Socket-SSL-2.068-1.fc32.noarch             228/301 
+  Verifying        : perl-MIME-Base64-3.15-440.fc32.x86_64              229/301 
+  Verifying        : perl-Net-SSLeay-1.88-5.fc32.x86_64                 230/301 
+  Verifying        : perl-Pod-Escapes-1:1.07-440.fc32.noarch            231/301 
+  Verifying        : perl-Pod-Perldoc-3.28.01-443.fc32.noarch           232/301 
+  Verifying        : perl-Pod-Simple-1:3.40-2.fc32.noarch               233/301 
+  Verifying        : perl-Scalar-List-Utils-3:1.54-440.fc32.x86_64      234/301 
+  Verifying        : perl-Storable-1:3.15-443.fc32.x86_64               235/301 
+  Verifying        : perl-Term-ANSIColor-5.01-2.fc32.noarch             236/301 
+  Verifying        : perl-Term-Cap-1.17-440.fc32.noarch                 237/301 
+  Verifying        : perl-TermReadKey-2.38-6.fc32.x86_64                238/301 
+  Verifying        : perl-Text-ParseWords-3.30-440.fc32.noarch          239/301 
+  Verifying        : perl-Text-Tabs+Wrap-2013.0523-440.fc32.noarch      240/301 
+  Verifying        : perl-Time-Local-2:1.300-2.fc32.noarch              241/301 
+  Verifying        : perl-URI-1.76-6.fc32.noarch                        242/301 
+  Verifying        : perl-Unicode-Normalize-1.26-440.fc32.x86_64        243/301 
+  Verifying        : perl-constant-1.33-441.fc32.noarch                 244/301 
+  Verifying        : perl-parent-1:0.238-1.fc32.noarch                  245/301 
+  Verifying        : perl-podlators-1:4.14-2.fc32.noarch                246/301 
+  Verifying        : perl-srpm-macros-1-34.fc32.noarch                  247/301 
+  Verifying        : perl-threads-1:2.22-442.fc32.x86_64                248/301 
+  Verifying        : perl-threads-shared-1.60-441.fc32.x86_64           249/301 
+  Verifying        : pkgconf-1.6.3-3.fc32.x86_64                        250/301 
+  Verifying        : pkgconf-m4-1.6.3-3.fc32.noarch                     251/301 
+  Verifying        : pkgconf-pkg-config-1.6.3-3.fc32.x86_64             252/301 
+  Verifying        : python3-dbus-1.2.16-1.fc32.x86_64                  253/301 
+  Verifying        : python3-enchant-2.0.0-11.fc32.noarch               254/301 
+  Verifying        : python3-pyqt5-sip-4.19.21-1.fc32.x86_64            255/301 
+  Verifying        : python3-rpm-generators-10-4.fc32.noarch            256/301 
+  Verifying        : python3-setuptools-41.6.0-2.fc32.noarch            257/301 
+  Verifying        : python3-wheel-1:0.33.6-3.fc32.noarch               258/301 
+  Verifying        : qt-settings-32.0-3.fc32.noarch                     259/301 
+  Verifying        : rpmdevtools-8.10-10.fc32.noarch                    260/301 
+  Verifying        : serd-0.30.2-2.fc32.x86_64                          261/301 
+  Verifying        : shared-mime-info-1.15-3.fc32.x86_64                262/301 
+  Verifying        : soundtouch-2.1.1-4.fc32.x86_64                     263/301 
+  Verifying        : sratom-0.6.4-2.fc32.x86_64                         264/301 
+  Verifying        : unzip-6.0-47.fc32.x86_64                           265/301 
+  Verifying        : webrtc-audio-processing-0.3.1-4.fc32.x86_64        266/301 
+  Verifying        : which-2.21-19.fc32.x86_64                          267/301 
+  Verifying        : xcb-util-0.4.0-14.fc32.x86_64                      268/301 
+  Verifying        : xcb-util-image-0.4.0-14.fc32.x86_64                269/301 
+  Verifying        : xcb-util-keysyms-0.4.0-12.fc32.x86_64              270/301 
+  Verifying        : xcb-util-renderutil-0.3.9-15.fc32.x86_64           271/301 
+  Verifying        : xcb-util-wm-0.4.1-17.fc32.x86_64                   272/301 
+  Verifying        : xemacs-filesystem-21.5.34-35.20190323hgc0ed7ef9a   273/301 
+  Verifying        : xkeyboard-config-2.29-1.fc32.noarch                274/301 
+  Verifying        : xml-common-0.6.3-54.fc32.noarch                    275/301 
+  Verifying        : xorg-x11-xauth-1:1.1-3.fc32.x86_64                 276/301 
+  Verifying        : xorg-x11-xkb-utils-7.7-32.fc32.x86_64              277/301 
+  Verifying        : xz-5.2.5-1.fc32.x86_64                             278/301 
+  Verifying        : zip-3.0-26.fc32.x86_64                             279/301 
+  Verifying        : elfutils-libelf-0.183-1.fc32.x86_64                280/301 
+  Verifying        : elfutils-libelf-0.182-1.fc32.x86_64                281/301 
+  Verifying        : elfutils-libs-0.183-1.fc32.x86_64                  282/301 
+  Verifying        : elfutils-libs-0.182-1.fc32.x86_64                  283/301 
+  Verifying        : pcre2-10.36-4.fc32.x86_64                          284/301 
+  Verifying        : pcre2-10.36-1.fc32.x86_64                          285/301 
+  Verifying        : pcre2-syntax-10.36-4.fc32.noarch                   286/301 
+  Verifying        : pcre2-syntax-10.36-1.fc32.noarch                   287/301 
+  Verifying        : python3-3.8.10-1.fc32.x86_64                       288/301 
+  Verifying        : python3-3.8.6-1.fc32.x86_64                        289/301 
+  Verifying        : python3-libs-3.8.10-1.fc32.x86_64                  290/301 
+  Verifying        : python3-libs-3.8.6-1.fc32.x86_64                   291/301 
+  Verifying        : python3-rpm-4.15.1.1-1.fc32.1.x86_64               292/301 
+  Verifying        : python3-rpm-4.15.1-3.fc32.1.x86_64                 293/301 
+  Verifying        : rpm-4.15.1.1-1.fc32.1.x86_64                       294/301 
+  Verifying        : rpm-4.15.1-3.fc32.1.x86_64                         295/301 
+  Verifying        : rpm-build-libs-4.15.1.1-1.fc32.1.x86_64            296/301 
+  Verifying        : rpm-build-libs-4.15.1-3.fc32.1.x86_64              297/301 
+  Verifying        : rpm-libs-4.15.1.1-1.fc32.1.x86_64                  298/301 
+  Verifying        : rpm-libs-4.15.1-3.fc32.1.x86_64                    299/301 
+  Verifying        : rpm-sign-libs-4.15.1.1-1.fc32.1.x86_64             300/301 
+  Verifying        : rpm-sign-libs-4.15.1-3.fc32.1.x86_64               301/301 
+
+Upgraded:
+  elfutils-libelf-0.183-1.fc32.x86_64       elfutils-libs-0.183-1.fc32.x86_64  
+  pcre2-10.36-4.fc32.x86_64                 pcre2-syntax-10.36-4.fc32.noarch   
+  python3-3.8.10-1.fc32.x86_64              python3-libs-3.8.10-1.fc32.x86_64  
+  python3-rpm-4.15.1.1-1.fc32.1.x86_64      rpm-4.15.1.1-1.fc32.1.x86_64       
+  rpm-build-libs-4.15.1.1-1.fc32.1.x86_64   rpm-libs-4.15.1.1-1.fc32.1.x86_64  
+  rpm-sign-libs-4.15.1.1-1.fc32.1.x86_64   
+
+Installed:
+  ShellCheck-0.7.0-3.fc32.x86_64                                                
+  abattis-cantarell-fonts-0.201-2.fc32.noarch                                   
+  adobe-source-code-pro-fonts-2.030.1.050-8.fc32.noarch                         
+  alsa-lib-1.2.3.2-1.fc32.x86_64                                                
+  avahi-libs-0.7-24.fc32.x86_64                                                 
+  binutils-2.34-6.fc32.x86_64                                                   
+  binutils-gold-2.34-6.fc32.x86_64                                              
+  bluez-libs-5.55-1.fc32.x86_64                                                 
+  bzip2-1.0.8-2.fc32.x86_64                                                     
+  cairo-1.16.0-8.fc32.x86_64                                                    
+  cairo-gobject-1.16.0-8.fc32.x86_64                                            
+  cdparanoia-libs-10.2-31.fc32.x86_64                                           
+  compat-f32-dejavu-sans-fonts-2.37-8.fc32.noarch                               
+  cpio-2.13-6.fc32.x86_64                                                       
+  cups-libs-1:2.3.3op2-5.fc32.x86_64                                            
+  dbus-libs-1:1.12.20-1.fc32.x86_64                                             
+  dejavu-sans-fonts-2.37-8.fc32.noarch                                          
+  desktop-file-utils-0.24-2.fc32.x86_64                                         
+  diffutils-3.7-4.fc32.x86_64                                                   
+  dwz-0.13-2.fc32.x86_64                                                        
+  efi-srpm-macros-4-4.fc32.noarch                                               
+  elfutils-0.183-1.fc32.x86_64                                                  
+  elfutils-debuginfod-client-0.183-1.fc32.x86_64                                
+  emacs-filesystem-1:27.1-2.fc32.noarch                                         
+  enchant-1:1.6.0-25.fc32.x86_64                                                
+  fakeroot-1.25.2-1.fc32.x86_64                                                 
+  fakeroot-libs-1.25.2-1.fc32.x86_64                                            
+  fdk-aac-free-2.0.0-3.fc32.x86_64                                              
+  file-5.38-4.fc32.x86_64                                                       
+  findutils-1:4.7.0-4.fc32.x86_64                                               
+  flac-libs-1.3.3-2.fc32.x86_64                                                 
+  fontconfig-2.13.92-9.fc32.x86_64                                              
+  fonts-filesystem-2.0.3-1.fc32.noarch                                          
+  fonts-srpm-macros-2.0.3-1.fc32.noarch                                         
+  fpc-srpm-macros-1.3-1.fc32.noarch                                             
+  freetype-2.10.4-1.fc32.x86_64                                                 
+  fribidi-1.0.9-1.fc32.x86_64                                                   
+  gdb-minimal-9.1-7.fc32.x86_64                                                 
+  gdk-pixbuf2-2.40.0-2.fc32.x86_64                                              
+  ghc-srpm-macros-1.5.0-2.fc32.noarch                                           
+  git-2.26.3-2.fc32.x86_64                                                      
+  git-core-2.26.3-2.fc32.x86_64                                                 
+  git-core-doc-2.26.3-2.fc32.noarch                                             
+  glib-networking-2.64.3-1.fc32.x86_64                                          
+  glx-utils-8.4.0-6.20181118git1830dcb.fc32.x86_64                              
+  gnat-srpm-macros-4-11.fc32.noarch                                             
+  go-srpm-macros-3.0.10-1.fc32.noarch                                           
+  graphene-1.10.4-1.fc32.x86_64                                                 
+  graphite2-1.3.14-1.fc32.x86_64                                                
+  groff-base-1.22.3-22.fc32.x86_64                                              
+  gsettings-desktop-schemas-3.36.1-1.fc32.x86_64                                
+  gsm-1.0.18-6.fc32.x86_64                                                      
+  gssdp-1.0.5-1.fc32.x86_64                                                     
+  gstreamer1-1.16.2-2.fc32.x86_64                                               
+  gstreamer1-plugins-bad-free-1.16.2-4.fc32.x86_64                              
+  gstreamer1-plugins-base-1.16.2-3.fc32.x86_64                                  
+  gupnp-1.0.6-1.fc32.x86_64                                                     
+  gupnp-igd-0.2.5-8.fc32.x86_64                                                 
+  harfbuzz-2.6.4-3.fc32.x86_64                                                  
+  hostname-3.23-2.fc32.x86_64                                                   
+  hunspell-1.7.0-5.fc32.x86_64                                                  
+  hunspell-en-US-0.20140811.1-16.fc32.noarch                                    
+  hwdata-0.347-1.fc32.noarch                                                    
+  iso-codes-4.4-2.fc32.noarch                                                   
+  json-glib-1.4.4-4.fc32.x86_64                                                 
+  langpacks-core-font-en-3.0-3.fc32.noarch                                      
+  lcms2-2.9-7.fc32.x86_64                                                       
+  less-551-3.fc32.x86_64                                                        
+  libICE-1.0.10-3.fc32.x86_64                                                   
+  libSM-1.2.3-5.fc32.x86_64                                                     
+  libX11-1.6.12-1.fc32.x86_64                                                   
+  libX11-common-1.6.12-1.fc32.noarch                                            
+  libX11-xcb-1.6.12-1.fc32.x86_64                                               
+  libXau-1.0.9-3.fc32.x86_64                                                    
+  libXdamage-1.1.5-2.fc32.x86_64                                                
+  libXdmcp-1.1.3-3.fc32.x86_64                                                  
+  libXext-1.3.4-3.fc32.x86_64                                                   
+  libXfixes-5.0.3-11.fc32.x86_64                                                
+  libXfont2-2.0.3-7.fc32.x86_64                                                 
+  libXft-2.3.3-3.fc32.x86_64                                                    
+  libXi-1.7.10-3.fc32.x86_64                                                    
+  libXmu-1.1.3-3.fc32.x86_64                                                    
+  libXrender-0.9.10-11.fc32.x86_64                                              
+  libXt-1.2.0-1.fc32.x86_64                                                     
+  libXtst-1.2.3-11.fc32.x86_64                                                  
+  libXv-1.0.11-11.fc32.x86_64                                                   
+  libXxf86vm-1.1.4-13.fc32.x86_64                                               
+  libappstream-glib-0.7.17-1.fc32.x86_64                                        
+  libasyncns-0.8-18.fc32.x86_64                                                 
+  libcbor-0.5.0-7.fc32.x86_64                                                   
+  libdatrie-0.2.9-11.fc32.x86_64                                                
+  libdrm-2.4.102-1.fc32.x86_64                                                  
+  libdvdnav-6.0.1-3.fc32.x86_64                                                 
+  libdvdread-6.0.2-3.fc32.x86_64                                                
+  libedit-3.1-32.20191231cvs.fc32.x86_64                                        
+  libevdev-1.9.0-1.fc32.x86_64                                                  
+  libfaketime-0.9.8-6.fc32.x86_64                                               
+  libfido2-1.3.1-2.fc32.x86_64                                                  
+  libfontenc-1.1.3-12.fc32.x86_64                                               
+  libglvnd-1:1.3.2-1.fc32.x86_64                                                
+  libglvnd-egl-1:1.3.2-1.fc32.x86_64                                            
+  libglvnd-gles-1:1.3.2-1.fc32.x86_64                                           
+  libglvnd-glx-1:1.3.2-1.fc32.x86_64                                            
+  libgudev-232-7.fc32.x86_64                                                    
+  libicu-65.1-2.fc32.x86_64                                                     
+  libinput-1.16.1-1.fc32.x86_64                                                 
+  libjpeg-turbo-2.0.4-3.fc32.x86_64                                             
+  libmodman-2.0.1-21.fc32.x86_64                                                
+  libnice-0.1.17-2.fc32.x86_64                                                  
+  libogg-2:1.3.4-2.fc32.x86_64                                                  
+  libpciaccess-0.16-2.fc32.x86_64                                               
+  libpipeline-1.5.2-2.fc32.x86_64                                               
+  libpkgconf-1.6.3-3.fc32.x86_64                                                
+  libpng-2:1.6.37-3.fc32.x86_64                                                 
+  libproxy-0.4.15-19.fc32.x86_64                                                
+  librsvg2-2.48.9-1.fc32.x86_64                                                 
+  libsndfile-1.0.31-3.fc32.x86_64                                               
+  libsoup-2.70.0-1.fc32.x86_64                                                  
+  libsrtp-2.3.0-2.fc32.x86_64                                                   
+  libstemmer-0-14.585svn.fc32.x86_64                                            
+  libthai-0.1.28-4.fc32.x86_64                                                  
+  libtheora-1:1.1.1-25.fc32.x86_64                                              
+  libunwind-1.3.1-7.fc32.x86_64                                                 
+  libvisual-1:0.4.0-28.fc32.x86_64                                              
+  libvorbis-1:1.3.6-6.fc32.x86_64                                               
+  libwacom-1.5-1.fc32.x86_64                                                    
+  libwacom-data-1.5-1.fc32.noarch                                               
+  libwayland-client-1.18.0-1.fc32.x86_64                                        
+  libwayland-cursor-1.18.0-1.fc32.x86_64                                        
+  libwayland-egl-1.18.0-1.fc32.x86_64                                           
+  libwayland-server-1.18.0-1.fc32.x86_64                                        
+  libwebp-1.2.0-1.fc32.x86_64                                                   
+  libxcb-1.13.1-4.fc32.x86_64                                                   
+  libxkbcommon-0.10.0-2.fc32.x86_64                                             
+  libxkbcommon-x11-0.10.0-2.fc32.x86_64                                         
+  libxkbfile-1.1.0-3.fc32.x86_64                                                
+  libxshmfence-1.3-6.fc32.x86_64                                                
+  lilv-0.24.6-3.fc32.x86_64                                                     
+  llvm-libs-10.0.1-4.fc32.x86_64                                                
+  lua-srpm-macros-1-3.fc32.noarch                                               
+  man-db-2.9.0-3.fc32.x86_64                                                    
+  mesa-dri-drivers-20.2.3-1.fc32.x86_64                                         
+  mesa-filesystem-20.2.3-1.fc32.x86_64                                          
+  mesa-libEGL-20.2.3-1.fc32.x86_64                                              
+  mesa-libGL-20.2.3-1.fc32.x86_64                                               
+  mesa-libgbm-20.2.3-1.fc32.x86_64                                              
+  mesa-libglapi-20.2.3-1.fc32.x86_64                                            
+  mtdev-1.1.5-16.fc32.x86_64                                                    
+  nim-srpm-macros-3-2.fc32.noarch                                               
+  nspr-4.30.0-1.fc32.x86_64                                                     
+  nss-3.63.0-1.fc32.x86_64                                                      
+  nss-softokn-3.63.0-1.fc32.x86_64                                              
+  nss-softokn-freebl-3.63.0-1.fc32.x86_64                                       
+  nss-sysinit-3.63.0-1.fc32.x86_64                                              
+  nss-util-3.63.0-1.fc32.x86_64                                                 
+  ocaml-srpm-macros-6-2.fc32.noarch                                             
+  openal-soft-1.19.1-5.fc32.x86_64                                              
+  openblas-srpm-macros-2-7.fc32.noarch                                          
+  openssh-8.3p1-3.fc32.x86_64                                                   
+  openssh-clients-8.3p1-3.fc32.x86_64                                           
+  opus-1.3.1-3.fc32.x86_64                                                      
+  orc-0.4.31-2.fc32.x86_64                                                      
+  pango-1.44.7-2.fc32.x86_64                                                    
+  patch-2.7.6-12.fc32.x86_64                                                    
+  pcre2-utf16-10.36-4.fc32.x86_64                                               
+  perl-Carp-1.50-440.fc32.noarch                                                
+  perl-Data-Dumper-2.174-444.fc32.x86_64                                        
+  perl-Digest-1.19-1.fc32.noarch                                                
+  perl-Digest-MD5-2.58-1.fc32.x86_64                                            
+  perl-Encode-4:3.08-458.fc32.x86_64                                            
+  perl-Errno-1.30-461.fc32.x86_64                                               
+  perl-Error-1:0.17029-1.fc32.noarch                                            
+  perl-Exporter-5.74-2.fc32.noarch                                              
+  perl-File-Path-2.17-1.fc32.noarch                                             
+  perl-File-Temp-1:0.230.900-440.fc32.noarch                                    
+  perl-Getopt-Long-1:2.52-1.fc32.noarch                                         
+  perl-Git-2.26.3-2.fc32.noarch                                                 
+  perl-HTTP-Tiny-0.076-440.fc32.noarch                                          
+  perl-IO-1.40-461.fc32.x86_64                                                  
+  perl-IO-Socket-IP-0.39-441.fc32.noarch                                        
+  perl-IO-Socket-SSL-2.068-1.fc32.noarch                                        
+  perl-MIME-Base64-3.15-440.fc32.x86_64                                         
+  perl-Mozilla-CA-20200520-1.fc32.noarch                                        
+  perl-Net-SSLeay-1.88-5.fc32.x86_64                                            
+  perl-PathTools-3.78-442.fc32.x86_64                                           
+  perl-Pod-Escapes-1:1.07-440.fc32.noarch                                       
+  perl-Pod-Perldoc-3.28.01-443.fc32.noarch                                      
+  perl-Pod-Simple-1:3.40-2.fc32.noarch                                          
+  perl-Pod-Usage-4:2.01-1.fc32.noarch                                           
+  perl-Scalar-List-Utils-3:1.54-440.fc32.x86_64                                 
+  perl-Socket-4:2.031-1.fc32.x86_64                                             
+  perl-Storable-1:3.15-443.fc32.x86_64                                          
+  perl-Term-ANSIColor-5.01-2.fc32.noarch                                        
+  perl-Term-Cap-1.17-440.fc32.noarch                                            
+  perl-TermReadKey-2.38-6.fc32.x86_64                                           
+  perl-Text-ParseWords-3.30-440.fc32.noarch                                     
+  perl-Text-Tabs+Wrap-2013.0523-440.fc32.noarch                                 
+  perl-Time-Local-2:1.300-2.fc32.noarch                                         
+  perl-URI-1.76-6.fc32.noarch                                                   
+  perl-Unicode-Normalize-1.26-440.fc32.x86_64                                   
+  perl-constant-1.33-441.fc32.noarch                                            
+  perl-interpreter-4:5.30.3-461.fc32.x86_64                                     
+  perl-libnet-3.13-1.fc32.noarch                                                
+  perl-libs-4:5.30.3-461.fc32.x86_64                                            
+  perl-macros-4:5.30.3-461.fc32.noarch                                          
+  perl-parent-1:0.238-1.fc32.noarch                                             
+  perl-podlators-1:4.14-2.fc32.noarch                                           
+  perl-srpm-macros-1-34.fc32.noarch                                             
+  perl-threads-1:2.22-442.fc32.x86_64                                           
+  perl-threads-shared-1.60-441.fc32.x86_64                                      
+  pixman-0.40.0-1.fc32.x86_64                                                   
+  pkgconf-1.6.3-3.fc32.x86_64                                                   
+  pkgconf-m4-1.6.3-3.fc32.noarch                                                
+  pkgconf-pkg-config-1.6.3-3.fc32.x86_64                                        
+  pulseaudio-libs-14.0-1.fc32.x86_64                                            
+  python-qt5-rpm-macros-5.14.2-3.fc32.noarch                                    
+  python-rpm-macros-3-60.fc32.noarch                                            
+  python-srpm-macros-3-60.fc32.noarch                                           
+  python-unversioned-command-3.8.10-1.fc32.noarch                               
+  python3-dbus-1.2.16-1.fc32.x86_64                                             
+  python3-devel-3.8.10-1.fc32.x86_64                                            
+  python3-enchant-2.0.0-11.fc32.noarch                                          
+  python3-magic-5.38-4.fc32.noarch                                              
+  python3-pip-19.3.1-4.fc32.noarch                                              
+  python3-pyqt5-sip-4.19.21-1.fc32.x86_64                                       
+  python3-qt5-5.14.2-3.fc32.x86_64                                              
+  python3-qt5-base-5.14.2-3.fc32.x86_64                                         
+  python3-rpm-generators-10-4.fc32.noarch                                       
+  python3-rpm-macros-3-60.fc32.noarch                                           
+  python3-setuptools-41.6.0-2.fc32.noarch                                       
+  python3-wheel-1:0.33.6-3.fc32.noarch                                          
+  qt-settings-32.0-3.fc32.noarch                                                
+  qt5-qtbase-5.14.2-6.fc32.x86_64                                               
+  qt5-qtbase-common-5.14.2-6.fc32.noarch                                        
+  qt5-qtbase-gui-5.14.2-6.fc32.x86_64                                           
+  qt5-qtconnectivity-5.14.2-1.fc32.x86_64                                       
+  qt5-qtdeclarative-5.14.2-1.fc32.x86_64                                        
+  qt5-qtlocation-5.14.2-2.fc32.x86_64                                           
+  qt5-qtmultimedia-5.14.2-1.fc32.x86_64                                         
+  qt5-qtsensors-5.14.2-1.fc32.x86_64                                            
+  qt5-qtserialport-5.14.2-1.fc32.x86_64                                         
+  qt5-qtsvg-5.14.2-1.fc32.x86_64                                                
+  qt5-qttools-common-5.14.2-1.fc32.noarch                                       
+  qt5-qttools-libs-designer-5.14.2-1.fc32.x86_64                                
+  qt5-qttools-libs-help-5.14.2-1.fc32.x86_64                                    
+  qt5-qtwebchannel-5.14.2-1.fc32.x86_64                                         
+  qt5-qtwebsockets-5.14.2-1.fc32.x86_64                                         
+  qt5-qtx11extras-5.14.2-1.fc32.x86_64                                          
+  qt5-qtxmlpatterns-5.14.2-1.fc32.x86_64                                        
+  qt5-srpm-macros-5.14.2-3.fc32.noarch                                          
+  redhat-rpm-config-151-1.fc32.noarch                                           
+  rpm-build-4.15.1.1-1.fc32.1.x86_64                                            
+  rpmdevtools-8.10-10.fc32.noarch                                               
+  rpmlint-1.11-16.fc32.noarch                                                   
+  rust-srpm-macros-14-1.fc32.noarch                                             
+  serd-0.30.2-2.fc32.x86_64                                                     
+  shared-mime-info-1.15-3.fc32.x86_64                                           
+  sord-0.16.4-4.fc32.x86_64                                                     
+  soundtouch-2.1.1-4.fc32.x86_64                                                
+  sratom-0.6.4-2.fc32.x86_64                                                    
+  unzip-6.0-47.fc32.x86_64                                                      
+  webrtc-audio-processing-0.3.1-4.fc32.x86_64                                   
+  which-2.21-19.fc32.x86_64                                                     
+  xcb-util-0.4.0-14.fc32.x86_64                                                 
+  xcb-util-image-0.4.0-14.fc32.x86_64                                           
+  xcb-util-keysyms-0.4.0-12.fc32.x86_64                                         
+  xcb-util-renderutil-0.3.9-15.fc32.x86_64                                      
+  xcb-util-wm-0.4.1-17.fc32.x86_64                                              
+  xemacs-filesystem-21.5.34-35.20190323hgc0ed7ef9a5a1.fc32.noarch               
+  xkeyboard-config-2.29-1.fc32.noarch                                           
+  xml-common-0.6.3-54.fc32.noarch                                               
+  xorg-x11-server-Xvfb-1.20.11-1.fc32.x86_64                                    
+  xorg-x11-server-common-1.20.11-1.fc32.x86_64                                  
+  xorg-x11-xauth-1:1.1-3.fc32.x86_64                                            
+  xorg-x11-xkb-utils-7.7-32.fc32.x86_64                                         
+  xxhash-libs-0.8.0-1.fc32.x86_64                                               
+  xz-5.2.5-1.fc32.x86_64                                                        
+  zip-3.0-26.fc32.x86_64                                                        
+  zstd-1.4.9-1.fc32.x86_64                                                      
+
+Complete!
+--> 6e80b76e2e7
+STEP 11: COPY requirements requirements
+--> 73909898fa4
+STEP 12: RUN pip3 install --no-deps --require-hashes -r requirements/dev-requirements.txt
+WARNING: Running pip install with root privileges is generally not a good idea. Try `pip3 install --user` instead.
+Collecting attrs==22.2.0
+  Downloading https://files.pythonhosted.org/packages/fb/6e/6f83bf616d2becdf333a1640f1d463fef3150e2e926b7010cb0f81c95e88/attrs-22.2.0-py3-none-any.whl (60kB)
+Collecting bandit==1.7.4
+  Downloading https://files.pythonhosted.org/packages/da/eb/ff828f4ec32c85e10d9c344e6b7f11bcacfb5d70f2fd16bea6fc1ae6df06/bandit-1.7.4-py3-none-any.whl (118kB)
+Collecting black==21.12b0
+  Downloading https://files.pythonhosted.org/packages/9b/27/b2f98b627738b02dcac06ae9e2ab13f14ab906fe6dd6366050c76883d4b5/black-21.12b0-py3-none-any.whl (156kB)
+Collecting build==0.10.0
+  Downloading https://files.pythonhosted.org/packages/58/91/17b00d5fac63d3dca605f1b8269ba3c65e98059e1fd99d00283e42a454f0/build-0.10.0-py3-none-any.whl
+Collecting click==8.0.3
+  Downloading https://files.pythonhosted.org/packages/48/58/c8aa6a8e62cc75f39fee1092c45d6b6ba684122697d7ce7d53f64f98a129/click-8.0.3-py3-none-any.whl (97kB)
+Collecting diffoscope==237
+  Downloading https://files.pythonhosted.org/packages/6c/fd/752f4bb9fa7971c81d69a615bc92c9ffd4526c0848398ed12b40ce4997e9/diffoscope-237.tar.gz (3.3MB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+    Preparing wheel metadata: started
+    Preparing wheel metadata: finished with status 'done'
+Collecting distro==1.8.0
+  Downloading https://files.pythonhosted.org/packages/f4/2c/c90a3adaf0ddb70afe193f5ebfb539612af57cffe677c3126be533df3098/distro-1.8.0-py3-none-any.whl
+Collecting exceptiongroup==1.1.0
+  Downloading https://files.pythonhosted.org/packages/e8/14/9c6a7e5f12294ccd6975a45e02899ed25468cd7c2c86f3d9725f387f9f5f/exceptiongroup-1.1.0-py3-none-any.whl
+Collecting flake8==4.0.1
+  Downloading https://files.pythonhosted.org/packages/34/39/cde2c8a227abb4f9ce62fe55586b920f438f1d2903a1a22514d0b982c333/flake8-4.0.1-py2.py3-none-any.whl (64kB)
+Collecting gitdb==4.0.10
+  Downloading https://files.pythonhosted.org/packages/21/a6/35f83efec687615c711fe0a09b67e58f6d1254db27b1013119de46f450bd/gitdb-4.0.10-py3-none-any.whl (62kB)
+Collecting gitpython==3.1.32
+  Downloading https://files.pythonhosted.org/packages/67/50/742c2fb60989b76ccf7302c7b1d9e26505d7054c24f08cc7ec187faaaea7/GitPython-3.1.32-py3-none-any.whl (188kB)
+Collecting iniconfig==2.0.0
+  Downloading https://files.pythonhosted.org/packages/ef/a6/62565a6e1cf69e10f5727360368e451d4b7f58beeac6173dc9db836a5b46/iniconfig-2.0.0-py3-none-any.whl
+Collecting isort==5.12.0
+  Downloading https://files.pythonhosted.org/packages/0a/63/4036ae70eea279c63e2304b91ee0ac182f467f24f86394ecfe726092340b/isort-5.12.0-py3-none-any.whl (91kB)
+Collecting libarchive-c==4.0
+  Downloading https://files.pythonhosted.org/packages/0a/98/69d90cf7c1e2694d5e3f48d3d5fee1a7cee7695f1bc1e34ed0187656201e/libarchive_c-4.0-py2.py3-none-any.whl
+Collecting mccabe==0.6.1
+  Downloading https://files.pythonhosted.org/packages/87/89/479dc97e18549e21354893e4ee4ef36db1d237534982482c3681ee6e7b57/mccabe-0.6.1-py2.py3-none-any.whl
+Collecting mypy==1.0.0
+  Downloading https://files.pythonhosted.org/packages/9b/79/d214e3eea8f0ed5f347b9620c7ed6402bbb852a7b9e2789445ec5993f9c6/mypy-1.0.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.2MB)
+Collecting mypy-extensions==0.4.3
+  Downloading https://files.pythonhosted.org/packages/5c/eb/975c7c080f3223a5cdaff09612f3a5221e4ba534f7039db34c35d95fa6a5/mypy_extensions-0.4.3-py2.py3-none-any.whl
+Collecting packaging==23.0
+  Downloading https://files.pythonhosted.org/packages/ed/35/a31aed2993e398f6b09a790a181a7927eb14610ee8bbf02dc14d31677f1c/packaging-23.0-py3-none-any.whl (42kB)
+Collecting pathspec==0.9.0
+  Downloading https://files.pythonhosted.org/packages/42/ba/a9d64c7bcbc7e3e8e5f93a52721b377e994c22d16196e2b0f1236774353a/pathspec-0.9.0-py2.py3-none-any.whl
+Collecting pbr==5.11.1
+  Downloading https://files.pythonhosted.org/packages/01/06/4ab11bf70db5a60689fc521b636849c8593eb67a2c6bdf73a16c72d16a12/pbr-5.11.1-py2.py3-none-any.whl (112kB)
+Collecting pip-tools==6.12.2
+  Downloading https://files.pythonhosted.org/packages/80/0e/f6651279205fe25f6707ddb9b832762c42a154031c1b49039cee1f888b5c/pip_tools-6.12.2-py3-none-any.whl (52kB)
+Collecting platformdirs==2.4.1
+  Downloading https://files.pythonhosted.org/packages/9f/3d/4606ee54e0af98aa8f9a672b5acfd69318a5917fbb9f8e2c3aaf9c2f293f/platformdirs-2.4.1-py3-none-any.whl
+Collecting pluggy==1.0.0
+  Downloading https://files.pythonhosted.org/packages/9e/01/f38e2ff29715251cf25532b9082a1589ab7e4f571ced434f98d0139336dc/pluggy-1.0.0-py2.py3-none-any.whl
+Collecting pycodestyle==2.8.0
+  Downloading https://files.pythonhosted.org/packages/15/94/bc43a2efb7b8615e38acde2b6624cae8c9ec86faf718ff5676c5179a7714/pycodestyle-2.8.0-py2.py3-none-any.whl (42kB)
+Collecting pyflakes==2.4.0
+  Downloading https://files.pythonhosted.org/packages/43/fb/38848eb494af7df9aeb2d7673ace8b213313eb7e391691a79dbaeb6a838f/pyflakes-2.4.0-py2.py3-none-any.whl (69kB)
+Collecting pyproject-hooks==1.0.0
+  Downloading https://files.pythonhosted.org/packages/d5/ea/9ae603de7fbb3df820b23a70f6aff92bf8c7770043254ad8d2dc9d6bcba4/pyproject_hooks-1.0.0-py3-none-any.whl
+Collecting pytest==7.2.1
+  Downloading https://files.pythonhosted.org/packages/cc/02/8f59bf194c9a1ceac6330850715e9ec11e21e2408a30a596c65d54cf4d2a/pytest-7.2.1-py3-none-any.whl (317kB)
+Collecting python-magic==0.4.27
+  Downloading https://files.pythonhosted.org/packages/6c/73/9f872cb81fc5c3bb48f7227872c28975f998f3e7c2b1c16e95e6432bbb90/python_magic-0.4.27-py2.py3-none-any.whl
+Collecting pyyaml==6.0
+  Downloading https://files.pythonhosted.org/packages/d7/42/7ad4b6d67a16229496d4f6e74201bdbebcf4bc1e87d5a70c9297d4961bd2/PyYAML-6.0-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (701kB)
+Collecting reprotest==0.7.23
+  Downloading https://files.pythonhosted.org/packages/66/b1/5d6edac3a906e054693d0a45a754b863af57d27c274faa25ccf6877b54a8/reprotest-0.7.23.tar.gz (85kB)
+Collecting rstr==3.2.0
+  Downloading https://files.pythonhosted.org/packages/84/94/ff525478192f0f3d93e4532185a0e0c93a479741f3b3508632382fccf2a6/rstr-3.2.0-py3-none-any.whl
+Collecting smmap==5.0.0
+  Downloading https://files.pythonhosted.org/packages/6d/01/7caa71608bc29952ae09b0be63a539e50d2484bc37747797a66a60679856/smmap-5.0.0-py3-none-any.whl
+Collecting stevedore==5.0.0
+  Downloading https://files.pythonhosted.org/packages/41/1b/bad9124b400334d48aed1e04799032909fd8f1ca4a8e0eb30841284dd489/stevedore-5.0.0-py3-none-any.whl (49kB)
+Collecting tomli==1.2.3
+  Downloading https://files.pythonhosted.org/packages/05/e4/74f9440db36734d7ba83c574c1e7024009ce849208a41f90e94a134dc6d1/tomli-1.2.3-py3-none-any.whl
+Collecting typing-extensions==4.0.1
+  Downloading https://files.pythonhosted.org/packages/05/e4/baf0031e39cf545f0c9edd5b1a2ea12609b7fcba2d58e118b11753d68cf0/typing_extensions-4.0.1-py3-none-any.whl
+Collecting wheel==0.38.4
+  Downloading https://files.pythonhosted.org/packages/bd/7c/d38a0b30ce22fc26ed7dbc087c6d00851fb3395e9d0dac40bec1f905030c/wheel-0.38.4-py3-none-any.whl
+Collecting pip==23.0.1
+  Downloading https://files.pythonhosted.org/packages/07/51/2c0959c5adf988c44d9e1e0d940f5b074516ecc87e96b1af25f59de9ba38/pip-23.0.1-py3-none-any.whl (2.1MB)
+Collecting setuptools==67.4.0
+  Downloading https://files.pythonhosted.org/packages/2c/3a/e0340041dad00234d1fe569ed55b602d24eb11a4939b0a2ec844e970a87d/setuptools-67.4.0-py3-none-any.whl (1.1MB)
+Building wheels for collected packages: diffoscope
+  Building wheel for diffoscope (PEP 517): started
+  Building wheel for diffoscope (PEP 517): finished with status 'done'
+  Created wheel for diffoscope: filename=diffoscope-237-cp38-none-any.whl size=241871 sha256=23273ad5904603a9ac1fe7a9d18d7a9ec1b330478e9d5b426e005895cb6fad61
+  Stored in directory: /root/.cache/pip/wheels/5f/09/79/6d313b5f1524367e0fe1b9a26ff2d388defcbcd46298fa51ad
+Successfully built diffoscope
+Building wheels for collected packages: reprotest
+  Building wheel for reprotest (setup.py): started
+  Building wheel for reprotest (setup.py): finished with status 'done'
+  Created wheel for reprotest: filename=reprotest-0.7.23-cp38-none-any.whl size=96544 sha256=d515f1dba9517d86c49b011182a366da427a8b77437be8cbabb3999d5ab6cc8c
+  Stored in directory: /root/.cache/pip/wheels/bd/0f/b5/21c103b3c8de9ba5e447f88e1ed900155624c54928c2834840
+Successfully built reprotest
+Installing collected packages: attrs, bandit, black, build, click, diffoscope, distro, exceptiongroup, flake8, gitdb, gitpython, iniconfig, isort, libarchive-c, mccabe, mypy, mypy-extensions, packaging, pathspec, pbr, pip-tools, platformdirs, pluggy, pycodestyle, pyflakes, pyproject-hooks, pytest, python-magic, pyyaml, reprotest, rstr, smmap, stevedore, tomli, typing-extensions, wheel, pip, setuptools
+Successfully installed attrs-22.2.0 bandit-1.7.4 black-21.12b0 build-0.10.0 click-8.0.3 diffoscope-237 distro-1.8.0 exceptiongroup-1.1.0 flake8-4.0.1 gitdb-4.0.10 gitpython-3.1.32 iniconfig-2.0.0 isort-5.12.0 libarchive-c-4.0 mccabe-0.6.1 mypy-1.0.0 mypy-extensions-0.4.3 packaging-23.0 pathspec-0.9.0 pbr-5.11.1 pip-23.0.1 pip-tools-6.12.2 platformdirs-2.4.1 pluggy-1.0.0 pycodestyle-2.8.0 pyflakes-2.4.0 pyproject-hooks-1.0.0 pytest-7.2.1 python-magic-0.4.27 pyyaml-6.0 reprotest-0.7.23 rstr-3.2.0 setuptools-67.4.0 smmap-5.0.0 stevedore-5.0.0 tomli-1.2.3 typing-extensions-4.0.1 wheel-0.38.4
+--> 23b88a0088f
+STEP 13: RUN if test $USER_NAME != root ; then useradd --no-create-home --home-dir /tmp --uid $USER_ID $USER_NAME && echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers ; fi
+STEP 14: COMMIT securedrop-workstation-dom0-config
+--> 8573e25bfbf
+8573e25bfbf3ed4c79638b6092df3a064302bf71f90337aa9ebee8391c19c8ad
+Removing dist/
+/usr/local/lib/python3.8/site-packages/setuptools/dist.py:547: UserWarning: Normalizing '0.9.0-rc1' to '0.9.0rc1'
+  warnings.warn(tmpl.format(**locals()))
+running sdist
+running egg_info
+creating securedrop_workstation_dom0_config.egg-info
+writing securedrop_workstation_dom0_config.egg-info/PKG-INFO
+writing dependency_links to securedrop_workstation_dom0_config.egg-info/dependency_links.txt
+writing top-level names to securedrop_workstation_dom0_config.egg-info/top_level.txt
+writing manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+reading manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+adding license file 'LICENSE'
+writing manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+running check
+creating securedrop-workstation-dom0-config-0.9.0rc1
+creating securedrop-workstation-dom0-config-0.9.0rc1/dom0
+creating securedrop-workstation-dom0-config-0.9.0rc1/files
+creating securedrop-workstation-dom0-config-0.9.0rc1/launcher
+creating securedrop-workstation-dom0-config-0.9.0rc1/launcher/sdw_notify
+creating securedrop-workstation-dom0-config-0.9.0rc1/launcher/sdw_updater_gui
+creating securedrop-workstation-dom0-config-0.9.0rc1/launcher/sdw_util
+creating securedrop-workstation-dom0-config-0.9.0rc1/sd-app
+creating securedrop-workstation-dom0-config-0.9.0rc1/sd-proxy
+creating securedrop-workstation-dom0-config-0.9.0rc1/sd-whonix
+creating securedrop-workstation-dom0-config-0.9.0rc1/sd-workstation
+creating securedrop-workstation-dom0-config-0.9.0rc1/securedrop_workstation_dom0_config.egg-info
+creating securedrop-workstation-dom0-config-0.9.0rc1/sys-firewall
+creating securedrop-workstation-dom0-config-0.9.0rc1/tests
+creating securedrop-workstation-dom0-config-0.9.0rc1/usb-autoattach
+copying files to securedrop-workstation-dom0-config-0.9.0rc1...
+copying LICENSE -> securedrop-workstation-dom0-config-0.9.0rc1
+copying MANIFEST.in -> securedrop-workstation-dom0-config-0.9.0rc1
+copying README.md -> securedrop-workstation-dom0-config-0.9.0rc1
+copying VERSION -> securedrop-workstation-dom0-config-0.9.0rc1
+copying pyproject.toml -> securedrop-workstation-dom0-config-0.9.0rc1
+copying setup.py -> securedrop-workstation-dom0-config-0.9.0rc1
+copying dom0/dom0-xfce-desktop-file.j2 -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/fpf-apt-repo.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/remove-tags -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-app-config.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-app-files.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-app.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-clean-all.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-clean-default-dispvm.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-default-config.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-default-config.yml -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-devices-files.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-devices.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-dom0-crontab.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-dom0-files.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-dom0-qvm-rpc.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-dom0-systemd.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-gpg-files.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-gpg.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-log.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-logging-setup.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-mime-handling.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-proxy-files.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-proxy-template-files.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-proxy.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-remove-unused-templates.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-rsyslog.conf.j2 -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-sys-vms.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-sys-whonix-vms.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-upgrade-templates.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-usb-autoattach-add.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-usb-autoattach-remove.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-viewer-files.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-viewer.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-whonix-hidserv-key.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-whonix.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-workstation-template-files.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-workstation-template.sls -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sd-workstation.top -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/sdlog.conf -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/securedrop-check-migration -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/securedrop-handle-upgrade -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/securedrop-launcher.desktop -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/securedrop-login -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying dom0/update-xfce-settings -> securedrop-workstation-dom0-config-0.9.0rc1/dom0
+copying files/clean-salt -> securedrop-workstation-dom0-config-0.9.0rc1/files
+copying files/config.json.example -> securedrop-workstation-dom0-config-0.9.0rc1/files
+copying files/destroy-vm -> securedrop-workstation-dom0-config-0.9.0rc1/files
+copying files/provision-all -> securedrop-workstation-dom0-config-0.9.0rc1/files
+copying files/sdw-admin.py -> securedrop-workstation-dom0-config-0.9.0rc1/files
+copying files/validate_config.py -> securedrop-workstation-dom0-config-0.9.0rc1/files
+copying launcher/sdw-launcher.py -> securedrop-workstation-dom0-config-0.9.0rc1/launcher
+copying launcher/sdw-notify.py -> securedrop-workstation-dom0-config-0.9.0rc1/launcher
+copying launcher/sdw_notify/Notify.py -> securedrop-workstation-dom0-config-0.9.0rc1/launcher/sdw_notify
+copying launcher/sdw_notify/NotifyApp.py -> securedrop-workstation-dom0-config-0.9.0rc1/launcher/sdw_notify
+copying launcher/sdw_notify/strings.py -> securedrop-workstation-dom0-config-0.9.0rc1/launcher/sdw_notify
+copying launcher/sdw_updater_gui/Updater.py -> securedrop-workstation-dom0-config-0.9.0rc1/launcher/sdw_updater_gui
+copying launcher/sdw_updater_gui/UpdaterApp.py -> securedrop-workstation-dom0-config-0.9.0rc1/launcher/sdw_updater_gui
+copying launcher/sdw_updater_gui/UpdaterAppUiQt5.py -> securedrop-workstation-dom0-config-0.9.0rc1/launcher/sdw_updater_gui
+copying launcher/sdw_updater_gui/strings.py -> securedrop-workstation-dom0-config-0.9.0rc1/launcher/sdw_updater_gui
+copying launcher/sdw_util/Util.py -> securedrop-workstation-dom0-config-0.9.0rc1/launcher/sdw_util
+copying sd-app/config.json.j2 -> securedrop-workstation-dom0-config-0.9.0rc1/sd-app
+copying sd-proxy/mimeapps.list -> securedrop-workstation-dom0-config-0.9.0rc1/sd-proxy
+copying sd-proxy/sd-proxy.yaml -> securedrop-workstation-dom0-config-0.9.0rc1/sd-proxy
+copying sd-whonix/app-journalist.yaml -> securedrop-workstation-dom0-config-0.9.0rc1/sd-whonix
+copying sd-workstation/apt-test-pubkey.asc -> securedrop-workstation-dom0-config-0.9.0rc1/sd-workstation
+copying sd-workstation/logo-small.png -> securedrop-workstation-dom0-config-0.9.0rc1/sd-workstation
+copying sd-workstation/securedrop-release-signing-pubkey-2021.asc -> securedrop-workstation-dom0-config-0.9.0rc1/sd-workstation
+copying securedrop_workstation_dom0_config.egg-info/PKG-INFO -> securedrop-workstation-dom0-config-0.9.0rc1/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/SOURCES.txt -> securedrop-workstation-dom0-config-0.9.0rc1/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/dependency_links.txt -> securedrop-workstation-dom0-config-0.9.0rc1/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/top_level.txt -> securedrop-workstation-dom0-config-0.9.0rc1/securedrop_workstation_dom0_config.egg-info
+copying sys-firewall/sd-copy-rpm-repo-pubkey.sh -> securedrop-workstation-dom0-config-0.9.0rc1/sys-firewall
+copying tests/test_app.py -> securedrop-workstation-dom0-config-0.9.0rc1/tests
+copying tests/test_dom0_rpm_repo.py -> securedrop-workstation-dom0-config-0.9.0rc1/tests
+copying tests/test_gpg.py -> securedrop-workstation-dom0-config-0.9.0rc1/tests
+copying tests/test_log_vm.py -> securedrop-workstation-dom0-config-0.9.0rc1/tests
+copying tests/test_proxy_vm.py -> securedrop-workstation-dom0-config-0.9.0rc1/tests
+copying tests/test_qubes_rpc.py -> securedrop-workstation-dom0-config-0.9.0rc1/tests
+copying tests/test_qubes_vms.py -> securedrop-workstation-dom0-config-0.9.0rc1/tests
+copying tests/test_sd_devices.py -> securedrop-workstation-dom0-config-0.9.0rc1/tests
+copying tests/test_sd_whonix.py -> securedrop-workstation-dom0-config-0.9.0rc1/tests
+copying tests/test_sys_usb.py -> securedrop-workstation-dom0-config-0.9.0rc1/tests
+copying tests/test_viewer.py -> securedrop-workstation-dom0-config-0.9.0rc1/tests
+copying tests/test_vms_exist.py -> securedrop-workstation-dom0-config-0.9.0rc1/tests
+copying tests/test_vms_platform.py -> securedrop-workstation-dom0-config-0.9.0rc1/tests
+copying usb-autoattach/99-sd-devices.rules -> securedrop-workstation-dom0-config-0.9.0rc1/usb-autoattach
+copying usb-autoattach/sd-attach-export-device -> securedrop-workstation-dom0-config-0.9.0rc1/usb-autoattach
+Writing securedrop-workstation-dom0-config-0.9.0rc1/setup.cfg
+creating dist
+Creating tar archive
+removing 'securedrop-workstation-dom0-config-0.9.0rc1' (and everything under it)
+find: ‘debug’: No such file or directory
+
+Build complete! RPMs and their checksums are:
+
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  -
+user@sd-dvm:~/securedrop-workstation$ ls rpm-build/
+BUILD/     BUILDROOT/ RPMS/      SOURCES/   SPECS/     SRPMS/     
+user@sd-dvm:~/securedrop-workstation$ ls rpm-build/RPMS/
+noarch
+user@sd-dvm:~/securedrop-workstation$ ls rpm-build/RPMS/
+noarch
+user@sd-dvm:~/securedrop-workstation$ shasum -a 256 rpm-build/RPMS/noarch/securedrop-workstation-dom0-config-0.9.0-0.rc1.1.fc32.noarch.rpm 
+167e7c30322a4918bc4f26aa4a53cd846872e2acc4bcbb037b0ea7cdec5290ba  rpm-build/RPMS/noarch/securedrop-workstation-dom0-config-0.9.0-0.rc1.1.fc32.noarch.rpm
+
