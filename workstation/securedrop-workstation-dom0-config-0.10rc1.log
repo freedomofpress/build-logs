@@ -1,0 +1,175 @@
+user@sd-dvm:~/securedrop-workstation$ git checkout 0.10.0-rc1
+HEAD is now at 469abf5 Updated version to 0.10.0-rc1
+user@sd-dvm:~/securedrop-workstation$ git log -1
+commit 469abf585c3205265e8660944ab38c9d3d0f2ecf (HEAD, tag: 0.10.0-rc1, origin/sdw-0.10.0-rc1-bump)
+Author: Kevin O'Gorman <kog@freedom.press>
+Date:   Tue Feb 6 15:48:42 2024 -0500
+
+    Updated version to 0.10.0-rc1
+user@sd-dvm:~/securedrop-workstation$ git verify-commit 469abf585c3205265e8660944ab38c9d3d0f2ecf
+gpg: Signature made Tue Feb  6 15:48:46 2024 EST
+gpg:                using RSA key A05ACE4F7E0BCA9BAD8D42F4ACFE4353173015EA
+gpg: Good signature from "Kevin O'Gorman <kog@stunbunny.org>" [unknown]
+gpg:                 aka "Kevin O'Gorman <kog@freedom.press>" [unknown]
+gpg:                 aka "Kevin O'Gorman <kevin.ogorman@gmail.com>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: A05A CE4F 7E0B CA9B AD8D  42F4 ACFE 4353 1730 15EA
+user@sd-dvm:~/securedrop-workstation$ make build-rpm
+USE_BUILD_CONTAINER=true ./scripts/container.sh ./scripts/build-rpm.sh
+[+] Building 12.3s (2/2) FINISHED                                             docker:default
+ => [internal] load build definition from Dockerfile                                    0.0s
+ => => transferring dockerfile: 554B                                                    0.0s
+ => ERROR [internal] load metadata for registry.fedoraproject.org/fedora:32            12.3s
+------
+ > [internal] load metadata for registry.fedoraproject.org/fedora:32:
+------
+Dockerfile:1
+--------------------
+   1 | >>> FROM registry.fedoraproject.org/fedora:32
+   2 |     LABEL org="Freedom of the Press"
+   3 |     LABEL image_name="securedrop-workstation-qubes-4.1"
+--------------------
+ERROR: failed to solve: registry.fedoraproject.org/fedora:32: failed to do request: Head "https://registry.fedoraproject.org/v2/fedora/manifests/32": dial tcp: lookup registry.fedoraproject.org: no such host
+make: *** [Makefile:33: build-rpm] Error 1
+user@sd-dvm:~/securedrop-workstation$ make build-rpm
+USE_BUILD_CONTAINER=true ./scripts/container.sh ./scripts/build-rpm.sh
+[+] Building 140.1s (10/10) FINISHED                                          docker:default
+ => [internal] load build definition from Dockerfile                                    0.0s
+ => => transferring dockerfile: 554B                                                    0.0s
+ => [internal] load metadata for registry.fedoraproject.org/fedora:32                   0.4s
+ => [internal] load .dockerignore                                                       0.0s
+ => => transferring context: 2B                                                         0.0s
+ => [1/5] FROM registry.fedoraproject.org/fedora:32@sha256:acc80ce6652d35f55ad220aa1c  16.2s
+ => => resolve registry.fedoraproject.org/fedora:32@sha256:acc80ce6652d35f55ad220aa1cf  0.0s
+ => => sha256:acc80ce6652d35f55ad220aa1cfa3787cbaf19b0016b202f1ab29dc5 1.22kB / 1.22kB  0.0s
+ => => sha256:3eb61b62df959e1571a0952919bc2def05f14afc7920ca562f7b569de61d 429B / 429B  0.0s
+ => => sha256:27a9790209529e14132d05f032228f339a4fe1dd1e93a588f5af2c06 1.32kB / 1.32kB  0.0s
+ => => sha256:480478cefb5d287032080377942da2c2ccb15cdcc5c45f3beb06a 77.95MB / 77.95MB  13.3s
+ => => extracting sha256:480478cefb5d287032080377942da2c2ccb15cdcc5c45f3beb06aef1267bc  2.7s
+ => [internal] load build context                                                       0.0s
+ => => transferring context: 8.54kB                                                     0.0s
+ => [2/5] RUN dnf install -y make                                                      64.2s
+ => [3/5] COPY Makefile Makefile                                                        0.1s 
+ => [4/5] RUN make install-deps                                                        55.7s 
+ => [5/5] RUN if test user != root ; then useradd --no-create-home --home-dir /tmp --u  0.5s 
+ => exporting to image                                                                  3.0s 
+ => => exporting layers                                                                 3.0s 
+ => => writing image sha256:5cedc81e2a1970906d57919207138496a0494a4882819aa1410547f18d  0.0s 
+ => => naming to docker.io/library/securedrop-workstation-dom0-config                   0.0s 
+Removing dist/                                                                               
+running sdist
+running egg_info
+creating securedrop_workstation_dom0_config.egg-info
+writing securedrop_workstation_dom0_config.egg-info/PKG-INFO
+writing dependency_links to securedrop_workstation_dom0_config.egg-info/dependency_links.txt
+writing top-level names to securedrop_workstation_dom0_config.egg-info/top_level.txt
+writing manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+reading manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+writing manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+running check
+creating securedrop-workstation-dom0-config-0.10.0rc1
+creating securedrop-workstation-dom0-config-0.10.0rc1/dom0
+creating securedrop-workstation-dom0-config-0.10.0rc1/files
+creating securedrop-workstation-dom0-config-0.10.0rc1/launcher
+creating securedrop-workstation-dom0-config-0.10.0rc1/launcher/sdw_notify
+creating securedrop-workstation-dom0-config-0.10.0rc1/launcher/sdw_updater_gui
+creating securedrop-workstation-dom0-config-0.10.0rc1/launcher/sdw_util
+creating securedrop-workstation-dom0-config-0.10.0rc1/sd-app
+creating securedrop-workstation-dom0-config-0.10.0rc1/sd-proxy
+creating securedrop-workstation-dom0-config-0.10.0rc1/sd-whonix
+creating securedrop-workstation-dom0-config-0.10.0rc1/sd-workstation
+creating securedrop-workstation-dom0-config-0.10.0rc1/securedrop_workstation_dom0_config.egg-info
+creating securedrop-workstation-dom0-config-0.10.0rc1/sys-firewall
+creating securedrop-workstation-dom0-config-0.10.0rc1/usb-autoattach
+copying files to securedrop-workstation-dom0-config-0.10.0rc1...
+copying LICENSE -> securedrop-workstation-dom0-config-0.10.0rc1
+copying MANIFEST.in -> securedrop-workstation-dom0-config-0.10.0rc1
+copying README.md -> securedrop-workstation-dom0-config-0.10.0rc1
+copying VERSION -> securedrop-workstation-dom0-config-0.10.0rc1
+copying setup.py -> securedrop-workstation-dom0-config-0.10.0rc1
+copying dom0/dom0-xfce-desktop-file.j2 -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/fpf-apt-repo.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/remove-tags -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-app-config.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-app-files.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-app.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-clean-all.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-clean-default-dispvm.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-default-config.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-default-config.yml -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-devices-files.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-devices.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-dom0-crontab.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-dom0-files.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-dom0-qvm-rpc.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-dom0-systemd.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-gpg-files.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-gpg.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-log.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-logging-setup.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-mime-handling.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-proxy-files.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-proxy-template-files.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-proxy.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-remove-unused-templates.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-rsyslog.conf.j2 -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-sys-vms.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-sys-whonix-vms.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-upgrade-templates.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-usb-autoattach-add.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-usb-autoattach-remove.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-viewer-files.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-viewer.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-whonix-hidserv-key.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-whonix.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-workstation-template-files.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-workstation-template.sls -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sd-workstation.top -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/sdlog.conf -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/securedrop-check-migration -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/securedrop-handle-upgrade -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/securedrop-launcher.desktop -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/securedrop-login -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying dom0/update-xfce-settings -> securedrop-workstation-dom0-config-0.10.0rc1/dom0
+copying files/clean-salt -> securedrop-workstation-dom0-config-0.10.0rc1/files
+copying files/config.json.example -> securedrop-workstation-dom0-config-0.10.0rc1/files
+copying files/destroy-vm -> securedrop-workstation-dom0-config-0.10.0rc1/files
+copying files/provision-all -> securedrop-workstation-dom0-config-0.10.0rc1/files
+copying files/sdw-admin.py -> securedrop-workstation-dom0-config-0.10.0rc1/files
+copying files/validate_config.py -> securedrop-workstation-dom0-config-0.10.0rc1/files
+copying launcher/sdw-launcher.py -> securedrop-workstation-dom0-config-0.10.0rc1/launcher
+copying launcher/sdw-notify.py -> securedrop-workstation-dom0-config-0.10.0rc1/launcher
+copying launcher/sdw_notify/Notify.py -> securedrop-workstation-dom0-config-0.10.0rc1/launcher/sdw_notify
+copying launcher/sdw_notify/NotifyApp.py -> securedrop-workstation-dom0-config-0.10.0rc1/launcher/sdw_notify
+copying launcher/sdw_notify/strings.py -> securedrop-workstation-dom0-config-0.10.0rc1/launcher/sdw_notify
+copying launcher/sdw_updater_gui/Updater.py -> securedrop-workstation-dom0-config-0.10.0rc1/launcher/sdw_updater_gui
+copying launcher/sdw_updater_gui/UpdaterApp.py -> securedrop-workstation-dom0-config-0.10.0rc1/launcher/sdw_updater_gui
+copying launcher/sdw_updater_gui/UpdaterAppUiQt5.py -> securedrop-workstation-dom0-config-0.10.0rc1/launcher/sdw_updater_gui
+copying launcher/sdw_updater_gui/strings.py -> securedrop-workstation-dom0-config-0.10.0rc1/launcher/sdw_updater_gui
+copying launcher/sdw_util/Util.py -> securedrop-workstation-dom0-config-0.10.0rc1/launcher/sdw_util
+copying sd-app/config.json.j2 -> securedrop-workstation-dom0-config-0.10.0rc1/sd-app
+copying sd-proxy/mimeapps.list -> securedrop-workstation-dom0-config-0.10.0rc1/sd-proxy
+copying sd-proxy/sd-proxy.yaml -> securedrop-workstation-dom0-config-0.10.0rc1/sd-proxy
+copying sd-whonix/app-journalist.yaml -> securedrop-workstation-dom0-config-0.10.0rc1/sd-whonix
+copying sd-workstation/apt-test-pubkey.asc -> securedrop-workstation-dom0-config-0.10.0rc1/sd-workstation
+copying sd-workstation/logo-small.png -> securedrop-workstation-dom0-config-0.10.0rc1/sd-workstation
+copying sd-workstation/securedrop-release-signing-pubkey-2021.asc -> securedrop-workstation-dom0-config-0.10.0rc1/sd-workstation
+copying securedrop_workstation_dom0_config.egg-info/PKG-INFO -> securedrop-workstation-dom0-config-0.10.0rc1/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/SOURCES.txt -> securedrop-workstation-dom0-config-0.10.0rc1/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/dependency_links.txt -> securedrop-workstation-dom0-config-0.10.0rc1/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/top_level.txt -> securedrop-workstation-dom0-config-0.10.0rc1/securedrop_workstation_dom0_config.egg-info
+copying sys-firewall/sd-copy-rpm-repo-pubkey.sh -> securedrop-workstation-dom0-config-0.10.0rc1/sys-firewall
+copying usb-autoattach/99-sd-devices.rules -> securedrop-workstation-dom0-config-0.10.0rc1/usb-autoattach
+copying usb-autoattach/sd-attach-export-device -> securedrop-workstation-dom0-config-0.10.0rc1/usb-autoattach
+Writing securedrop-workstation-dom0-config-0.10.0rc1/setup.cfg
+creating dist
+Creating tar archive
+removing 'securedrop-workstation-dom0-config-0.10.0rc1' (and everything under it)
+find: ‘debug’: No such file or directory
+
+Build complete! RPMs and their checksums are:
+
+169645284dc2772251ddf2c8e119b275182bc22297c48ac059227756d82e9edd  rpm-build/RPMS/noarch/securedrop-workstation-dom0-config-0.10.0rc1-1.fc32.noarch.rpm
+
