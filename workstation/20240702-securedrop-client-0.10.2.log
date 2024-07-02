@@ -1,0 +1,753 @@
+user@sd-dev:~/projects/securedrop-client$ git tag -v 0.10.2
+object e2aea09634c8bb875a11a4c76c93928091a57f5d
+type commit
+tag 0.10.2
+tagger Kevin O'Gorman <kog@freedom.press> 1719939991 -0400
+
+SecureDrop Client 0.10.2
+gpg: Signature made Tue Jul  2 13:09:05 2024 EDT
+gpg:                using RSA key 2359E6538C0613E652955E6C188EDD3B7B22E6A3
+gpg: Good signature from "SecureDrop Release Signing Key <securedrop-release-key-2021@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2359 E653 8C06 13E6 5295  5E6C 188E DD3B 7B22 E6A3
+user@sd-dev:~/projects/securedrop-client$ git checkout 0.10.2
+Note: switching to '0.10.2'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at e2aea096 Merge pull request #2085 from freedomofpress/0.10.2-changelog-version
+user@sd-dev:~/projects/securedrop-client$ git show
+commit e2aea09634c8bb875a11a4c76c93928091a57f5d (HEAD, tag: 0.10.2, origin/release/0.10.2)
+Merge: 7f05d41a 43b57cb3
+Author: Kunal Mehta <legoktm@debian.org>
+Date:   Tue Jul 2 12:00:59 2024 -0400
+
+    Merge pull request #2085 from freedomofpress/0.10.2-changelog-version
+    
+    Update changelog and version to 0.10.2
+
+user@sd-dev:~/projects/securedrop-client$ make build-debs
+./scripts/build-debs.sh
++ git --no-pager log -1 --oneline --show-signature --no-color
+e2aea096 (HEAD, tag: 0.10.2, origin/release/0.10.2) gpg: Signature made Tue Jul  2 12:00:59 2024 EDT
+gpg:                using RSA key B5690EEEBB952194
+gpg: Can't check signature: No public key
+Merge pull request #2085 from freedomofpress/0.10.2-changelog-version
+++ pwd
++ OCI_RUN_ARGUMENTS='--user=root -v /home/user/projects/securedrop-client:/src:Z'
++ which podman
++ OCI_BIN=podman
++ OCI_RUN_ARGUMENTS='--user=root -v /home/user/projects/securedrop-client:/src:Z --userns=keep-id'
++ test -t 0
++ OCI_RUN_ARGUMENTS='--user=root -v /home/user/projects/securedrop-client:/src:Z --userns=keep-id -it'
+++ realpath ../securedrop-builder
++ BUILDER=/home/user/projects/securedrop-builder
++ [[ ! -d /home/user/projects/securedrop-builder ]]
++ export BUILDER
++ export DEBIAN_VERSION=bullseye
++ DEBIAN_VERSION=bullseye
++ export OCI_RUN_ARGUMENTS
++ export OCI_BIN
++ export CONTAINER=fpf.local/sd-client-builder-bullseye
++ CONTAINER=fpf.local/sd-client-builder-bullseye
++ . ./scripts/image_prep.sh
+++ set -euxo pipefail
++++ git rev-parse --show-toplevel
+++ cd /home/user/projects/securedrop-client
+++ missing=false
+++ podman inspect fpf.local/sd-client-builder-bullseye
+++ false
+++ status=0
+++ podman run --rm --user=root -v /home/user/projects/securedrop-client:/src:Z --userns=keep-id -it --entrypoint /src/scripts/dep-check.sh fpf.local/sd-client-builder-bullseye
+Hit:1 http://deb.debian.org/debian bullseye InRelease
+Hit:2 http://deb.debian.org/debian-security bullseye-security InRelease
+Get:3 http://deb.debian.org/debian bullseye-updates InRelease [44.1 kB]
+Fetched 44.1 kB in 1s (69.8 kB/s)  
+Reading package lists... Done
+++ [[ 0 == 42 ]]
+++ [[ 0 != 0 ]]
+++ mktemp -d
++ BUILD_DEST=/tmp/tmp.JhteeqRYV4
++ podman run --rm --user=root -v /home/user/projects/securedrop-client:/src:Z --userns=keep-id -it -v /home/user/projects/securedrop-builder:/builder:Z -v /tmp/tmp.JhteeqRYV4:/build:Z --env NIGHTLY= --entrypoint /src/scripts/build-debs-real.sh fpf.local/sd-client-builder-bullseye
++ export PIP_DISABLE_PIP_VERSION_CHECK=1
++ PIP_DISABLE_PIP_VERSION_CHECK=1
++ export PIP_PROGRESS_BAR=off
++ PIP_PROGRESS_BAR=off
++ export CARGO_TERM_COLOR=never
++ CARGO_TERM_COLOR=never
++ export CARGO_TERM_PROGRESS_WHEN=never
++ CARGO_TERM_PROGRESS_WHEN=never
++ apt-get update
+Hit:1 http://deb.debian.org/debian bullseye InRelease
+Hit:2 http://deb.debian.org/debian-security bullseye-security InRelease
+Get:3 http://deb.debian.org/debian bullseye-updates InRelease [44.1 kB]
+Fetched 44.1 kB in 1s (85.1 kB/s)
+Reading package lists... Done
++ apt-get upgrade --yes
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Calculating upgrade... Done
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
++ cp -R /src/ /srv/securedrop-client
++ cd /srv/securedrop-client
++ apt-get build-dep . --yes
+Note, using directory '.' to get the build dependencies
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  autoconf automake autopoint autotools-dev bsdextrautils debhelper
+  dh-apparmor dh-autoreconf dh-strip-nondeterminism dwz file gettext
+  gettext-base groff-base intltool-debian libarchive-zip-perl
+  libdebhelper-perl libelf1 libfile-stripnondeterminism-perl libicu67
+  libmagic-mgc libmagic1 libmpdec3 libpipeline1 libpython3-stdlib
+  libpython3.9-minimal libpython3.9-stdlib libsigsegv2 libsub-override-perl
+  libtool libuchardet0 libxml2 m4 man-db media-types po-debconf python-pip-whl
+  python3 python3-appdirs python3-distlib python3-distutils python3-filelock
+  python3-importlib-metadata python3-lib2to3 python3-minimal
+  python3-more-itertools python3-pip python3-pkg-resources python3-setuptools
+  python3-six python3-virtualenv python3-wheel python3-zipp python3.9
+  python3.9-minimal
+0 upgraded, 55 newly installed, 0 to remove and 0 not upgraded.
+Need to get 26.9 MB of archives.
+After this operation, 96.1 MB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian bullseye/main amd64 bsdextrautils amd64 2.36.1-8+deb11u2 [146 kB]
+Get:2 http://deb.debian.org/debian bullseye/main amd64 libuchardet0 amd64 0.0.7-1 [67.8 kB]
+Get:3 http://deb.debian.org/debian bullseye/main amd64 groff-base amd64 1.22.4-6 [936 kB]
+Get:4 http://deb.debian.org/debian bullseye/main amd64 libpipeline1 amd64 1.5.3-1 [34.3 kB]
+Get:5 http://deb.debian.org/debian bullseye/main amd64 man-db amd64 2.9.4-2 [1354 kB]
+Get:6 http://deb.debian.org/debian bullseye/main amd64 libpython3.9-minimal amd64 3.9.2-1 [801 kB]
+Get:7 http://deb.debian.org/debian bullseye/main amd64 python3.9-minimal amd64 3.9.2-1 [1955 kB]
+Get:8 http://deb.debian.org/debian bullseye/main amd64 python3-minimal amd64 3.9.2-3 [38.2 kB]
+Get:9 http://deb.debian.org/debian bullseye/main amd64 media-types all 4.0.0 [30.3 kB]
+Get:10 http://deb.debian.org/debian bullseye/main amd64 libmpdec3 amd64 2.5.1-1 [87.7 kB]
+Get:11 http://deb.debian.org/debian bullseye/main amd64 libpython3.9-stdlib amd64 3.9.2-1 [1684 kB]
+Get:12 http://deb.debian.org/debian bullseye/main amd64 python3.9 amd64 3.9.2-1 [466 kB]
+Get:13 http://deb.debian.org/debian bullseye/main amd64 libpython3-stdlib amd64 3.9.2-3 [21.4 kB]
+Get:14 http://deb.debian.org/debian bullseye/main amd64 python3 amd64 3.9.2-3 [37.9 kB]
+Get:15 http://deb.debian.org/debian bullseye/main amd64 libmagic-mgc amd64 1:5.39-3+deb11u1 [273 kB]
+Get:16 http://deb.debian.org/debian bullseye/main amd64 libmagic1 amd64 1:5.39-3+deb11u1 [128 kB]
+Get:17 http://deb.debian.org/debian bullseye/main amd64 file amd64 1:5.39-3+deb11u1 [69.2 kB]
+Get:18 http://deb.debian.org/debian bullseye/main amd64 gettext-base amd64 0.21-4 [175 kB]
+Get:19 http://deb.debian.org/debian bullseye/main amd64 libsigsegv2 amd64 2.13-1 [34.8 kB]
+Get:20 http://deb.debian.org/debian bullseye/main amd64 m4 amd64 1.4.18-5 [204 kB]
+Get:21 http://deb.debian.org/debian bullseye/main amd64 autoconf all 2.69-14 [313 kB]
+Get:22 http://deb.debian.org/debian bullseye/main amd64 autotools-dev all 20180224.1+nmu1 [77.1 kB]
+Get:23 http://deb.debian.org/debian bullseye/main amd64 automake all 1:1.16.3-2 [814 kB]
+Get:24 http://deb.debian.org/debian bullseye/main amd64 autopoint all 0.21-4 [510 kB]
+Get:25 http://deb.debian.org/debian bullseye/main amd64 libdebhelper-perl all 13.3.4 [189 kB]
+Get:26 http://deb.debian.org/debian bullseye/main amd64 libtool all 2.4.6-15 [513 kB]
+Get:27 http://deb.debian.org/debian bullseye/main amd64 dh-autoreconf all 20 [17.1 kB]
+Get:28 http://deb.debian.org/debian bullseye/main amd64 libarchive-zip-perl all 1.68-1 [104 kB]
+Get:29 http://deb.debian.org/debian bullseye/main amd64 libsub-override-perl all 0.09-2 [10.2 kB]
+Get:30 http://deb.debian.org/debian bullseye/main amd64 libfile-stripnondeterminism-perl all 1.12.0-1 [26.3 kB]
+Get:31 http://deb.debian.org/debian bullseye/main amd64 dh-strip-nondeterminism all 1.12.0-1 [15.4 kB]
+Get:32 http://deb.debian.org/debian bullseye/main amd64 libelf1 amd64 0.183-1 [165 kB]
+Get:33 http://deb.debian.org/debian bullseye/main amd64 dwz amd64 0.13+20210201-1 [175 kB]
+Get:34 http://deb.debian.org/debian bullseye/main amd64 libicu67 amd64 67.1-7 [8622 kB]
+Get:35 http://deb.debian.org/debian bullseye/main amd64 libxml2 amd64 2.9.10+dfsg-6.7+deb11u4 [693 kB]
+Get:36 http://deb.debian.org/debian bullseye/main amd64 gettext amd64 0.21-4 [1311 kB]
+Get:37 http://deb.debian.org/debian bullseye/main amd64 intltool-debian all 0.35.0+20060710.5 [26.8 kB]
+Get:38 http://deb.debian.org/debian bullseye/main amd64 po-debconf all 1.0.21+nmu1 [248 kB]
+Get:39 http://deb.debian.org/debian bullseye/main amd64 debhelper all 13.3.4 [1049 kB]
+Get:40 http://deb.debian.org/debian bullseye/main amd64 dh-apparmor all 2.13.6-10 [75.2 kB]
+Get:41 http://deb.debian.org/debian bullseye/main amd64 python-pip-whl all 20.3.4-4+deb11u1 [1948 kB]
+Get:42 http://deb.debian.org/debian bullseye/main amd64 python3-appdirs all 1.4.4-1 [12.7 kB]
+Get:43 http://deb.debian.org/debian bullseye/main amd64 python3-distlib all 0.3.2+really+0.3.1-0.1 [123 kB]
+Get:44 http://deb.debian.org/debian bullseye/main amd64 python3-lib2to3 all 3.9.2-1 [77.8 kB]
+Get:45 http://deb.debian.org/debian bullseye/main amd64 python3-distutils all 3.9.2-1 [143 kB]
+Get:46 http://deb.debian.org/debian bullseye/main amd64 python3-filelock all 3.0.12-2 [8036 B]
+Get:47 http://deb.debian.org/debian bullseye/main amd64 python3-six all 1.16.0-2 [17.5 kB]
+Get:48 http://deb.debian.org/debian bullseye/main amd64 python3-more-itertools all 4.2.0-3 [42.7 kB]
+Get:49 http://deb.debian.org/debian bullseye/main amd64 python3-zipp all 1.0.0-3 [6060 B]
+Get:50 http://deb.debian.org/debian bullseye/main amd64 python3-importlib-metadata all 1.6.0-2 [10.3 kB]
+Get:51 http://deb.debian.org/debian bullseye/main amd64 python3-pkg-resources all 52.0.0-4 [190 kB]
+Get:52 http://deb.debian.org/debian bullseye/main amd64 python3-setuptools all 52.0.0-4 [366 kB]
+Get:53 http://deb.debian.org/debian bullseye/main amd64 python3-wheel all 0.34.2-1 [24.0 kB]
+Get:54 http://deb.debian.org/debian bullseye/main amd64 python3-pip all 20.3.4-4+deb11u1 [337 kB]
+Get:55 http://deb.debian.org/debian bullseye/main amd64 python3-virtualenv all 20.4.0+ds-2+deb11u1 [89.1 kB]
+Fetched 26.9 MB in 4s (6427 kB/s)              
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package bsdextrautils.
+(Reading database ... 16283 files and directories currently installed.)
+Preparing to unpack .../0-bsdextrautils_2.36.1-8+deb11u2_amd64.deb ...
+Unpacking bsdextrautils (2.36.1-8+deb11u2) ...
+Selecting previously unselected package libuchardet0:amd64.
+Preparing to unpack .../1-libuchardet0_0.0.7-1_amd64.deb ...
+Unpacking libuchardet0:amd64 (0.0.7-1) ...
+Selecting previously unselected package groff-base.
+Preparing to unpack .../2-groff-base_1.22.4-6_amd64.deb ...
+Unpacking groff-base (1.22.4-6) ...
+Selecting previously unselected package libpipeline1:amd64.
+Preparing to unpack .../3-libpipeline1_1.5.3-1_amd64.deb ...
+Unpacking libpipeline1:amd64 (1.5.3-1) ...
+Selecting previously unselected package man-db.
+Preparing to unpack .../4-man-db_2.9.4-2_amd64.deb ...
+Unpacking man-db (2.9.4-2) ...
+Selecting previously unselected package libpython3.9-minimal:amd64.
+Preparing to unpack .../5-libpython3.9-minimal_3.9.2-1_amd64.deb ...
+Unpacking libpython3.9-minimal:amd64 (3.9.2-1) ...
+Selecting previously unselected package python3.9-minimal.
+Preparing to unpack .../6-python3.9-minimal_3.9.2-1_amd64.deb ...
+Unpacking python3.9-minimal (3.9.2-1) ...
+Setting up libpython3.9-minimal:amd64 (3.9.2-1) ...
+Setting up python3.9-minimal (3.9.2-1) ...
+Selecting previously unselected package python3-minimal.
+(Reading database ... 17141 files and directories currently installed.)
+Preparing to unpack .../0-python3-minimal_3.9.2-3_amd64.deb ...
+Unpacking python3-minimal (3.9.2-3) ...
+Selecting previously unselected package media-types.
+Preparing to unpack .../1-media-types_4.0.0_all.deb ...
+Unpacking media-types (4.0.0) ...
+Selecting previously unselected package libmpdec3:amd64.
+Preparing to unpack .../2-libmpdec3_2.5.1-1_amd64.deb ...
+Unpacking libmpdec3:amd64 (2.5.1-1) ...
+Selecting previously unselected package libpython3.9-stdlib:amd64.
+Preparing to unpack .../3-libpython3.9-stdlib_3.9.2-1_amd64.deb ...
+Unpacking libpython3.9-stdlib:amd64 (3.9.2-1) ...
+Selecting previously unselected package python3.9.
+Preparing to unpack .../4-python3.9_3.9.2-1_amd64.deb ...
+Unpacking python3.9 (3.9.2-1) ...
+Selecting previously unselected package libpython3-stdlib:amd64.
+Preparing to unpack .../5-libpython3-stdlib_3.9.2-3_amd64.deb ...
+Unpacking libpython3-stdlib:amd64 (3.9.2-3) ...
+Setting up python3-minimal (3.9.2-3) ...
+Selecting previously unselected package python3.
+(Reading database ... 17538 files and directories currently installed.)
+Preparing to unpack .../00-python3_3.9.2-3_amd64.deb ...
+Unpacking python3 (3.9.2-3) ...
+Selecting previously unselected package libmagic-mgc.
+Preparing to unpack .../01-libmagic-mgc_1%3a5.39-3+deb11u1_amd64.deb ...
+Unpacking libmagic-mgc (1:5.39-3+deb11u1) ...
+Selecting previously unselected package libmagic1:amd64.
+Preparing to unpack .../02-libmagic1_1%3a5.39-3+deb11u1_amd64.deb ...
+Unpacking libmagic1:amd64 (1:5.39-3+deb11u1) ...
+Selecting previously unselected package file.
+Preparing to unpack .../03-file_1%3a5.39-3+deb11u1_amd64.deb ...
+Unpacking file (1:5.39-3+deb11u1) ...
+Selecting previously unselected package gettext-base.
+Preparing to unpack .../04-gettext-base_0.21-4_amd64.deb ...
+Unpacking gettext-base (0.21-4) ...
+Selecting previously unselected package libsigsegv2:amd64.
+Preparing to unpack .../05-libsigsegv2_2.13-1_amd64.deb ...
+Unpacking libsigsegv2:amd64 (2.13-1) ...
+Selecting previously unselected package m4.
+Preparing to unpack .../06-m4_1.4.18-5_amd64.deb ...
+Unpacking m4 (1.4.18-5) ...
+Selecting previously unselected package autoconf.
+Preparing to unpack .../07-autoconf_2.69-14_all.deb ...
+Unpacking autoconf (2.69-14) ...
+Selecting previously unselected package autotools-dev.
+Preparing to unpack .../08-autotools-dev_20180224.1+nmu1_all.deb ...
+Unpacking autotools-dev (20180224.1+nmu1) ...
+Selecting previously unselected package automake.
+Preparing to unpack .../09-automake_1%3a1.16.3-2_all.deb ...
+Unpacking automake (1:1.16.3-2) ...
+Selecting previously unselected package autopoint.
+Preparing to unpack .../10-autopoint_0.21-4_all.deb ...
+Unpacking autopoint (0.21-4) ...
+Selecting previously unselected package libdebhelper-perl.
+Preparing to unpack .../11-libdebhelper-perl_13.3.4_all.deb ...
+Unpacking libdebhelper-perl (13.3.4) ...
+Selecting previously unselected package libtool.
+Preparing to unpack .../12-libtool_2.4.6-15_all.deb ...
+Unpacking libtool (2.4.6-15) ...
+Selecting previously unselected package dh-autoreconf.
+Preparing to unpack .../13-dh-autoreconf_20_all.deb ...
+Unpacking dh-autoreconf (20) ...
+Selecting previously unselected package libarchive-zip-perl.
+Preparing to unpack .../14-libarchive-zip-perl_1.68-1_all.deb ...
+Unpacking libarchive-zip-perl (1.68-1) ...
+Selecting previously unselected package libsub-override-perl.
+Preparing to unpack .../15-libsub-override-perl_0.09-2_all.deb ...
+Unpacking libsub-override-perl (0.09-2) ...
+Selecting previously unselected package libfile-stripnondeterminism-perl.
+Preparing to unpack .../16-libfile-stripnondeterminism-perl_1.12.0-1_all.deb ...
+Unpacking libfile-stripnondeterminism-perl (1.12.0-1) ...
+Selecting previously unselected package dh-strip-nondeterminism.
+Preparing to unpack .../17-dh-strip-nondeterminism_1.12.0-1_all.deb ...
+Unpacking dh-strip-nondeterminism (1.12.0-1) ...
+Selecting previously unselected package libelf1:amd64.
+Preparing to unpack .../18-libelf1_0.183-1_amd64.deb ...
+Unpacking libelf1:amd64 (0.183-1) ...
+Selecting previously unselected package dwz.
+Preparing to unpack .../19-dwz_0.13+20210201-1_amd64.deb ...
+Unpacking dwz (0.13+20210201-1) ...
+Selecting previously unselected package libicu67:amd64.
+Preparing to unpack .../20-libicu67_67.1-7_amd64.deb ...
+Unpacking libicu67:amd64 (67.1-7) ...
+Selecting previously unselected package libxml2:amd64.
+Preparing to unpack .../21-libxml2_2.9.10+dfsg-6.7+deb11u4_amd64.deb ...
+Unpacking libxml2:amd64 (2.9.10+dfsg-6.7+deb11u4) ...
+Selecting previously unselected package gettext.
+Preparing to unpack .../22-gettext_0.21-4_amd64.deb ...
+Unpacking gettext (0.21-4) ...
+Selecting previously unselected package intltool-debian.
+Preparing to unpack .../23-intltool-debian_0.35.0+20060710.5_all.deb ...
+Unpacking intltool-debian (0.35.0+20060710.5) ...
+Selecting previously unselected package po-debconf.
+Preparing to unpack .../24-po-debconf_1.0.21+nmu1_all.deb ...
+Unpacking po-debconf (1.0.21+nmu1) ...
+Selecting previously unselected package debhelper.
+Preparing to unpack .../25-debhelper_13.3.4_all.deb ...
+Unpacking debhelper (13.3.4) ...
+Selecting previously unselected package dh-apparmor.
+Preparing to unpack .../26-dh-apparmor_2.13.6-10_all.deb ...
+Unpacking dh-apparmor (2.13.6-10) ...
+Selecting previously unselected package python-pip-whl.
+Preparing to unpack .../27-python-pip-whl_20.3.4-4+deb11u1_all.deb ...
+Unpacking python-pip-whl (20.3.4-4+deb11u1) ...
+Selecting previously unselected package python3-appdirs.
+Preparing to unpack .../28-python3-appdirs_1.4.4-1_all.deb ...
+Unpacking python3-appdirs (1.4.4-1) ...
+Selecting previously unselected package python3-distlib.
+Preparing to unpack .../29-python3-distlib_0.3.2+really+0.3.1-0.1_all.deb ...
+Unpacking python3-distlib (0.3.2+really+0.3.1-0.1) ...
+Selecting previously unselected package python3-lib2to3.
+Preparing to unpack .../30-python3-lib2to3_3.9.2-1_all.deb ...
+Unpacking python3-lib2to3 (3.9.2-1) ...
+Selecting previously unselected package python3-distutils.
+Preparing to unpack .../31-python3-distutils_3.9.2-1_all.deb ...
+Unpacking python3-distutils (3.9.2-1) ...
+Selecting previously unselected package python3-filelock.
+Preparing to unpack .../32-python3-filelock_3.0.12-2_all.deb ...
+Unpacking python3-filelock (3.0.12-2) ...
+Selecting previously unselected package python3-six.
+Preparing to unpack .../33-python3-six_1.16.0-2_all.deb ...
+Unpacking python3-six (1.16.0-2) ...
+Selecting previously unselected package python3-more-itertools.
+Preparing to unpack .../34-python3-more-itertools_4.2.0-3_all.deb ...
+Unpacking python3-more-itertools (4.2.0-3) ...
+Selecting previously unselected package python3-zipp.
+Preparing to unpack .../35-python3-zipp_1.0.0-3_all.deb ...
+Unpacking python3-zipp (1.0.0-3) ...
+Selecting previously unselected package python3-importlib-metadata.
+Preparing to unpack .../36-python3-importlib-metadata_1.6.0-2_all.deb ...
+Unpacking python3-importlib-metadata (1.6.0-2) ...
+Selecting previously unselected package python3-pkg-resources.
+Preparing to unpack .../37-python3-pkg-resources_52.0.0-4_all.deb ...
+Unpacking python3-pkg-resources (52.0.0-4) ...
+Selecting previously unselected package python3-setuptools.
+Preparing to unpack .../38-python3-setuptools_52.0.0-4_all.deb ...
+Unpacking python3-setuptools (52.0.0-4) ...
+Selecting previously unselected package python3-wheel.
+Preparing to unpack .../39-python3-wheel_0.34.2-1_all.deb ...
+Unpacking python3-wheel (0.34.2-1) ...
+Selecting previously unselected package python3-pip.
+Preparing to unpack .../40-python3-pip_20.3.4-4+deb11u1_all.deb ...
+Unpacking python3-pip (20.3.4-4+deb11u1) ...
+Selecting previously unselected package python3-virtualenv.
+Preparing to unpack .../41-python3-virtualenv_20.4.0+ds-2+deb11u1_all.deb ...
+Unpacking python3-virtualenv (20.4.0+ds-2+deb11u1) ...
+Setting up media-types (4.0.0) ...
+Setting up libpipeline1:amd64 (1.5.3-1) ...
+Setting up bsdextrautils (2.36.1-8+deb11u2) ...
+update-alternatives: using /usr/bin/write.ul to provide /usr/bin/write (write) in auto mode
+Setting up libicu67:amd64 (67.1-7) ...
+Setting up libmagic-mgc (1:5.39-3+deb11u1) ...
+Setting up libarchive-zip-perl (1.68-1) ...
+Setting up libdebhelper-perl (13.3.4) ...
+Setting up libmagic1:amd64 (1:5.39-3+deb11u1) ...
+Setting up gettext-base (0.21-4) ...
+Setting up file (1:5.39-3+deb11u1) ...
+Setting up autotools-dev (20180224.1+nmu1) ...
+Setting up libsigsegv2:amd64 (2.13-1) ...
+Setting up autopoint (0.21-4) ...
+Setting up libuchardet0:amd64 (0.0.7-1) ...
+Setting up libmpdec3:amd64 (2.5.1-1) ...
+Setting up libsub-override-perl (0.09-2) ...
+Setting up python-pip-whl (20.3.4-4+deb11u1) ...
+Setting up dh-apparmor (2.13.6-10) ...
+Setting up libelf1:amd64 (0.183-1) ...
+Setting up libxml2:amd64 (2.9.10+dfsg-6.7+deb11u4) ...
+Setting up libpython3.9-stdlib:amd64 (3.9.2-1) ...
+Setting up libpython3-stdlib:amd64 (3.9.2-3) ...
+Setting up libfile-stripnondeterminism-perl (1.12.0-1) ...
+Setting up gettext (0.21-4) ...
+Setting up libtool (2.4.6-15) ...
+Setting up m4 (1.4.18-5) ...
+Setting up intltool-debian (0.35.0+20060710.5) ...
+Setting up autoconf (2.69-14) ...
+Setting up dh-strip-nondeterminism (1.12.0-1) ...
+Setting up dwz (0.13+20210201-1) ...
+Setting up groff-base (1.22.4-6) ...
+Setting up python3.9 (3.9.2-1) ...
+Setting up automake (1:1.16.3-2) ...
+update-alternatives: using /usr/bin/automake-1.16 to provide /usr/bin/automake (automake) in auto mode
+Setting up po-debconf (1.0.21+nmu1) ...
+Setting up python3 (3.9.2-3) ...
+running python rtupdate hooks for python3.9...
+running python post-rtupdate hooks for python3.9...
+Setting up python3-distlib (0.3.2+really+0.3.1-0.1) ...
+Setting up man-db (2.9.4-2) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 78.)
+debconf: falling back to frontend: Readline
+Building database of manual pages ...
+Setting up python3-wheel (0.34.2-1) ...
+Setting up python3-six (1.16.0-2) ...
+Setting up dh-autoreconf (20) ...
+Setting up python3-lib2to3 (3.9.2-1) ...
+Setting up python3-appdirs (1.4.4-1) ...
+Setting up python3-pkg-resources (52.0.0-4) ...
+Setting up python3-distutils (3.9.2-1) ...
+Setting up python3-more-itertools (4.2.0-3) ...
+Setting up python3-filelock (3.0.12-2) ...
+Setting up python3-setuptools (52.0.0-4) ...
+Setting up debhelper (13.3.4) ...
+Setting up python3-zipp (1.0.0-3) ...
+Setting up python3-pip (20.3.4-4+deb11u1) ...
+Setting up python3-importlib-metadata (1.6.0-2) ...
+Setting up python3-virtualenv (20.4.0+ds-2+deb11u1) ...
+Processing triggers for libc-bin (2.31-13+deb11u10) ...
++ ./scripts/fixup-changelog.sh
++ source /etc/os-release
+++ PRETTY_NAME='Debian GNU/Linux 11 (bullseye)'
+++ NAME='Debian GNU/Linux'
+++ VERSION_ID=11
+++ VERSION='11 (bullseye)'
+++ VERSION_CODENAME=bullseye
+++ ID=debian
+++ HOME_URL=https://www.debian.org/
+++ SUPPORT_URL=https://www.debian.org/support
+++ BUG_REPORT_URL=https://bugs.debian.org/
++ [[ bullseye == '' ]]
+++ dpkg-parsechangelog -S Version
++ VERSION=0.10.2
++ NIGHTLY=
++ [[ -n '' ]]
++ NEW_VERSION=0.10.2
++ sed -i '0,/0.10.2/ s//0.10.2+bullseye/' debian/changelog
++ dpkg-buildpackage --no-sign
+dpkg-buildpackage: info: source package securedrop-client
+dpkg-buildpackage: info: source version 0.10.2+bullseye
+dpkg-buildpackage: info: source distribution unstable
+dpkg-buildpackage: info: source changed by SecureDrop Team <securedrop@freedom.press>
+dpkg-buildpackage: info: host architecture amd64
+ dpkg-source --before-build .
+dpkg-source: info: using options from securedrop-client/debian/source/options: --compression=gzip --tar-ignore=build --tar-ignore=.* --tar-ignore=__pycache__ --tar-ignore=htmlcov --tar-ignore=target
+ debian/rules clean
+dh clean
+   dh_auto_clean
+   dh_clean
+ dpkg-source -b .
+dpkg-source: info: using options from securedrop-client/debian/source/options: --compression=gzip --tar-ignore=build --tar-ignore=.* --tar-ignore=__pycache__ --tar-ignore=htmlcov --tar-ignore=target
+dpkg-source: info: using source format '3.0 (native)'
+dpkg-source: info: building securedrop-client in securedrop-client_0.10.2+bullseye.tar.gz
+dpkg-source: info: building securedrop-client in securedrop-client_0.10.2+bullseye.dsc
+ debian/rules build
+make: 'build' is up to date.
+ debian/rules binary
+dh binary
+   dh_update_autotools_config
+   dh_autoreconf
+   dh_auto_configure
+   dh_auto_build
+	make -j4 "INSTALL=install --strip-program=true"
+make[1]: Entering directory '/srv/securedrop-client'
+Makefile for developing and testing the SecureDrop client.
+Subcommands:
+
+bandit          Run bandit security checks
+black           Update Python source code formatting with black
+build-debs      Build Debian packages
+check-black     Check Python source code formatting with black
+check-isort     Check Python import organization with isort
+fix             Fix lint and formatting issues
+help            Print this message and exit.
+isort           Update Python import organization with isort
+lint            Run linters and formatters
+lint-desktop    Lint .desktop files
+rust-lint       Lint Rust code
+rust-test       Run Rust tests
+safety          Run safety dependency checks on build dependencies
+shellcheck      Lint shell scripts
+make[1]: Leaving directory '/srv/securedrop-client'
+   dh_auto_test
+   create-stamp debian/debhelper-build-stamp
+   dh_testroot
+   dh_prep
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/srv/securedrop-client'
+bash ./debian/setup-venv.sh client
++ NAME=client
++ [[ client == \c\l\i\e\n\t ]]
++ VENV_ARGS=--system-site-packages
++ WHEELS_DIR=/builder/securedrop-client/wheels
++ PIP_ARGS='--ignore-installed --no-index --find-links /builder/securedrop-client/wheels --no-deps --no-cache-dir --no-use-pep517'
++ /usr/bin/python3 -m virtualenv --system-site-packages ./debian/securedrop-client/opt/venvs/securedrop-client
+created virtual environment CPython3.9.2.final.0-64 in 287ms
+  creator CPython3Posix(dest=/srv/securedrop-client/debian/securedrop-client/opt/venvs/securedrop-client, clear=False, no_vcs_ignore=False, global=True)
+  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=/.local/share/virtualenv)
+    added seed packages: pip==20.3.4, pkg_resources==0.0.0, setuptools==44.1.1, wheel==0.34.2
+  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
++ ./debian/securedrop-client/opt/venvs/securedrop-client/bin/pip install --ignore-installed --no-index --find-links /builder/securedrop-client/wheels --no-deps --no-cache-dir --no-use-pep517 --require-hashes -r client/build-requirements.txt
+Looking in links: /builder/securedrop-client/wheels
+Processing /builder/securedrop-client/wheels/alembic-1.1.0-py2.py3-none-any.whl
+Processing /builder/securedrop-client/wheels/arrow-0.12.1-py2.py3-none-any.whl
+Processing /builder/securedrop-client/wheels/certifi-2023.7.22-py3-none-any.whl
+Processing /builder/securedrop-client/wheels/charset_normalizer-2.0.4-py3-none-any.whl
+Processing /builder/securedrop-client/wheels/idna-3.2-py3-none-any.whl
+Processing /builder/securedrop-client/wheels/Jinja2-3.1.3-py3-none-any.whl
+Processing /builder/securedrop-client/wheels/Mako-1.2.2-py3-none-any.whl
+Processing /builder/securedrop-client/wheels/MarkupSafe-2.0.1-cp39-cp39-linux_x86_64.whl
+Processing /builder/securedrop-client/wheels/python_dateutil-2.7.5-py2.py3-none-any.whl
+Processing /builder/securedrop-client/wheels/python_editor-1.0.3-py3-none-any.whl
+Processing /builder/securedrop-client/wheels/requests-2.31.0-py3-none-any.whl
+Processing /builder/securedrop-client/wheels/six-1.11.0-py2.py3-none-any.whl
+Processing /builder/securedrop-client/wheels/SQLAlchemy-1.3.3-cp39-cp39-linux_x86_64.whl
+Processing /builder/securedrop-client/wheels/urllib3-1.26.6-py2.py3-none-any.whl
+Installing collected packages: urllib3, sqlalchemy, six, requests, python-editor, python-dateutil, markupsafe, mako, jinja2, idna, charset-normalizer, certifi, arrow, alembic
+Successfully installed alembic-1.1.0 arrow-0.12.1 certifi-2023.7.22 charset-normalizer-2.0.4 idna-3.2 jinja2-3.1.3 mako-1.2.2 markupsafe-2.0.1 python-dateutil-2.7.5 python-editor-1.0.3 requests-2.31.0 six-1.11.0 sqlalchemy-1.3.3 urllib3-1.26.6
++ ./debian/securedrop-client/opt/venvs/securedrop-client/bin/pip install --ignore-installed --no-index --find-links /builder/securedrop-client/wheels --no-deps --no-cache-dir --no-use-pep517 ./client
+Looking in links: /builder/securedrop-client/wheels
+Processing ./client
+Building wheels for collected packages: securedrop-client
+  Building wheel for securedrop-client (setup.py) ... done
+  Created wheel for securedrop-client: filename=securedrop_client-0.0.0-py3-none-any.whl size=3911006 sha256=306ddab1b02f00413257d5f1eb0fec143888c40bc0be22b6e6c64df30df1bef6
+  Stored in directory: /tmp/pip-ephem-wheel-cache-d2rowr7c/wheels/24/24/4f/0838dbe6d1a2952abba04fa01a24953c351f28fcd5bdce8b9a
+Successfully built securedrop-client
+Installing collected packages: securedrop-client
+Successfully installed securedrop-client-0.0.0
+++ pwd
++ find ./debian/securedrop-client/ -type f -exec sed -i s#/srv/securedrop-client/debian/securedrop-client## '{}' ';'
++ rm -rf ./debian/securedrop-client/opt/venvs/securedrop-client/share/python-wheels
+bash ./debian/setup-venv.sh export
++ NAME=export
++ [[ export == \c\l\i\e\n\t ]]
++ VENV_ARGS=
++ WHEELS_DIR=/builder/securedrop-export/wheels
++ PIP_ARGS='--ignore-installed --no-index --find-links /builder/securedrop-export/wheels --no-deps --no-cache-dir --no-use-pep517'
++ /usr/bin/python3 -m virtualenv ./debian/securedrop-export/opt/venvs/securedrop-export
+created virtual environment CPython3.9.2.final.0-64 in 282ms
+  creator CPython3Posix(dest=/srv/securedrop-client/debian/securedrop-export/opt/venvs/securedrop-export, clear=False, no_vcs_ignore=False, global=False)
+  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=/.local/share/virtualenv)
+    added seed packages: pip==20.3.4, pkg_resources==0.0.0, setuptools==44.1.1, wheel==0.34.2
+  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
++ ./debian/securedrop-export/opt/venvs/securedrop-export/bin/pip install --ignore-installed --no-index --find-links /builder/securedrop-export/wheels --no-deps --no-cache-dir --no-use-pep517 --require-hashes -r export/build-requirements.txt
+Looking in links: /builder/securedrop-export/wheels
+Processing /builder/securedrop-export/wheels/pexpect-4.9.0-py2.py3-none-any.whl
+Processing /builder/securedrop-export/wheels/ptyprocess-0.7.0-py2.py3-none-any.whl
+Installing collected packages: ptyprocess, pexpect
+Successfully installed pexpect-4.9.0 ptyprocess-0.7.0
++ ./debian/securedrop-export/opt/venvs/securedrop-export/bin/pip install --ignore-installed --no-index --find-links /builder/securedrop-export/wheels --no-deps --no-cache-dir --no-use-pep517 ./export
+Looking in links: /builder/securedrop-export/wheels
+Processing ./export
+Building wheels for collected packages: securedrop-export
+  Building wheel for securedrop-export (setup.py) ... done
+  Created wheel for securedrop-export: filename=securedrop_export-0.0.0-py3-none-any.whl size=44810 sha256=723dc03d4bf8c46e1c10fd4962f05f616f3d9653f69d68c794964a6cb221891d
+  Stored in directory: /tmp/pip-ephem-wheel-cache-3lubh3ip/wheels/a6/33/8a/85071b857a409d71022a8819785340c22c6398a3becb50e75e
+Successfully built securedrop-export
+Installing collected packages: securedrop-export
+Successfully installed securedrop-export-0.0.0
+++ pwd
++ find ./debian/securedrop-export/ -type f -exec sed -i s#/srv/securedrop-client/debian/securedrop-export## '{}' ';'
++ rm -rf ./debian/securedrop-export/opt/venvs/securedrop-export/share/python-wheels
+bash ./debian/setup-venv.sh log
++ NAME=log
++ [[ log == \c\l\i\e\n\t ]]
++ VENV_ARGS=
++ WHEELS_DIR=/builder/securedrop-log/wheels
++ PIP_ARGS='--ignore-installed --no-index --find-links /builder/securedrop-log/wheels --no-deps --no-cache-dir --no-use-pep517'
++ /usr/bin/python3 -m virtualenv ./debian/securedrop-log/opt/venvs/securedrop-log
+created virtual environment CPython3.9.2.final.0-64 in 187ms
+  creator CPython3Posix(dest=/srv/securedrop-client/debian/securedrop-log/opt/venvs/securedrop-log, clear=False, no_vcs_ignore=False, global=False)
+  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=/.local/share/virtualenv)
+    added seed packages: pip==20.3.4, pkg_resources==0.0.0, setuptools==44.1.1, wheel==0.34.2
+  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
++ ./debian/securedrop-log/opt/venvs/securedrop-log/bin/pip install --ignore-installed --no-index --find-links /builder/securedrop-log/wheels --no-deps --no-cache-dir --no-use-pep517 --require-hashes -r log/build-requirements.txt
+Looking in links: /builder/securedrop-log/wheels
+Processing /builder/securedrop-log/wheels/redis-3.3.11-py2.py3-none-any.whl
+Installing collected packages: redis
+Successfully installed redis-3.3.11
++ ./debian/securedrop-log/opt/venvs/securedrop-log/bin/pip install --ignore-installed --no-index --find-links /builder/securedrop-log/wheels --no-deps --no-cache-dir --no-use-pep517 ./log
+Looking in links: /builder/securedrop-log/wheels
+Processing ./log
+Building wheels for collected packages: securedrop-log
+  Building wheel for securedrop-log (setup.py) ... done
+  Created wheel for securedrop-log: filename=securedrop_log-0.0.0-py3-none-any.whl size=18089 sha256=e204b493d8641e90051d4f82859fd70465e0f409466b53393d1e16252a007e3e
+  Stored in directory: /tmp/pip-ephem-wheel-cache-ho60_4bi/wheels/66/65/96/ede3377a9a3e7220439902d9a839aea03d89f785c458cff3f8
+Successfully built securedrop-log
+Installing collected packages: securedrop-log
+Successfully installed securedrop-log-0.0.0
+++ pwd
++ find ./debian/securedrop-log/ -type f -exec sed -i s#/srv/securedrop-client/debian/securedrop-log## '{}' ';'
++ rm -rf ./debian/securedrop-log/opt/venvs/securedrop-log/share/python-wheels
+bash ./debian/setup-venv.sh proxy
++ NAME=proxy
++ [[ proxy == \c\l\i\e\n\t ]]
++ VENV_ARGS=
++ WHEELS_DIR=/builder/securedrop-proxy/wheels
++ PIP_ARGS='--ignore-installed --no-index --find-links /builder/securedrop-proxy/wheels --no-deps --no-cache-dir --no-use-pep517'
++ /usr/bin/python3 -m virtualenv ./debian/securedrop-proxy/opt/venvs/securedrop-proxy
+created virtual environment CPython3.9.2.final.0-64 in 191ms
+  creator CPython3Posix(dest=/srv/securedrop-client/debian/securedrop-proxy/opt/venvs/securedrop-proxy, clear=False, no_vcs_ignore=False, global=False)
+  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=/.local/share/virtualenv)
+    added seed packages: pip==20.3.4, pkg_resources==0.0.0, setuptools==44.1.1, wheel==0.34.2
+  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
++ ./debian/securedrop-proxy/opt/venvs/securedrop-proxy/bin/pip install --ignore-installed --no-index --find-links /builder/securedrop-proxy/wheels --no-deps --no-cache-dir --no-use-pep517 --require-hashes -r proxy/build-requirements.txt
+Looking in links: /builder/securedrop-proxy/wheels
+Processing /builder/securedrop-proxy/wheels/certifi-2023.7.22-py3-none-any.whl
+Processing /builder/securedrop-proxy/wheels/charset_normalizer-2.0.4-py3-none-any.whl
+Processing /builder/securedrop-proxy/wheels/idna-3.2-py3-none-any.whl
+Processing /builder/securedrop-proxy/wheels/PyYAML-5.4.1-cp39-cp39-linux_x86_64.whl
+Processing /builder/securedrop-proxy/wheels/requests-2.31.0-py3-none-any.whl
+Processing /builder/securedrop-proxy/wheels/urllib3-1.26.6-py2.py3-none-any.whl
+Installing collected packages: urllib3, requests, pyyaml, idna, charset-normalizer, certifi
+Successfully installed certifi-2023.7.22 charset-normalizer-2.0.4 idna-3.2 pyyaml-5.4.1 requests-2.31.0 urllib3-1.26.6
++ ./debian/securedrop-proxy/opt/venvs/securedrop-proxy/bin/pip install --ignore-installed --no-index --find-links /builder/securedrop-proxy/wheels --no-deps --no-cache-dir --no-use-pep517 ./proxy
+Looking in links: /builder/securedrop-proxy/wheels
+Processing ./proxy
+Building wheels for collected packages: securedrop-proxy
+  Building wheel for securedrop-proxy (setup.py) ... done
+  Created wheel for securedrop-proxy: filename=securedrop_proxy-0.0.0-py3-none-any.whl size=23389 sha256=fbc99b91b4497054734c35ad4cea0d2f06576960ad3ce747952d4aa44d474c17
+  Stored in directory: /tmp/pip-ephem-wheel-cache-txmr901v/wheels/2c/bf/26/84d2a39bfeae619b19a07f6888617ea984d9cebd5e40ebe071
+Successfully built securedrop-proxy
+Installing collected packages: securedrop-proxy
+Successfully installed securedrop-proxy-0.0.0
+++ pwd
++ find ./debian/securedrop-proxy/ -type f -exec sed -i s#/srv/securedrop-client/debian/securedrop-proxy## '{}' ';'
++ rm -rf ./debian/securedrop-proxy/opt/venvs/securedrop-proxy/share/python-wheels
+dh_auto_install
+dh_apparmor --profile-name=usr.bin.securedrop-client -psecuredrop-client
+make[1]: Leaving directory '/srv/securedrop-client'
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_lintian
+   dh_perl
+   dh_link
+   debian/rules override_dh_strip_nondeterminism
+make[1]: Entering directory '/srv/securedrop-client'
+find ./debian/ -type f -name '*.pyc' -delete
+find ./debian/ -type d -name '__pycache__' -delete
+find ./debian/ -type f -name 'pip-selfcheck.json' -delete
+find ./debian/ -type f -name 'direct_url.json' -delete
+find ./debian/ -type f -name 'RECORD' -delete
+dh_strip_nondeterminism override_dh_strip_nondeterminism
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.9/site-packages/securedrop_client/locale/zh_Hans/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-client/opt/venvs/securedrop-client/lib/python3.9/site-packages/securedrop_client/locale/pt_PT/LC_MESSAGES/messages.mo
+make[1]: Leaving directory '/srv/securedrop-client'
+   dh_compress
+   dh_fixperms
+   dh_missing
+   debian/rules override_dh_installdeb
+make[1]: Entering directory '/srv/securedrop-client'
+dh_installdeb
+cat /dev/null > /srv/securedrop-client/debian/securedrop-keyring/DEBIAN/conffiles
+cat /dev/null > /srv/securedrop-client/debian/securedrop-export/DEBIAN/conffiles
+make[1]: Leaving directory '/srv/securedrop-client'
+   dh_gencontrol
+dpkg-gencontrol: warning: Depends field of package securedrop-proxy: substitution variable ${python3:Depends} used, but is not defined
+dpkg-gencontrol: warning: Depends field of package securedrop-client: substitution variable ${python3:Depends} used, but is not defined
+dpkg-gencontrol: warning: Depends field of package securedrop-log: substitution variable ${python3:Depends} used, but is not defined
+dpkg-gencontrol: warning: Depends field of package securedrop-export: substitution variable ${python3:Depends} used, but is not defined
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package 'securedrop-keyring' in '../securedrop-keyring_0.10.2+bullseye_all.deb'.
+dpkg-deb: building package 'securedrop-proxy' in '../securedrop-proxy_0.10.2+bullseye_all.deb'.
+dpkg-deb: building package 'securedrop-workstation-viewer' in '../securedrop-workstation-viewer_0.10.2+bullseye_all.deb'.
+dpkg-deb: building package 'securedrop-client' in '../securedrop-client_0.10.2+bullseye_all.deb'.
+dpkg-deb: building package 'securedrop-log' in '../securedrop-log_0.10.2+bullseye_all.deb'.
+dpkg-deb: building package 'securedrop-workstation-config' in '../securedrop-workstation-config_0.10.2+bullseye_all.deb'.
+dpkg-deb: building package 'securedrop-export' in '../securedrop-export_0.10.2+bullseye_all.deb'.
+ dpkg-genbuildinfo
+ dpkg-genchanges  >../securedrop-client_0.10.2+bullseye_amd64.changes
+dpkg-genchanges: info: including full source code in upload
+ dpkg-source --after-build .
+dpkg-source: info: using options from securedrop-client/debian/source/options: --compression=gzip --tar-ignore=build --tar-ignore=.* --tar-ignore=__pycache__ --tar-ignore=htmlcov --tar-ignore=target
+dpkg-buildpackage: info: full upload; Debian-native package (full source is included)
++ ls ../
+securedrop-client
+securedrop-client_0.10.2+bullseye.dsc
+securedrop-client_0.10.2+bullseye.tar.gz
+securedrop-client_0.10.2+bullseye_all.deb
+securedrop-client_0.10.2+bullseye_amd64.buildinfo
+securedrop-client_0.10.2+bullseye_amd64.changes
+securedrop-export_0.10.2+bullseye_all.deb
+securedrop-keyring_0.10.2+bullseye_all.deb
+securedrop-log_0.10.2+bullseye_all.deb
+securedrop-proxy_0.10.2+bullseye_all.deb
+securedrop-workstation-config_0.10.2+bullseye_all.deb
+securedrop-workstation-viewer_0.10.2+bullseye_all.deb
++ mv -v ../securedrop-client_0.10.2+bullseye_amd64.buildinfo ../securedrop-client_0.10.2+bullseye_amd64.changes ../securedrop-client_0.10.2+bullseye_all.deb ../securedrop-export_0.10.2+bullseye_all.deb ../securedrop-keyring_0.10.2+bullseye_all.deb ../securedrop-log_0.10.2+bullseye_all.deb ../securedrop-proxy_0.10.2+bullseye_all.deb ../securedrop-workstation-config_0.10.2+bullseye_all.deb ../securedrop-workstation-viewer_0.10.2+bullseye_all.deb ../securedrop-client_0.10.2+bullseye.dsc ../securedrop-client_0.10.2+bullseye.tar.gz /build/
+copied '../securedrop-client_0.10.2+bullseye_amd64.buildinfo' -> '/build/securedrop-client_0.10.2+bullseye_amd64.buildinfo'
+removed '../securedrop-client_0.10.2+bullseye_amd64.buildinfo'
+copied '../securedrop-client_0.10.2+bullseye_amd64.changes' -> '/build/securedrop-client_0.10.2+bullseye_amd64.changes'
+removed '../securedrop-client_0.10.2+bullseye_amd64.changes'
+copied '../securedrop-client_0.10.2+bullseye_all.deb' -> '/build/securedrop-client_0.10.2+bullseye_all.deb'
+removed '../securedrop-client_0.10.2+bullseye_all.deb'
+copied '../securedrop-export_0.10.2+bullseye_all.deb' -> '/build/securedrop-export_0.10.2+bullseye_all.deb'
+removed '../securedrop-export_0.10.2+bullseye_all.deb'
+copied '../securedrop-keyring_0.10.2+bullseye_all.deb' -> '/build/securedrop-keyring_0.10.2+bullseye_all.deb'
+removed '../securedrop-keyring_0.10.2+bullseye_all.deb'
+copied '../securedrop-log_0.10.2+bullseye_all.deb' -> '/build/securedrop-log_0.10.2+bullseye_all.deb'
+removed '../securedrop-log_0.10.2+bullseye_all.deb'
+copied '../securedrop-proxy_0.10.2+bullseye_all.deb' -> '/build/securedrop-proxy_0.10.2+bullseye_all.deb'
+removed '../securedrop-proxy_0.10.2+bullseye_all.deb'
+copied '../securedrop-workstation-config_0.10.2+bullseye_all.deb' -> '/build/securedrop-workstation-config_0.10.2+bullseye_all.deb'
+removed '../securedrop-workstation-config_0.10.2+bullseye_all.deb'
+copied '../securedrop-workstation-viewer_0.10.2+bullseye_all.deb' -> '/build/securedrop-workstation-viewer_0.10.2+bullseye_all.deb'
+removed '../securedrop-workstation-viewer_0.10.2+bullseye_all.deb'
+copied '../securedrop-client_0.10.2+bullseye.dsc' -> '/build/securedrop-client_0.10.2+bullseye.dsc'
+removed '../securedrop-client_0.10.2+bullseye.dsc'
+copied '../securedrop-client_0.10.2+bullseye.tar.gz' -> '/build/securedrop-client_0.10.2+bullseye.tar.gz'
+removed '../securedrop-client_0.10.2+bullseye.tar.gz'
++ cd /build/
++ sha256sum ./securedrop-client_0.10.2+bullseye.dsc ./securedrop-client_0.10.2+bullseye.tar.gz ./securedrop-client_0.10.2+bullseye_all.deb ./securedrop-client_0.10.2+bullseye_amd64.buildinfo ./securedrop-client_0.10.2+bullseye_amd64.changes ./securedrop-export_0.10.2+bullseye_all.deb ./securedrop-keyring_0.10.2+bullseye_all.deb ./securedrop-log_0.10.2+bullseye_all.deb ./securedrop-proxy_0.10.2+bullseye_all.deb ./securedrop-workstation-config_0.10.2+bullseye_all.deb ./securedrop-workstation-viewer_0.10.2+bullseye_all.deb
+6acc653b40ac19a3a05db109a02906399210d1847e9a8365df21e914b7da5773  ./securedrop-client_0.10.2+bullseye.dsc
+83aa710021caeb1e2a8490bc846f02d40368f020f6f694833e28bf7823e29417  ./securedrop-client_0.10.2+bullseye.tar.gz
+357b21dfaa63513fcc49824d30de73bea2bfd3f5ab7e2b45cd0ce524733eeed8  ./securedrop-client_0.10.2+bullseye_all.deb
+e64f2836d64d4d6ba712d3d6ca959dd61a398cbcc85eeadf0c36284fa5ba4ff7  ./securedrop-client_0.10.2+bullseye_amd64.buildinfo
+a44e160a31fac9af3c4492ac5b9b94b4bc4f3567f99b11537e89af6e10a57281  ./securedrop-client_0.10.2+bullseye_amd64.changes
+0565ced2b4b34c134ad188e65c91af60502a61f54dbb5a94aeed497d2c67d87f  ./securedrop-export_0.10.2+bullseye_all.deb
+f285113ed8fa29a479c36bc4bdf7a755ac41ad725dd9e5cb27843251bdb358ed  ./securedrop-keyring_0.10.2+bullseye_all.deb
+49be82012deae0aae16defb81c4069e1c65749648020f9db915c1bea1b7ab611  ./securedrop-log_0.10.2+bullseye_all.deb
+539c772340a1fe83d14961502c07bf2c5debd3aa6952f236b0d551ceeaee1cb6  ./securedrop-proxy_0.10.2+bullseye_all.deb
+f4e56a343e5981fa94fe7a99af5590f8648bdfaed81622296163585db4d1ed04  ./securedrop-workstation-config_0.10.2+bullseye_all.deb
+8b346c05b5ba6128f0808b1a6a9f875a995d759dab3b53cc0763e4f75c63055c  ./securedrop-workstation-viewer_0.10.2+bullseye_all.deb
++ ls /tmp/tmp.JhteeqRYV4
+securedrop-client_0.10.2+bullseye_all.deb
+securedrop-client_0.10.2+bullseye_amd64.buildinfo
+securedrop-client_0.10.2+bullseye_amd64.changes
+securedrop-client_0.10.2+bullseye.dsc
+securedrop-client_0.10.2+bullseye.tar.gz
+securedrop-export_0.10.2+bullseye_all.deb
+securedrop-keyring_0.10.2+bullseye_all.deb
+securedrop-log_0.10.2+bullseye_all.deb
+securedrop-proxy_0.10.2+bullseye_all.deb
+securedrop-workstation-config_0.10.2+bullseye_all.deb
+securedrop-workstation-viewer_0.10.2+bullseye_all.deb
++ mkdir -p build
++ cp /tmp/tmp.JhteeqRYV4/securedrop-client_0.10.2+bullseye_all.deb /tmp/tmp.JhteeqRYV4/securedrop-client_0.10.2+bullseye_amd64.buildinfo /tmp/tmp.JhteeqRYV4/securedrop-client_0.10.2+bullseye_amd64.changes /tmp/tmp.JhteeqRYV4/securedrop-client_0.10.2+bullseye.dsc /tmp/tmp.JhteeqRYV4/securedrop-client_0.10.2+bullseye.tar.gz /tmp/tmp.JhteeqRYV4/securedrop-export_0.10.2+bullseye_all.deb /tmp/tmp.JhteeqRYV4/securedrop-keyring_0.10.2+bullseye_all.deb /tmp/tmp.JhteeqRYV4/securedrop-log_0.10.2+bullseye_all.deb /tmp/tmp.JhteeqRYV4/securedrop-proxy_0.10.2+bullseye_all.deb /tmp/tmp.JhteeqRYV4/securedrop-workstation-config_0.10.2+bullseye_all.deb /tmp/tmp.JhteeqRYV4/securedrop-workstation-viewer_0.10.2+bullseye_all.deb build/
++ FAST=
++ [[ -z '' ]]
++ CONTAINER2=fpf.local/sd-client-lintian
++ podman build scripts/lintian -t fpf.local/sd-client-lintian
+STEP 1: FROM debian:bookworm
+STEP 2: RUN apt-get update && apt-get --yes upgrade && apt-get install --yes lintian
+--> Using cache 49babd83f65f65c3005cc09eecb92e8544de479689b62523cfec56deaa776e5f
+STEP 3: COMMIT fpf.local/sd-client-lintian
+--> 49babd83f65
+49babd83f65f65c3005cc09eecb92e8544de479689b62523cfec56deaa776e5f
++ podman run --rm --user=root -v /home/user/projects/securedrop-client:/src:Z --userns=keep-id -it -v /tmp/tmp.JhteeqRYV4:/build:Z fpf.local/sd-client-lintian bash -c 'lintian --version && lintian             --info --tag-display-limit 0             --fail-on warning --fail-on error             /build/*.changes             && echo OK'
+Lintian v2.116.3
+running with root privileges is not recommended!
+OK
++ rm -rf /tmp/tmp.JhteeqRYV4
+
