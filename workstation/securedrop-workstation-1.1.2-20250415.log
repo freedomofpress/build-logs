@@ -1,0 +1,945 @@
+user@dev ~/g/f/securedrop-workstation (release/1.1.2)> git tag -v 1.1.2
+object e7768922d92050847899c0ad5dd4c87565aad7e2
+type commit
+tag 1.1.2
+tagger Kunal Mehta <legoktm@debian.org> 1744751047 -0400
+
+SecureDrop Workstation 1.1.2
+gpg: Signature made Tue Apr 15 17:05:19 2025 EDT
+gpg:                using RSA key 2359E6538C0613E652955E6C188EDD3B7B22E6A3
+gpg: Good signature from "SecureDrop Release Signing Key <securedrop-release-key-2021@freedom.press>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2359 E653 8C06 13E6 5295  5E6C 188E DD3B 7B22 E6A3
+user@dev ~/g/f/securedrop-workstation (release/1.1.2)> git log -n1
+commit e7768922d92050847899c0ad5dd4c87565aad7e2 (HEAD -> release/1.1.2, tag: 1.1.2, origin/release/1.1.2)
+Merge: 5b055aa 300cee8
+Author: Kevin O'Gorman <kog@freedom.press>
+Date:   Tue Apr 15 14:31:54 2025 -0400
+
+    Merge pull request #1289 from freedomofpress/bump-1.1.2
+    
+    SecureDrop Workstation 1.1.2
+user@dev ~/g/f/securedrop-workstation (release/1.1.2)> make build-rpm
+Script started on 2025-04-15 17:11:02-04:00 [COMMAND="./scripts/container.sh ./scripts/build-rpm.sh" TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="237" LINES="51"]
+STEP 1/14: FROM registry.fedoraproject.org/fedora:37
+STEP 2/14: LABEL org="Freedom of the Press"
+--> Using cache 4fb51972b64bbd416cf7c1182fb9ff0279cb7a817c16cb4af3942f478135b0c8
+--> 4fb51972b64b
+STEP 3/14: LABEL image_name="securedrop-workstation-qubes-4.2"
+--> Using cache 86a9c73eef6ea2215caf6586abc798b823f4c49f5614e46b74b7ade5a80157dd
+--> 86a9c73eef6e
+STEP 4/14: ARG USER_NAME
+--> Using cache 2cd53e1fc50e50aef9db76da84b5deb1e07d78be63f2289b40b9be993f17e987
+--> 2cd53e1fc50e
+STEP 5/14: ENV USER_NAME ${USER_NAME:-root}
+--> Using cache 7def513fff9aa60854af4b98619177ed8e011c29568ff8111afb589b44ab3273
+--> 7def513fff9a
+STEP 6/14: ARG USER_ID
+--> Using cache ddcebb5ea080bcc0aa5687a8218e07030a66e31845052b11eed793b4d443b0a5
+--> ddcebb5ea080
+STEP 7/14: ENV USER_ID ${USER_ID:-0}
+--> Using cache f1465bdaf295947756dbec4ceb95ec4073bff3244f171bb22b16f3d132019b04
+--> f1465bdaf295
+STEP 8/14: RUN dnf install -y make
+--> Using cache c5c4e749b9dab380ef57cb8928cf0373bf0cfcf8c3ae84e9ef221cd3d756f3e7
+--> c5c4e749b9da
+STEP 9/14: COPY Makefile Makefile
+--> Using cache 54970e106b1055e9d0a2f1134070da97c66eb2a23ce8b045010f7d3e4bb9c5b4
+--> 54970e106b10
+STEP 10/14: COPY rpm-build/SPECS rpm-build/SPECS
+--> Using cache 393f90165a2e7decf1f9bd1a4b8857068f011b14ea81bef21428e1c349b2b539
+--> 393f90165a2e
+STEP 11/14: ARG DEPS=build-deps
+--> Using cache dbb9f6ecfaedcfaaf73047f5723d0df18765dde825f8c26d89602a0c9bae6af5
+--> dbb9f6ecfaed
+STEP 12/14: RUN make ${DEPS}
+--> Using cache aed8e105ab691dd175ccbab0b8c0bcdea1038d47668b2b40e9b9141e1521abd4
+--> aed8e105ab69
+STEP 13/14: RUN rm -rf rpm-build
+--> Using cache 7a331196dbee4c9db24ccc3892fda9a64ba0580ef688bec5448c1b4cf439d603
+--> 7a331196dbee
+STEP 14/14: RUN if test $USER_NAME != root ; then useradd --no-create-home --home-dir /tmp --uid $USER_ID $USER_NAME && echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers ; fi
+--> Using cache 643a941914edf696be4dda20ffe91710dbf4ee4bedd212a03c36374e20e12d9c
+COMMIT securedrop-workstation-dom0-config
+--> 643a941914ed
+Successfully tagged localhost/securedrop-workstation-dom0-config:latest
+643a941914edf696be4dda20ffe91710dbf4ee4bedd212a03c36374e20e12d9c
+Removing dist/
+configuration error: `project` must contain ['name'] properties
+DESCRIPTION:
+    Data structure for the **project** table inside ``pyproject.toml`` (as
+    initially defined in :pep:`621`)
+
+GIVEN VALUE:
+    {
+        "requires-python": ">=3.11"
+    }
+
+OFFENDING RULE: 'required'
+
+DEFINITION:
+    {
+        "$schema": "http://json-schema.org/draft-07/schema",
+        "$id": "https://packaging.python.org/en/latest/specifications/declaring-project-metadata/",
+        "title": "Package metadata stored in the ``project`` table",
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "description": "The name (primary identifier) of the project. MUST be statically defined.",
+                "format": "pep508-identifier"
+            },
+            "version": {
+                "type": "string",
+                "description": "The version of the project as supported by :pep:`440`.",
+                "format": "pep440"
+            },
+            "description": {
+                "type": "string",
+                "$$description": [
+                    "The `summary description of the project",
+                    "<https://packaging.python.org/specifications/core-metadata/#summary>`_"
+                ]
+            },
+            "readme": {
+                "$$description": [
+                    "`Full/detailed description of the project in the form of a README",
+                    "<https://www.python.org/dev/peps/pep-0621/#readme>`_",
+                    "with meaning similar to the one defined in `core metadata's Description",
+                    "<https://packaging.python.org/specifications/core-metadata/#description>`_"
+                ],
+                "oneOf": [
+                    {
+                        "type": "string",
+                        "$$description": [
+                            "Relative path to a text file (UTF-8) containing the full description",
+                            "of the project. If the file path ends in case-insensitive ``.md`` or",
+                            "``.rst`` suffixes, then the content-type is respectively",
+                            "``text/markdown`` or ``text/x-rst``"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "allOf": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "properties": {
+                                            "file": {
+                                                "type": "string",
+                                                "$$description": [
+                                                    "Relative path to a text file containing the full description",
+                                                    "of the project."
+                                                ]
+                                            }
+                                        },
+                                        "required": [
+                                            "file"
+                                        ]
+                                    },
+                                    {
+                                        "properties": {
+                                            "text": {
+                                                "type": "string",
+                                                "description": "Full text describing the project."
+                                            }
+                                        },
+                                        "required": [
+                                            "text"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "content-type": {
+                                        "type": "string",
+                                        "$$description": [
+                                            "Content-type (:rfc:`1341`) of the full description",
+                                            "(e.g. ``text/markdown``). The ``charset`` parameter is assumed",
+                                            "UTF-8 when not present."
+                                        ],
+                                        "$comment": "TODO: add regex pattern or format?"
+                                    }
+                                },
+                                "required": [
+                                    "content-type"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "requires-python": {
+                "type": "string",
+                "format": "pep508-versionspec",
+                "$$description": [
+                    "`The Python version requirements of the project",
+                    "<https://packaging.python.org/specifications/core-metadata/#requires-python>`_."
+                ]
+            },
+            "license": {
+                "description": "`Project license <https://www.python.org/dev/peps/pep-0621/#license>`_.",
+                "oneOf": [
+                    {
+                        "properties": {
+                            "file": {
+                                "type": "string",
+                                "$$description": [
+                                    "Relative path to the file (UTF-8) which contains the license for the",
+                                    "project."
+                                ]
+                            }
+                        },
+                        "required": [
+                            "file"
+                        ]
+                    },
+                    {
+                        "properties": {
+                            "text": {
+                                "type": "string",
+                                "$$description": [
+                                    "The license of the project whose meaning is that of the",
+                                    "`License field from the core metadata",
+                                    "<https://packaging.python.org/specifications/core-metadata/#license>`_."
+                                ]
+                            }
+                        },
+                        "required": [
+                            "text"
+                        ]
+                    }
+                ]
+            },
+            "authors": {
+                "type": "array",
+                "items": {
+                    "$id": "#/definitions/author",
+                    "title": "Author or Maintainer",
+                    "$comment": "https://www.python.org/dev/peps/pep-0621/#authors-maintainers",
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "$$description": [
+                                "MUST be a valid email name, i.e. whatever can be put as a name, before an",
+                                "email, in :rfc:`822`."
+                            ]
+                        },
+                        "email": {
+                            "type": "string",
+                            "format": "idn-email",
+                            "description": "MUST be a valid email address"
+                        }
+                    }
+                },
+                "$$description": [
+                    "The people or organizations considered to be the 'authors' of the project.",
+                    "The exact meaning is open to interpretation (e.g. original or primary authors,",
+                    "current maintainers, or owners of the package)."
+                ]
+            },
+            "maintainers": {
+                "type": "array",
+                "items": {
+                    "$id": "#/definitions/author",
+                    "title": "Author or Maintainer",
+                    "$comment": "https://www.python.org/dev/peps/pep-0621/#authors-maintainers",
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "$$description": [
+                                "MUST be a valid email name, i.e. whatever can be put as a name, before an",
+                                "email, in :rfc:`822`."
+                            ]
+                        },
+                        "email": {
+                            "type": "string",
+                            "format": "idn-email",
+                            "description": "MUST be a valid email address"
+                        }
+                    }
+                },
+                "$$description": [
+                    "The people or organizations considered to be the 'maintainers' of the project.",
+                    "Similarly to ``authors``, the exact meaning is open to interpretation."
+                ]
+            },
+            "keywords": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "description": "List of keywords to assist searching for the distribution in a larger catalog."
+            },
+            "classifiers": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "format": "trove-classifier",
+                    "description": "`PyPI classifier <https://pypi.org/classifiers/>`_."
+                },
+                "$$description": [
+                    "`Trove classifiers <https://pypi.org/classifiers/>`_",
+                    "which apply to the project."
+                ]
+            },
+            "urls": {
+                "type": "object",
+                "description": "URLs associated with the project in the form ``label => value``.",
+                "additionalProperties": false,
+                "patternProperties": {
+                    "^.+$": {
+                        "type": "string",
+                        "format": "url"
+                    }
+                }
+            },
+            "scripts": {
+                "$id": "#/definitions/entry-point-group",
+                "title": "Entry-points",
+                "type": "object",
+                "$$description": [
+                    "Entry-points are grouped together to indicate what sort of capabilities they",
+                    "provide.",
+                    "See the `packaging guides",
+                    "<https://packaging.python.org/specifications/entry-points/>`_",
+                    "and `setuptools docs",
+                    "<https://setuptools.pypa.io/en/latest/userguide/entry_point.html>`_",
+                    "for more information."
+                ],
+                "propertyNames": {
+                    "format": "python-entrypoint-name"
+                },
+                "additionalProperties": false,
+                "patternProperties": {
+                    "^.+$": {
+                        "type": "string",
+                        "$$description": [
+                            "Reference to a Python object. It is either in the form",
+                            "``importable.module``, or ``importable.module:object.attr``."
+                        ],
+                        "format": "python-entrypoint-reference",
+                        "$comment": "https://packaging.python.org/specifications/entry-points/"
+                    }
+                }
+            },
+            "gui-scripts": {
+                "$id": "#/definitions/entry-point-group",
+                "title": "Entry-points",
+                "type": "object",
+                "$$description": [
+                    "Entry-points are grouped together to indicate what sort of capabilities they",
+                    "provide.",
+                    "See the `packaging guides",
+                    "<https://packaging.python.org/specifications/entry-points/>`_",
+                    "and `setuptools docs",
+                    "<https://setuptools.pypa.io/en/latest/userguide/entry_point.html>`_",
+                    "for more information."
+                ],
+                "propertyNames": {
+                    "format": "python-entrypoint-name"
+                },
+                "additionalProperties": false,
+                "patternProperties": {
+                    "^.+$": {
+                        "type": "string",
+                        "$$description": [
+                            "Reference to a Python object. It is either in the form",
+                            "``importable.module``, or ``importable.module:object.attr``."
+                        ],
+                        "format": "python-entrypoint-reference",
+                        "$comment": "https://packaging.python.org/specifications/entry-points/"
+                    }
+                }
+            },
+            "entry-points": {
+                "$$description": [
+                    "Instruct the installer to expose the given modules/functions via",
+                    "``entry-point`` discovery mechanism (useful for plugins).",
+                    "More information available in the `Python packaging guide",
+                    "<https://packaging.python.org/specifications/entry-points/>`_."
+                ],
+                "propertyNames": {
+                    "format": "python-entrypoint-group"
+                },
+                "additionalProperties": false,
+                "patternProperties": {
+                    "^.+$": {
+                        "$id": "#/definitions/entry-point-group",
+                        "title": "Entry-points",
+                        "type": "object",
+                        "$$description": [
+                            "Entry-points are grouped together to indicate what sort of capabilities they",
+                            "provide.",
+                            "See the `packaging guides",
+                            "<https://packaging.python.org/specifications/entry-points/>`_",
+                            "and `setuptools docs",
+                            "<https://setuptools.pypa.io/en/latest/userguide/entry_point.html>`_",
+                            "for more information."
+                        ],
+                        "propertyNames": {
+                            "format": "python-entrypoint-name"
+                        },
+                        "additionalProperties": false,
+                        "patternProperties": {
+                            "^.+$": {
+                                "type": "string",
+                                "$$description": [
+                                    "Reference to a Python object. It is either in the form",
+                                    "``importable.module``, or ``importable.module:object.attr``."
+                                ],
+                                "format": "python-entrypoint-reference",
+                                "$comment": "https://packaging.python.org/specifications/entry-points/"
+                            }
+                        }
+                    }
+                }
+            },
+            "dependencies": {
+                "type": "array",
+                "description": "Project (mandatory) dependencies.",
+                "items": {
+                    "$id": "#/definitions/dependency",
+                    "title": "Dependency",
+                    "type": "string",
+                    "description": "Project dependency specification according to PEP 508",
+                    "format": "pep508"
+                }
+            },
+            "optional-dependencies": {
+                "type": "object",
+                "description": "Optional dependency for the project",
+                "propertyNames": {
+                    "format": "pep508-identifier"
+                },
+                "additionalProperties": false,
+                "patternProperties": {
+                    "^.+$": {
+                        "type": "array",
+                        "items": {
+                            "$id": "#/definitions/dependency",
+                            "title": "Dependency",
+                            "type": "string",
+                            "description": "Project dependency specification according to PEP 508",
+                            "format": "pep508"
+                        }
+                    }
+                }
+            },
+            "dynamic": {
+                "type": "array",
+                "$$description": [
+                    "Specifies which fields are intentionally unspecified and expected to be",
+                    "dynamically provided by build tools"
+                ],
+                "items": {
+                    "enum": [
+                        "version",
+                        "description",
+                        "readme",
+                        "requires-python",
+                        "license",
+                        "authors",
+                        "maintainers",
+                        "keywords",
+                        "classifiers",
+                        "urls",
+                        "scripts",
+                        "gui-scripts",
+                        "entry-points",
+                        "dependencies",
+                        "optional-dependencies"
+                    ]
+                }
+            }
+        },
+        "required": [
+            "name"
+        ],
+        "additionalProperties": false,
+        "if": {
+            "not": {
+                "required": [
+                    "dynamic"
+                ],
+                "properties": {
+                    "dynamic": {
+                        "contains": {
+                            "const": "version"
+                        },
+                        "$$description": [
+                            "version is listed in ``dynamic``"
+                        ]
+                    }
+                }
+            },
+            "$$comment": [
+                "According to :pep:`621`:",
+                "    If the core metadata specification lists a field as \"Required\", then",
+                "    the metadata MUST specify the field statically or list it in dynamic",
+                "In turn, `core metadata`_ defines:",
+                "    The required fields are: Metadata-Version, Name, Version.",
+                "    All the other fields are optional.",
+                "Since ``Metadata-Version`` is defined by the build back-end, ``name`` and",
+                "``version`` are the only mandatory information in ``pyproject.toml``.",
+                ".. _core metadata: https://packaging.python.org/specifications/core-metadata/"
+            ]
+        },
+        "then": {
+            "required": [
+                "version"
+            ],
+            "$$description": [
+                "version should be statically defined in the ``version`` field"
+            ]
+        },
+        "definitions": {
+            "author": {
+                "$id": "#/definitions/author",
+                "title": "Author or Maintainer",
+                "$comment": "https://www.python.org/dev/peps/pep-0621/#authors-maintainers",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "$$description": [
+                            "MUST be a valid email name, i.e. whatever can be put as a name, before an",
+                            "email, in :rfc:`822`."
+                        ]
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "idn-email",
+                        "description": "MUST be a valid email address"
+                    }
+                }
+            },
+            "entry-point-group": {
+                "$id": "#/definitions/entry-point-group",
+                "title": "Entry-points",
+                "type": "object",
+                "$$description": [
+                    "Entry-points are grouped together to indicate what sort of capabilities they",
+                    "provide.",
+                    "See the `packaging guides",
+                    "<https://packaging.python.org/specifications/entry-points/>`_",
+                    "and `setuptools docs",
+                    "<https://setuptools.pypa.io/en/latest/userguide/entry_point.html>`_",
+                    "for more information."
+                ],
+                "propertyNames": {
+                    "format": "python-entrypoint-name"
+                },
+                "additionalProperties": false,
+                "patternProperties": {
+                    "^.+$": {
+                        "type": "string",
+                        "$$description": [
+                            "Reference to a Python object. It is either in the form",
+                            "``importable.module``, or ``importable.module:object.attr``."
+                        ],
+                        "format": "python-entrypoint-reference",
+                        "$comment": "https://packaging.python.org/specifications/entry-points/"
+                    }
+                }
+            },
+            "dependency": {
+                "$id": "#/definitions/dependency",
+                "title": "Dependency",
+                "type": "string",
+                "description": "Project dependency specification according to PEP 508",
+                "format": "pep508"
+            }
+        }
+    }
+/usr/lib/python3.11/site-packages/setuptools/config/pyprojecttoml.py:125: _InvalidFile: The given `pyproject.toml` file is invalid and would be ignored.
+    !!
+
+
+    ############################
+    # Invalid `pyproject.toml` #
+    ############################
+
+    Any configurations in `pyproject.toml` will be ignored.
+    Please note that future releases of setuptools will halt the build process
+    if an invalid file is given.
+
+    To prevent setuptools from considering `pyproject.toml` please
+    DO NOT include the `[project]` or `[tool.setuptools]` tables in your file.
+    
+
+!!
+    
+  if _skip_bad_config(project_table, orig_setuptools_table, dist):
+running sdist
+running egg_info
+creating securedrop_workstation_dom0_config.egg-info
+writing securedrop_workstation_dom0_config.egg-info/PKG-INFO
+writing dependency_links to securedrop_workstation_dom0_config.egg-info/dependency_links.txt
+writing top-level names to securedrop_workstation_dom0_config.egg-info/top_level.txt
+writing manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+reading manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+adding license file 'LICENSE'
+writing manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+running check
+creating securedrop-workstation-dom0-config-1.1.2
+creating securedrop-workstation-dom0-config-1.1.2/files
+creating securedrop-workstation-dom0-config-1.1.2/sdw_notify
+creating securedrop-workstation-dom0-config-1.1.2/sdw_updater
+creating securedrop-workstation-dom0-config-1.1.2/sdw_util
+creating securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+creating securedrop-workstation-dom0-config-1.1.2/securedrop_workstation_dom0_config.egg-info
+copying files to securedrop-workstation-dom0-config-1.1.2...
+copying LICENSE -> securedrop-workstation-dom0-config-1.1.2
+copying MANIFEST.in -> securedrop-workstation-dom0-config-1.1.2
+copying README.md -> securedrop-workstation-dom0-config-1.1.2
+copying VERSION -> securedrop-workstation-dom0-config-1.1.2
+copying pyproject.toml -> securedrop-workstation-dom0-config-1.1.2
+copying setup.py -> securedrop-workstation-dom0-config-1.1.2
+copying files/10-securedrop-logind_override.conf -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/31-securedrop-workstation.policy -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/32-securedrop-workstation.policy -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/95-securedrop-systemd-user.preset -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/clean-salt -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/config.json.example -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/destroy-vm.py -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/press.freedom.SecureDropUpdater.desktop -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/sdw-admin.py -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/sdw-login.py -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/sdw-notify.py -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/sdw-notify.service -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/sdw-notify.timer -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/sdw-updater.py -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/securedrop-128x128.png -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/securedrop-logind-override-disable.service -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/securedrop-scalable.svg -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/securedrop-user-xfce-icon-size.service -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/securedrop-user-xfce-settings.service -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/update-xfce-settings -> securedrop-workstation-dom0-config-1.1.2/files
+copying files/validate_config.py -> securedrop-workstation-dom0-config-1.1.2/files
+copying sdw_notify/Notify.py -> securedrop-workstation-dom0-config-1.1.2/sdw_notify
+copying sdw_notify/NotifyApp.py -> securedrop-workstation-dom0-config-1.1.2/sdw_notify
+copying sdw_notify/__init__.py -> securedrop-workstation-dom0-config-1.1.2/sdw_notify
+copying sdw_notify/strings.py -> securedrop-workstation-dom0-config-1.1.2/sdw_notify
+copying sdw_updater/Updater.py -> securedrop-workstation-dom0-config-1.1.2/sdw_updater
+copying sdw_updater/UpdaterApp.py -> securedrop-workstation-dom0-config-1.1.2/sdw_updater
+copying sdw_updater/UpdaterAppUiQt5.py -> securedrop-workstation-dom0-config-1.1.2/sdw_updater
+copying sdw_updater/__init__.py -> securedrop-workstation-dom0-config-1.1.2/sdw_updater
+copying sdw_updater/strings.py -> securedrop-workstation-dom0-config-1.1.2/sdw_updater
+copying sdw_util/Util.py -> securedrop-workstation-dom0-config-1.1.2/sdw_util
+copying sdw_util/__init__.py -> securedrop-workstation-dom0-config-1.1.2/sdw_util
+copying securedrop_salt/99-sd-devices.rules -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/apt-test-pubkey.asc -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/apt-test_freedom_press.sources.j2 -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/apt_freedom_press.sources.j2 -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/dom0-xfce-desktop-file.j2 -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/fpf-apt-repo.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/remove-tags.py -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-app-files.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-app.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-attach-export-device -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-base-template-packages.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-base-template.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-clean-all.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-clean-default-dispvm.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-default-config.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-default-config.yml -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-devices-files.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-devices.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-dom0-files.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-gpg-files.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-gpg.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-log.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-logging-setup.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-proxy-template-files.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-proxy.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-remove-deprecated-qubes.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-remove-unused-templates.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-sys-vms.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-sys-whonix-vms.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-upgrade-templates.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-usb-autoattach-add.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-usb-autoattach-remove.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-viewer-files.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-viewer.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-whonix-config.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-whonix.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-workstation-template.sls -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sd-workstation.top -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/sdlog.conf -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/securedrop-handle-upgrade -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_salt/securedrop-release-signing-pubkey-2021.asc -> securedrop-workstation-dom0-config-1.1.2/securedrop_salt
+copying securedrop_workstation_dom0_config.egg-info/PKG-INFO -> securedrop-workstation-dom0-config-1.1.2/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/SOURCES.txt -> securedrop-workstation-dom0-config-1.1.2/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/dependency_links.txt -> securedrop-workstation-dom0-config-1.1.2/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/top_level.txt -> securedrop-workstation-dom0-config-1.1.2/securedrop_workstation_dom0_config.egg-info
+Writing securedrop-workstation-dom0-config-1.1.2/setup.cfg
+creating dist
+Creating tar archive
+removing 'securedrop-workstation-dom0-config-1.1.2' (and everything under it)
+setting SOURCE_DATE_EPOCH=1744675200
+Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.abFQdH
++ umask 022
++ cd /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILD
++ cd /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILD
++ rm -rf securedrop-workstation-dom0-config-1.1.2
++ /usr/lib/rpm/rpmuncompress -x /home/user/github/freedomofpress/securedrop-workstation/rpm-build/SOURCES/securedrop-workstation-dom0-config-1.1.2.tar.gz
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/LICENSE: time stamp 2025-04-16 21:11:09 is 86397.562248686 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/MANIFEST.in: time stamp 2025-04-16 21:11:09 is 86397.561984891 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/README.md: time stamp 2025-04-16 21:11:03 is 86391.561853891 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/VERSION: time stamp 2025-04-16 21:11:08 is 86396.561748457 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/10-securedrop-logind_override.conf: time stamp 2025-04-16 21:11:08 is 86396.561644554 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/31-securedrop-workstation.policy: time stamp 2025-04-16 21:11:08 is 86396.561583838 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/32-securedrop-workstation.policy: time stamp 2025-04-16 21:11:08 is 86396.561510741 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/95-securedrop-systemd-user.preset: time stamp 2025-04-16 21:11:08 is 86396.56132137 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/clean-salt: time stamp 2025-04-16 21:11:08 is 86396.561245337 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/config.json.example: time stamp 2025-04-16 21:11:08 is 86396.561166719 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/destroy-vm.py: time stamp 2025-04-16 21:11:08 is 86396.561105329 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/press.freedom.SecureDropUpdater.desktop: time stamp 2025-04-16 21:11:08 is 86396.561046394 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/sdw-admin.py: time stamp 2025-04-16 21:11:08 is 86396.560672008 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/sdw-login.py: time stamp 2025-04-16 21:11:08 is 86396.560398201 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/sdw-notify.py: time stamp 2025-04-16 21:11:08 is 86396.560321476 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/sdw-notify.service: time stamp 2025-04-16 21:11:08 is 86396.56025146 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/sdw-notify.timer: time stamp 2025-04-16 21:11:08 is 86396.560177394 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/sdw-updater.py: time stamp 2025-04-16 21:11:08 is 86396.56011722 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/securedrop-128x128.png: time stamp 2025-04-16 21:11:08 is 86396.560046022 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/securedrop-logind-override-disable.service: time stamp 2025-04-16 21:11:08 is 86396.559973335 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/securedrop-scalable.svg: time stamp 2025-04-16 21:11:08 is 86396.559911545 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/securedrop-user-xfce-icon-size.service: time stamp 2025-04-16 21:11:08 is 86396.559812475 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/securedrop-user-xfce-settings.service: time stamp 2025-04-16 21:11:08 is 86396.559730548 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/update-xfce-settings: time stamp 2025-04-16 21:11:08 is 86396.559670033 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/files/validate_config.py: time stamp 2025-04-16 21:11:08 is 86396.559596487 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/pyproject.toml: time stamp 2025-04-16 21:11:09 is 86397.559527547 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/sdw_notify/Notify.py: time stamp 2025-04-16 21:11:09 is 86397.559411559 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/sdw_notify/NotifyApp.py: time stamp 2025-04-16 21:11:09 is 86397.55926708 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/sdw_notify/__init__.py: time stamp 2025-04-16 21:11:09 is 86397.559205347 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/sdw_notify/strings.py: time stamp 2025-04-16 21:11:09 is 86397.559145641 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/sdw_updater/Updater.py: time stamp 2025-04-16 21:11:08 is 86396.559024909 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/sdw_updater/UpdaterApp.py: time stamp 2025-04-16 21:11:08 is 86396.556818694 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/sdw_updater/UpdaterAppUiQt5.py: time stamp 2025-04-16 21:11:08 is 86396.556728541 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/sdw_updater/__init__.py: time stamp 2025-04-16 21:11:08 is 86396.556672968 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/sdw_updater/strings.py: time stamp 2025-04-16 21:11:08 is 86396.556334791 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/sdw_util/Util.py: time stamp 2025-04-16 21:11:03 is 86391.555715805 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/sdw_util/__init__.py: time stamp 2025-04-16 21:11:03 is 86391.553798068 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/99-sd-devices.rules: time stamp 2025-04-16 21:11:09 is 86397.552414279 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/apt-test-pubkey.asc: time stamp 2025-04-16 21:11:09 is 86397.552311386 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/apt-test_freedom_press.sources.j2: time stamp 2025-04-16 21:11:09 is 86397.552244758 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/apt_freedom_press.sources.j2: time stamp 2025-04-16 21:11:09 is 86397.552176296 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/dom0-xfce-desktop-file.j2: time stamp 2025-04-16 21:11:09 is 86397.552117585 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/fpf-apt-repo.sls: time stamp 2025-04-16 21:11:09 is 86397.552048762 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/remove-tags.py: time stamp 2025-04-16 21:11:09 is 86397.55198539 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-app-files.sls: time stamp 2025-04-16 21:11:09 is 86397.551926462 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-app.sls: time stamp 2025-04-16 21:11:09 is 86397.551863836 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-attach-export-device: time stamp 2025-04-16 21:11:09 is 86397.551746587 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-base-template-packages.sls: time stamp 2025-04-16 21:11:09 is 86397.551687194 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-base-template.sls: time stamp 2025-04-16 21:11:09 is 86397.551627781 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-clean-all.sls: time stamp 2025-04-16 21:11:09 is 86397.551564298 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-clean-default-dispvm.sls: time stamp 2025-04-16 21:11:09 is 86397.551506583 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-default-config.sls: time stamp 2025-04-16 21:11:09 is 86397.551220937 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-default-config.yml: time stamp 2025-04-16 21:11:09 is 86397.551033055 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-devices-files.sls: time stamp 2025-04-16 21:11:09 is 86397.549765472 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-devices.sls: time stamp 2025-04-16 21:11:09 is 86397.547712516 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-dom0-files.sls: time stamp 2025-04-16 21:11:09 is 86397.547625123 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-gpg-files.sls: time stamp 2025-04-16 21:11:09 is 86397.547551963 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-gpg.sls: time stamp 2025-04-16 21:11:09 is 86397.546927673 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-log.sls: time stamp 2025-04-16 21:11:09 is 86397.546859688 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-logging-setup.sls: time stamp 2025-04-16 21:11:09 is 86397.546794526 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-proxy-template-files.sls: time stamp 2025-04-16 21:11:09 is 86397.546747546 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-proxy.sls: time stamp 2025-04-16 21:11:09 is 86397.546700151 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-remove-deprecated-qubes.sls: time stamp 2025-04-16 21:11:09 is 86397.546654013 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-remove-unused-templates.sls: time stamp 2025-04-16 21:11:09 is 86397.546609705 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-sys-vms.sls: time stamp 2025-04-16 21:11:09 is 86397.546559252 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-sys-whonix-vms.sls: time stamp 2025-04-16 21:11:09 is 86397.546513769 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-upgrade-templates.sls: time stamp 2025-04-16 21:11:09 is 86397.546471486 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-usb-autoattach-add.sls: time stamp 2025-04-16 21:11:09 is 86397.546424427 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-usb-autoattach-remove.sls: time stamp 2025-04-16 21:11:09 is 86397.546381635 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-viewer-files.sls: time stamp 2025-04-16 21:11:09 is 86397.546336882 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-viewer.sls: time stamp 2025-04-16 21:11:09 is 86397.546289411 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-whonix-config.sls: time stamp 2025-04-16 21:11:09 is 86397.546240061 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-whonix.sls: time stamp 2025-04-16 21:11:09 is 86397.546194604 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-workstation-template.sls: time stamp 2025-04-16 21:11:09 is 86397.546152474 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sd-workstation.top: time stamp 2025-04-16 21:11:09 is 86397.546106773 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/sdlog.conf: time stamp 2025-04-16 21:11:09 is 86397.546063953 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/securedrop-handle-upgrade: time stamp 2025-04-16 21:11:09 is 86397.546018281 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/securedrop_salt/securedrop-release-signing-pubkey-2021.asc: time stamp 2025-04-16 21:11:09 is 86397.545963891 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.1.2/setup.py: time stamp 2025-04-16 21:11:03 is 86391.545551486 s in the future
++ STATUS=0
++ '[' 0 -ne 0 ']'
++ cd securedrop-workstation-dom0-config-1.1.2
++ /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
++ RPM_EC=0
+++ jobs -p
++ exit 0
+Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.fq8y2n
++ umask 022
++ cd /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILD
++ CFLAGS='-O2 -g'
++ export CFLAGS
++ CXXFLAGS='-O2 -g'
++ export CXXFLAGS
++ FFLAGS='-O2 -g -I/usr/lib64/gfortran/modules'
++ export FFLAGS
++ FCFLAGS='-O2 -g -I/usr/lib64/gfortran/modules'
++ export FCFLAGS
++ LDFLAGS='-Wl,-z,relro -Wl,--as-needed  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -Wl,--build-id=sha1 -specs=/usr/lib/rpm/redhat/redhat-package-notes'
++ export LDFLAGS
++ LT_SYS_LIBRARY_PATH=/usr/lib64:
++ export LT_SYS_LIBRARY_PATH
++ CC=gcc
++ export CC
++ CXX=g++
++ export CXX
++ cd securedrop-workstation-dom0-config-1.1.2
++ RPM_EC=0
+++ jobs -p
++ exit 0
+Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.dkCPEB
++ umask 022
++ cd /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILD
++ '[' /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64 '!=' / ']'
++ rm -rf /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64
+++ dirname /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64
++ mkdir -p /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT
++ mkdir /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64
++ CFLAGS='-O2 -g'
++ export CFLAGS
++ CXXFLAGS='-O2 -g'
++ export CXXFLAGS
++ FFLAGS='-O2 -g -I/usr/lib64/gfortran/modules'
++ export FFLAGS
++ FCFLAGS='-O2 -g -I/usr/lib64/gfortran/modules'
++ export FCFLAGS
++ LDFLAGS='-Wl,-z,relro -Wl,--as-needed  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -Wl,--build-id=sha1 -specs=/usr/lib/rpm/redhat/redhat-package-notes'
++ export LDFLAGS
++ LT_SYS_LIBRARY_PATH=/usr/lib64:
++ export LT_SYS_LIBRARY_PATH
++ CC=gcc
++ export CC
++ CXX=g++
++ export CXX
++ cd securedrop-workstation-dom0-config-1.1.2
++ /usr/bin/python3 -m pip install --no-compile --no-index --no-build-isolation --root /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64 .
+Processing /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILD/securedrop-workstation-dom0-config-1.1.2
+  Preparing metadata (pyproject.toml) ... [?25l- \ | / done
+[?25hBuilding wheels for collected packages: securedrop-workstation-dom0-config
+  Building wheel for securedrop-workstation-dom0-config (pyproject.toml) ... [?25l- \ | / - done
+[?25h  Created wheel for securedrop-workstation-dom0-config: filename=securedrop_workstation_dom0_config-1.1.2-py3-none-any.whl size=36723 sha256=7551d5a7837c5f8fdd2982da13dcf0354071b91b327efc82e9cdc73f54190980
+  Stored in directory: /tmp/.cache/pip/wheels/81/c3/aa/97ee2144889ee215413fbb0f65e7ef455de934502da8f0a52a
+Successfully built securedrop-workstation-dom0-config
+Installing collected packages: securedrop-workstation-dom0-config
+Successfully installed securedrop-workstation-dom0-config-1.1.2
++ rm /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/lib/python3.11/site-packages/securedrop_workstation_dom0_config-1.1.2.dist-info/direct_url.json
++ sed -i '/\.dist-info\/direct_url\.json,/d' /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/lib/python3.11/site-packages/securedrop_workstation_dom0_config-1.1.2.dist-info/RECORD
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/srv/salt/
++ cp -a securedrop_salt /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/srv/salt/
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/share/securedrop-workstation-dom0-config/scripts
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/bin
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/opt/securedrop
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/usr/bin/securedrop
++ install -m 755 files/update-xfce-settings /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/usr/bin/securedrop/
++ install -m 755 files/clean-salt /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/share/securedrop-workstation-dom0-config/scripts/
++ install -m 755 files/destroy-vm.py /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/share/securedrop-workstation-dom0-config/scripts/destroy-vm
++ install -m 755 files/validate_config.py /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/share/securedrop-workstation-dom0-config/scripts/
++ install -m 755 files/sdw-admin.py /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/bin/sdw-admin
++ install -m 644 files/config.json.example /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/share/securedrop-workstation-dom0-config/
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/bin
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/share/applications/
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/share/icons/hicolor/128x128/apps/
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/share/icons/hicolor/scalable/apps/
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//var/lib/securedrop-workstation-dom0-config/
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/lib/systemd/user/
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/lib/systemd/system
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/lib/systemd/user-preset/
++ install -m 644 files/press.freedom.SecureDropUpdater.desktop /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/share/applications/
++ install -m 644 files/press.freedom.SecureDropUpdater.desktop /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/srv/salt/securedrop_salt/press.freedom.SecureDropUpdater.desktop
++ install -m 644 files/securedrop-128x128.png /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/share/icons/hicolor/128x128/apps/securedrop.png
++ install -m 644 files/securedrop-scalable.svg /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/share/icons/hicolor/scalable/apps/securedrop.svg
++ install -m 755 files/sdw-updater.py /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/bin/sdw-updater
++ install -m 755 files/sdw-notify.py /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/bin/sdw-notify
++ install -m 755 files/sdw-login.py /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/bin/sdw-login
++ install -m 644 files/sdw-notify.service /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/lib/systemd/user/
++ install -m 644 files/sdw-notify.timer /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/lib/systemd/user/
++ install -m 644 files/securedrop-logind-override-disable.service /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/lib/systemd/system/
++ install -m 644 files/95-securedrop-systemd-user.preset /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/lib/systemd/user-preset/
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/etc/qubes/policy.d/
++ install -m 644 files/31-securedrop-workstation.policy /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/etc/qubes/policy.d/
++ install -m 644 files/32-securedrop-workstation.policy /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/etc/qubes/policy.d/
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/usr/share/securedrop/icons
++ install -m 644 files/securedrop-128x128.png /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/usr/share/securedrop/icons/sd-logo.png
++ install -m 755 -d /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/etc/systemd/logind.conf.d/
++ install -m 644 files/10-securedrop-logind_override.conf /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/etc/systemd/logind.conf.d/
++ install -m 644 files/securedrop-user-xfce-settings.service /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/lib/systemd/user/
++ install -m 644 files/securedrop-user-xfce-icon-size.service /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64//usr/lib/systemd/user/
++ /usr/bin/find-debuginfo -j6 --strict-build-id -m -i --build-id-seed 1.1.2-1.fc37 --unique-debug-suffix -1.1.2-1.fc37.x86_64 --unique-debug-src-base securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64 --run-dwz --dwz-low-mem-die-limit 10000000 --dwz-max-die-limit 110000000 -S debugsourcefiles.list /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILD/securedrop-workstation-dom0-config-1.1.2
+find: ‘debug’: No such file or directory
++ /usr/lib/rpm/check-buildroot
++ /usr/lib/rpm/redhat/brp-ldconfig
++ /usr/lib/rpm/brp-compress
++ /usr/lib/rpm/redhat/brp-strip-lto /usr/bin/strip
++ /usr/lib/rpm/brp-strip-static-archive /usr/bin/strip
++ /usr/lib/rpm/check-rpaths
++ /usr/lib/rpm/redhat/brp-mangle-shebangs
++ /usr/lib/rpm/brp-remove-la-files
++ /usr/lib/rpm/redhat/brp-python-hardlink
+Processing files: securedrop-workstation-dom0-config-1.1.2-1.fc37.noarch
+Executing(%doc): /bin/sh -e /var/tmp/rpm-tmp.nAMZZe
++ umask 022
++ cd /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILD
++ cd securedrop-workstation-dom0-config-1.1.2
++ DOCDIR=/home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/usr/share/doc/securedrop-workstation-dom0-config
++ export LC_ALL=C
++ LC_ALL=C
++ export DOCDIR
++ /usr/bin/mkdir -p /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/usr/share/doc/securedrop-workstation-dom0-config
++ cp -pr README.md /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/usr/share/doc/securedrop-workstation-dom0-config
++ RPM_EC=0
+++ jobs -p
++ exit 0
+Executing(%license): /bin/sh -e /var/tmp/rpm-tmp.WtDlbM
++ umask 022
++ cd /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILD
++ cd securedrop-workstation-dom0-config-1.1.2
++ LICENSEDIR=/home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/usr/share/licenses/securedrop-workstation-dom0-config
++ export LC_ALL=C
++ LC_ALL=C
++ export LICENSEDIR
++ /usr/bin/mkdir -p /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/usr/share/licenses/securedrop-workstation-dom0-config
++ cp -pr LICENSE /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64/usr/share/licenses/securedrop-workstation-dom0-config
++ RPM_EC=0
+++ jobs -p
++ exit 0
+Provides: application() application(press.freedom.SecureDropUpdater.desktop) securedrop-workstation-dom0-config = 1.1.2-1.fc37
+Requires(interp): /bin/sh /bin/sh
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Requires(post): /bin/sh
+Requires(preun): /bin/sh
+Requires: /usr/bin/bash /usr/bin/python3 python(abi) = 3.11
+Checking for unpackaged file(s): /usr/lib/rpm/check-files /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64
+Wrote: /home/user/github/freedomofpress/securedrop-workstation/rpm-build/RPMS/noarch/securedrop-workstation-dom0-config-1.1.2-1.fc37.noarch.rpm
+Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.tFLL0u
++ umask 022
++ cd /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILD
++ cd securedrop-workstation-dom0-config-1.1.2
++ /usr/bin/rm -rf /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.1.2-1.fc37.x86_64
++ RPM_EC=0
+++ jobs -p
++ exit 0
+Executing(rmbuild): /bin/sh -e /var/tmp/rpm-tmp.TGlVdh
++ umask 022
++ cd /home/user/github/freedomofpress/securedrop-workstation/rpm-build/BUILD
++ rm -rf securedrop-workstation-dom0-config-1.1.2 securedrop-workstation-dom0-config-1.1.2.gemspec
++ RPM_EC=0
+++ jobs -p
++ exit 0
+checking mtimes in securedrop-workstation-dom0-config-1.1.2-1.fc37.noarch.rpm: 2025-04-15 00:00:00+00:00
+
+Build complete! RPMs and their checksums are:
+
+a8b7a51cd418de22e16ff9d6a921afd82878dbf67e2d6d102644851889af965f  rpm-build/RPMS/noarch/securedrop-workstation-dom0-config-1.1.2-1.fc37.noarch.rpm
+
+Script done on 2025-04-15 17:11:17-04:00 [COMMAND_EXIT_CODE="0"]
