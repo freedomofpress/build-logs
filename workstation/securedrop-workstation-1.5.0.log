@@ -1,0 +1,1488 @@
+user@sd-dev:~/securedrop-workstation$ git tag -v 1.5.0
+object b235faf32a1e9fa9464874ea45612a483f20432a
+type commit
+tag 1.5.0
+tagger deeplow <francisco@freedom.press> 1760633245 +0100
+
+SecureDrop Workstation 1.5.0
+gpg: Signature made Thu 16 Oct 2025 05:47:35 PM BST
+gpg:                using RSA key 26B84FAA528CFEA4010FAF3EF3BFCF7E7FEBAB23
+gpg:                issuer "francisco@freedom.press"
+gpg: Good signature from "Francisco (code-signing key / NOT for email) <francisco@freedom.press>" [unknown]
+gpg:                 aka "deeplow (code signing key) <deeplowfpf@keybase.io>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: A89B 3BDD D562 9F35 E017  ADC0 5247 4EA8 BFD9 CBF1
+     Subkey fingerprint: 26B8 4FAA 528C FEA4 010F  AF3E F3BF CF7E 7FEB AB23
+user@sd-dev:~/securedrop-workstation$ git checkout 1.5.0
+Note: switching to '1.5.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at b235faf Merge pull request #1456 from freedomofpress/1.5.0-changelog-version-bump
+user@sd-dev:~/securedrop-workstation$ git show
+commit b235faf32a1e9fa9464874ea45612a483f20432a (HEAD, tag: 1.5.0, origin/release/1.5.0, release/1.5.0)
+Merge: 4d6df54 5ce784b
+Author: Kevin O'Gorman <kog@freedom.press>
+Date:   Thu Oct 16 09:44:41 2025 -0700
+
+    Merge pull request #1456 from freedomofpress/1.5.0-changelog-version-bump
+    
+    SecureDrop Workstation 1.5.0 changelog / ver. bump
+
+user@sd-dev:~/securedrop-workstation$ make build-rpm
+grep: /etc/fedora-release: No such file or directory
+make: Warning: File 'Makefile' has modification time 1187 s in the future
+Building SecureDop Workstation RPM...
+Script started, output log file is 'build-log/securedrop-workstation-20251016.log'.
+STEP 1/14: FROM quay.io/fedora/fedora:37
+STEP 2/14: LABEL org="Freedom of the Press"
+--> Using cache b990b5f9c3b897e6b37d0177a4788a002fb5534d6ddba30d8a80d10b5d6d9ce7
+--> b990b5f9c3b
+STEP 3/14: LABEL image_name="securedrop-workstation-qubes-4.2"
+--> Using cache 527a58dcf802a2fa31e76be4f7fa0006fc40f2687bd8ae9a4db5d548aad72fe3
+--> 527a58dcf80
+STEP 4/14: ARG USER_NAME
+--> Using cache b8ef31c82d69818b3b1039fafe61d8d0e0787943e930bb51b3008d3e10ab1782
+--> b8ef31c82d6
+STEP 5/14: ENV USER_NAME ${USER_NAME:-root}
+--> Using cache 032672a23872f044df2d15741ddb3fa7a3ef8bd9dc2593416cbab99c22ddb54a
+--> 032672a2387
+STEP 6/14: ARG USER_ID
+--> Using cache 1a1790e90711eff45464bea23af34d819ffb8038795c2b19fee6c81565ad82b9
+--> 1a1790e9071
+STEP 7/14: ENV USER_ID ${USER_ID:-0}
+--> Using cache d0777640f70a05e7dd8981ee5a9fffaca3a672bb53304e5fc142759b34c071eb
+--> d0777640f70
+STEP 8/14: RUN dnf install -y make
+--> Using cache 29f7f46eb66701e4468d270259605bf87dddbe735dba91013fac6355c00414ac
+--> 29f7f46eb66
+STEP 9/14: COPY Makefile Makefile
+--> Using cache a7118ae1e0ec9ac00ab1391ad794508d9dc5e287c518742e32145c29fa88ba57
+--> a7118ae1e0e
+STEP 10/14: COPY rpm-build/SPECS rpm-build/SPECS
+--> 5b8d8f8ef86
+STEP 11/14: ARG DEPS=build-deps
+--> 38929ea9287
+STEP 12/14: RUN make ${DEPS}
+make: hostname: No such file or directory
+make: hostname: No such file or directory
+dnf install -y \
+	git file rpmdevtools dnf-plugins-core
+Fedora 37 - x86_64                              7.6 kB/s | 5.1 kB     00:00    
+Fedora 37 openh264 (From Cisco) - x86_64        1.3 kB/s | 989  B     00:00    
+Fedora Modular 37 - x86_64                      6.1 kB/s | 5.0 kB     00:00    
+Fedora 37 - x86_64 - Updates                    6.8 kB/s | 5.0 kB     00:00    
+Fedora Modular 37 - x86_64 - Updates             12 kB/s | 4.9 kB     00:00    
+Dependencies resolved.
+================================================================================
+ Package                     Arch    Version                     Repo      Size
+================================================================================
+Installing:
+ dnf-plugins-core            noarch  4.4.3-1.fc37                updates   38 k
+ file                        x86_64  5.42-4.fc37                 fedora    49 k
+ git                         x86_64  2.42.0-2.fc37               updates   53 k
+ rpmdevtools                 noarch  9.6-2.fc37                  fedora   103 k
+Upgrading:
+ elfutils-libelf             x86_64  0.190-2.fc37                updates  193 k
+ elfutils-libs               x86_64  0.190-2.fc37                updates  258 k
+ glibc                       x86_64  2.36-18.fc37                updates  2.2 M
+ glibc-common                x86_64  2.36-18.fc37                updates  351 k
+ glibc-minimal-langpack      x86_64  2.36-18.fc37                updates   71 k
+Installing dependencies:
+ ansible-srpm-macros         noarch  1-10.fc37                   updates   20 k
+ binutils                    x86_64  2.38-27.fc37                updates  5.4 M
+ binutils-gold               x86_64  2.38-27.fc37                updates  773 k
+ bzip2                       x86_64  1.0.8-12.fc37               fedora    52 k
+ cpio                        x86_64  2.13-13.fc37                fedora   277 k
+ dbus-libs                   x86_64  1:1.14.10-1.fc37            updates  156 k
+ debugedit                   x86_64  5.0-7.fc37                  updates   77 k
+ diffutils                   x86_64  3.8-3.fc37                  fedora   378 k
+ dwz                         x86_64  0.14-7.fc37                 fedora   129 k
+ ed                          x86_64  1.18-2.fc37                 fedora    78 k
+ efi-srpm-macros             noarch  5-6.fc37                    fedora    22 k
+ elfutils                    x86_64  0.190-2.fc37                updates  554 k
+ elfutils-debuginfod-client  x86_64  0.190-2.fc37                updates   37 k
+ emacs-filesystem            noarch  1:28.3-0.rc1.fc37           updates  7.8 k
+ fakeroot                    x86_64  1.32.1-1.fc37               updates   92 k
+ fakeroot-libs               x86_64  1.32.1-1.fc37               updates   39 k
+ fonts-filesystem            noarch  1:2.0.5-9.fc37              fedora   7.9 k
+ fonts-srpm-macros           noarch  1:2.0.5-9.fc37              fedora    26 k
+ fpc-srpm-macros             noarch  1.3-6.fc37                  fedora   7.7 k
+ gdb-minimal                 x86_64  13.2-3.fc37                 updates  4.2 M
+ ghc-srpm-macros             noarch  1.6.1-1.fc37                updates  8.0 k
+ git-core                    x86_64  2.42.0-2.fc37               updates  4.4 M
+ git-core-doc                noarch  2.42.0-2.fc37               updates  2.8 M
+ glibc-gconv-extra           x86_64  2.36-18.fc37                updates  1.7 M
+ gnat-srpm-macros            noarch  5-1.fc37                    updates  8.3 k
+ go-srpm-macros              noarch  3.3.1-1.fc37                updates   28 k
+ groff-base                  x86_64  1.22.4-10.fc37              fedora   1.1 M
+ http-parser                 x86_64  2.9.4-7.fc37                fedora    36 k
+ js-jquery                   noarch  3.6.0-3.fc37                fedora   171 k
+ kernel-srpm-macros          noarch  1.0-15.fc37                 fedora   9.4 k
+ koji                        noarch  1.33.0-1.fc37               updates  245 k
+ less                        x86_64  633-1.fc37                  updates  175 k
+ libcbor                     x86_64  0.7.0-7.fc37                fedora    56 k
+ libedit                     x86_64  3.1-43.20221009cvs.fc37     updates  106 k
+ libfdisk                    x86_64  2.38.1-1.fc37               fedora   160 k
+ libfido2                    x86_64  1.11.0-3.fc37               fedora    97 k
+ libgit2                     x86_64  1.3.2-1.fc37                updates  510 k
+ libpkgconf                  x86_64  1.8.0-3.fc37                fedora    36 k
+ libssh2                     x86_64  1.10.0-5.fc37               fedora   119 k
+ libutempter                 x86_64  1.2.1-7.fc37                fedora    26 k
+ lua-srpm-macros             noarch  1-7.fc37                    fedora   8.8 k
+ ncurses                     x86_64  6.4-3.20230114.fc37         updates  411 k
+ nim-srpm-macros             noarch  3-7.fc37                    fedora   8.4 k
+ ocaml-srpm-macros           noarch  7-2.fc37                    fedora    13 k
+ openblas-srpm-macros        noarch  2-12.fc37                   fedora   7.5 k
+ openssh                     x86_64  8.8p1-11.fc37               updates  450 k
+ openssh-clients             x86_64  8.8p1-11.fc37               updates  696 k
+ package-notes-srpm-macros   noarch  0.5-7.fc37                  updates   11 k
+ patch                       x86_64  2.7.6-17.fc37               fedora   124 k
+ perl-AutoLoader             noarch  5.74-494.fc37               updates   22 k
+ perl-B                      x86_64  1.83-494.fc37               updates  182 k
+ perl-Carp                   noarch  1.52-489.fc37               fedora    29 k
+ perl-Class-Struct           noarch  0.66-494.fc37               updates   23 k
+ perl-Data-Dumper            x86_64  2.184-490.fc37              fedora    56 k
+ perl-Digest                 noarch  1.20-489.fc37               fedora    26 k
+ perl-Digest-MD5             x86_64  2.58-489.fc37               fedora    36 k
+ perl-DynaLoader             x86_64  1.52-494.fc37               updates   27 k
+ perl-Encode                 x86_64  4:3.19-492.fc37             fedora   1.7 M
+ perl-Errno                  x86_64  1.36-494.fc37               updates   16 k
+ perl-Error                  noarch  1:0.17029-10.fc37           fedora    41 k
+ perl-Exporter               noarch  5.77-489.fc37               fedora    31 k
+ perl-Fcntl                  x86_64  1.15-494.fc37               updates   21 k
+ perl-File-Basename          noarch  2.85-494.fc37               updates   18 k
+ perl-File-Find              noarch  1.40-494.fc37               updates   26 k
+ perl-File-Path              noarch  2.18-489.fc37               fedora    35 k
+ perl-File-Temp              noarch  1:0.231.100-489.fc37        fedora    59 k
+ perl-File-stat              noarch  1.12-494.fc37               updates   18 k
+ perl-FileHandle             noarch  2.03-494.fc37               updates   16 k
+ perl-Getopt-Long            noarch  1:2.54-1.fc37               updates   60 k
+ perl-Getopt-Std             noarch  1.13-494.fc37               updates   17 k
+ perl-Git                    noarch  2.42.0-2.fc37               updates   41 k
+ perl-HTTP-Tiny              noarch  0.086-1.fc37                updates   55 k
+ perl-IO                     x86_64  1.50-494.fc37               updates   93 k
+ perl-IPC-Open3              noarch  1.22-494.fc37               updates   24 k
+ perl-MIME-Base64            x86_64  3.16-489.fc37               fedora    30 k
+ perl-Net-SSLeay             x86_64  1.92-4.fc37                 fedora   362 k
+ perl-POSIX                  x86_64  2.03-494.fc37               updates   98 k
+ perl-PathTools              x86_64  3.84-489.fc37               fedora    89 k
+ perl-Pod-Escapes            noarch  1:1.07-489.fc37             fedora    20 k
+ perl-Pod-Perldoc            noarch  3.28.01-490.fc37            fedora    90 k
+ perl-Pod-Simple             noarch  1:3.43-490.fc37             fedora   225 k
+ perl-Pod-Usage              noarch  4:2.03-3.fc37               fedora    40 k
+ perl-Scalar-List-Utils      x86_64  5:1.63-489.fc37             fedora    72 k
+ perl-SelectSaver            noarch  1.02-494.fc37               updates   13 k
+ perl-Socket                 x86_64  4:2.036-1.fc37              fedora    55 k
+ perl-Storable               x86_64  1:3.26-489.fc37             fedora    97 k
+ perl-Symbol                 noarch  1.09-494.fc37               updates   15 k
+ perl-Term-ANSIColor         noarch  5.01-490.fc37               fedora    48 k
+ perl-Term-Cap               noarch  1.17-489.fc37               fedora    22 k
+ perl-TermReadKey            x86_64  2.38-14.fc37                fedora    36 k
+ perl-Text-ParseWords        noarch  3.31-489.fc37               fedora    16 k
+ perl-Text-Tabs+Wrap         noarch  2023.0511-1.fc37            updates   23 k
+ perl-Time-Local             noarch  2:1.300-489.fc37            fedora    33 k
+ perl-URI                    noarch  5.17-1.fc37                 updates  123 k
+ perl-base                   noarch  2.27-494.fc37               updates   17 k
+ perl-constant               noarch  1.33-490.fc37               fedora    23 k
+ perl-if                     noarch  0.61.000-494.fc37           updates   15 k
+ perl-interpreter            x86_64  4:5.36.1-494.fc37           updates   73 k
+ perl-lib                    x86_64  0.65-494.fc37               updates   16 k
+ perl-libnet                 noarch  3.14-490.fc37               fedora   132 k
+ perl-libs                   x86_64  4:5.36.1-494.fc37           updates  2.2 M
+ perl-locale                 noarch  1.10-494.fc37               updates   15 k
+ perl-mro                    x86_64  1.26-494.fc37               updates   30 k
+ perl-overload               noarch  1.35-494.fc37               updates   47 k
+ perl-overloading            noarch  0.02-494.fc37               updates   14 k
+ perl-parent                 noarch  1:0.238-489.fc37            fedora    14 k
+ perl-podlators              noarch  1:4.14-489.fc37             fedora   116 k
+ perl-srpm-macros            noarch  1-46.fc37                   fedora   8.3 k
+ perl-subs                   noarch  1.04-494.fc37               updates   13 k
+ perl-vars                   noarch  1.05-494.fc37               updates   14 k
+ pkgconf                     x86_64  1.8.0-3.fc37                fedora    41 k
+ pkgconf-m4                  noarch  1.8.0-3.fc37                fedora    14 k
+ pkgconf-pkg-config          x86_64  1.8.0-3.fc37                fedora    10 k
+ pyproject-srpm-macros       noarch  1.10.0-1.fc37               updates   14 k
+ python-srpm-macros          noarch  3.11-6.fc37                 updates   24 k
+ python3-argcomplete         noarch  2.0.0-4.fc37                fedora    78 k
+ python3-babel               noarch  2.10.3-3.fc37               fedora   6.5 M
+ python3-cffi                x86_64  1.15.1-2.fc37               fedora   311 k
+ python3-charset-normalizer  noarch  2.1.0-2.fc37                fedora   102 k
+ python3-dateutil            noarch  1:2.8.2-4.fc37              fedora   361 k
+ python3-dbus                x86_64  1.3.2-1.fc37                updates  157 k
+ python3-decorator           noarch  5.1.1-4.fc37                fedora    31 k
+ python3-distro              noarch  1.7.0-3.fc37                fedora    48 k
+ python3-dnf-plugins-core    noarch  4.4.3-1.fc37                updates  322 k
+ python3-gssapi              x86_64  1.7.3-3.fc37                fedora   570 k
+ python3-idna                noarch  3.3-4.fc37                  fedora   110 k
+ python3-koji                noarch  1.33.0-1.fc37               updates  422 k
+ python3-ply                 noarch  3.11-17.fc37                fedora   139 k
+ python3-progressbar2        noarch  3.53.2-6.fc37               fedora    75 k
+ python3-pycparser           noarch  2.20-8.fc37                 fedora   156 k
+ python3-pygit2              x86_64  1.7.1-4.fc37                fedora   236 k
+ python3-pysocks             noarch  1.7.1-15.fc37               fedora    40 k
+ python3-pytz                noarch  2023.3.post1-1.fc37         updates   65 k
+ python3-requests            noarch  2.28.1-3.fc37               updates  155 k
+ python3-requests-gssapi     noarch  1.2.3-6.fc37                fedora    33 k
+ python3-setuptools          noarch  62.6.0-3.fc37               updates  1.6 M
+ python3-six                 noarch  1.16.0-8.fc37               fedora    42 k
+ python3-systemd             x86_64  235-1.fc37                  fedora   108 k
+ python3-urllib3             noarch  1.26.18-1.fc37              updates  258 k
+ python3-urllib3+socks       noarch  1.26.18-1.fc37              updates  9.6 k
+ python3-utils               noarch  3.1.0-3.fc37                fedora    53 k
+ qt5-srpm-macros             noarch  5.15.10-1.fc37              updates  8.2 k
+ qt6-srpm-macros             noarch  6.5.1-2.fc37                updates  8.8 k
+ redhat-rpm-config           noarch  230-1.fc37                  updates   78 k
+ rpm-build                   x86_64  4.18.2-1.fc37               updates   75 k
+ rpmautospec-rpm-macros      noarch  0.3.8-1.fc37                updates  8.9 k
+ rust-srpm-macros            noarch  25.2-2.fc37                 updates   12 k
+ unzip                       x86_64  6.0-58.fc37                 fedora   182 k
+ util-linux                  x86_64  2.38.1-1.fc37               fedora   2.3 M
+ web-assets-filesystem       noarch  5-18.fc37                   fedora   7.9 k
+ xxhash-libs                 x86_64  0.8.2-1.fc37                updates   39 k
+ xz                          x86_64  5.4.1-1.fc37                updates  419 k
+ zip                         x86_64  3.0-33.fc37                 fedora   259 k
+ zstd                        x86_64  1.5.5-1.fc37                updates  476 k
+Installing weak dependencies:
+ perl-IO-Socket-IP           noarch  0.41-490.fc37               fedora    42 k
+ perl-IO-Socket-SSL          noarch  2.075-1.fc37                fedora   221 k
+ perl-Mozilla-CA             noarch  20211001-4.fc37             fedora    12 k
+ perl-NDBM_File              x86_64  1.15-494.fc37               updates   23 k
+ python-systemd-doc          x86_64  235-1.fc37                  fedora   167 k
+ python3-rpmautospec         noarch  0.3.8-1.fc37                updates   69 k
+
+Transaction Summary
+================================================================================
+Install  164 Packages
+Upgrade    5 Packages
+
+Total download size: 52 M
+Downloading Packages:
+(1/169): bzip2-1.0.8-12.fc37.x86_64.rpm         111 kB/s |  52 kB     00:00    
+(2/169): diffutils-3.8-3.fc37.x86_64.rpm        639 kB/s | 378 kB     00:00    
+(3/169): cpio-2.13-13.fc37.x86_64.rpm           424 kB/s | 277 kB     00:00    
+(4/169): dwz-0.14-7.fc37.x86_64.rpm             464 kB/s | 129 kB     00:00    
+(5/169): ed-1.18-2.fc37.x86_64.rpm              438 kB/s |  78 kB     00:00    
+(6/169): efi-srpm-macros-5-6.fc37.noarch.rpm    180 kB/s |  22 kB     00:00    
+(7/169): file-5.42-4.fc37.x86_64.rpm            616 kB/s |  49 kB     00:00    
+(8/169): fonts-filesystem-2.0.5-9.fc37.noarch.r  71 kB/s | 7.9 kB     00:00    
+(9/169): fonts-srpm-macros-2.0.5-9.fc37.noarch. 165 kB/s |  26 kB     00:00    
+(10/169): fpc-srpm-macros-1.3-6.fc37.noarch.rpm  65 kB/s | 7.7 kB     00:00    
+(11/169): groff-base-1.22.4-10.fc37.x86_64.rpm  5.8 MB/s | 1.1 MB     00:00    
+(12/169): http-parser-2.9.4-7.fc37.x86_64.rpm   270 kB/s |  36 kB     00:00    
+(13/169): js-jquery-3.6.0-3.fc37.noarch.rpm     1.3 MB/s | 171 kB     00:00    
+(14/169): kernel-srpm-macros-1.0-15.fc37.noarch  72 kB/s | 9.4 kB     00:00    
+(15/169): libcbor-0.7.0-7.fc37.x86_64.rpm       433 kB/s |  56 kB     00:00    
+(16/169): libfdisk-2.38.1-1.fc37.x86_64.rpm     847 kB/s | 160 kB     00:00    
+(17/169): libpkgconf-1.8.0-3.fc37.x86_64.rpm    454 kB/s |  36 kB     00:00    
+(18/169): libfido2-1.11.0-3.fc37.x86_64.rpm     809 kB/s |  97 kB     00:00    
+(19/169): libssh2-1.10.0-5.fc37.x86_64.rpm      1.2 MB/s | 119 kB     00:00    
+(20/169): libutempter-1.2.1-7.fc37.x86_64.rpm   191 kB/s |  26 kB     00:00    
+(21/169): lua-srpm-macros-1-7.fc37.noarch.rpm    70 kB/s | 8.8 kB     00:00    
+(22/169): nim-srpm-macros-3-7.fc37.noarch.rpm    65 kB/s | 8.4 kB     00:00    
+(23/169): ocaml-srpm-macros-7-2.fc37.noarch.rpm 152 kB/s |  13 kB     00:00    
+(24/169): openblas-srpm-macros-2-12.fc37.noarch  65 kB/s | 7.5 kB     00:00    
+(25/169): patch-2.7.6-17.fc37.x86_64.rpm        929 kB/s | 124 kB     00:00    
+(26/169): perl-Carp-1.52-489.fc37.noarch.rpm    155 kB/s |  29 kB     00:00    
+(27/169): perl-Data-Dumper-2.184-490.fc37.x86_6 370 kB/s |  56 kB     00:00    
+(28/169): perl-Digest-1.20-489.fc37.noarch.rpm  222 kB/s |  26 kB     00:00    
+(29/169): perl-Digest-MD5-2.58-489.fc37.x86_64. 385 kB/s |  36 kB     00:00    
+(30/169): perl-Encode-3.19-492.fc37.x86_64.rpm  4.5 MB/s | 1.7 MB     00:00    
+(31/169): perl-Error-0.17029-10.fc37.noarch.rpm 117 kB/s |  41 kB     00:00    
+(32/169): perl-Exporter-5.77-489.fc37.noarch.rp  89 kB/s |  31 kB     00:00    
+(33/169): perl-File-Path-2.18-489.fc37.noarch.r 431 kB/s |  35 kB     00:00    
+(34/169): perl-File-Temp-0.231.100-489.fc37.noa 581 kB/s |  59 kB     00:00    
+(35/169): perl-IO-Socket-IP-0.41-490.fc37.noarc 398 kB/s |  42 kB     00:00    
+(36/169): perl-IO-Socket-SSL-2.075-1.fc37.noarc 1.2 MB/s | 221 kB     00:00    
+(37/169): perl-MIME-Base64-3.16-489.fc37.x86_64 183 kB/s |  30 kB     00:00    
+(38/169): perl-Mozilla-CA-20211001-4.fc37.noarc  71 kB/s |  12 kB     00:00    
+(39/169): perl-Net-SSLeay-1.92-4.fc37.x86_64.rp 2.4 MB/s | 362 kB     00:00    
+(40/169): perl-PathTools-3.84-489.fc37.x86_64.r 536 kB/s |  89 kB     00:00    
+(41/169): perl-Pod-Escapes-1.07-489.fc37.noarch 175 kB/s |  20 kB     00:00    
+(42/169): perl-Pod-Perldoc-3.28.01-490.fc37.noa 875 kB/s |  90 kB     00:00    
+(43/169): perl-Pod-Usage-2.03-3.fc37.noarch.rpm 388 kB/s |  40 kB     00:00    
+(44/169): perl-Pod-Simple-3.43-490.fc37.noarch. 1.4 MB/s | 225 kB     00:00    
+(45/169): perl-Scalar-List-Utils-1.63-489.fc37. 672 kB/s |  72 kB     00:00    
+(46/169): perl-Socket-2.036-1.fc37.x86_64.rpm   458 kB/s |  55 kB     00:00    
+(47/169): perl-Storable-3.26-489.fc37.x86_64.rp 911 kB/s |  97 kB     00:00    
+(48/169): perl-Term-ANSIColor-5.01-490.fc37.noa 526 kB/s |  48 kB     00:00    
+(49/169): perl-TermReadKey-2.38-14.fc37.x86_64. 108 kB/s |  36 kB     00:00    
+(50/169): perl-Term-Cap-1.17-489.fc37.noarch.rp  60 kB/s |  22 kB     00:00    
+(51/169): perl-Text-ParseWords-3.31-489.fc37.no  46 kB/s |  16 kB     00:00    
+(52/169): perl-Time-Local-1.300-489.fc37.noarch 429 kB/s |  33 kB     00:00    
+(53/169): perl-constant-1.33-490.fc37.noarch.rp 231 kB/s |  23 kB     00:00    
+(54/169): perl-libnet-3.14-490.fc37.noarch.rpm  1.2 MB/s | 132 kB     00:00    
+(55/169): perl-parent-0.238-489.fc37.noarch.rpm 187 kB/s |  14 kB     00:00    
+(56/169): pkgconf-1.8.0-3.fc37.x86_64.rpm       117 kB/s |  41 kB     00:00    
+(57/169): perl-srpm-macros-1-46.fc37.noarch.rpm  23 kB/s | 8.3 kB     00:00    
+(58/169): perl-podlators-4.14-489.fc37.noarch.r 255 kB/s | 116 kB     00:00    
+(59/169): pkgconf-m4-1.8.0-3.fc37.noarch.rpm    137 kB/s |  14 kB     00:00    
+(60/169): pkgconf-pkg-config-1.8.0-3.fc37.x86_6  68 kB/s |  10 kB     00:00    
+(61/169): python-systemd-doc-235-1.fc37.x86_64.  98 kB/s | 167 kB     00:01    
+(62/169): python3-babel-2.10.3-3.fc37.noarch.rp 1.4 MB/s | 6.5 MB     00:04    
+(63/169): python3-argcomplete-2.0.0-4.fc37.noar  17 kB/s |  78 kB     00:04    
+(64/169): python3-cffi-1.15.1-2.fc37.x86_64.rpm 103 kB/s | 311 kB     00:03    
+(65/169): python3-charset-normalizer-2.1.0-2.fc 621 kB/s | 102 kB     00:00    
+(66/169): python3-dateutil-2.8.2-4.fc37.noarch. 1.0 MB/s | 361 kB     00:00    
+(67/169): python3-decorator-5.1.1-4.fc37.noarch 108 kB/s |  31 kB     00:00    
+(68/169): python3-distro-1.7.0-3.fc37.noarch.rp 218 kB/s |  48 kB     00:00    
+(69/169): python3-idna-3.3-4.fc37.noarch.rpm    456 kB/s | 110 kB     00:00    
+(70/169): python3-gssapi-1.7.3-3.fc37.x86_64.rp 1.3 MB/s | 570 kB     00:00    
+(71/169): python3-ply-3.11-17.fc37.noarch.rpm   325 kB/s | 139 kB     00:00    
+(72/169): python3-progressbar2-3.53.2-6.fc37.no 269 kB/s |  75 kB     00:00    
+(73/169): python3-pycparser-2.20-8.fc37.noarch. 1.0 MB/s | 156 kB     00:00    
+(74/169): python3-pygit2-1.7.1-4.fc37.x86_64.rp 761 kB/s | 236 kB     00:00    
+(75/169): python3-pysocks-1.7.1-15.fc37.noarch. 151 kB/s |  40 kB     00:00    
+(76/169): python3-requests-gssapi-1.2.3-6.fc37. 136 kB/s |  33 kB     00:00    
+(77/169): python3-six-1.16.0-8.fc37.noarch.rpm  379 kB/s |  42 kB     00:00    
+(78/169): python3-systemd-235-1.fc37.x86_64.rpm 755 kB/s | 108 kB     00:00    
+(79/169): python3-utils-3.1.0-3.fc37.noarch.rpm 292 kB/s |  53 kB     00:00    
+(80/169): rpmdevtools-9.6-2.fc37.noarch.rpm     683 kB/s | 103 kB     00:00    
+(81/169): unzip-6.0-58.fc37.x86_64.rpm          993 kB/s | 182 kB     00:00    
+(82/169): util-linux-2.38.1-1.fc37.x86_64.rpm   1.9 MB/s | 2.3 MB     00:01    
+(83/169): web-assets-filesystem-5-18.fc37.noarc 6.7 kB/s | 7.9 kB     00:01    
+(84/169): zip-3.0-33.fc37.x86_64.rpm            223 kB/s | 259 kB     00:01    
+(85/169): ansible-srpm-macros-1-10.fc37.noarch.  45 kB/s |  20 kB     00:00    
+(86/169): binutils-gold-2.38-27.fc37.x86_64.rpm 1.0 MB/s | 773 kB     00:00    
+(87/169): debugedit-5.0-7.fc37.x86_64.rpm       401 kB/s |  77 kB     00:00    
+(88/169): dbus-libs-1.14.10-1.fc37.x86_64.rpm   276 kB/s | 156 kB     00:00    
+(89/169): dnf-plugins-core-4.4.3-1.fc37.noarch. 177 kB/s |  38 kB     00:00    
+(90/169): elfutils-debuginfod-client-0.190-2.fc 183 kB/s |  37 kB     00:00    
+(91/169): emacs-filesystem-28.3-0.rc1.fc37.noar  50 kB/s | 7.8 kB     00:00    
+(92/169): fakeroot-1.32.1-1.fc37.x86_64.rpm     455 kB/s |  92 kB     00:00    
+(93/169): fakeroot-libs-1.32.1-1.fc37.x86_64.rp 224 kB/s |  39 kB     00:00    
+(94/169): elfutils-0.190-2.fc37.x86_64.rpm      327 kB/s | 554 kB     00:01    
+(95/169): gdb-minimal-13.2-3.fc37.x86_64.rpm    4.8 MB/s | 4.2 MB     00:00    
+(96/169): ghc-srpm-macros-1.6.1-1.fc37.noarch.r  52 kB/s | 8.0 kB     00:00    
+(97/169): git-2.42.0-2.fc37.x86_64.rpm          338 kB/s |  53 kB     00:00    
+(98/169): git-core-doc-2.42.0-2.fc37.noarch.rpm 5.9 MB/s | 2.8 MB     00:00    
+(99/169): glibc-gconv-extra-2.36-18.fc37.x86_64 6.0 MB/s | 1.7 MB     00:00    
+(100/169): gnat-srpm-macros-5-1.fc37.noarch.rpm  41 kB/s | 8.3 kB     00:00    
+(101/169): go-srpm-macros-3.3.1-1.fc37.noarch.r 155 kB/s |  28 kB     00:00    
+(102/169): koji-1.33.0-1.fc37.noarch.rpm        1.1 MB/s | 245 kB     00:00    
+(103/169): less-633-1.fc37.x86_64.rpm           890 kB/s | 175 kB     00:00    
+(104/169): libedit-3.1-43.20221009cvs.fc37.x86_ 392 kB/s | 106 kB     00:00    
+(105/169): libgit2-1.3.2-1.fc37.x86_64.rpm      1.4 MB/s | 510 kB     00:00    
+(106/169): ncurses-6.4-3.20230114.fc37.x86_64.r 1.6 MB/s | 411 kB     00:00    
+(107/169): openssh-8.8p1-11.fc37.x86_64.rpm     1.9 MB/s | 450 kB     00:00    
+(108/169): openssh-clients-8.8p1-11.fc37.x86_64 1.8 MB/s | 696 kB     00:00    
+(109/169): package-notes-srpm-macros-0.5-7.fc37  75 kB/s |  11 kB     00:00    
+(110/169): perl-AutoLoader-5.74-494.fc37.noarch 111 kB/s |  22 kB     00:00    
+(111/169): perl-B-1.83-494.fc37.x86_64.rpm      751 kB/s | 182 kB     00:00    
+(112/169): perl-Class-Struct-0.66-494.fc37.noar 144 kB/s |  23 kB     00:00    
+(113/169): perl-DynaLoader-1.52-494.fc37.x86_64 128 kB/s |  27 kB     00:00    
+(114/169): perl-Errno-1.36-494.fc37.x86_64.rpm  103 kB/s |  16 kB     00:00    
+(115/169): perl-Fcntl-1.15-494.fc37.x86_64.rpm  137 kB/s |  21 kB     00:00    
+(116/169): perl-File-Basename-2.85-494.fc37.noa 193 kB/s |  18 kB     00:00    
+(117/169): perl-File-Find-1.40-494.fc37.noarch. 123 kB/s |  26 kB     00:00    
+(118/169): perl-File-stat-1.12-494.fc37.noarch.  68 kB/s |  18 kB     00:00    
+(119/169): perl-FileHandle-2.03-494.fc37.noarch 109 kB/s |  16 kB     00:00    
+(120/169): perl-Getopt-Long-2.54-1.fc37.noarch. 201 kB/s |  60 kB     00:00    
+(121/169): perl-Getopt-Std-1.13-494.fc37.noarch  86 kB/s |  17 kB     00:00    
+(122/169): perl-Git-2.42.0-2.fc37.noarch.rpm    180 kB/s |  41 kB     00:00    
+(123/169): perl-HTTP-Tiny-0.086-1.fc37.noarch.r 175 kB/s |  55 kB     00:00    
+(124/169): perl-IO-1.50-494.fc37.x86_64.rpm     331 kB/s |  93 kB     00:00    
+(125/169): perl-IPC-Open3-1.22-494.fc37.noarch. 136 kB/s |  24 kB     00:00    
+(126/169): perl-NDBM_File-1.15-494.fc37.x86_64. 137 kB/s |  23 kB     00:00    
+(127/169): perl-POSIX-2.03-494.fc37.x86_64.rpm  350 kB/s |  98 kB     00:00    
+(128/169): perl-SelectSaver-1.02-494.fc37.noarc  80 kB/s |  13 kB     00:00    
+(129/169): perl-Symbol-1.09-494.fc37.noarch.rpm  79 kB/s |  15 kB     00:00    
+(130/169): perl-Text-Tabs+Wrap-2023.0511-1.fc37 128 kB/s |  23 kB     00:00    
+(131/169): perl-URI-5.17-1.fc37.noarch.rpm      456 kB/s | 123 kB     00:00    
+(132/169): perl-base-2.27-494.fc37.noarch.rpm    95 kB/s |  17 kB     00:00    
+(133/169): perl-if-0.61.000-494.fc37.noarch.rpm  67 kB/s |  15 kB     00:00    
+(134/169): perl-interpreter-5.36.1-494.fc37.x86 433 kB/s |  73 kB     00:00    
+(135/169): perl-lib-0.65-494.fc37.x86_64.rpm     99 kB/s |  16 kB     00:00    
+(136/169): perl-libs-5.36.1-494.fc37.x86_64.rpm 1.5 MB/s | 2.2 MB     00:01    
+(137/169): perl-locale-1.10-494.fc37.noarch.rpm  68 kB/s |  15 kB     00:00    
+(138/169): perl-mro-1.26-494.fc37.x86_64.rpm    283 kB/s |  30 kB     00:00    
+(139/169): perl-overload-1.35-494.fc37.noarch.r 280 kB/s |  47 kB     00:00    
+(140/169): perl-overloading-0.02-494.fc37.noarc  92 kB/s |  14 kB     00:00    
+(141/169): perl-subs-1.04-494.fc37.noarch.rpm    58 kB/s |  13 kB     00:00    
+(142/169): perl-vars-1.05-494.fc37.noarch.rpm    75 kB/s |  14 kB     00:00    
+(143/169): pyproject-srpm-macros-1.10.0-1.fc37.  80 kB/s |  14 kB     00:00    
+(144/169): python-srpm-macros-3.11-6.fc37.noarc 157 kB/s |  24 kB     00:00    
+(145/169): python3-dbus-1.3.2-1.fc37.x86_64.rpm 697 kB/s | 157 kB     00:00    
+(146/169): python3-dnf-plugins-core-4.4.3-1.fc3 1.1 MB/s | 322 kB     00:00    
+(147/169): python3-koji-1.33.0-1.fc37.noarch.rp 1.2 MB/s | 422 kB     00:00    
+(148/169): python3-pytz-2023.3.post1-1.fc37.noa 310 kB/s |  65 kB     00:00    
+(149/169): python3-requests-2.28.1-3.fc37.noarc 761 kB/s | 155 kB     00:00    
+(150/169): binutils-2.38-27.fc37.x86_64.rpm     352 kB/s | 5.4 MB     00:15    
+(151/169): python3-rpmautospec-0.3.8-1.fc37.noa 329 kB/s |  69 kB     00:00    
+(152/169): python3-urllib3+socks-1.26.18-1.fc37  63 kB/s | 9.6 kB     00:00    
+(153/169): python3-urllib3-1.26.18-1.fc37.noarc 1.0 MB/s | 258 kB     00:00    
+(154/169): qt5-srpm-macros-5.15.10-1.fc37.noarc  43 kB/s | 8.2 kB     00:00    
+(155/169): qt6-srpm-macros-6.5.1-2.fc37.noarch.  58 kB/s | 8.8 kB     00:00    
+(156/169): redhat-rpm-config-230-1.fc37.noarch. 447 kB/s |  78 kB     00:00    
+(157/169): rpm-build-4.18.2-1.fc37.x86_64.rpm   422 kB/s |  75 kB     00:00    
+(158/169): rpmautospec-rpm-macros-0.3.8-1.fc37.  62 kB/s | 8.9 kB     00:00    
+(159/169): rust-srpm-macros-25.2-2.fc37.noarch.  82 kB/s |  12 kB     00:00    
+(160/169): xxhash-libs-0.8.2-1.fc37.x86_64.rpm  249 kB/s |  39 kB     00:00    
+(161/169): xz-5.4.1-1.fc37.x86_64.rpm           1.3 MB/s | 419 kB     00:00    
+(162/169): git-core-2.42.0-2.fc37.x86_64.rpm    305 kB/s | 4.4 MB     00:14    
+(163/169): zstd-1.5.5-1.fc37.x86_64.rpm         1.4 MB/s | 476 kB     00:00    
+(164/169): elfutils-libs-0.190-2.fc37.x86_64.rp 1.2 MB/s | 258 kB     00:00    
+(165/169): elfutils-libelf-0.190-2.fc37.x86_64. 246 kB/s | 193 kB     00:00    
+(166/169): glibc-2.36-18.fc37.x86_64.rpm        2.8 MB/s | 2.2 MB     00:00    
+(167/169): python3-setuptools-62.6.0-3.fc37.noa 499 kB/s | 1.6 MB     00:03    
+(168/169): glibc-minimal-langpack-2.36-18.fc37. 453 kB/s |  71 kB     00:00    
+(169/169): glibc-common-2.36-18.fc37.x86_64.rpm 488 kB/s | 351 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           1.7 MB/s |  52 MB     00:31     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : python3-six-1.16.0-8.fc37.noarch                     1/174 
+  Installing       : python3-dateutil-1:2.8.2-4.fc37.noarch               2/174 
+  Installing       : python3-idna-3.3-4.fc37.noarch                       3/174 
+  Upgrading        : glibc-common-2.36-18.fc37.x86_64                     4/174 
+  Upgrading        : glibc-minimal-langpack-2.36-18.fc37.x86_64           5/174 
+  Running scriptlet: glibc-2.36-18.fc37.x86_64                            6/174 
+  Upgrading        : glibc-2.36-18.fc37.x86_64                            6/174 
+  Running scriptlet: glibc-2.36-18.fc37.x86_64                            6/174 
+  Installing       : glibc-gconv-extra-2.36-18.fc37.x86_64                7/174 
+  Running scriptlet: glibc-gconv-extra-2.36-18.fc37.x86_64                7/174 
+  Upgrading        : elfutils-libelf-0.190-2.fc37.x86_64                  8/174 
+  Upgrading        : elfutils-libs-0.190-2.fc37.x86_64                    9/174 
+  Installing       : elfutils-debuginfod-client-0.190-2.fc37.x86_64      10/174 
+  Installing       : binutils-gold-2.38-27.fc37.x86_64                   11/174 
+  Installing       : binutils-2.38-27.fc37.x86_64                        12/174 
+  Running scriptlet: binutils-2.38-27.fc37.x86_64                        12/174 
+  Installing       : file-5.42-4.fc37.x86_64                             13/174 
+  Installing       : elfutils-0.190-2.fc37.x86_64                        14/174 
+  Installing       : dwz-0.14-7.fc37.x86_64                              15/174 
+  Installing       : diffutils-3.8-3.fc37.x86_64                         16/174 
+  Installing       : unzip-6.0-58.fc37.x86_64                            17/174 
+  Installing       : xz-5.4.1-1.fc37.x86_64                              18/174 
+  Installing       : zip-3.0-33.fc37.x86_64                              19/174 
+  Installing       : bzip2-1.0.8-12.fc37.x86_64                          20/174 
+  Installing       : cpio-2.13-13.fc37.x86_64                            21/174 
+  Installing       : ed-1.18-2.fc37.x86_64                               22/174 
+  Installing       : patch-2.7.6-17.fc37.x86_64                          23/174 
+  Running scriptlet: groff-base-1.22.4-10.fc37.x86_64                    24/174 
+  Installing       : groff-base-1.22.4-10.fc37.x86_64                    24/174 
+  Running scriptlet: groff-base-1.22.4-10.fc37.x86_64                    24/174 
+  Installing       : http-parser-2.9.4-7.fc37.x86_64                     25/174 
+  Installing       : libcbor-0.7.0-7.fc37.x86_64                         26/174 
+  Installing       : libfido2-1.11.0-3.fc37.x86_64                       27/174 
+  Installing       : libfdisk-2.38.1-1.fc37.x86_64                       28/174 
+  Installing       : libpkgconf-1.8.0-3.fc37.x86_64                      29/174 
+  Installing       : pkgconf-1.8.0-3.fc37.x86_64                         30/174 
+  Installing       : libssh2-1.10.0-5.fc37.x86_64                        31/174 
+  Installing       : libgit2-1.3.2-1.fc37.x86_64                         32/174 
+  Running scriptlet: libutempter-1.2.1-7.fc37.x86_64                     33/174 
+  Installing       : libutempter-1.2.1-7.fc37.x86_64                     33/174 
+  Installing       : util-linux-2.38.1-1.fc37.x86_64                     34/174 
+warning: /etc/adjtime created as /etc/adjtime.rpmnew
+
+  Running scriptlet: openssh-8.8p1-11.fc37.x86_64                        35/174 
+  Installing       : openssh-8.8p1-11.fc37.x86_64                        35/174 
+  Installing       : dbus-libs-1:1.14.10-1.fc37.x86_64                   36/174 
+  Installing       : python3-dbus-1.3.2-1.fc37.x86_64                    37/174 
+  Installing       : fakeroot-libs-1.32.1-1.fc37.x86_64                  38/174 
+  Installing       : fakeroot-1.32.1-1.fc37.x86_64                       39/174 
+  Running scriptlet: fakeroot-1.32.1-1.fc37.x86_64                       39/174 
+  Installing       : less-633-1.fc37.x86_64                              40/174 
+  Installing       : libedit-3.1-43.20221009cvs.fc37.x86_64              41/174 
+  Installing       : openssh-clients-8.8p1-11.fc37.x86_64                42/174 
+  Running scriptlet: openssh-clients-8.8p1-11.fc37.x86_64                42/174 
+  Installing       : git-core-2.42.0-2.fc37.x86_64                       43/174 
+  Installing       : git-core-doc-2.42.0-2.fc37.noarch                   44/174 
+  Installing       : ncurses-6.4-3.20230114.fc37.x86_64                  45/174 
+  Installing       : perl-Digest-1.20-489.fc37.noarch                    46/174 
+  Installing       : perl-Digest-MD5-2.58-489.fc37.x86_64                47/174 
+  Installing       : perl-B-1.83-494.fc37.x86_64                         48/174 
+  Installing       : perl-FileHandle-2.03-494.fc37.noarch                49/174 
+  Installing       : perl-AutoLoader-5.74-494.fc37.noarch                50/174 
+  Installing       : perl-Data-Dumper-2.184-490.fc37.x86_64              51/174 
+  Installing       : perl-libnet-3.14-490.fc37.noarch                    52/174 
+  Installing       : perl-base-2.27-494.fc37.noarch                      53/174 
+  Installing       : perl-URI-5.17-1.fc37.noarch                         54/174 
+  Installing       : perl-Net-SSLeay-1.92-4.fc37.x86_64                  55/174 
+  Installing       : perl-Time-Local-2:1.300-489.fc37.noarch             56/174 
+  Installing       : perl-Mozilla-CA-20211001-4.fc37.noarch              57/174 
+  Installing       : perl-Text-Tabs+Wrap-2023.0511-1.fc37.noarch         58/174 
+  Installing       : perl-if-0.61.000-494.fc37.noarch                    59/174 
+  Installing       : perl-locale-1.10-494.fc37.noarch                    60/174 
+  Installing       : perl-IO-Socket-IP-0.41-490.fc37.noarch              61/174 
+  Installing       : perl-File-Path-2.18-489.fc37.noarch                 62/174 
+  Installing       : perl-IO-Socket-SSL-2.075-1.fc37.noarch              63/174 
+  Installing       : perl-Pod-Escapes-1:1.07-489.fc37.noarch             64/174 
+  Installing       : perl-Term-ANSIColor-5.01-490.fc37.noarch            65/174 
+  Installing       : perl-Class-Struct-0.66-494.fc37.noarch              66/174 
+  Installing       : perl-POSIX-2.03-494.fc37.x86_64                     67/174 
+  Installing       : perl-IPC-Open3-1.22-494.fc37.noarch                 68/174 
+  Installing       : perl-subs-1.04-494.fc37.noarch                      69/174 
+  Installing       : perl-File-Temp-1:0.231.100-489.fc37.noarch          70/174 
+  Installing       : perl-HTTP-Tiny-0.086-1.fc37.noarch                  71/174 
+  Installing       : perl-Term-Cap-1.17-489.fc37.noarch                  72/174 
+  Installing       : perl-Pod-Simple-1:3.43-490.fc37.noarch              73/174 
+  Installing       : perl-Socket-4:2.036-1.fc37.x86_64                   74/174 
+  Installing       : perl-SelectSaver-1.02-494.fc37.noarch               75/174 
+  Installing       : perl-Symbol-1.09-494.fc37.noarch                    76/174 
+  Installing       : perl-File-stat-1.12-494.fc37.noarch                 77/174 
+  Installing       : perl-podlators-1:4.14-489.fc37.noarch               78/174 
+  Installing       : perl-Pod-Perldoc-3.28.01-490.fc37.noarch            79/174 
+  Installing       : perl-Text-ParseWords-3.31-489.fc37.noarch           80/174 
+  Installing       : perl-Fcntl-1.15-494.fc37.x86_64                     81/174 
+  Installing       : perl-mro-1.26-494.fc37.x86_64                       82/174 
+  Installing       : perl-IO-1.50-494.fc37.x86_64                        83/174 
+  Installing       : perl-overloading-0.02-494.fc37.noarch               84/174 
+  Installing       : perl-Pod-Usage-4:2.03-3.fc37.noarch                 85/174 
+  Installing       : perl-MIME-Base64-3.16-489.fc37.x86_64               86/174 
+  Installing       : perl-Scalar-List-Utils-5:1.63-489.fc37.x86_64       87/174 
+  Installing       : perl-constant-1.33-490.fc37.noarch                  88/174 
+  Installing       : perl-parent-1:0.238-489.fc37.noarch                 89/174 
+  Installing       : perl-Errno-1.36-494.fc37.x86_64                     90/174 
+  Installing       : perl-File-Basename-2.85-494.fc37.noarch             91/174 
+  Installing       : perl-Getopt-Std-1.13-494.fc37.noarch                92/174 
+  Installing       : perl-Storable-1:3.26-489.fc37.x86_64                93/174 
+  Installing       : perl-overload-1.35-494.fc37.noarch                  94/174 
+  Installing       : perl-vars-1.05-494.fc37.noarch                      95/174 
+  Installing       : perl-Getopt-Long-1:2.54-1.fc37.noarch               96/174 
+  Installing       : perl-Carp-1.52-489.fc37.noarch                      97/174 
+  Installing       : perl-Exporter-5.77-489.fc37.noarch                  98/174 
+  Installing       : perl-PathTools-3.84-489.fc37.x86_64                 99/174 
+  Installing       : perl-NDBM_File-1.15-494.fc37.x86_64                100/174 
+  Installing       : perl-DynaLoader-1.52-494.fc37.x86_64               101/174 
+  Installing       : perl-Encode-4:3.19-492.fc37.x86_64                 102/174 
+  Installing       : perl-libs-4:5.36.1-494.fc37.x86_64                 103/174 
+  Installing       : perl-interpreter-4:5.36.1-494.fc37.x86_64          104/174 
+  Installing       : perl-Error-1:0.17029-10.fc37.noarch                105/174 
+  Installing       : perl-TermReadKey-2.38-14.fc37.x86_64               106/174 
+  Installing       : perl-File-Find-1.40-494.fc37.noarch                107/174 
+  Installing       : perl-lib-0.65-494.fc37.x86_64                      108/174 
+  Installing       : perl-Git-2.42.0-2.fc37.noarch                      109/174 
+  Installing       : git-2.42.0-2.fc37.x86_64                           110/174 
+  Installing       : xxhash-libs-0.8.2-1.fc37.x86_64                    111/174 
+  Installing       : gdb-minimal-13.2-3.fc37.x86_64                     112/174 
+  Installing       : debugedit-5.0-7.fc37.x86_64                        113/174 
+  Installing       : zstd-1.5.5-1.fc37.x86_64                           114/174 
+  Installing       : rust-srpm-macros-25.2-2.fc37.noarch                115/174 
+  Installing       : rpmautospec-rpm-macros-0.3.8-1.fc37.noarch         116/174 
+  Installing       : qt6-srpm-macros-6.5.1-2.fc37.noarch                117/174 
+  Installing       : qt5-srpm-macros-5.15.10-1.fc37.noarch              118/174 
+  Installing       : python3-setuptools-62.6.0-3.fc37.noarch            119/174 
+  Installing       : python3-pytz-2023.3.post1-1.fc37.noarch            120/174 
+  Installing       : python3-babel-2.10.3-3.fc37.noarch                 121/174 
+  Installing       : package-notes-srpm-macros-0.5-7.fc37.noarch        122/174 
+  Installing       : gnat-srpm-macros-5-1.fc37.noarch                   123/174 
+  Installing       : ghc-srpm-macros-1.6.1-1.fc37.noarch                124/174 
+  Installing       : emacs-filesystem-1:28.3-0.rc1.fc37.noarch          125/174 
+  Installing       : ansible-srpm-macros-1-10.fc37.noarch               126/174 
+  Installing       : python3-utils-3.1.0-3.fc37.noarch                  127/174 
+  Installing       : python3-progressbar2-3.53.2-6.fc37.noarch          128/174 
+  Installing       : python3-pysocks-1.7.1-15.fc37.noarch               129/174 
+  Installing       : python3-urllib3+socks-1.26.18-1.fc37.noarch        130/174 
+  Installing       : python3-urllib3-1.26.18-1.fc37.noarch              131/174 
+  Installing       : python3-ply-3.11-17.fc37.noarch                    132/174 
+  Installing       : python3-pycparser-2.20-8.fc37.noarch               133/174 
+  Installing       : python3-cffi-1.15.1-2.fc37.x86_64                  134/174 
+  Installing       : python3-pygit2-1.7.1-4.fc37.x86_64                 135/174 
+  Installing       : python3-distro-1.7.0-3.fc37.noarch                 136/174 
+  Installing       : python3-decorator-5.1.1-4.fc37.noarch              137/174 
+  Installing       : python3-gssapi-1.7.3-3.fc37.x86_64                 138/174 
+  Installing       : python3-charset-normalizer-2.1.0-2.fc37.noarch     139/174 
+  Installing       : python3-requests-2.28.1-3.fc37.noarch              140/174 
+  Installing       : python3-requests-gssapi-1.2.3-6.fc37.noarch        141/174 
+  Installing       : python3-koji-1.33.0-1.fc37.noarch                  142/174 
+  Installing       : koji-1.33.0-1.fc37.noarch                          143/174 
+  Installing       : python3-argcomplete-2.0.0-4.fc37.noarch            144/174 
+  Installing       : pkgconf-m4-1.8.0-3.fc37.noarch                     145/174 
+  Installing       : pkgconf-pkg-config-1.8.0-3.fc37.x86_64             146/174 
+  Installing       : perl-srpm-macros-1-46.fc37.noarch                  147/174 
+  Installing       : openblas-srpm-macros-2-12.fc37.noarch              148/174 
+  Installing       : ocaml-srpm-macros-7-2.fc37.noarch                  149/174 
+  Installing       : nim-srpm-macros-3-7.fc37.noarch                    150/174 
+  Installing       : lua-srpm-macros-1-7.fc37.noarch                    151/174 
+  Installing       : kernel-srpm-macros-1.0-15.fc37.noarch              152/174 
+  Installing       : fpc-srpm-macros-1.3-6.fc37.noarch                  153/174 
+  Installing       : fonts-filesystem-1:2.0.5-9.fc37.noarch             154/174 
+  Installing       : web-assets-filesystem-5-18.fc37.noarch             155/174 
+  Installing       : js-jquery-3.6.0-3.fc37.noarch                      156/174 
+  Installing       : python-systemd-doc-235-1.fc37.x86_64               157/174 
+  Installing       : python3-systemd-235-1.fc37.x86_64                  158/174 
+  Installing       : python3-dnf-plugins-core-4.4.3-1.fc37.noarch       159/174 
+  Installing       : efi-srpm-macros-5-6.fc37.noarch                    160/174 
+  Installing       : fonts-srpm-macros-1:2.0.5-9.fc37.noarch            161/174 
+  Installing       : go-srpm-macros-3.3.1-1.fc37.noarch                 162/174 
+  Installing       : python-srpm-macros-3.11-6.fc37.noarch              163/174 
+  Installing       : redhat-rpm-config-230-1.fc37.noarch                164/174 
+  Installing       : rpm-build-4.18.2-1.fc37.x86_64                     165/174 
+  Installing       : pyproject-srpm-macros-1.10.0-1.fc37.noarch         166/174 
+  Installing       : python3-rpmautospec-0.3.8-1.fc37.noarch            167/174 
+  Installing       : rpmdevtools-9.6-2.fc37.noarch                      168/174 
+  Installing       : dnf-plugins-core-4.4.3-1.fc37.noarch               169/174 
+  Cleanup          : elfutils-libs-0.190-1.fc37.x86_64                  170/174 
+  Cleanup          : elfutils-libelf-0.190-1.fc37.x86_64                171/174 
+  Cleanup          : glibc-2.36-17.fc37.x86_64                          172/174 
+  Cleanup          : glibc-minimal-langpack-2.36-17.fc37.x86_64         173/174 
+  Cleanup          : glibc-common-2.36-17.fc37.x86_64                   174/174 
+  Running scriptlet: glibc-common-2.36-17.fc37.x86_64                   174/174 
+  Verifying        : bzip2-1.0.8-12.fc37.x86_64                           1/174 
+  Verifying        : cpio-2.13-13.fc37.x86_64                             2/174 
+  Verifying        : diffutils-3.8-3.fc37.x86_64                          3/174 
+  Verifying        : dwz-0.14-7.fc37.x86_64                               4/174 
+  Verifying        : ed-1.18-2.fc37.x86_64                                5/174 
+  Verifying        : efi-srpm-macros-5-6.fc37.noarch                      6/174 
+  Verifying        : file-5.42-4.fc37.x86_64                              7/174 
+  Verifying        : fonts-filesystem-1:2.0.5-9.fc37.noarch               8/174 
+  Verifying        : fonts-srpm-macros-1:2.0.5-9.fc37.noarch              9/174 
+  Verifying        : fpc-srpm-macros-1.3-6.fc37.noarch                   10/174 
+  Verifying        : groff-base-1.22.4-10.fc37.x86_64                    11/174 
+  Verifying        : http-parser-2.9.4-7.fc37.x86_64                     12/174 
+  Verifying        : js-jquery-3.6.0-3.fc37.noarch                       13/174 
+  Verifying        : kernel-srpm-macros-1.0-15.fc37.noarch               14/174 
+  Verifying        : libcbor-0.7.0-7.fc37.x86_64                         15/174 
+  Verifying        : libfdisk-2.38.1-1.fc37.x86_64                       16/174 
+  Verifying        : libfido2-1.11.0-3.fc37.x86_64                       17/174 
+  Verifying        : libpkgconf-1.8.0-3.fc37.x86_64                      18/174 
+  Verifying        : libssh2-1.10.0-5.fc37.x86_64                        19/174 
+  Verifying        : libutempter-1.2.1-7.fc37.x86_64                     20/174 
+  Verifying        : lua-srpm-macros-1-7.fc37.noarch                     21/174 
+  Verifying        : nim-srpm-macros-3-7.fc37.noarch                     22/174 
+  Verifying        : ocaml-srpm-macros-7-2.fc37.noarch                   23/174 
+  Verifying        : openblas-srpm-macros-2-12.fc37.noarch               24/174 
+  Verifying        : patch-2.7.6-17.fc37.x86_64                          25/174 
+  Verifying        : perl-Carp-1.52-489.fc37.noarch                      26/174 
+  Verifying        : perl-Data-Dumper-2.184-490.fc37.x86_64              27/174 
+  Verifying        : perl-Digest-1.20-489.fc37.noarch                    28/174 
+  Verifying        : perl-Digest-MD5-2.58-489.fc37.x86_64                29/174 
+  Verifying        : perl-Encode-4:3.19-492.fc37.x86_64                  30/174 
+  Verifying        : perl-Error-1:0.17029-10.fc37.noarch                 31/174 
+  Verifying        : perl-Exporter-5.77-489.fc37.noarch                  32/174 
+  Verifying        : perl-File-Path-2.18-489.fc37.noarch                 33/174 
+  Verifying        : perl-File-Temp-1:0.231.100-489.fc37.noarch          34/174 
+  Verifying        : perl-IO-Socket-IP-0.41-490.fc37.noarch              35/174 
+  Verifying        : perl-IO-Socket-SSL-2.075-1.fc37.noarch              36/174 
+  Verifying        : perl-MIME-Base64-3.16-489.fc37.x86_64               37/174 
+  Verifying        : perl-Mozilla-CA-20211001-4.fc37.noarch              38/174 
+  Verifying        : perl-Net-SSLeay-1.92-4.fc37.x86_64                  39/174 
+  Verifying        : perl-PathTools-3.84-489.fc37.x86_64                 40/174 
+  Verifying        : perl-Pod-Escapes-1:1.07-489.fc37.noarch             41/174 
+  Verifying        : perl-Pod-Perldoc-3.28.01-490.fc37.noarch            42/174 
+  Verifying        : perl-Pod-Simple-1:3.43-490.fc37.noarch              43/174 
+  Verifying        : perl-Pod-Usage-4:2.03-3.fc37.noarch                 44/174 
+  Verifying        : perl-Scalar-List-Utils-5:1.63-489.fc37.x86_64       45/174 
+  Verifying        : perl-Socket-4:2.036-1.fc37.x86_64                   46/174 
+  Verifying        : perl-Storable-1:3.26-489.fc37.x86_64                47/174 
+  Verifying        : perl-Term-ANSIColor-5.01-490.fc37.noarch            48/174 
+  Verifying        : perl-Term-Cap-1.17-489.fc37.noarch                  49/174 
+  Verifying        : perl-TermReadKey-2.38-14.fc37.x86_64                50/174 
+  Verifying        : perl-Text-ParseWords-3.31-489.fc37.noarch           51/174 
+  Verifying        : perl-Time-Local-2:1.300-489.fc37.noarch             52/174 
+  Verifying        : perl-constant-1.33-490.fc37.noarch                  53/174 
+  Verifying        : perl-libnet-3.14-490.fc37.noarch                    54/174 
+  Verifying        : perl-parent-1:0.238-489.fc37.noarch                 55/174 
+  Verifying        : perl-podlators-1:4.14-489.fc37.noarch               56/174 
+  Verifying        : perl-srpm-macros-1-46.fc37.noarch                   57/174 
+  Verifying        : pkgconf-1.8.0-3.fc37.x86_64                         58/174 
+  Verifying        : pkgconf-m4-1.8.0-3.fc37.noarch                      59/174 
+  Verifying        : pkgconf-pkg-config-1.8.0-3.fc37.x86_64              60/174 
+  Verifying        : python-systemd-doc-235-1.fc37.x86_64                61/174 
+  Verifying        : python3-argcomplete-2.0.0-4.fc37.noarch             62/174 
+  Verifying        : python3-babel-2.10.3-3.fc37.noarch                  63/174 
+  Verifying        : python3-cffi-1.15.1-2.fc37.x86_64                   64/174 
+  Verifying        : python3-charset-normalizer-2.1.0-2.fc37.noarch      65/174 
+  Verifying        : python3-dateutil-1:2.8.2-4.fc37.noarch              66/174 
+  Verifying        : python3-decorator-5.1.1-4.fc37.noarch               67/174 
+  Verifying        : python3-distro-1.7.0-3.fc37.noarch                  68/174 
+  Verifying        : python3-gssapi-1.7.3-3.fc37.x86_64                  69/174 
+  Verifying        : python3-idna-3.3-4.fc37.noarch                      70/174 
+  Verifying        : python3-ply-3.11-17.fc37.noarch                     71/174 
+  Verifying        : python3-progressbar2-3.53.2-6.fc37.noarch           72/174 
+  Verifying        : python3-pycparser-2.20-8.fc37.noarch                73/174 
+  Verifying        : python3-pygit2-1.7.1-4.fc37.x86_64                  74/174 
+  Verifying        : python3-pysocks-1.7.1-15.fc37.noarch                75/174 
+  Verifying        : python3-requests-gssapi-1.2.3-6.fc37.noarch         76/174 
+  Verifying        : python3-six-1.16.0-8.fc37.noarch                    77/174 
+  Verifying        : python3-systemd-235-1.fc37.x86_64                   78/174 
+  Verifying        : python3-utils-3.1.0-3.fc37.noarch                   79/174 
+  Verifying        : rpmdevtools-9.6-2.fc37.noarch                       80/174 
+  Verifying        : unzip-6.0-58.fc37.x86_64                            81/174 
+  Verifying        : util-linux-2.38.1-1.fc37.x86_64                     82/174 
+  Verifying        : web-assets-filesystem-5-18.fc37.noarch              83/174 
+  Verifying        : zip-3.0-33.fc37.x86_64                              84/174 
+  Verifying        : ansible-srpm-macros-1-10.fc37.noarch                85/174 
+  Verifying        : binutils-2.38-27.fc37.x86_64                        86/174 
+  Verifying        : binutils-gold-2.38-27.fc37.x86_64                   87/174 
+  Verifying        : dbus-libs-1:1.14.10-1.fc37.x86_64                   88/174 
+  Verifying        : debugedit-5.0-7.fc37.x86_64                         89/174 
+  Verifying        : dnf-plugins-core-4.4.3-1.fc37.noarch                90/174 
+  Verifying        : elfutils-0.190-2.fc37.x86_64                        91/174 
+  Verifying        : elfutils-debuginfod-client-0.190-2.fc37.x86_64      92/174 
+  Verifying        : emacs-filesystem-1:28.3-0.rc1.fc37.noarch           93/174 
+  Verifying        : fakeroot-1.32.1-1.fc37.x86_64                       94/174 
+  Verifying        : fakeroot-libs-1.32.1-1.fc37.x86_64                  95/174 
+  Verifying        : gdb-minimal-13.2-3.fc37.x86_64                      96/174 
+  Verifying        : ghc-srpm-macros-1.6.1-1.fc37.noarch                 97/174 
+  Verifying        : git-2.42.0-2.fc37.x86_64                            98/174 
+  Verifying        : git-core-2.42.0-2.fc37.x86_64                       99/174 
+  Verifying        : git-core-doc-2.42.0-2.fc37.noarch                  100/174 
+  Verifying        : glibc-gconv-extra-2.36-18.fc37.x86_64              101/174 
+  Verifying        : gnat-srpm-macros-5-1.fc37.noarch                   102/174 
+  Verifying        : go-srpm-macros-3.3.1-1.fc37.noarch                 103/174 
+  Verifying        : koji-1.33.0-1.fc37.noarch                          104/174 
+  Verifying        : less-633-1.fc37.x86_64                             105/174 
+  Verifying        : libedit-3.1-43.20221009cvs.fc37.x86_64             106/174 
+  Verifying        : libgit2-1.3.2-1.fc37.x86_64                        107/174 
+  Verifying        : ncurses-6.4-3.20230114.fc37.x86_64                 108/174 
+  Verifying        : openssh-8.8p1-11.fc37.x86_64                       109/174 
+  Verifying        : openssh-clients-8.8p1-11.fc37.x86_64               110/174 
+  Verifying        : package-notes-srpm-macros-0.5-7.fc37.noarch        111/174 
+  Verifying        : perl-AutoLoader-5.74-494.fc37.noarch               112/174 
+  Verifying        : perl-B-1.83-494.fc37.x86_64                        113/174 
+  Verifying        : perl-Class-Struct-0.66-494.fc37.noarch             114/174 
+  Verifying        : perl-DynaLoader-1.52-494.fc37.x86_64               115/174 
+  Verifying        : perl-Errno-1.36-494.fc37.x86_64                    116/174 
+  Verifying        : perl-Fcntl-1.15-494.fc37.x86_64                    117/174 
+  Verifying        : perl-File-Basename-2.85-494.fc37.noarch            118/174 
+  Verifying        : perl-File-Find-1.40-494.fc37.noarch                119/174 
+  Verifying        : perl-File-stat-1.12-494.fc37.noarch                120/174 
+  Verifying        : perl-FileHandle-2.03-494.fc37.noarch               121/174 
+  Verifying        : perl-Getopt-Long-1:2.54-1.fc37.noarch              122/174 
+  Verifying        : perl-Getopt-Std-1.13-494.fc37.noarch               123/174 
+  Verifying        : perl-Git-2.42.0-2.fc37.noarch                      124/174 
+  Verifying        : perl-HTTP-Tiny-0.086-1.fc37.noarch                 125/174 
+  Verifying        : perl-IO-1.50-494.fc37.x86_64                       126/174 
+  Verifying        : perl-IPC-Open3-1.22-494.fc37.noarch                127/174 
+  Verifying        : perl-NDBM_File-1.15-494.fc37.x86_64                128/174 
+  Verifying        : perl-POSIX-2.03-494.fc37.x86_64                    129/174 
+  Verifying        : perl-SelectSaver-1.02-494.fc37.noarch              130/174 
+  Verifying        : perl-Symbol-1.09-494.fc37.noarch                   131/174 
+  Verifying        : perl-Text-Tabs+Wrap-2023.0511-1.fc37.noarch        132/174 
+  Verifying        : perl-URI-5.17-1.fc37.noarch                        133/174 
+  Verifying        : perl-base-2.27-494.fc37.noarch                     134/174 
+  Verifying        : perl-if-0.61.000-494.fc37.noarch                   135/174 
+  Verifying        : perl-interpreter-4:5.36.1-494.fc37.x86_64          136/174 
+  Verifying        : perl-lib-0.65-494.fc37.x86_64                      137/174 
+  Verifying        : perl-libs-4:5.36.1-494.fc37.x86_64                 138/174 
+  Verifying        : perl-locale-1.10-494.fc37.noarch                   139/174 
+  Verifying        : perl-mro-1.26-494.fc37.x86_64                      140/174 
+  Verifying        : perl-overload-1.35-494.fc37.noarch                 141/174 
+  Verifying        : perl-overloading-0.02-494.fc37.noarch              142/174 
+  Verifying        : perl-subs-1.04-494.fc37.noarch                     143/174 
+  Verifying        : perl-vars-1.05-494.fc37.noarch                     144/174 
+  Verifying        : pyproject-srpm-macros-1.10.0-1.fc37.noarch         145/174 
+  Verifying        : python-srpm-macros-3.11-6.fc37.noarch              146/174 
+  Verifying        : python3-dbus-1.3.2-1.fc37.x86_64                   147/174 
+  Verifying        : python3-dnf-plugins-core-4.4.3-1.fc37.noarch       148/174 
+  Verifying        : python3-koji-1.33.0-1.fc37.noarch                  149/174 
+  Verifying        : python3-pytz-2023.3.post1-1.fc37.noarch            150/174 
+  Verifying        : python3-requests-2.28.1-3.fc37.noarch              151/174 
+  Verifying        : python3-rpmautospec-0.3.8-1.fc37.noarch            152/174 
+  Verifying        : python3-setuptools-62.6.0-3.fc37.noarch            153/174 
+  Verifying        : python3-urllib3+socks-1.26.18-1.fc37.noarch        154/174 
+  Verifying        : python3-urllib3-1.26.18-1.fc37.noarch              155/174 
+  Verifying        : qt5-srpm-macros-5.15.10-1.fc37.noarch              156/174 
+  Verifying        : qt6-srpm-macros-6.5.1-2.fc37.noarch                157/174 
+  Verifying        : redhat-rpm-config-230-1.fc37.noarch                158/174 
+  Verifying        : rpm-build-4.18.2-1.fc37.x86_64                     159/174 
+  Verifying        : rpmautospec-rpm-macros-0.3.8-1.fc37.noarch         160/174 
+  Verifying        : rust-srpm-macros-25.2-2.fc37.noarch                161/174 
+  Verifying        : xxhash-libs-0.8.2-1.fc37.x86_64                    162/174 
+  Verifying        : xz-5.4.1-1.fc37.x86_64                             163/174 
+  Verifying        : zstd-1.5.5-1.fc37.x86_64                           164/174 
+  Verifying        : elfutils-libelf-0.190-2.fc37.x86_64                165/174 
+  Verifying        : elfutils-libelf-0.190-1.fc37.x86_64                166/174 
+  Verifying        : elfutils-libs-0.190-2.fc37.x86_64                  167/174 
+  Verifying        : elfutils-libs-0.190-1.fc37.x86_64                  168/174 
+  Verifying        : glibc-2.36-18.fc37.x86_64                          169/174 
+  Verifying        : glibc-2.36-17.fc37.x86_64                          170/174 
+  Verifying        : glibc-common-2.36-18.fc37.x86_64                   171/174 
+  Verifying        : glibc-common-2.36-17.fc37.x86_64                   172/174 
+  Verifying        : glibc-minimal-langpack-2.36-18.fc37.x86_64         173/174 
+  Verifying        : glibc-minimal-langpack-2.36-17.fc37.x86_64         174/174 
+
+Upgraded:
+  elfutils-libelf-0.190-2.fc37.x86_64         elfutils-libs-0.190-2.fc37.x86_64 
+  glibc-2.36-18.fc37.x86_64                   glibc-common-2.36-18.fc37.x86_64  
+  glibc-minimal-langpack-2.36-18.fc37.x86_64 
+Installed:
+  ansible-srpm-macros-1-10.fc37.noarch                                          
+  binutils-2.38-27.fc37.x86_64                                                  
+  binutils-gold-2.38-27.fc37.x86_64                                             
+  bzip2-1.0.8-12.fc37.x86_64                                                    
+  cpio-2.13-13.fc37.x86_64                                                      
+  dbus-libs-1:1.14.10-1.fc37.x86_64                                             
+  debugedit-5.0-7.fc37.x86_64                                                   
+  diffutils-3.8-3.fc37.x86_64                                                   
+  dnf-plugins-core-4.4.3-1.fc37.noarch                                          
+  dwz-0.14-7.fc37.x86_64                                                        
+  ed-1.18-2.fc37.x86_64                                                         
+  efi-srpm-macros-5-6.fc37.noarch                                               
+  elfutils-0.190-2.fc37.x86_64                                                  
+  elfutils-debuginfod-client-0.190-2.fc37.x86_64                                
+  emacs-filesystem-1:28.3-0.rc1.fc37.noarch                                     
+  fakeroot-1.32.1-1.fc37.x86_64                                                 
+  fakeroot-libs-1.32.1-1.fc37.x86_64                                            
+  file-5.42-4.fc37.x86_64                                                       
+  fonts-filesystem-1:2.0.5-9.fc37.noarch                                        
+  fonts-srpm-macros-1:2.0.5-9.fc37.noarch                                       
+  fpc-srpm-macros-1.3-6.fc37.noarch                                             
+  gdb-minimal-13.2-3.fc37.x86_64                                                
+  ghc-srpm-macros-1.6.1-1.fc37.noarch                                           
+  git-2.42.0-2.fc37.x86_64                                                      
+  git-core-2.42.0-2.fc37.x86_64                                                 
+  git-core-doc-2.42.0-2.fc37.noarch                                             
+  glibc-gconv-extra-2.36-18.fc37.x86_64                                         
+  gnat-srpm-macros-5-1.fc37.noarch                                              
+  go-srpm-macros-3.3.1-1.fc37.noarch                                            
+  groff-base-1.22.4-10.fc37.x86_64                                              
+  http-parser-2.9.4-7.fc37.x86_64                                               
+  js-jquery-3.6.0-3.fc37.noarch                                                 
+  kernel-srpm-macros-1.0-15.fc37.noarch                                         
+  koji-1.33.0-1.fc37.noarch                                                     
+  less-633-1.fc37.x86_64                                                        
+  libcbor-0.7.0-7.fc37.x86_64                                                   
+  libedit-3.1-43.20221009cvs.fc37.x86_64                                        
+  libfdisk-2.38.1-1.fc37.x86_64                                                 
+  libfido2-1.11.0-3.fc37.x86_64                                                 
+  libgit2-1.3.2-1.fc37.x86_64                                                   
+  libpkgconf-1.8.0-3.fc37.x86_64                                                
+  libssh2-1.10.0-5.fc37.x86_64                                                  
+  libutempter-1.2.1-7.fc37.x86_64                                               
+  lua-srpm-macros-1-7.fc37.noarch                                               
+  ncurses-6.4-3.20230114.fc37.x86_64                                            
+  nim-srpm-macros-3-7.fc37.noarch                                               
+  ocaml-srpm-macros-7-2.fc37.noarch                                             
+  openblas-srpm-macros-2-12.fc37.noarch                                         
+  openssh-8.8p1-11.fc37.x86_64                                                  
+  openssh-clients-8.8p1-11.fc37.x86_64                                          
+  package-notes-srpm-macros-0.5-7.fc37.noarch                                   
+  patch-2.7.6-17.fc37.x86_64                                                    
+  perl-AutoLoader-5.74-494.fc37.noarch                                          
+  perl-B-1.83-494.fc37.x86_64                                                   
+  perl-Carp-1.52-489.fc37.noarch                                                
+  perl-Class-Struct-0.66-494.fc37.noarch                                        
+  perl-Data-Dumper-2.184-490.fc37.x86_64                                        
+  perl-Digest-1.20-489.fc37.noarch                                              
+  perl-Digest-MD5-2.58-489.fc37.x86_64                                          
+  perl-DynaLoader-1.52-494.fc37.x86_64                                          
+  perl-Encode-4:3.19-492.fc37.x86_64                                            
+  perl-Errno-1.36-494.fc37.x86_64                                               
+  perl-Error-1:0.17029-10.fc37.noarch                                           
+  perl-Exporter-5.77-489.fc37.noarch                                            
+  perl-Fcntl-1.15-494.fc37.x86_64                                               
+  perl-File-Basename-2.85-494.fc37.noarch                                       
+  perl-File-Find-1.40-494.fc37.noarch                                           
+  perl-File-Path-2.18-489.fc37.noarch                                           
+  perl-File-Temp-1:0.231.100-489.fc37.noarch                                    
+  perl-File-stat-1.12-494.fc37.noarch                                           
+  perl-FileHandle-2.03-494.fc37.noarch                                          
+  perl-Getopt-Long-1:2.54-1.fc37.noarch                                         
+  perl-Getopt-Std-1.13-494.fc37.noarch                                          
+  perl-Git-2.42.0-2.fc37.noarch                                                 
+  perl-HTTP-Tiny-0.086-1.fc37.noarch                                            
+  perl-IO-1.50-494.fc37.x86_64                                                  
+  perl-IO-Socket-IP-0.41-490.fc37.noarch                                        
+  perl-IO-Socket-SSL-2.075-1.fc37.noarch                                        
+  perl-IPC-Open3-1.22-494.fc37.noarch                                           
+  perl-MIME-Base64-3.16-489.fc37.x86_64                                         
+  perl-Mozilla-CA-20211001-4.fc37.noarch                                        
+  perl-NDBM_File-1.15-494.fc37.x86_64                                           
+  perl-Net-SSLeay-1.92-4.fc37.x86_64                                            
+  perl-POSIX-2.03-494.fc37.x86_64                                               
+  perl-PathTools-3.84-489.fc37.x86_64                                           
+  perl-Pod-Escapes-1:1.07-489.fc37.noarch                                       
+  perl-Pod-Perldoc-3.28.01-490.fc37.noarch                                      
+  perl-Pod-Simple-1:3.43-490.fc37.noarch                                        
+  perl-Pod-Usage-4:2.03-3.fc37.noarch                                           
+  perl-Scalar-List-Utils-5:1.63-489.fc37.x86_64                                 
+  perl-SelectSaver-1.02-494.fc37.noarch                                         
+  perl-Socket-4:2.036-1.fc37.x86_64                                             
+  perl-Storable-1:3.26-489.fc37.x86_64                                          
+  perl-Symbol-1.09-494.fc37.noarch                                              
+  perl-Term-ANSIColor-5.01-490.fc37.noarch                                      
+  perl-Term-Cap-1.17-489.fc37.noarch                                            
+  perl-TermReadKey-2.38-14.fc37.x86_64                                          
+  perl-Text-ParseWords-3.31-489.fc37.noarch                                     
+  perl-Text-Tabs+Wrap-2023.0511-1.fc37.noarch                                   
+  perl-Time-Local-2:1.300-489.fc37.noarch                                       
+  perl-URI-5.17-1.fc37.noarch                                                   
+  perl-base-2.27-494.fc37.noarch                                                
+  perl-constant-1.33-490.fc37.noarch                                            
+  perl-if-0.61.000-494.fc37.noarch                                              
+  perl-interpreter-4:5.36.1-494.fc37.x86_64                                     
+  perl-lib-0.65-494.fc37.x86_64                                                 
+  perl-libnet-3.14-490.fc37.noarch                                              
+  perl-libs-4:5.36.1-494.fc37.x86_64                                            
+  perl-locale-1.10-494.fc37.noarch                                              
+  perl-mro-1.26-494.fc37.x86_64                                                 
+  perl-overload-1.35-494.fc37.noarch                                            
+  perl-overloading-0.02-494.fc37.noarch                                         
+  perl-parent-1:0.238-489.fc37.noarch                                           
+  perl-podlators-1:4.14-489.fc37.noarch                                         
+  perl-srpm-macros-1-46.fc37.noarch                                             
+  perl-subs-1.04-494.fc37.noarch                                                
+  perl-vars-1.05-494.fc37.noarch                                                
+  pkgconf-1.8.0-3.fc37.x86_64                                                   
+  pkgconf-m4-1.8.0-3.fc37.noarch                                                
+  pkgconf-pkg-config-1.8.0-3.fc37.x86_64                                        
+  pyproject-srpm-macros-1.10.0-1.fc37.noarch                                    
+  python-srpm-macros-3.11-6.fc37.noarch                                         
+  python-systemd-doc-235-1.fc37.x86_64                                          
+  python3-argcomplete-2.0.0-4.fc37.noarch                                       
+  python3-babel-2.10.3-3.fc37.noarch                                            
+  python3-cffi-1.15.1-2.fc37.x86_64                                             
+  python3-charset-normalizer-2.1.0-2.fc37.noarch                                
+  python3-dateutil-1:2.8.2-4.fc37.noarch                                        
+  python3-dbus-1.3.2-1.fc37.x86_64                                              
+  python3-decorator-5.1.1-4.fc37.noarch                                         
+  python3-distro-1.7.0-3.fc37.noarch                                            
+  python3-dnf-plugins-core-4.4.3-1.fc37.noarch                                  
+  python3-gssapi-1.7.3-3.fc37.x86_64                                            
+  python3-idna-3.3-4.fc37.noarch                                                
+  python3-koji-1.33.0-1.fc37.noarch                                             
+  python3-ply-3.11-17.fc37.noarch                                               
+  python3-progressbar2-3.53.2-6.fc37.noarch                                     
+  python3-pycparser-2.20-8.fc37.noarch                                          
+  python3-pygit2-1.7.1-4.fc37.x86_64                                            
+  python3-pysocks-1.7.1-15.fc37.noarch                                          
+  python3-pytz-2023.3.post1-1.fc37.noarch                                       
+  python3-requests-2.28.1-3.fc37.noarch                                         
+  python3-requests-gssapi-1.2.3-6.fc37.noarch                                   
+  python3-rpmautospec-0.3.8-1.fc37.noarch                                       
+  python3-setuptools-62.6.0-3.fc37.noarch                                       
+  python3-six-1.16.0-8.fc37.noarch                                              
+  python3-systemd-235-1.fc37.x86_64                                             
+  python3-urllib3-1.26.18-1.fc37.noarch                                         
+  python3-urllib3+socks-1.26.18-1.fc37.noarch                                   
+  python3-utils-3.1.0-3.fc37.noarch                                             
+  qt5-srpm-macros-5.15.10-1.fc37.noarch                                         
+  qt6-srpm-macros-6.5.1-2.fc37.noarch                                           
+  redhat-rpm-config-230-1.fc37.noarch                                           
+  rpm-build-4.18.2-1.fc37.x86_64                                                
+  rpmautospec-rpm-macros-0.3.8-1.fc37.noarch                                    
+  rpmdevtools-9.6-2.fc37.noarch                                                 
+  rust-srpm-macros-25.2-2.fc37.noarch                                           
+  unzip-6.0-58.fc37.x86_64                                                      
+  util-linux-2.38.1-1.fc37.x86_64                                               
+  web-assets-filesystem-5-18.fc37.noarch                                        
+  xxhash-libs-0.8.2-1.fc37.x86_64                                               
+  xz-5.4.1-1.fc37.x86_64                                                        
+  zip-3.0-33.fc37.x86_64                                                        
+  zstd-1.5.5-1.fc37.x86_64                                                      
+
+Complete!
+dnf builddep -y rpm-build/SPECS/securedrop-workstation-dom0-config.spec
+Last metadata expiration check: 0:00:39 ago on Thu Oct 16 16:53:50 2025.
+Package python3-setuptools-62.6.0-3.fc37.noarch is already installed.
+Dependencies resolved.
+================================================================================
+ Package                    Arch       Version                Repository   Size
+================================================================================
+Installing:
+ python3-devel              x86_64     3.11.6-1.fc37          updates     270 k
+ python3-pip                noarch     22.2.2-3.fc37          updates     3.1 M
+ python3-wheel              noarch     1:0.37.1-4.fc37        fedora      102 k
+ systemd-rpm-macros         noarch     251.19-1.fc37          updates      23 k
+Installing dependencies:
+ pyproject-rpm-macros       noarch     1.10.0-1.fc37          updates      41 k
+ python-rpm-macros          noarch     3.11-6.fc37            updates      19 k
+ python3-packaging          noarch     21.3-6.fc37            fedora       98 k
+ python3-pyparsing          noarch     3.0.9-2.fc37           fedora      262 k
+ python3-rpm-generators     noarch     13-3.fc37              updates      29 k
+ python3-rpm-macros         noarch     3.11-6.fc37            updates      14 k
+Installing weak dependencies:
+ libxcrypt-compat           x86_64     4.4.36-1.fc37          updates      90 k
+
+Transaction Summary
+================================================================================
+Install  11 Packages
+
+Total download size: 4.0 M
+Installed size: 17 M
+Downloading Packages:
+(1/11): python3-packaging-21.3-6.fc37.noarch.rp 165 kB/s |  98 kB     00:00    
+(2/11): python3-pyparsing-3.0.9-2.fc37.noarch.r 399 kB/s | 262 kB     00:00    
+(3/11): libxcrypt-compat-4.4.36-1.fc37.x86_64.r 671 kB/s |  90 kB     00:00    
+(4/11): python3-wheel-0.37.1-4.fc37.noarch.rpm  134 kB/s | 102 kB     00:00    
+(5/11): pyproject-rpm-macros-1.10.0-1.fc37.noar 360 kB/s |  41 kB     00:00    
+(6/11): python-rpm-macros-3.11-6.fc37.noarch.rp 190 kB/s |  19 kB     00:00    
+(7/11): python3-rpm-generators-13-3.fc37.noarch 128 kB/s |  29 kB     00:00    
+(8/11): python3-devel-3.11.6-1.fc37.x86_64.rpm  894 kB/s | 270 kB     00:00    
+(9/11): python3-pip-22.2.2-3.fc37.noarch.rpm    5.2 MB/s | 3.1 MB     00:00    
+(10/11): python3-rpm-macros-3.11-6.fc37.noarch.  47 kB/s |  14 kB     00:00    
+(11/11): systemd-rpm-macros-251.19-1.fc37.noarc  75 kB/s |  23 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           1.4 MB/s | 4.0 MB     00:02     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : python-rpm-macros-3.11-6.fc37.noarch                  1/11 
+  Installing       : python3-rpm-macros-3.11-6.fc37.noarch                 2/11 
+  Installing       : pyproject-rpm-macros-1.10.0-1.fc37.noarch             3/11 
+  Installing       : libxcrypt-compat-4.4.36-1.fc37.x86_64                 4/11 
+  Installing       : python3-pip-22.2.2-3.fc37.noarch                      5/11 
+  Installing       : python3-pyparsing-3.0.9-2.fc37.noarch                 6/11 
+  Installing       : python3-packaging-21.3-6.fc37.noarch                  7/11 
+  Installing       : python3-rpm-generators-13-3.fc37.noarch               8/11 
+  Installing       : python3-devel-3.11.6-1.fc37.x86_64                    9/11 
+  Installing       : systemd-rpm-macros-251.19-1.fc37.noarch              10/11 
+  Installing       : python3-wheel-1:0.37.1-4.fc37.noarch                 11/11 
+  Running scriptlet: python3-wheel-1:0.37.1-4.fc37.noarch                 11/11 
+  Verifying        : python3-packaging-21.3-6.fc37.noarch                  1/11 
+  Verifying        : python3-pyparsing-3.0.9-2.fc37.noarch                 2/11 
+  Verifying        : python3-wheel-1:0.37.1-4.fc37.noarch                  3/11 
+  Verifying        : libxcrypt-compat-4.4.36-1.fc37.x86_64                 4/11 
+  Verifying        : pyproject-rpm-macros-1.10.0-1.fc37.noarch             5/11 
+  Verifying        : python-rpm-macros-3.11-6.fc37.noarch                  6/11 
+  Verifying        : python3-devel-3.11.6-1.fc37.x86_64                    7/11 
+  Verifying        : python3-pip-22.2.2-3.fc37.noarch                      8/11 
+  Verifying        : python3-rpm-generators-13-3.fc37.noarch               9/11 
+  Verifying        : python3-rpm-macros-3.11-6.fc37.noarch                10/11 
+  Verifying        : systemd-rpm-macros-251.19-1.fc37.noarch              11/11 
+
+Installed:
+  libxcrypt-compat-4.4.36-1.fc37.x86_64                                         
+  pyproject-rpm-macros-1.10.0-1.fc37.noarch                                     
+  python-rpm-macros-3.11-6.fc37.noarch                                          
+  python3-devel-3.11.6-1.fc37.x86_64                                            
+  python3-packaging-21.3-6.fc37.noarch                                          
+  python3-pip-22.2.2-3.fc37.noarch                                              
+  python3-pyparsing-3.0.9-2.fc37.noarch                                         
+  python3-rpm-generators-13-3.fc37.noarch                                       
+  python3-rpm-macros-3.11-6.fc37.noarch                                         
+  python3-wheel-1:0.37.1-4.fc37.noarch                                          
+  systemd-rpm-macros-251.19-1.fc37.noarch                                       
+
+Complete!
+--> 3212087f2e0
+STEP 13/14: RUN rm -rf rpm-build
+--> 9594f582229
+STEP 14/14: RUN if test $USER_NAME != root ; then useradd --no-create-home --home-dir /tmp --uid $USER_ID $USER_NAME && echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers ; fi
+COMMIT securedrop-workstation-dom0-config
+--> 581e5fd860b
+Successfully tagged localhost/securedrop-workstation-dom0-config:latest
+581e5fd860b76633e29cbaaecd7e375ffb725a292b4b67c07531d79bab302fe2
+Removing dist/
+Removing rpm-build/RPMS/noarch/
+Removing rpm-build/SOURCES/securedrop-workstation-dom0-config-1.5.0rc1.tar.gz
+running sdist
+running egg_info
+writing securedrop_workstation_dom0_config.egg-info/PKG-INFO
+writing dependency_links to securedrop_workstation_dom0_config.egg-info/dependency_links.txt
+writing top-level names to securedrop_workstation_dom0_config.egg-info/top_level.txt
+reading manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+adding license file 'LICENSE'
+writing manifest file 'securedrop_workstation_dom0_config.egg-info/SOURCES.txt'
+running check
+creating securedrop-workstation-dom0-config-1.5.0
+creating securedrop-workstation-dom0-config-1.5.0/files
+creating securedrop-workstation-dom0-config-1.5.0/launcher
+creating securedrop-workstation-dom0-config-1.5.0/launcher/sdw_notify
+creating securedrop-workstation-dom0-config-1.5.0/launcher/sdw_util
+creating securedrop-workstation-dom0-config-1.5.0/sdw_notify
+creating securedrop-workstation-dom0-config-1.5.0/sdw_updater
+creating securedrop-workstation-dom0-config-1.5.0/sdw_util
+creating securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+creating securedrop-workstation-dom0-config-1.5.0/securedrop_workstation_dom0_config.egg-info
+creating securedrop-workstation-dom0-config-1.5.0/tests
+copying files to securedrop-workstation-dom0-config-1.5.0...
+copying LICENSE -> securedrop-workstation-dom0-config-1.5.0
+copying MANIFEST.in -> securedrop-workstation-dom0-config-1.5.0
+copying README.md -> securedrop-workstation-dom0-config-1.5.0
+copying VERSION -> securedrop-workstation-dom0-config-1.5.0
+copying pyproject.toml -> securedrop-workstation-dom0-config-1.5.0
+copying setup.py -> securedrop-workstation-dom0-config-1.5.0
+copying files/10-securedrop-logind_override.conf -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/31-securedrop-workstation.policy -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/32-securedrop-workstation.policy -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/95-securedrop-systemd-user.preset -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/clean-salt -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/config.json.example -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/destroy-vm.py -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/press.freedom.SecureDropUpdater.desktop -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/sdw-admin.py -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/sdw-login.py -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/sdw-notify.py -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/sdw-notify.service -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/sdw-notify.timer -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/sdw-updater.py -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/securedrop-128x128.png -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/securedrop-logind-override-disable.service -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/securedrop-scalable.svg -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/securedrop-user-xfce-icon-size.service -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/securedrop-user-xfce-settings.service -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/update-xfce-settings -> securedrop-workstation-dom0-config-1.5.0/files
+copying files/validate_config.py -> securedrop-workstation-dom0-config-1.5.0/files
+copying launcher/sdw_notify/Notify.py -> securedrop-workstation-dom0-config-1.5.0/launcher/sdw_notify
+copying launcher/sdw_notify/NotifyApp.py -> securedrop-workstation-dom0-config-1.5.0/launcher/sdw_notify
+copying launcher/sdw_notify/strings.py -> securedrop-workstation-dom0-config-1.5.0/launcher/sdw_notify
+copying launcher/sdw_util/Util.py -> securedrop-workstation-dom0-config-1.5.0/launcher/sdw_util
+copying sdw_notify/Notify.py -> securedrop-workstation-dom0-config-1.5.0/sdw_notify
+copying sdw_notify/NotifyApp.py -> securedrop-workstation-dom0-config-1.5.0/sdw_notify
+copying sdw_notify/__init__.py -> securedrop-workstation-dom0-config-1.5.0/sdw_notify
+copying sdw_notify/strings.py -> securedrop-workstation-dom0-config-1.5.0/sdw_notify
+copying sdw_updater/Updater.py -> securedrop-workstation-dom0-config-1.5.0/sdw_updater
+copying sdw_updater/UpdaterApp.py -> securedrop-workstation-dom0-config-1.5.0/sdw_updater
+copying sdw_updater/UpdaterAppUiQt5.py -> securedrop-workstation-dom0-config-1.5.0/sdw_updater
+copying sdw_updater/__init__.py -> securedrop-workstation-dom0-config-1.5.0/sdw_updater
+copying sdw_updater/strings.py -> securedrop-workstation-dom0-config-1.5.0/sdw_updater
+copying sdw_util/Util.py -> securedrop-workstation-dom0-config-1.5.0/sdw_util
+copying sdw_util/__init__.py -> securedrop-workstation-dom0-config-1.5.0/sdw_util
+copying securedrop_salt/99-sd-devices.rules -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/apt-test-pubkey.asc -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/apt-test_freedom_press.sources.j2 -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/apt_freedom_press.sources.j2 -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/dom0-xfce-desktop-file.j2 -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/fpf-apt-repo.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/remove-tags.py -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-app-files.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-app.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-attach-export-device -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-base-template-packages.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-base-template.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-clean-all.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-clean-default-dispvm.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-default-config.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-default-config.yml -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-devices-files.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-devices.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-dom0-files.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-gpg-files.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-gpg.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-log.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-logging-setup.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-proxy-template-files.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-proxy.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-remove-unused-qubes.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-remove-unused-templates.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-remove-whonix-packages.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-reset-whonix-prefs.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-sys-vms.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-upgrade-templates.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-usb-autoattach-add.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-usb-autoattach-remove.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-viewer-files.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-viewer.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-workstation-template.sls -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sd-workstation.top -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/sdlog.conf -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/securedrop-handle-upgrade -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_salt/securedrop-release-signing-pubkey-2021.asc -> securedrop-workstation-dom0-config-1.5.0/securedrop_salt
+copying securedrop_workstation_dom0_config.egg-info/PKG-INFO -> securedrop-workstation-dom0-config-1.5.0/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/SOURCES.txt -> securedrop-workstation-dom0-config-1.5.0/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/dependency_links.txt -> securedrop-workstation-dom0-config-1.5.0/securedrop_workstation_dom0_config.egg-info
+copying securedrop_workstation_dom0_config.egg-info/top_level.txt -> securedrop-workstation-dom0-config-1.5.0/securedrop_workstation_dom0_config.egg-info
+copying tests/test_app.py -> securedrop-workstation-dom0-config-1.5.0/tests
+copying tests/test_dom0_rpm_repo.py -> securedrop-workstation-dom0-config-1.5.0/tests
+copying tests/test_dom0_salt_config.py -> securedrop-workstation-dom0-config-1.5.0/tests
+copying tests/test_dom0_validate.py -> securedrop-workstation-dom0-config-1.5.0/tests
+copying tests/test_gpg.py -> securedrop-workstation-dom0-config-1.5.0/tests
+copying tests/test_log_vm.py -> securedrop-workstation-dom0-config-1.5.0/tests
+copying tests/test_proxy_vm.py -> securedrop-workstation-dom0-config-1.5.0/tests
+copying tests/test_qubes_rpc.py -> securedrop-workstation-dom0-config-1.5.0/tests
+copying tests/test_qubes_vms.py -> securedrop-workstation-dom0-config-1.5.0/tests
+copying tests/test_sd_devices.py -> securedrop-workstation-dom0-config-1.5.0/tests
+copying tests/test_sys_usb.py -> securedrop-workstation-dom0-config-1.5.0/tests
+copying tests/test_viewer.py -> securedrop-workstation-dom0-config-1.5.0/tests
+copying tests/test_vms_exist.py -> securedrop-workstation-dom0-config-1.5.0/tests
+copying tests/test_vms_platform.py -> securedrop-workstation-dom0-config-1.5.0/tests
+Writing securedrop-workstation-dom0-config-1.5.0/setup.cfg
+creating dist
+Creating tar archive
+removing 'securedrop-workstation-dom0-config-1.5.0' (and everything under it)
+setting SOURCE_DATE_EPOCH=1760572800
+Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.aIYnXI
++ umask 022
++ cd /home/user/securedrop-workstation/rpm-build/BUILD
++ cd /home/user/securedrop-workstation/rpm-build/BUILD
++ rm -rf securedrop-workstation-dom0-config-1.5.0
++ /usr/lib/rpm/rpmuncompress -x /home/user/securedrop-workstation/rpm-build/SOURCES/securedrop-workstation-dom0-config-1.5.0.tar.gz
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/LICENSE: time stamp 2025-10-17 16:54:54 is 86362.906616323 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/MANIFEST.in: time stamp 2025-10-17 16:55:21 is 86389.90640693 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/README.md: time stamp 2025-10-17 16:54:54 is 86362.905540022 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/VERSION: time stamp 2025-10-17 16:54:55 is 86363.905480192 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/10-securedrop-logind_override.conf: time stamp 2025-10-17 16:54:55 is 86363.905376943 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/31-securedrop-workstation.policy: time stamp 2025-10-17 16:54:55 is 86363.905336401 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/32-securedrop-workstation.policy: time stamp 2025-10-17 16:54:55 is 86363.905293551 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/95-securedrop-systemd-user.preset: time stamp 2025-10-17 16:54:55 is 86363.905256738 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/clean-salt: time stamp 2025-10-17 16:54:55 is 86363.905218346 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/config.json.example: time stamp 2025-10-17 16:54:55 is 86363.905181088 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/destroy-vm.py: time stamp 2025-10-17 16:54:55 is 86363.905139091 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/press.freedom.SecureDropUpdater.desktop: time stamp 2025-10-17 16:54:55 is 86363.905101937 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/sdw-admin.py: time stamp 2025-10-17 16:54:55 is 86363.905048205 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/sdw-login.py: time stamp 2025-10-17 16:54:55 is 86363.905010528 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/sdw-notify.py: time stamp 2025-10-17 16:54:55 is 86363.904969157 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/sdw-notify.service: time stamp 2025-10-17 16:54:55 is 86363.90491911 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/sdw-notify.timer: time stamp 2025-10-17 16:54:55 is 86363.90487367 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/sdw-updater.py: time stamp 2025-10-17 16:54:55 is 86363.904824071 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/securedrop-128x128.png: time stamp 2025-10-17 16:54:55 is 86363.904762845 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/securedrop-logind-override-disable.service: time stamp 2025-10-17 16:54:55 is 86363.904704805 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/securedrop-scalable.svg: time stamp 2025-10-17 16:54:55 is 86363.904646656 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/securedrop-user-xfce-icon-size.service: time stamp 2025-10-17 16:54:55 is 86363.904591259 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/securedrop-user-xfce-settings.service: time stamp 2025-10-17 16:54:55 is 86363.904535938 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/update-xfce-settings: time stamp 2025-10-17 16:54:55 is 86363.904473244 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/files/validate_config.py: time stamp 2025-10-17 16:54:55 is 86363.904406403 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/launcher/sdw_notify/Notify.py: time stamp 2025-10-17 16:54:54 is 86362.904266675 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/launcher/sdw_notify/NotifyApp.py: time stamp 2025-10-17 16:54:54 is 86362.904218109 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/launcher/sdw_notify/strings.py: time stamp 2025-10-17 16:54:54 is 86362.904169613 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/launcher/sdw_util/Util.py: time stamp 2025-10-17 16:55:21 is 86389.904090424 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/pyproject.toml: time stamp 2025-10-17 16:54:53 is 86361.904037206 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/sdw_notify/Notify.py: time stamp 2025-10-17 16:54:54 is 86362.903952024 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/sdw_notify/NotifyApp.py: time stamp 2025-10-17 16:54:54 is 86362.903910735 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/sdw_notify/__init__.py: time stamp 2025-10-17 16:54:54 is 86362.903876615 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/sdw_notify/strings.py: time stamp 2025-10-17 16:54:54 is 86362.903840004 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/sdw_updater/Updater.py: time stamp 2025-10-17 16:54:54 is 86362.90374941 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/sdw_updater/UpdaterApp.py: time stamp 2025-10-17 16:54:54 is 86362.902561682 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/sdw_updater/UpdaterAppUiQt5.py: time stamp 2025-10-17 16:54:54 is 86362.902504796 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/sdw_updater/__init__.py: time stamp 2025-10-17 16:54:54 is 86362.902460436 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/sdw_updater/strings.py: time stamp 2025-10-17 16:54:54 is 86362.902415998 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/sdw_util/Util.py: time stamp 2025-10-17 16:55:21 is 86389.902326193 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/sdw_util/__init__.py: time stamp 2025-10-17 16:55:21 is 86389.90228491 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/99-sd-devices.rules: time stamp 2025-10-17 16:55:21 is 86389.902200884 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/apt-test-pubkey.asc: time stamp 2025-10-17 16:55:21 is 86389.902154449 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/apt-test_freedom_press.sources.j2: time stamp 2025-10-17 16:55:21 is 86389.902110949 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/apt_freedom_press.sources.j2: time stamp 2025-10-17 16:55:21 is 86389.902059794 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/dom0-xfce-desktop-file.j2: time stamp 2025-10-17 16:55:21 is 86389.902009474 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/fpf-apt-repo.sls: time stamp 2025-10-17 16:55:21 is 86389.90196835 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/remove-tags.py: time stamp 2025-10-17 16:55:21 is 86389.901926599 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-app-files.sls: time stamp 2025-10-17 16:55:21 is 86389.901492653 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-app.sls: time stamp 2025-10-17 16:55:21 is 86389.901466587 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-attach-export-device: time stamp 2025-10-17 16:55:21 is 86389.901445307 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-base-template-packages.sls: time stamp 2025-10-17 16:55:21 is 86389.901420204 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-base-template.sls: time stamp 2025-10-17 16:55:21 is 86389.901397833 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-clean-all.sls: time stamp 2025-10-17 16:55:21 is 86389.90137135 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-clean-default-dispvm.sls: time stamp 2025-10-17 16:55:21 is 86389.901349428 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-default-config.sls: time stamp 2025-10-17 16:55:21 is 86389.901326844 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-default-config.yml: time stamp 2025-10-17 16:55:21 is 86389.901301658 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-devices-files.sls: time stamp 2025-10-17 16:55:21 is 86389.901278994 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-devices.sls: time stamp 2025-10-17 16:55:21 is 86389.901256641 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-dom0-files.sls: time stamp 2025-10-17 16:55:21 is 86389.901229705 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-gpg-files.sls: time stamp 2025-10-17 16:55:21 is 86389.901207492 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-gpg.sls: time stamp 2025-10-17 16:55:21 is 86389.9011853 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-log.sls: time stamp 2025-10-17 16:55:21 is 86389.90115972 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-logging-setup.sls: time stamp 2025-10-17 16:55:21 is 86389.90113573 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-proxy-template-files.sls: time stamp 2025-10-17 16:55:21 is 86389.901112868 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-proxy.sls: time stamp 2025-10-17 16:55:21 is 86389.901089693 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-remove-unused-qubes.sls: time stamp 2025-10-17 16:55:21 is 86389.901063822 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-remove-unused-templates.sls: time stamp 2025-10-17 16:55:21 is 86389.901040855 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-remove-whonix-packages.sls: time stamp 2025-10-17 16:55:21 is 86389.90101868 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-reset-whonix-prefs.sls: time stamp 2025-10-17 16:55:21 is 86389.900994736 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-sys-vms.sls: time stamp 2025-10-17 16:55:21 is 86389.900502172 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-upgrade-templates.sls: time stamp 2025-10-17 16:55:21 is 86389.900469173 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-usb-autoattach-add.sls: time stamp 2025-10-17 16:55:21 is 86389.900435322 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-usb-autoattach-remove.sls: time stamp 2025-10-17 16:55:21 is 86389.900403164 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-viewer-files.sls: time stamp 2025-10-17 16:55:21 is 86389.90037388 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-viewer.sls: time stamp 2025-10-17 16:55:21 is 86389.90033962 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-workstation-template.sls: time stamp 2025-10-17 16:55:21 is 86389.900307429 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sd-workstation.top: time stamp 2025-10-17 16:55:21 is 86389.900277192 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/sdlog.conf: time stamp 2025-10-17 16:55:21 is 86389.900247162 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/securedrop-handle-upgrade: time stamp 2025-10-17 16:55:21 is 86389.900213904 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/securedrop_salt/securedrop-release-signing-pubkey-2021.asc: time stamp 2025-10-17 16:55:21 is 86389.900178965 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/setup.py: time stamp 2025-10-17 16:55:29 is 86397.899660429 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/tests/test_app.py: time stamp 2025-10-17 16:55:29 is 86397.899599388 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/tests/test_dom0_rpm_repo.py: time stamp 2025-10-17 16:55:29 is 86397.899567698 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/tests/test_dom0_salt_config.py: time stamp 2025-10-17 16:55:29 is 86397.899533337 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/tests/test_dom0_validate.py: time stamp 2025-10-17 16:55:29 is 86397.89950222 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/tests/test_gpg.py: time stamp 2025-10-17 16:55:29 is 86397.899471095 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/tests/test_log_vm.py: time stamp 2025-10-17 16:55:29 is 86397.899436884 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/tests/test_proxy_vm.py: time stamp 2025-10-17 16:55:29 is 86397.89923376 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/tests/test_qubes_rpc.py: time stamp 2025-10-17 16:55:29 is 86397.899198127 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/tests/test_qubes_vms.py: time stamp 2025-10-17 16:55:29 is 86397.899166648 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/tests/test_sd_devices.py: time stamp 2025-10-17 16:55:29 is 86397.899135759 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/tests/test_sys_usb.py: time stamp 2025-10-17 16:55:29 is 86397.899103982 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/tests/test_viewer.py: time stamp 2025-10-17 16:55:29 is 86397.89907358 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/tests/test_vms_exist.py: time stamp 2025-10-17 16:55:29 is 86397.899016963 s in the future
+/usr/bin/tar: securedrop-workstation-dom0-config-1.5.0/tests/test_vms_platform.py: time stamp 2025-10-17 16:55:29 is 86397.898978931 s in the future
++ STATUS=0
++ '[' 0 -ne 0 ']'
++ cd securedrop-workstation-dom0-config-1.5.0
++ /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
++ RPM_EC=0
+++ jobs -p
++ exit 0
+Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.JZgkbl
++ umask 022
++ cd /home/user/securedrop-workstation/rpm-build/BUILD
++ CFLAGS='-O2 -g'
++ export CFLAGS
++ CXXFLAGS='-O2 -g'
++ export CXXFLAGS
++ FFLAGS='-O2 -g -I/usr/lib64/gfortran/modules'
++ export FFLAGS
++ FCFLAGS='-O2 -g -I/usr/lib64/gfortran/modules'
++ export FCFLAGS
++ LDFLAGS='-Wl,-z,relro -Wl,--as-needed  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -Wl,--build-id=sha1 -specs=/usr/lib/rpm/redhat/redhat-package-notes'
++ export LDFLAGS
++ LT_SYS_LIBRARY_PATH=/usr/lib64:
++ export LT_SYS_LIBRARY_PATH
++ CC=gcc
++ export CC
++ CXX=g++
++ export CXX
++ cd securedrop-workstation-dom0-config-1.5.0
++ RPM_EC=0
+++ jobs -p
++ exit 0
+Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.0ONLm4
++ umask 022
++ cd /home/user/securedrop-workstation/rpm-build/BUILD
++ '[' /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64 '!=' / ']'
++ rm -rf /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64
+++ dirname /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64
++ mkdir -p /home/user/securedrop-workstation/rpm-build/BUILDROOT
++ mkdir /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64
++ CFLAGS='-O2 -g'
++ export CFLAGS
++ CXXFLAGS='-O2 -g'
++ export CXXFLAGS
++ FFLAGS='-O2 -g -I/usr/lib64/gfortran/modules'
++ export FFLAGS
++ FCFLAGS='-O2 -g -I/usr/lib64/gfortran/modules'
++ export FCFLAGS
++ LDFLAGS='-Wl,-z,relro -Wl,--as-needed  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -Wl,--build-id=sha1 -specs=/usr/lib/rpm/redhat/redhat-package-notes'
++ export LDFLAGS
++ LT_SYS_LIBRARY_PATH=/usr/lib64:
++ export LT_SYS_LIBRARY_PATH
++ CC=gcc
++ export CC
++ CXX=g++
++ export CXX
++ cd securedrop-workstation-dom0-config-1.5.0
++ /usr/bin/python3 -m pip install --no-compile --no-index --no-build-isolation --root /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64 .
+Processing /home/user/securedrop-workstation/rpm-build/BUILD/securedrop-workstation-dom0-config-1.5.0
+  Preparing metadata (pyproject.toml) ... done
+Building wheels for collected packages: securedrop-workstation-dom0-config
+  Building wheel for securedrop-workstation-dom0-config (pyproject.toml) ... done
+  Created wheel for securedrop-workstation-dom0-config: filename=securedrop_workstation_dom0_config-1.5.0-py3-none-any.whl size=36539 sha256=90b4edb53763625e7457ebcc47bcae04b45ff419e72f508d1602135c828b3eba
+  Stored in directory: /tmp/.cache/pip/wheels/53/82/19/fe1bbab162791866d65361802cc03369fd56c673a9826330cd
+Successfully built securedrop-workstation-dom0-config
+Installing collected packages: securedrop-workstation-dom0-config
+Successfully installed securedrop-workstation-dom0-config-1.5.0
++ rm /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/lib/python3.11/site-packages/securedrop_workstation_dom0_config-1.5.0.dist-info/direct_url.json
++ sed -i '/\.dist-info\/direct_url\.json,/d' /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/lib/python3.11/site-packages/securedrop_workstation_dom0_config-1.5.0.dist-info/RECORD
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/srv/salt/
++ cp -a securedrop_salt /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/srv/salt/
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/share/securedrop-workstation-dom0-config/scripts
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/bin
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/opt/securedrop
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/usr/bin/securedrop
++ install -m 755 files/update-xfce-settings /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/usr/bin/securedrop/
++ install -m 755 files/clean-salt /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/share/securedrop-workstation-dom0-config/scripts/
++ install -m 755 files/destroy-vm.py /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/share/securedrop-workstation-dom0-config/scripts/destroy-vm
++ install -m 755 files/validate_config.py /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/share/securedrop-workstation-dom0-config/scripts/
++ install -m 755 files/sdw-admin.py /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/bin/sdw-admin
++ install -m 644 files/config.json.example /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/share/securedrop-workstation-dom0-config/
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/bin
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/share/applications/
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/share/icons/hicolor/128x128/apps/
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/share/icons/hicolor/scalable/apps/
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//var/lib/securedrop-workstation-dom0-config/
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/lib/systemd/user/
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/lib/systemd/system
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/lib/systemd/user-preset/
++ install -m 644 files/press.freedom.SecureDropUpdater.desktop /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/share/applications/
++ install -m 644 files/press.freedom.SecureDropUpdater.desktop /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/srv/salt/securedrop_salt/press.freedom.SecureDropUpdater.desktop
++ install -m 644 files/securedrop-128x128.png /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/share/icons/hicolor/128x128/apps/securedrop.png
++ install -m 644 files/securedrop-scalable.svg /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/share/icons/hicolor/scalable/apps/securedrop.svg
++ install -m 755 files/sdw-updater.py /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/bin/sdw-updater
++ install -m 755 files/sdw-notify.py /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/bin/sdw-notify
++ install -m 755 files/sdw-login.py /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/bin/sdw-login
++ install -m 644 files/sdw-notify.service /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/lib/systemd/user/
++ install -m 644 files/sdw-notify.timer /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/lib/systemd/user/
++ install -m 644 files/securedrop-logind-override-disable.service /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/lib/systemd/system/
++ install -m 644 files/95-securedrop-systemd-user.preset /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/lib/systemd/user-preset/
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/etc/qubes/policy.d/
++ install -m 644 files/31-securedrop-workstation.policy /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/etc/qubes/policy.d/
++ install -m 644 files/32-securedrop-workstation.policy /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/etc/qubes/policy.d/
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/usr/share/securedrop/icons
++ install -m 644 files/securedrop-128x128.png /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/usr/share/securedrop/icons/sd-logo.png
++ install -m 755 -d /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/etc/systemd/logind.conf.d/
++ install -m 644 files/10-securedrop-logind_override.conf /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/etc/systemd/logind.conf.d/
++ install -m 644 files/securedrop-user-xfce-settings.service /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/lib/systemd/user/
++ install -m 644 files/securedrop-user-xfce-icon-size.service /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64//usr/lib/systemd/user/
++ /usr/bin/find-debuginfo -j6 --strict-build-id -m -i --build-id-seed 1.5.0-1.fc37 --unique-debug-suffix -1.5.0-1.fc37.x86_64 --unique-debug-src-base securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64 --run-dwz --dwz-low-mem-die-limit 10000000 --dwz-max-die-limit 110000000 -S debugsourcefiles.list /home/user/securedrop-workstation/rpm-build/BUILD/securedrop-workstation-dom0-config-1.5.0
+find: ‘debug’: No such file or directory
++ /usr/lib/rpm/check-buildroot
++ /usr/lib/rpm/redhat/brp-ldconfig
++ /usr/lib/rpm/brp-compress
++ /usr/lib/rpm/redhat/brp-strip-lto /usr/bin/strip
++ /usr/lib/rpm/brp-strip-static-archive /usr/bin/strip
++ /usr/lib/rpm/check-rpaths
++ /usr/lib/rpm/redhat/brp-mangle-shebangs
++ /usr/lib/rpm/brp-remove-la-files
++ /usr/lib/rpm/redhat/brp-python-hardlink
+Processing files: securedrop-workstation-dom0-config-1.5.0-1.fc37.noarch
+Executing(%doc): /bin/sh -e /var/tmp/rpm-tmp.Xgz5l1
++ umask 022
++ cd /home/user/securedrop-workstation/rpm-build/BUILD
++ cd securedrop-workstation-dom0-config-1.5.0
++ DOCDIR=/home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/usr/share/doc/securedrop-workstation-dom0-config
++ export LC_ALL=C
++ LC_ALL=C
++ export DOCDIR
++ /usr/bin/mkdir -p /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/usr/share/doc/securedrop-workstation-dom0-config
++ cp -pr README.md /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/usr/share/doc/securedrop-workstation-dom0-config
++ RPM_EC=0
+++ jobs -p
++ exit 0
+Executing(%license): /bin/sh -e /var/tmp/rpm-tmp.XSgBcq
++ umask 022
++ cd /home/user/securedrop-workstation/rpm-build/BUILD
++ cd securedrop-workstation-dom0-config-1.5.0
++ LICENSEDIR=/home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/usr/share/licenses/securedrop-workstation-dom0-config
++ export LC_ALL=C
++ LC_ALL=C
++ export LICENSEDIR
++ /usr/bin/mkdir -p /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/usr/share/licenses/securedrop-workstation-dom0-config
++ cp -pr LICENSE /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64/usr/share/licenses/securedrop-workstation-dom0-config
++ RPM_EC=0
+++ jobs -p
++ exit 0
+Provides: application() application(press.freedom.SecureDropUpdater.desktop) securedrop-workstation-dom0-config = 1.5.0-1.fc37
+Requires(interp): /bin/sh /bin/sh
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Requires(post): /bin/sh
+Requires(preun): /bin/sh
+Requires: /usr/bin/bash /usr/bin/python3 python(abi) = 3.11
+Checking for unpackaged file(s): /usr/lib/rpm/check-files /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64
+Wrote: /home/user/securedrop-workstation/rpm-build/RPMS/noarch/securedrop-workstation-dom0-config-1.5.0-1.fc37.noarch.rpm
+Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.FnxDzm
++ umask 022
++ cd /home/user/securedrop-workstation/rpm-build/BUILD
++ cd securedrop-workstation-dom0-config-1.5.0
++ /usr/bin/rm -rf /home/user/securedrop-workstation/rpm-build/BUILDROOT/securedrop-workstation-dom0-config-1.5.0-1.fc37.x86_64
++ RPM_EC=0
+++ jobs -p
++ exit 0
+Executing(rmbuild): /bin/sh -e /var/tmp/rpm-tmp.U4cpA7
++ umask 022
++ cd /home/user/securedrop-workstation/rpm-build/BUILD
++ rm -rf securedrop-workstation-dom0-config-1.5.0 securedrop-workstation-dom0-config-1.5.0.gemspec
++ RPM_EC=0
+++ jobs -p
++ exit 0
+checking mtimes in securedrop-workstation-dom0-config-1.5.0-1.fc37.noarch.rpm: 2025-10-16 00:00:00+00:00
+
+Build complete! RPMs and their checksums are:
+
+a182894c7793bc2d5bd91523930d1444612e08aed5234aa3b85d659ec2d8753b  rpm-build/RPMS/noarch/securedrop-workstation-dom0-config-1.5.0-1.fc37.noarch.rpm
+Script done.
+
+Build log available at build-log/securedrop-workstation-20251016.log
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
