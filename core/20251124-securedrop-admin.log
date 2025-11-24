@@ -1,0 +1,576 @@
+Script started on 2025-11-24 16:17:15-05:00 [COMMAND="/home/user/projects/securedrop/builder/build-debs.sh" TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="93" LINES="44"]
++ git --no-pager log -1 --oneline --show-signature --no-color
+b80c264a0 (HEAD, tag: 2.13.0-rc1) gpg: Signature made Mon Nov 24 12:21:10 2025 EST
+gpg:                using RSA key A05ACE4F7E0BCA9BAD8D42F4ACFE4353173015EA
+gpg: Good signature from "Kevin O'Gorman <kog@freedom.press>" [unknown]
+gpg:                 aka "Kevin O'Gorman <kog@stunbunny.org>" [unknown]
+gpg:                 aka "Kevin O'Gorman <kevin.ogorman@gmail.com>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: A05A CE4F 7E0B CA9B AD8D  42F4 ACFE 4353 1730 15EA
+SecureDrop 2.13.0~rc1
+++ git tag --points-at HEAD
++ git --no-pager tag -v 2.13.0-rc1
+object b80c264a0355ca39674f2fb4226ef147e6d3180f
+type commit
+tag 2.13.0-rc1
+tagger Kevin O'Gorman <kog@freedom.press> 1764014719 -0500
+
+SecureDrop 2.13.0-rc1
+gpg: Signature made Mon Nov 24 15:05:19 2025 EST
+gpg:                using RSA key A05ACE4F7E0BCA9BAD8D42F4ACFE4353173015EA
+gpg: Good signature from "Kevin O'Gorman <kog@freedom.press>" [unknown]
+gpg:                 aka "Kevin O'Gorman <kog@stunbunny.org>" [unknown]
+gpg:                 aka "Kevin O'Gorman <kevin.ogorman@gmail.com>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: A05A CE4F 7E0B CA9B AD8D  42F4 ACFE 4353 1730 15EA
++ git status --short
++ WHAT=admin
++ [[ admin == \a\d\m\i\n ]]
++ export OS_VERSION=trixie
++ OS_VERSION=trixie
+++ pwd
+++ id -u
+++ id -g
++ OCI_RUN_ARGUMENTS='--user=root -v /home/user/projects/securedrop:/src:Z -e HOST_UID=1000 -e HOST_GID=1000'
++ which podman
++ OCI_BIN=docker
++ test -t 0
++ OCI_RUN_ARGUMENTS='--user=root -v /home/user/projects/securedrop:/src:Z -e HOST_UID=1000 -e HOST_GID=1000 -it'
++ export OCI_RUN_ARGUMENTS
++ export OCI_BIN
++ echo ::group::Environment
+::group::Environment
++ echo 'Running build-debs.sh with the follow environment:'
+Running build-debs.sh with the follow environment:
++ echo 'OS_VERSION='\''trixie'\'''
+OS_VERSION='trixie'
++ echo 'WHAT='\''admin'\'''
+WHAT='admin'
++ echo 'OCI_BIN='\''docker'\'''
+OCI_BIN='docker'
++ echo 'OCI_RUN_ARGUMENTS='\''--user=root -v /home/user/projects/securedrop:/src:Z -e HOST_UID=1000 -e HOST_GID=1000 -it'\'''
+OCI_RUN_ARGUMENTS='--user=root -v /home/user/projects/securedrop:/src:Z -e HOST_UID=1000 -e HOST_GID=1000 -it'
++ echo ::endgroup::
+::endgroup::
+++ git rev-parse --show-toplevel
++ cd /home/user/projects/securedrop
++ echo '::group::Building the builder image'
+::group::Building the builder image
++ [[ admin == \a\d\m\i\n ]]
++ . ./builder/image_prep.sh admin
+++ set -euxo pipefail
++++ git rev-parse --show-toplevel
+++ cd /home/user/projects/securedrop
+++ [[ trixie == \t\r\i\x\i\e ]]
+++ BASE_IMAGE=debian:trixie
+++ BUILDER_TYPE=admin
+++ IMAGE_NAME=fpf.local/sd-admin-builder-trixie
+++ DOCKERFILE=builder/adminDockerfile
+++ missing=false
+++ docker inspect fpf.local/sd-admin-builder-trixie
+++ false
+++ docker build -f builder/adminDockerfile --build-arg=BASE_IMAGE=debian:trixie -t fpf.local/sd-admin-builder-trixie builder/
+[1A[1B[0G[?25l[+] Building 0.0s (0/1)                                                       docker:default
+[?25h[1A[0G[?25l[+] Building 0.2s (1/2)                                                       docker:default
+[34m => [internal] load build definition from adminDockerfile                               0.0s
+[0m[34m => => transferring dockerfile: 606B                                                    0.0s
+[0m => [internal] load metadata for docker.io/library/debian:trixie                        0.2s
+[?25h[1A[1A[1A[1A[0G[?25l[+] Building 0.3s (2/2)                                                       docker:default
+[34m => [internal] load build definition from adminDockerfile                               0.0s
+[0m[34m => => transferring dockerfile: 606B                                                    0.0s
+[0m[34m => [internal] load metadata for docker.io/library/debian:trixie                        0.3s
+[0m[?25h[1A[1A[1A[1A[0G[?25l[+] Building 0.4s (10/10) FINISHED                                            docker:default
+[34m => [internal] load build definition from adminDockerfile                               0.0s
+[0m[34m => => transferring dockerfile: 606B                                                    0.0s
+[0m[34m => [internal] load metadata for docker.io/library/debian:trixie                        0.3s
+[0m[34m => [internal] load .dockerignore                                                       0.0s
+[0m[34m => => transferring context: 2B                                                         0.0s
+[0m[34m => [1/5] FROM docker.io/library/debian:trixie@sha256:8f6a88feef3ed01a300dafb87f208977  0.0s
+[0m[34m => [internal] load build context                                                       0.0s
+[0m[34m => => transferring context: 1.24kB                                                     0.0s
+[0m[34m => CACHED [2/5] RUN apt-get -y update && apt-get upgrade -y && apt-get install -y      0.0s
+[0m[34m => CACHED [3/5] COPY build-debs-admin.sh /build-debs-admin                             0.0s
+[0m[34m => CACHED [4/5] COPY fixup-changelog.sh /fixup-changelog                               0.0s
+[0m[34m => CACHED [5/5] COPY dep-check.sh /dep-check                                           0.0s
+[0m[34m => exporting to image                                                                  0.0s
+[0m[34m => => exporting layers                                                                 0.0s
+[0m[34m => => writing image sha256:35d0a632e3c593c7a213673b20af644bbc7b25c1a64097476d8a500e3d  0.0s
+[0m[34m => => naming to fpf.local/sd-admin-builder-trixie                                      0.0s
+[0m[?25h++ status=0
+++ docker run --rm --user=root -v /home/user/projects/securedrop:/src:Z -e HOST_UID=1000 -e HOST_GID=1000 -it --entrypoint /dep-check fpf.local/sd-admin-builder-trixie
+0% [Working]            Hit:1 http://deb.debian.org/debian trixie InRelease
+0% [Working]            Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+0% [2 InRelease 5070 B/47.3 kB 11%]                                   0% [Working]            Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+0% [3 InRelease 0 B/43.4 kB 0%]                               0% [Working]0% [Working]0% [Waiting for headers]                        Get:4 http://deb.debian.org/debian trixie/main amd64 Components [5175 kB]
+0% [4 Components-amd64 0 B/5175 kB 0%]21% [4 Components-amd64 64.3 kB/5175 kB 1%]                                           99% [Working]99% [4 Components-amd64 store 0 B]99% [4 Components-amd64 store 0 B]                                  100% [Working]              Fetched 5265 kB in 1s (3989 kB/s)
+Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
+++ [[ 0 == 42 ]]
+++ [[ 0 != 0 ]]
++ echo ::endgroup::
+::endgroup::
++ mkdir -p build/trixie
++ echo '::group::Building debian packages'
+::group::Building debian packages
++ [[ admin == \o\s\s\e\c ]]
++ [[ admin == \a\d\m\i\n ]]
++ docker run --rm --user=root -v /home/user/projects/securedrop:/src:Z -e HOST_UID=1000 -e HOST_GID=1000 -it --entrypoint /build-debs-admin fpf.local/sd-admin-builder-trixie
++ source /etc/os-release
+++ PRETTY_NAME='Debian GNU/Linux 13 (trixie)'
+++ NAME='Debian GNU/Linux'
+++ VERSION_ID=13
+++ VERSION='13 (trixie)'
+++ VERSION_CODENAME=trixie
+++ DEBIAN_VERSION_FULL=13.2
+++ ID=debian
+++ HOME_URL=https://www.debian.org/
+++ SUPPORT_URL=https://www.debian.org/support
+++ BUG_REPORT_URL=https://bugs.debian.org/
++ cp -R /src/admin/ /srv/securedrop-admin/
++ cp -R /src/install_files/ansible-base /srv/securedrop-admin/
++ cp -R /src/securedrop/translations /srv/securedrop-admin/
++ cp /src/securedrop/i18n.json /srv/securedrop-admin/
++ mkdir -p /srv/securedrop-admin/bin
++ cp /src/admin/bin/validate-gpg-key.sh /srv/securedrop-admin/bin/
++ cp /src/admin/bin/securedrop-admin-packaged /srv/securedrop-admin/bin/securedrop-admin
++ cd /srv/securedrop-admin
++ bash /fixup-changelog
++ source /etc/os-release
+++ PRETTY_NAME='Debian GNU/Linux 13 (trixie)'
+++ NAME='Debian GNU/Linux'
+++ VERSION_ID=13
+++ VERSION='13 (trixie)'
+++ VERSION_CODENAME=trixie
+++ DEBIAN_VERSION_FULL=13.2
+++ ID=debian
+++ HOME_URL=https://www.debian.org/
+++ SUPPORT_URL=https://www.debian.org/support
+++ BUG_REPORT_URL=https://bugs.debian.org/
+++ dpkg-parsechangelog -S Version
++ VERSION=2.13.0~rc1
++ NIGHTLY=
++ [[ -n '' ]]
++ NEW_VERSION=2.13.0~rc1
++ sed -i '0,/2.13.0~rc1/ s//2.13.0~rc1+trixie/' debian/changelog
++ dpkg-buildpackage -us -uc
+[1mdpkg-buildpackage: [0m[32minfo[0m: source package securedrop-admin
+[1mdpkg-buildpackage: [0m[32minfo[0m: source version 2.13.0~rc1+trixie
+[1mdpkg-buildpackage: [0m[32minfo[0m: source distribution unstable
+[1mdpkg-buildpackage: [0m[32minfo[0m: source changed by SecureDrop Team <securedrop@freedom.press>
+[1mdpkg-buildpackage: [0m[32minfo[0m: host architecture amd64
+[1;35m dpkg-source --before-build .
+[0m[1;35m debian/rules clean
+[0mdh clean --buildsystem=pybuild
+   dh_auto_clean -O--buildsystem=pybuild
+I: pybuild base:311: python3.13 setup.py clean 
+/usr/lib/python3/dist-packages/setuptools/dist.py:759: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+!!
+
+        ********************************************************************************
+        Please consider removing the following classifiers in favor of a SPDX license expression:
+
+        License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+
+        See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+        ********************************************************************************
+
+!!
+  self._finalize_license_expression()
+running clean
+removing '/srv/securedrop-admin/.pybuild/cpython3_3.13/build' (and everything under it)
+'build/bdist.linux-x86_64' does not exist -- can't clean it
+'build/scripts-3.13' does not exist -- can't clean it
+   dh_autoreconf_clean -O--buildsystem=pybuild
+   dh_clean -O--buildsystem=pybuild
+[1;35m dpkg-source -b .
+[0m[1mdpkg-source: [0m[1;33mwarning[0m: no source format specified in debian/source/format, see dpkg-source(1)
+[1mdpkg-source: [0m[32minfo[0m: using source format '1.0'
+[1mdpkg-source: [0m[1;33mwarning[0m: source directory 'securedrop-admin' is not <sourcepackage>-<upstreamversion> 'securedrop-admin-2.13.0~rc1+trixie'
+[1mdpkg-source: [0m[32minfo[0m: building securedrop-admin in securedrop-admin_2.13.0~rc1+trixie.tar.gz
+[1mdpkg-source: [0m[32minfo[0m: building securedrop-admin in securedrop-admin_2.13.0~rc1+trixie.dsc
+[1;35m debian/rules binary
+[0mdh binary --buildsystem=pybuild
+   dh_update_autotools_config -O--buildsystem=pybuild
+   dh_autoreconf -O--buildsystem=pybuild
+   dh_auto_configure -O--buildsystem=pybuild
+I: pybuild base:311: python3.13 setup.py config 
+/usr/lib/python3/dist-packages/setuptools/dist.py:759: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+!!
+
+        ********************************************************************************
+        Please consider removing the following classifiers in favor of a SPDX license expression:
+
+        License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+
+        See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+        ********************************************************************************
+
+!!
+  self._finalize_license_expression()
+running config
+   dh_auto_build -O--buildsystem=pybuild
+I: pybuild base:311: /usr/bin/python3 setup.py build 
+/usr/lib/python3/dist-packages/setuptools/dist.py:759: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+!!
+
+        ********************************************************************************
+        Please consider removing the following classifiers in favor of a SPDX license expression:
+
+        License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+
+        See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+        ********************************************************************************
+
+!!
+  self._finalize_license_expression()
+running build
+running build_py
+creating /srv/securedrop-admin/.pybuild/cpython3_3.13/build/securedrop_admin
+copying securedrop_admin/__init__.py -> /srv/securedrop-admin/.pybuild/cpython3_3.13/build/securedrop_admin
+running build_scripts
+creating build/scripts-3.13
+copying and adjusting bin/securedrop-admin -> build/scripts-3.13
+changing mode of build/scripts-3.13/securedrop-admin from 644 to 755
+   create-stamp debian/debhelper-build-stamp
+   dh_testroot -O--buildsystem=pybuild
+   dh_prep -O--buildsystem=pybuild
+   debian/rules override_dh_auto_install
+make[1]: Entering directory '/srv/securedrop-admin'
+/usr/bin/python3 -m venv ./debian/securedrop-admin/usr/share/securedrop-admin/venv
+./debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/pip install \
+	--verbose --no-deps --no-cache-dir --only-binary=:all:  pip==25.0
+Using pip 25.1.1 from /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/lib/python3.13/site-packages/pip (python 3.13)
+Collecting pip==25.0
+  Obtaining dependency information for pip==25.0 from https://files.pythonhosted.org/packages/85/8a/1ddf40be20103bcc605db840e9ade09c8e8c9f920a03e9cfe88eae97a058/pip-25.0-py3-none-any.whl.metadata
+  Downloading pip-25.0-py3-none-any.whl.metadata (3.7 kB)
+Downloading pip-25.0-py3-none-any.whl (1.8 MB)
+[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/1.8 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m1.8/1.8 MB[0m [31m53.6 MB/s[0m eta [36m0:00:00[0m
+[?25hInstalling collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 25.1.1
+    Uninstalling pip-25.1.1:
+      Removing file or directory /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/pip
+      Removing file or directory /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/pip3
+      Removing file or directory /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/pip3.13
+      Removing file or directory /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/lib/python3.13/site-packages/pip-25.1.1.dist-info/
+      Removing file or directory /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/lib/python3.13/site-packages/pip/
+      Successfully uninstalled pip-25.1.1
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/pip to 755
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/pip3 to 755
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/pip3.13 to 755
+Successfully installed pip-25.0
+./debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/pip install --verbose --no-deps --no-cache-dir --only-binary=:all: --require-hashes \
+	-r ./requirements.txt
+Using pip 25.0 from /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/lib/python3.13/site-packages/pip (python 3.13)
+Collecting ansible==8.7.0 (from -r ./requirements.txt (line 7))
+  Downloading ansible-8.7.0-py3-none-any.whl (48.4 MB)
+[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/48.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [91m━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m10.0/48.4 MB[0m [31m54.7 MB/s[0m eta [36m0:00:01[0m[2K     [91m━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m16.5/48.4 MB[0m [31m44.3 MB/s[0m eta [36m0:00:01[0m[2K     [91m━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━[0m [32m19.9/48.4 MB[0m [31m34.8 MB/s[0m eta [36m0:00:01[0m[2K     [91m━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━[0m [32m22.3/48.4 MB[0m [31m28.3 MB/s[0m eta [36m0:00:01[0m[2K     [91m━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━[0m [32m24.6/48.4 MB[0m [31m25.4 MB/s[0m eta [36m0:00:01[0m[2K     [91m━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━[0m [32m27.8/48.4 MB[0m [31m23.2 MB/s[0m eta [36m0:00:01[0m[2K     [91m━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━[0m [32m30.7/48.4 MB[0m [31m22.1 MB/s[0m eta [36m0:00:01[0m[2K     [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━[0m [32m34.6/48.4 MB[0m [31m21.7 MB/s[0m eta [36m0:00:01[0m[2K     [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━[0m [32m38.0/48.4 MB[0m [31m21.1 MB/s[0m eta [36m0:00:01[0m[2K     [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━[0m [32m41.2/48.4 MB[0m [31m20.5 MB/s[0m eta [36m0:00:01[0m[2K     [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━[0m [32m44.0/48.4 MB[0m [31m19.9 MB/s[0m eta [36m0:00:01[0m[2K     [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━[0m [32m46.1/48.4 MB[0m [31m19.3 MB/s[0m eta [36m0:00:01[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m48.4/48.4 MB[0m [31m18.9 MB/s[0m eta [36m0:00:00[0m
+[?25hCollecting ansible-core==2.15.13 (from -r ./requirements.txt (line 11))
+  Downloading ansible_core-2.15.13-py3-none-any.whl (2.3 MB)
+[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/2.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m2.3/2.3 MB[0m [31m11.8 MB/s[0m eta [36m0:00:00[0m
+[?25hCollecting cffi==1.17.1 (from -r ./requirements.txt (line 15))
+  Downloading cffi-1.17.1-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (479 kB)
+Collecting cryptography==45.0.6 (from -r ./requirements.txt (line 86))
+  Downloading cryptography-45.0.6-cp311-abi3-manylinux_2_34_x86_64.whl (4.5 MB)
+[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/4.5 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [91m━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━[0m [32m2.9/4.5 MB[0m [31m15.2 MB/s[0m eta [36m0:00:01[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m4.5/4.5 MB[0m [31m15.6 MB/s[0m eta [36m0:00:00[0m
+[?25hCollecting jinja2==3.1.6 (from -r ./requirements.txt (line 127))
+  Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+Collecting markupsafe==3.0.3 (from -r ./requirements.txt (line 133))
+  Downloading markupsafe-3.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+Collecting netaddr==1.3.0 (from -r ./requirements.txt (line 227))
+  Downloading netaddr-1.3.0-py3-none-any.whl (2.3 MB)
+[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/2.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m2.3/2.3 MB[0m [31m20.2 MB/s[0m eta [36m0:00:00[0m
+[?25hCollecting packaging==25.0 (from -r ./requirements.txt (line 231))
+  Downloading packaging-25.0-py3-none-any.whl (66 kB)
+Collecting prompt-toolkit==2.0.9 (from -r ./requirements.txt (line 237))
+  Downloading prompt_toolkit-2.0.9-py3-none-any.whl (337 kB)
+Collecting pycparser==2.22 (from -r ./requirements.txt (line 242))
+  Downloading pycparser-2.22-py3-none-any.whl (117 kB)
+Collecting pyyaml==6.0.2 (from -r ./requirements.txt (line 246))
+  Downloading PyYAML-6.0.2-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (759 kB)
+[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/759.5 kB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m759.5/759.5 kB[0m [31m12.1 MB/s[0m eta [36m0:00:00[0m
+[?25hCollecting resolvelib==0.8.1 (from -r ./requirements.txt (line 303))
+  Downloading resolvelib-0.8.1-py2.py3-none-any.whl (16 kB)
+Collecting six==1.17.0 (from -r ./requirements.txt (line 307))
+  Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+Collecting wcwidth==0.1.7 (from -r ./requirements.txt (line 313))
+  Downloading wcwidth-0.1.7-py2.py3-none-any.whl (21 kB)
+Collecting setuptools==80.9.0 (from -r ./requirements.txt (line 319))
+  Downloading setuptools-80.9.0-py3-none-any.whl (1.2 MB)
+[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/1.2 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m1.2/1.2 MB[0m [31m12.6 MB/s[0m eta [36m0:00:00[0m
+[?25hInstalling collected packages: wcwidth, resolvelib, prompt-toolkit, six, setuptools, pyyaml, pycparser, packaging, netaddr, markupsafe, jinja2, cryptography, cffi, ansible-core, ansible
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/netaddr to 755
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible to 755
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-config to 755
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-connection to 755
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-console to 755
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-doc to 755
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-galaxy to 755
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-inventory to 755
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-playbook to 755
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-pull to 755
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-vault to 755
+  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-community to 755
+Successfully installed ansible-8.7.0 ansible-core-2.15.13 cffi-1.17.1 cryptography-45.0.6 jinja2-3.1.6 markupsafe-3.0.3 netaddr-1.3.0 packaging-25.0 prompt-toolkit-2.0.9 pycparser-2.22 pyyaml-6.0.2 resolvelib-0.8.1 setuptools-80.9.0 six-1.17.0 wcwidth-0.1.7
+
+[1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m A new release of pip is available: [0m[31;49m25.0[0m[39;49m -> [0m[32;49m25.3[0m
+[1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m To update, run: [0m[32;49mpython3 -m pip install --upgrade pip[0m
+./debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/pip install /srv/securedrop-admin
+Processing /srv/securedrop-admin
+  Installing build dependencies ... [?25l- \ | done
+[?25h  Getting requirements to build wheel ... [?25l- done
+[?25h  Preparing metadata (pyproject.toml) ... [?25l- done
+[?25hBuilding wheels for collected packages: securedrop-admin
+  Building wheel for securedrop-admin (pyproject.toml) ... [?25l- done
+[?25h  Created wheel for securedrop-admin: filename=securedrop_admin-0.1.0-py3-none-any.whl size=12466 sha256=68d055848c9bc2f8c265835099ca4105c934b7c7da30bddeaee02838e1e6b61c
+  Stored in directory: /root/.cache/pip/wheels/6d/cf/fd/590109619d0d0786cd57960d8dfab5562fc261484ce9be38d7
+Successfully built securedrop-admin
+Installing collected packages: securedrop-admin
+Successfully installed securedrop-admin-0.1.0
+
+[1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m A new release of pip is available: [0m[31;49m25.0[0m[39;49m -> [0m[32;49m25.3[0m
+[1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m To update, run: [0m[32;49mpython3 -m pip install --upgrade pip[0m
+find ./debian/securedrop-admin/ -type f -exec sed -i "s#/srv/securedrop-admin/debian/securedrop-admin##" {} \;
+dh_auto_install override_dh_auto_install
+I: pybuild base:311: /usr/bin/python3 setup.py install --root /srv/securedrop-admin/debian/securedrop-admin 
+/usr/lib/python3/dist-packages/setuptools/dist.py:759: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+!!
+
+        ********************************************************************************
+        Please consider removing the following classifiers in favor of a SPDX license expression:
+
+        License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+
+        See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+        ********************************************************************************
+
+!!
+  self._finalize_license_expression()
+running install
+/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py:90: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` directly.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+        ********************************************************************************
+
+!!
+  self.initialize_options()
+running build
+running build_py
+copying securedrop_admin/__init__.py -> /srv/securedrop-admin/.pybuild/cpython3_3.13/build/securedrop_admin
+running build_scripts
+running install_lib
+creating /srv/securedrop-admin/debian/securedrop-admin/usr/lib/python3.13/dist-packages
+creating /srv/securedrop-admin/debian/securedrop-admin/usr/lib/python3.13/dist-packages/securedrop_admin
+copying /srv/securedrop-admin/.pybuild/cpython3_3.13/build/securedrop_admin/__init__.py -> /srv/securedrop-admin/debian/securedrop-admin/usr/lib/python3.13/dist-packages/securedrop_admin
+byte-compiling /srv/securedrop-admin/debian/securedrop-admin/usr/lib/python3.13/dist-packages/securedrop_admin/__init__.py to __init__.cpython-313.pyc
+running install_egg_info
+running egg_info
+writing securedrop_admin.egg-info/PKG-INFO
+writing dependency_links to securedrop_admin.egg-info/dependency_links.txt
+writing top-level names to securedrop_admin.egg-info/top_level.txt
+reading manifest file 'securedrop_admin.egg-info/SOURCES.txt'
+writing manifest file 'securedrop_admin.egg-info/SOURCES.txt'
+Copying securedrop_admin.egg-info to /srv/securedrop-admin/debian/securedrop-admin/usr/lib/python3.13/dist-packages/securedrop_admin-0.1.0.egg-info
+Skipping SOURCES.txt
+running install_scripts
+creating /srv/securedrop-admin/debian/securedrop-admin/usr/bin
+copying build/scripts-3.13/securedrop-admin -> /srv/securedrop-admin/debian/securedrop-admin/usr/bin
+changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/bin/securedrop-admin to 755
+make[1]: Leaving directory '/srv/securedrop-admin'
+   dh_install -O--buildsystem=pybuild
+   dh_installdocs -O--buildsystem=pybuild
+   dh_installchangelogs -O--buildsystem=pybuild
+   dh_installinit -O--buildsystem=pybuild
+   dh_perl -O--buildsystem=pybuild
+   dh_link -O--buildsystem=pybuild
+   debian/rules override_dh_strip_nondeterminism
+make[1]: Entering directory '/srv/securedrop-admin'
+find ./debian/ -type f -name '*.pyc' -delete
+find ./debian/ -type f -name 'pip-selfcheck.json' -delete
+find ./debian/ -type f -name 'RECORD' -delete
+dh_strip_nondeterminism override_dh_strip_nondeterminism
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/sk/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/fr/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/nl/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/tr/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/de_DE/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/zh_Hant/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/hr/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/ar/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/pl/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/pt_PT/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/el/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/ru/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/is/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/zh_Hans/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/pt_BR/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/ro/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/sv/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/hi/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/nb_NO/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/it/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/eo/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/cs/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/ca/LC_MESSAGES/messages.mo
+	Normalized debian/securedrop-admin/usr/share/securedrop-admin/ansible-base/roles/tails-config/templates/locale/es_ES/LC_MESSAGES/messages.mo
+make[1]: Leaving directory '/srv/securedrop-admin'
+   dh_compress -O--buildsystem=pybuild
+   dh_fixperms -O--buildsystem=pybuild
+   dh_missing -O--buildsystem=pybuild
+   dh_strip -O--buildsystem=pybuild
+   dh_makeshlibs -O--buildsystem=pybuild
+   dh_shlibdeps -O--buildsystem=pybuild
+[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: diversions involved - output may be incorrect
+ diversion by libc6 from: /lib64/ld-linux-x86-64.so.2
+[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: diversions involved - output may be incorrect
+ diversion by libc6 to: /lib64/ld-linux-x86-64.so.2.usr-is-merged
+[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: package could avoid a useless dependency if debian/securedrop-admin/usr/share/securedrop-admin/venv/lib/python3.13/site-packages/yaml/_yaml.cpython-313-x86_64-linux-gnu.so debian/securedrop-admin/usr/share/securedrop-admin/venv/lib/python3.13/site-packages/_cffi_backend.cpython-313-x86_64-linux-gnu.so debian/securedrop-admin/usr/share/securedrop-admin/venv/lib/python3.13/site-packages/markupsafe/_speedups.cpython-313-x86_64-linux-gnu.so were not linked against libpthread.so.0 (they use none of the library's symbols)
+   dh_installdeb -O--buildsystem=pybuild
+   dh_gencontrol -O--buildsystem=pybuild
+   dh_md5sums -O--buildsystem=pybuild
+   dh_builddeb -O--buildsystem=pybuild
+[1mdpkg-deb:[0m building package 'securedrop-admin-dbgsym' in '../securedrop-admin-dbgsym_2.13.0~rc1+trixie_amd64.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-admin' in '../securedrop-admin_2.13.0~rc1+trixie_amd64.deb'.
+[1;35m dpkg-genbuildinfo -O../securedrop-admin_2.13.0~rc1+trixie_amd64.buildinfo
+[0m[1;35m dpkg-genchanges -O../securedrop-admin_2.13.0~rc1+trixie_amd64.changes
+[0m[1mdpkg-genchanges: [0m[32minfo[0m: including full source code in upload
+[1;35m dpkg-source --after-build .
+[0m[1mdpkg-buildpackage: [0m[32minfo[0m: full upload; Debian-native package (full source is included)
++ source /etc/os-release
+++ PRETTY_NAME='Debian GNU/Linux 13 (trixie)'
+++ NAME='Debian GNU/Linux'
+++ VERSION_ID=13
+++ VERSION='13 (trixie)'
+++ VERSION_CODENAME=trixie
+++ DEBIAN_VERSION_FULL=13.2
+++ ID=debian
+++ HOME_URL=https://www.debian.org/
+++ SUPPORT_URL=https://www.debian.org/support
+++ BUG_REPORT_URL=https://bugs.debian.org/
++ mkdir -p /src/build/trixie
++ mv -v ../securedrop-admin_2.13.0~rc1+trixie_amd64.buildinfo ../securedrop-admin_2.13.0~rc1+trixie_amd64.changes ../securedrop-admin-dbgsym_2.13.0~rc1+trixie_amd64.deb ../securedrop-admin_2.13.0~rc1+trixie_amd64.deb ../securedrop-admin_2.13.0~rc1+trixie.tar.gz /src/build/trixie
+copied '../securedrop-admin_2.13.0~rc1+trixie_amd64.buildinfo' -> '/src/build/trixie/securedrop-admin_2.13.0~rc1+trixie_amd64.buildinfo'
+removed '../securedrop-admin_2.13.0~rc1+trixie_amd64.buildinfo'
+copied '../securedrop-admin_2.13.0~rc1+trixie_amd64.changes' -> '/src/build/trixie/securedrop-admin_2.13.0~rc1+trixie_amd64.changes'
+removed '../securedrop-admin_2.13.0~rc1+trixie_amd64.changes'
+copied '../securedrop-admin-dbgsym_2.13.0~rc1+trixie_amd64.deb' -> '/src/build/trixie/securedrop-admin-dbgsym_2.13.0~rc1+trixie_amd64.deb'
+removed '../securedrop-admin-dbgsym_2.13.0~rc1+trixie_amd64.deb'
+copied '../securedrop-admin_2.13.0~rc1+trixie_amd64.deb' -> '/src/build/trixie/securedrop-admin_2.13.0~rc1+trixie_amd64.deb'
+removed '../securedrop-admin_2.13.0~rc1+trixie_amd64.deb'
+copied '../securedrop-admin_2.13.0~rc1+trixie.tar.gz' -> '/src/build/trixie/securedrop-admin_2.13.0~rc1+trixie.tar.gz'
+removed '../securedrop-admin_2.13.0~rc1+trixie.tar.gz'
++ cd /src/build/trixie
++ sha256sum ./securedrop-admin-dbgsym_2.13.0~rc1+trixie_amd64.deb ./securedrop-admin_2.13.0~rc1+trixie.tar.gz ./securedrop-admin_2.13.0~rc1+trixie_amd64.buildinfo ./securedrop-admin_2.13.0~rc1+trixie_amd64.changes ./securedrop-admin_2.13.0~rc1+trixie_amd64.deb
+13ad257b3fd4183b439c4aef4922d66173e7a1959a012b106ef4b92232a79b73  ./securedrop-admin-dbgsym_2.13.0~rc1+trixie_amd64.deb
+dce5df02a178fda4546a58888568504e6fdf4c19002b722b58060985231edd79  ./securedrop-admin_2.13.0~rc1+trixie.tar.gz
+1ce45d58eef0179b0825046a381799656a61d84b11922c55db9644907865a924  ./securedrop-admin_2.13.0~rc1+trixie_amd64.buildinfo
+a8d569bc9ac4c3e3dfa29b55ba839c0ed7f60e4443467296296ca274c99c7dde  ./securedrop-admin_2.13.0~rc1+trixie_amd64.changes
+88e8cde6fdad4e760da259d388c94845f4f5ae3b396ac6dbbb72f26f8d7fd02c  ./securedrop-admin_2.13.0~rc1+trixie_amd64.deb
++ HOST_UID=1000
++ HOST_GID=1000
++ chown -R 1000:1000 /src/build/trixie
++ echo ::endgroup::
+::endgroup::
++ echo '::group::Contents of build directory'
+::group::Contents of build directory
++ find build
+build
+build/20251124-securedrop.log
+build/20251124-securedrop-admin.log
+build/trixie
+build/trixie/securedrop-admin_2.13.0~rc1+trixie_amd64.changes
+build/trixie/securedrop-admin_2.13.0~rc1+trixie_amd64.buildinfo
+build/trixie/securedrop-admin_2.13.0~rc1+trixie_amd64.deb
+build/trixie/securedrop-admin-dbgsym_2.13.0~rc1+trixie_amd64.deb
+build/trixie/securedrop-admin_2.13.0~rc1+trixie.tar.gz
+build/noble
+build/noble/securedrop-app-code_2.13.0~rc1+noble_amd64.deb
+build/noble/securedrop-keyring_0.2.2+2.13.0~rc1+noble_all.deb
+build/noble/securedrop-ossec-server_3.6.0+2.13.0~rc1+noble_all.deb
+build/noble/securedrop_2.13.0~rc1+noble_amd64.changes
+build/noble/securedrop-config_2.13.0~rc1+noble_amd64.deb
+build/noble/securedrop-app-code-dbgsym_2.13.0~rc1+noble_amd64.deb
+build/noble/securedrop_2.13.0~rc1+noble.tar.gz
+build/noble/securedrop_2.13.0~rc1+noble_amd64.buildinfo
+build/noble/securedrop-ossec-agent_3.6.0+2.13.0~rc1+noble_all.deb
+build/.gitignore
++ echo ::endgroup::
+::endgroup::
++ NOTEST=
++ [[ '' == '' ]]
++ echo '::group::Running tests'
+::group::Running tests
++ . ./devops/scripts/boot-strap-venv.sh
+++ set -eo pipefail
+++ OS_VERSION=trixie
++++ python3 -c 'import platform; print(".".join(platform.python_version_tuple()[:2]))'
+++ PYTHON_VERSION=3.11
+++ return 0
++ virtualenv_bootstrap
++ DEV_CONSTRAINT=securedrop/requirements/develop-constraints.txt
++ VIRTUAL_ENV=
++ '[' -n '' ']'
++ VENV=.venv
++ '[' -d .venv ']'
+++ get_venv_version .venv
+++ .venv/bin/python -c 'from __future__ import print_function; import sys; print(sys.version_info[0])'
++ VENV_VERSION=3
++ [[ .venv = \.\v\e\n\v ]]
++ [[ 3 == 2 ]]
++ '[' '!' -d .venv ']'
++ PIP_CONSTRAINT=securedrop/requirements/develop-constraints.txt
++ .venv/bin/pip install -q -r securedrop/requirements/develop-requirements.txt
+
+[1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m A new release of pip is available: [0m[31;49m25.2[0m[39;49m -> [0m[32;49m25.3[0m
+[1m[[0m[34;49mnotice[0m[1;39;49m][0m[39;49m To update, run: [0m[32;49m/home/user/projects/securedrop/.venv/bin/python -m pip install --upgrade pip[0m
++ . .venv/bin/activate
+++ '[' .venv/bin/activate = /home/user/projects/securedrop/builder/build-debs.sh ']'
+++ deactivate nondestructive
+++ unset -f pydoc
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ hash -r
+++ '[' -z '' ']'
+++ unset VIRTUAL_ENV
+++ '[' '!' nondestructive = nondestructive ']'
+++ VIRTUAL_ENV=/home/user/projects/securedrop/.venv
+++ '[' linux-gnu = cygwin ']'
+++ '[' linux-gnu = msys ']'
+++ export VIRTUAL_ENV
+++ _OLD_VIRTUAL_PATH=/home/user/.local/share/pnpm:/home/user/.nvm/versions/node/v24.3.0/bin:/home/user/projects/flutter/bin:/home/user/.cargo/bin:/home/user/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/user/.local/bin:/home/user/.local/bin
+++ PATH=/home/user/projects/securedrop/.venv/bin:/home/user/.local/share/pnpm:/home/user/.nvm/versions/node/v24.3.0/bin:/home/user/projects/flutter/bin:/home/user/.cargo/bin:/home/user/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/user/.local/bin:/home/user/.local/bin
+++ export PATH
+++ '[' -z '' ']'
+++ '[' -z '' ']'
+++ _OLD_VIRTUAL_PS1=
+++ '[' x '!=' x ']'
++++ basename /home/user/projects/securedrop/.venv
+++ PS1='(.venv) '
+++ export PS1
+++ alias pydoc
+++ true
+++ hash -r
++ [[ admin == \o\s\s\e\c ]]
++ [[ admin == \a\d\m\i\n ]]
++ pytest -v builder/tests/test_admin_package.py
+[1m==================================== test session starts ====================================[0m
+platform linux -- Python 3.11.2, pytest-7.2.0, pluggy-0.13.1 -- /home/user/projects/securedrop/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/user/projects/securedrop
+plugins: xdist-3.0.2, testinfra-10.2.2, anyio-4.11.0
+[1mcollecting ... [0m[1mcollected 1 item                                                                            [0m
+
+builder/tests/test_admin_package.py::test_admin_paths_are_present [32mPASSED[0m[32m              [100%][0m
+
+[32m===================================== [32m[1m1 passed[0m[32m in 3.00s[0m[32m =====================================[0m
++ echo ::endgroup::
+::endgroup::
+
+Script done on 2025-11-24 16:22:24-05:00 [COMMAND_EXIT_CODE="0"]
