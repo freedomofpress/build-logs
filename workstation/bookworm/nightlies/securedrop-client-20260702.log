@@ -1,12 +1,12 @@
-Script started on 2026-07-02 07:08:04+00:00 [COMMAND="scripts/build-debs.sh" <not executed on terminal>]
+Script started on 2026-07-02 18:31:56+00:00 [COMMAND="scripts/build-debs.sh" <not executed on terminal>]
 + ./scripts/print-and-verify-git-tag.py
 $ git log -1 --oneline --show-signature
-b810bc6 (grafted, HEAD -> main, origin/main) gpg: directory '/home/runner/.gnupg' created
+c8998d8 (grafted, HEAD -> main, origin/main) gpg: directory '/home/runner/.gnupg' created
 gpg: keybox '/home/runner/.gnupg/pubring.kbx' created
-gpg: Signature made Wed Jul  1 22:45:49 2026 UTC
+gpg: Signature made Thu Jul  2 18:24:52 2026 UTC
 gpg:                using RSA key B5690EEEBB952194
 gpg: Can't check signature: No public key
-Merge pull request #3540 from freedomofpress/vicki/pending-events-schedule
+Merge pull request #3440 from freedomofpress/vicki/download-decrypt-worker
 $ git status --short
 ?? securedrop-builder/
 ++ pwd
@@ -41,15 +41,15 @@ Trying to pull docker.io/library/debian:bookworm...
 Getting image source signatures
 Writing manifest to image destination
 STEP 2/17: ARG DISTRO
---> 59c15e88bde4
+--> 0ce4f7e0c6e0
 STEP 3/17: ENV PIP_DISABLE_PIP_VERSION_CHECK=1
---> f52eb543a1b2
+--> bbad2a934d81
 STEP 4/17: ENV PIP_PROGRESS_BAR=off
---> 3c3dfd061f80
+--> 1226996b7428
 STEP 5/17: ENV CARGO_TERM_COLOR=never
---> de9c0748ccbb
+--> bff79deff7d5
 STEP 6/17: ENV CARGO_TERM_PROGRESS_WHEN=never
---> b0579f95bf8a
+--> 6c336222136d
 STEP 7/17: RUN apt-get update && apt-get --yes upgrade && apt-get install --yes build-essential curl rsync
 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
@@ -57,7 +57,7 @@ Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB
 Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8790 kB]
 Get:5 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [6924 B]
 Get:6 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [314 kB]
-Fetched 9365 kB in 1s (8342 kB/s)
+Fetched 9365 kB in 1s (10.3 MB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -265,7 +265,7 @@ Get:134 http://deb.debian.org/debian bookworm/main amd64 libsasl2-modules amd64 
 Get:135 http://deb.debian.org/debian bookworm/main amd64 manpages-dev all 6.03-2 [2030 kB]
 Get:136 http://deb.debian.org/debian bookworm/main amd64 publicsuffix all 20230209.2326-1 [126 kB]
 debconf: delaying package configuration, since apt-utils is not installed
-Fetched 106 MB in 1s (184 MB/s)
+Fetched 106 MB in 0s (244 MB/s)
 Selecting previously unselected package perl-modules-5.36.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6096 files and directories currently installed.)
 Preparing to unpack .../000-perl-modules-5.36_5.36.0-7+deb12u3_all.deb ...
@@ -836,23 +836,23 @@ Updating certificates in /etc/ssl/certs...
 0 added, 0 removed; done.
 Running hooks in /etc/ca-certificates/update.d...
 done.
---> 05295ba791c5
+--> 2a926f0e7f0a
 STEP 8/17: COPY qubes_43.sources /etc/apt/sources.list.d/
---> b805e70aac66
+--> d6f3a1027428
 STEP 9/17: RUN sed -i s/##VERSION_CODENAME##/${DISTRO}/ /etc/apt/sources.list.d/qubes_43.sources
---> 71d209a5bb62
+--> 53673b0084f8
 STEP 10/17: COPY nodesource-node24.sources /etc/apt/sources.list.d/
---> 900b9acce074
+--> 0d1b10fe5fc3
 STEP 11/17: ENV RUST_VERSION 1.90.0
---> f9189ec99167
+--> c376493cf960
 STEP 12/17: ENV RUSTUP_VERSION 1.28.2
---> ff7ac72ad6d9
+--> 8340c94443ec
 STEP 13/17: ENV RUSTUP_INIT_SHA256 20a06e644b0d9bd2fbdbfd52d42540bdde820ea7df86e92e533c073da0cdd43c
---> 0e40c18db6d6
+--> d6bfcb29a533
 STEP 14/17: ENV RUSTUP_HOME /opt/rustup
---> 4e4bc4ad89c8
+--> 08b21db9ec60
 STEP 15/17: ENV CARGO_HOME /opt/cargo
---> 73a7b876929a
+--> d448608e232e
 STEP 16/17: RUN TMPDIR=`mktemp -d` && cd ${TMPDIR}         && curl --proto '=https' --tlsv1.2 -OO -sSf https://static.rust-lang.org/rustup/archive/${RUSTUP_VERSION}/x86_64-unknown-linux-gnu/rustup-init         && echo "${RUSTUP_INIT_SHA256} *rustup-init" | sha256sum -c -         && chmod +x rustup-init         && ./rustup-init --default-toolchain=${RUST_VERSION} --profile minimal -y         && cd && rm -rf ${TMPDIR}
 rustup-init: OK
 info: profile set to 'minimal'
@@ -865,8 +865,8 @@ info: downloading component 'rustc'
 info: installing component 'cargo'
 info: installing component 'rust-std'
 info: installing component 'rustc'
-info: default toolchain set to '1.90.0-x86_64-unknown-linux-gnu'
 
+info: default toolchain set to '1.90.0-x86_64-unknown-linux-gnu'
   1.90.0-x86_64-unknown-linux-gnu installed - rustc 1.90.0 (1159e78c4 2025-09-14)
 
 
@@ -883,32 +883,32 @@ This is usually done by running one of the following (note the leading DOT):
 . "/opt/cargo/env"            # For sh/bash/zsh/ash/dash/pdksh
 source "/opt/cargo/env.fish"  # For fish
 source $"/opt/cargo/env.nu"  # For nushell
---> 9d4a9662471c
+--> c00d6856f889
 STEP 17/17: ENV PATH "$PATH:/opt/cargo/bin/"
 COMMIT fpf.local/sd-client-builder-bookworm
---> c9969a6ff0ec
+--> 13e966ba9226
 Successfully tagged fpf.local/sd-client-builder-bookworm:latest
-c9969a6ff0eccf583d56395f1c1f5560fd63611278ab3b658d594da2572da130
+13e966ba9226ae11a369feb39b95f53747c28c22f15d8810afbd70d01f4ed99f
 ++ status=0
 ++ podman run --rm --user=root -v /home/runner/work/securedrop-client/securedrop-client:/src:Z --userns=keep-id -it --entrypoint /src/scripts/dep-check.sh fpf.local/sd-client-builder-bookworm
 ^@0% [Working]            Hit:1 http://deb.debian.org/debian bookworm InRelease
-0% [Connecting to deb.nodesource.com]                                     Hit:2 http://deb.debian.org/debian bookworm-updates InRelease
-0% [Connecting to deb.nodesource.com] [Connecting to deb.qubes-os.org]                                                                      Hit:3 http://deb.debian.org/debian-security bookworm-security InRelease
-0% [Connected to deb.nodesource.com (104.20.45.190)] [Connecting to deb.qubes-o                                                                               Get:4 https://deb.nodesource.com/node_24.x nodistro InRelease [12.1 kB]
-0% [4 InRelease 10.9 kB/12.1 kB 90%] [Connecting to deb.qubes-os.org (193.219.2                                                                               0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connecting to deb.qubes-os.org (193.219.28.150)]                                                    0% [Connected to deb.qubes-os.org (193.219.28.150)]                                                   Get:5 https://deb.nodesource.com/node_24.x nodistro/main amd64 Packages [7732 B]
-0% [5 Packages 4839 B/7732 B 63%] [Connected to deb.qubes-os.org (193.219.28.15                                                                               0% [Connected to deb.qubes-os.org (193.219.28.150)]0% [5 Packages store 0 B] [Connected to deb.qubes-os.org (193.219.28.150)]                                                                          0% [Connected to deb.qubes-os.org (193.219.28.150)]                                                   Get:6 https://deb.qubes-os.org/r4.3/vm bookworm InRelease [4739 B]
+0% [Working]            Hit:2 http://deb.debian.org/debian bookworm-updates InRelease
+            Hit:3 http://deb.debian.org/debian-security bookworm-security InRelease
+0% [Connecting to deb.nodesource.com]                                     Get:4 https://deb.nodesource.com/node_24.x nodistro InRelease [12.1 kB]
+0% [4 InRelease 0 B/12.1 kB 0%] [Connecting to deb.qubes-os.org (193.219.28.150                                                                               0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connecting to deb.qubes-os.org (193.219.28.150)]                                                    0% [Connected to deb.qubes-os.org (193.219.28.150)]0% [Connected to deb.qubes-os.org (193.219.28.150)]                                                   Get:5 https://deb.nodesource.com/node_24.x nodistro/main amd64 Packages [7732 B]
+0% [5 Packages 712 B/7732 B 9%] [Connected to deb.qubes-os.org (193.219.28.150)                                                                               0% [Connected to deb.qubes-os.org (193.219.28.150)]0% [5 Packages store 0 B] [Connected to deb.qubes-os.org (193.219.28.150)]                                                                          0% [Connected to deb.qubes-os.org (193.219.28.150)]                                                   Get:6 https://deb.qubes-os.org/r4.3/vm bookworm InRelease [4739 B]
                                                    0% [6 InRelease 4739 B/4739 B 100%]                                   0% [Working]49% [Working]             Get:7 https://deb.qubes-os.org/r4.3/vm bookworm/main amd64 Packages [40.4 kB]
-69% [7 Packages 16.1 kB/40.4 kB 40%]                                    99% [Working]99% [7 Packages store 0 B]                          100% [Working]              Fetched 65.0 kB in 1s (75.1 kB/s)
+69% [7 Packages 16.1 kB/40.4 kB 40%]                                    99% [Working]99% [7 Packages store 0 B]                          100% [Working]              Fetched 65.0 kB in 1s (99.8 kB/s)
 Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
 ++ [[ 0 == 42 ]]
 ++ [[ 0 != 0 ]]
 ++ mktemp -d
-+ BUILD_DEST=/tmp/tmp.MIDoe1zswp
++ BUILD_DEST=/tmp/tmp.OuoYCGVzuP
 + WHAT=main
 + FAST=
 + FAST_CACHE_ARGUMENTS=
 + [[ -n '' ]]
-+ podman run --rm --user=root -v /home/runner/work/securedrop-client/securedrop-client:/src:Z --userns=keep-id -it -v /home/runner/work/securedrop-client/securedrop-client/securedrop-builder:/builder:Z -v /tmp/tmp.MIDoe1zswp:/build:Z --env NIGHTLY=1 --env FAST= --env WHAT=main --entrypoint /src/scripts/build-debs-main.sh fpf.local/sd-client-builder-bookworm
++ podman run --rm --user=root -v /home/runner/work/securedrop-client/securedrop-client:/src:Z --userns=keep-id -it -v /home/runner/work/securedrop-client/securedrop-client/securedrop-builder:/builder:Z -v /tmp/tmp.OuoYCGVzuP:/build:Z --env NIGHTLY=1 --env FAST= --env WHAT=main --entrypoint /src/scripts/build-debs-main.sh fpf.local/sd-client-builder-bookworm
 + export PIP_DISABLE_PIP_VERSION_CHECK=1
 + PIP_DISABLE_PIP_VERSION_CHECK=1
 + export PIP_PROGRESS_BAR=off
@@ -919,13 +919,13 @@ c9969a6ff0eccf583d56395f1c1f5560fd63611278ab3b658d594da2572da130
 + CARGO_TERM_PROGRESS_WHEN=never
 + apt-get update
 0% [Working]            Hit:1 http://deb.debian.org/debian bookworm InRelease
-0% [Connecting to deb.qubes-os.org]                                   Hit:2 http://deb.debian.org/debian bookworm-updates InRelease
-0% [Waiting for headers] [Connecting to deb.qubes-os.org]                                                         Hit:3 http://deb.debian.org/debian-security bookworm-security InRelease
-                                                         0% [Connecting to deb.qubes-os.org]0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connected to deb.nodesource.com (172.66.150.169)] [Connecting to deb.qubes-                                                                               Get:4 https://deb.nodesource.com/node_24.x nodistro InRelease [12.1 kB]
-0% [4 InRelease 7661 B/12.1 kB 63%] [Connecting to deb.qubes-os.org (193.219.28                                                                               0% [Connecting to deb.qubes-os.org (193.219.28.150)]                                                    0% [Connected to deb.qubes-os.org (193.219.28.150)]0% [Connected to deb.qubes-os.org (193.219.28.150)]                                                   Get:5 https://deb.nodesource.com/node_24.x nodistro/main amd64 Packages [7732 B]
-0% [5 Packages 2101 B/7732 B 27%] [Connected to deb.qubes-os.org (193.219.28.15                                                                               0% [Connected to deb.qubes-os.org (193.219.28.150)]0% [5 Packages store 0 B] [Connected to deb.qubes-os.org (193.219.28.150)]                                                                          0% [Connected to deb.qubes-os.org (193.219.28.150)]                                                   Get:6 https://deb.qubes-os.org/r4.3/vm bookworm InRelease [4739 B]
+0% [Waiting for headers] [Connected to deb.nodesource.com (172.66.150.169)]                                                                           Hit:2 http://deb.debian.org/debian bookworm-updates InRelease
+                                                                           Hit:3 http://deb.debian.org/debian-security bookworm-security InRelease
+0% [Connected to deb.nodesource.com (172.66.150.169)] [Connecting to deb.qubes-                                                                               Get:4 https://deb.nodesource.com/node_24.x nodistro InRelease [12.1 kB]
+0% [4 InRelease 12.1 kB/12.1 kB 100%] [Connecting to deb.qubes-os.org (193.219.                                                                               0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connecting to deb.qubes-os.org (193.219.28.150)]                                                    0% [Connected to deb.qubes-os.org (193.219.28.150)]0% [Connected to deb.qubes-os.org (193.219.28.150)]                                                   Get:5 https://deb.nodesource.com/node_24.x nodistro/main amd64 Packages [7732 B]
+0% [5 Packages 4819 B/7732 B 62%] [Connected to deb.qubes-os.org (193.219.28.15                                                                               0% [Connected to deb.qubes-os.org (193.219.28.150)]0% [5 Packages store 0 B] [Connected to deb.qubes-os.org (193.219.28.150)]                                                                          0% [Connected to deb.qubes-os.org (193.219.28.150)]                                                   Get:6 https://deb.qubes-os.org/r4.3/vm bookworm InRelease [4739 B]
                                                    0% [6 InRelease 4739 B/4739 B 100%]                                   0% [Working]49% [Working]             Get:7 https://deb.qubes-os.org/r4.3/vm bookworm/main amd64 Packages [40.4 kB]
-69% [7 Packages 16.1 kB/40.4 kB 40%]                                    99% [Working]99% [7 Packages store 0 B]                          100% [Working]              Fetched 65.0 kB in 1s (80.3 kB/s)
+69% [7 Packages 16.1 kB/40.4 kB 40%]                                    99% [Working]99% [7 Packages store 0 B]                          100% [Working]              Fetched 65.0 kB in 1s (101 kB/s)
 Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
 + apt-get upgrade --yes
 Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
@@ -1119,8 +1119,6 @@ app/src/main/database/migrations/20260507000000_cleanup_orphaned_search_index.sq
 app/src/main/database/migrations/20260511000000_fix_sources_projected_pending_truncation.sql
 app/src/main/database/migrations/20260624000000_pending_events_retry_tracking.sql
 app/src/main/fetch/
-app/src/main/fetch/bufferedWriter.test.ts
-app/src/main/fetch/bufferedWriter.ts
 app/src/main/fetch/queue.test.ts
 app/src/main/fetch/queue.ts
 app/src/main/fetch/worker.ts
@@ -1592,8 +1590,8 @@ workstation-config/open-in-dvm.desktop
 workstation-config/paxctld.conf
 workstation-config/securedrop-mime-handling.py
 
-sent 33,872,217 bytes  received 11,199 bytes  67,766,832.00 bytes/sec
-total size is 33,820,957  speedup is 1.00
+sent 33,874,248 bytes  received 11,165 bytes  67,770,826.00 bytes/sec
+total size is 33,822,706  speedup is 1.00
 + cd /srv/securedrop-client
 + cat
 + apt-get build-dep . --yes
@@ -1635,154 +1633,154 @@ The following NEW packages will be installed:
 Need to get 160 MB of archives.
 After this operation, 907 MB of additional disk space will be used.
 0% [Working]            Get:1 http://deb.debian.org/debian bookworm/main amd64 libargon2-1 amd64 0~20171227-0.3+deb12u1 [19.4 kB]
-0% [1 libargon2-1 17.1 kB/19.4 kB 88%] [Connected to deb.nodesource.com (104.200% [Connected to deb.nodesource.com (104.20.45.190)] [Connecting to deb.qubes-o                                                                               Get:2 http://deb.debian.org/debian bookworm/main amd64 dmsetup amd64 2:1.02.185-2 [82.0 kB]
-0% [2 dmsetup 5712 B/82.0 kB 7%] [Connected to deb.nodesource.com (104.20.45.190% [Waiting for headers] [Waiting for headers] [Connecting to deb.qubes-os.org]                                                                               Get:3 http://deb.debian.org/debian bookworm/main amd64 libdevmapper1.02.1 amd64 2:1.02.185-2 [133 kB]
-0% [3 libdevmapper1.02.1 5730 B/133 kB 4%] [Waiting for headers] [Connecting to1% [Waiting for headers] [Waiting for headers] [Connecting to deb.qubes-os.org                                                                                Get:4 http://deb.debian.org/debian bookworm/main amd64 libjson-c5 amd64 0.16-2 [44.1 kB]
-1% [4 libjson-c5 7909 B/44.1 kB 18%] [Waiting for headers] [Connecting to deb.q                                                                               Get:5 https://deb.nodesource.com/node_24.x nodistro/main amd64 nodejs amd64 24.15.0-1nodesource1 [38.3 MB]
-1% [4 libjson-c5 30.8 kB/44.1 kB 70%] [5 nodejs 7503 B/38.3 MB 0%] [Connecting 1% [Waiting for headers] [5 nodejs 69.2 kB/38.3 MB 0%] [Connecting to deb.qubes                                                                               Get:6 http://deb.debian.org/debian bookworm/main amd64 libcryptsetup12 amd64 2:2.6.1-4~deb12u2 [223 kB]
-1% [6 libcryptsetup12 15.0 kB/223 kB 7%] [5 nodejs 69.2 kB/38.3 MB 0%] [Connect1% [Waiting for headers] [5 nodejs 152 kB/38.3 MB 0%] [Connecting to deb.qubes-                                                                               Get:7 http://deb.debian.org/debian bookworm/main amd64 libfdisk1 amd64 2.38.1-5+deb12u3 [194 kB]
-1% [7 libfdisk1 0 B/194 kB 0%] [5 nodejs 283 kB/38.3 MB 1%] [Connecting to deb.1% [Waiting for headers] [5 nodejs 300 kB/38.3 MB 1%] [Connecting to deb.qubes-                                                                               Get:8 http://deb.debian.org/debian bookworm/main amd64 libkmod2 amd64 30+20221128-1 [57.9 kB]
-1% [8 libkmod2 51.3 kB/57.9 kB 89%] [5 nodejs 300 kB/38.3 MB 1%] [Connecting to1% [Waiting for headers] [5 nodejs 328 kB/38.3 MB 1%] [Connecting to deb.qubes-                                                                               Get:9 http://deb.debian.org/debian bookworm/main amd64 libapparmor1 amd64 3.0.8-3 [41.2 kB]
-2% [9 libapparmor1 36.0 kB/41.2 kB 87%] [5 nodejs 328 kB/38.3 MB 1%] [Connectin2% [Waiting for headers] [5 nodejs 475 kB/38.3 MB 1%] [Connecting to deb.qubes-                                                                               Get:10 http://deb.debian.org/debian bookworm/main amd64 libip4tc2 amd64 1.8.9-2 [19.0 kB]
-2% [10 libip4tc2 19.0 kB/19.0 kB 100%] [5 nodejs 475 kB/38.3 MB 1%] [Connecting2% [5 nodejs 475 kB/38.3 MB 1%] [Connecting to deb.qubes-os.org (193.219.28.150                                                                               Get:11 http://deb.debian.org/debian bookworm/main amd64 libsystemd-shared amd64 252.39-1~deb12u2 [1696 kB]
-2% [11 libsystemd-shared 31.1 kB/1696 kB 2%] [5 nodejs 475 kB/38.3 MB 1%] [Conn4% [Waiting for headers] [5 nodejs 2027 kB/38.3 MB 5%] [Connecting to deb.qubes                                                                               Get:12 http://deb.debian.org/debian bookworm/main amd64 systemd amd64 252.39-1~deb12u2 [3044 kB]
-4% [12 systemd 199 kB/3044 kB 7%] [5 nodejs 2060 kB/38.3 MB 5%] [Connecting to 6% [Waiting for headers] [5 nodejs 4257 kB/38.3 MB 11%] [Connecting to deb.qube                                                                               Get:13 http://deb.debian.org/debian bookworm/main amd64 systemd-sysv amd64 252.39-1~deb12u2 [42.9 kB]
-6% [13 systemd-sysv 42.9 kB/42.9 kB 100%] [5 nodejs 4257 kB/38.3 MB 11%] [Conne                                                                               Get:14 http://deb.debian.org/debian bookworm/main amd64 libdbus-1-3 amd64 1.14.10-1~deb12u1 [201 kB]
-                                                                               Get:15 http://deb.debian.org/debian bookworm/main amd64 dbus-bin amd64 1.14.10-1~deb12u1 [105 kB]
-7% [15 dbus-bin 105 kB/105 kB 100%] [5 nodejs 4375 kB/38.3 MB 11%] [Connecting 7% [5 nodejs 4388 kB/38.3 MB 11%] [Connecting to deb.qubes-os.org (193.219.28.1                                                                               Get:16 http://deb.debian.org/debian bookworm/main amd64 dbus-session-bus-common all 1.14.10-1~deb12u1 [78.2 kB]
-7% [16 dbus-session-bus-common 32.8 kB/78.2 kB 42%] [5 nodejs 4388 kB/38.3 MB 1                                                                               Get:17 http://deb.debian.org/debian bookworm/main amd64 dbus-daemon amd64 1.14.10-1~deb12u1 [184 kB]
-7% [17 dbus-daemon 39.3 kB/184 kB 21%] [5 nodejs 4519 kB/38.3 MB 12%] [Connecti                                                                               Get:18 http://deb.debian.org/debian bookworm/main amd64 dbus-system-bus-common all 1.14.10-1~deb12u1 [79.3 kB]
+0% [1 libargon2-1 15.7 kB/19.4 kB 81%] [Connected to deb.nodesource.com (104.20                                                                               0% [Connected to deb.nodesource.com (104.20.45.190)]                                                    Get:2 http://deb.debian.org/debian bookworm/main amd64 dmsetup amd64 2:1.02.185-2 [82.0 kB]
+0% [2 dmsetup 10.7 kB/82.0 kB 13%] [Waiting for headers]0% [Waiting for headers] [Waiting for headers] [Connecting to deb.qubes-os.org]                                                                               Get:3 https://deb.nodesource.com/node_24.x nodistro/main amd64 nodejs amd64 24.15.0-1nodesource1 [38.3 MB]
+0% [Waiting for headers] [3 nodejs 2027 B/38.3 MB 0%] [Connecting to deb.qubes-                                                                               Get:4 http://deb.debian.org/debian bookworm/main amd64 libdevmapper1.02.1 amd64 2:1.02.185-2 [133 kB]
+0% [4 libdevmapper1.02.1 15.7 kB/133 kB 12%] [3 nodejs 131 kB/38.3 MB 0%] [Conn1% [Waiting for headers] [3 nodejs 958 kB/38.3 MB 3%] [Connecting to deb.qubes-                                                                               Get:5 http://deb.debian.org/debian bookworm/main amd64 libjson-c5 amd64 0.16-2 [44.1 kB]
+1% [5 libjson-c5 6128 B/44.1 kB 14%] [3 nodejs 958 kB/38.3 MB 3%] [Connecting t1% [Waiting for headers] [3 nodejs 1221 kB/38.3 MB 3%] [Connecting to deb.qubes                                                                               Get:6 http://deb.debian.org/debian bookworm/main amd64 libcryptsetup12 amd64 2:2.6.1-4~deb12u2 [223 kB]
+1% [6 libcryptsetup12 16.4 kB/223 kB 7%] [3 nodejs 1221 kB/38.3 MB 3%] [Connect2% [3 nodejs 2933 kB/38.3 MB 8%] [Connecting to deb.qubes-os.org (193.219.28.15                                                                               Get:7 http://deb.debian.org/debian bookworm/main amd64 libfdisk1 amd64 2.38.1-5+deb12u3 [194 kB]
+2% [7 libfdisk1 433 B/194 kB 0%] [3 nodejs 2948 kB/38.3 MB 8%] [Connecting to d3% [Waiting for headers] [3 nodejs 3318 kB/38.3 MB 9%] [Connecting to deb.qubes                                                                               Get:8 http://deb.debian.org/debian bookworm/main amd64 libkmod2 amd64 30+20221128-1 [57.9 kB]
+3% [8 libkmod2 10.7 kB/57.9 kB 18%] [3 nodejs 3318 kB/38.3 MB 9%] [Connecting t3% [Waiting for headers] [3 nodejs 3997 kB/38.3 MB 10%] [Connecting to deb.qube                                                                               Get:9 http://deb.debian.org/debian bookworm/main amd64 libapparmor1 amd64 3.0.8-3 [41.2 kB]
+3% [9 libapparmor1 41.2 kB/41.2 kB 100%] [3 nodejs 3997 kB/38.3 MB 10%] [Connec4% [3 nodejs 4039 kB/38.3 MB 11%] [Connecting to deb.qubes-os.org (193.219.28.1                                                                               Get:10 http://deb.debian.org/debian bookworm/main amd64 libip4tc2 amd64 1.8.9-2 [19.0 kB]
+4% [10 libip4tc2 19.0 kB/19.0 kB 100%] [3 nodejs 4039 kB/38.3 MB 11%] [Connecti4% [3 nodejs 4063 kB/38.3 MB 11%] [Connecting to deb.qubes-os.org (193.219.28.1                                                                               Get:11 http://deb.debian.org/debian bookworm/main amd64 libsystemd-shared amd64 252.39-1~deb12u2 [1696 kB]
+4% [11 libsystemd-shared 9230 B/1696 kB 1%] [3 nodejs 5415 kB/38.3 MB 14%] [Con7% [Waiting for headers] [3 nodejs 8692 kB/38.3 MB 23%] [Connecting to deb.qube                                                                               Get:12 http://deb.debian.org/debian bookworm/main amd64 systemd amd64 252.39-1~deb12u2 [3044 kB]
+7% [12 systemd 139 kB/3044 kB 5%] [3 nodejs 8757 kB/38.3 MB 23%] [Connecting to10% [3 nodejs 11.4 MB/38.3 MB 30%] [Connecting to deb.qubes-os.org (193.219.28.                                                                               Get:13 http://deb.debian.org/debian bookworm/main amd64 systemd-sysv amd64 252.39-1~deb12u2 [42.9 kB]
+10% [13 systemd-sysv 16.4 kB/42.9 kB 38%] [3 nodejs 11.4 MB/38.3 MB 30%] [Conne10% [3 nodejs 11.5 MB/38.3 MB 30%] [Connecting to deb.qubes-os.org (193.219.28.                                                                               Get:14 http://deb.debian.org/debian bookworm/main amd64 libdbus-1-3 amd64 1.14.10-1~deb12u1 [201 kB]
+10% [14 libdbus-1-3 164 kB/201 kB 81%] [3 nodejs 11.7 MB/38.3 MB 31%] [Connecti11% [Waiting for headers] [3 nodejs 11.8 MB/38.3 MB 31%] [Connecting to deb.qub                                                                               Get:15 http://deb.debian.org/debian bookworm/main amd64 dbus-bin amd64 1.14.10-1~deb12u1 [105 kB]
+11% [15 dbus-bin 105 kB/105 kB 100%] [3 nodejs 12.1 MB/38.3 MB 32%] [Connecting                                                                               Get:16 http://deb.debian.org/debian bookworm/main amd64 dbus-session-bus-common all 1.14.10-1~deb12u1 [78.2 kB]
+                                                                               Get:17 http://deb.debian.org/debian bookworm/main amd64 dbus-daemon amd64 1.14.10-1~deb12u1 [184 kB]
+11% [17 dbus-daemon 184 kB/184 kB 100%] [3 nodejs 12.6 MB/38.3 MB 33%] [Connect                                                                               Get:18 http://deb.debian.org/debian bookworm/main amd64 dbus-system-bus-common all 1.14.10-1~deb12u1 [79.3 kB]
                                                                                Get:19 http://deb.debian.org/debian bookworm/main amd64 dbus amd64 1.14.10-1~deb12u1 [97.4 kB]
-8% [19 dbus 97.4 kB/97.4 kB 100%] [5 nodejs 4782 kB/38.3 MB 12%] [Connected to                                                                                Get:20 http://deb.debian.org/debian bookworm/main amd64 libpython3.11-minimal amd64 3.11.2-6+deb12u7 [818 kB]
-8% [20 libpython3.11-minimal 132 kB/818 kB 16%] [5 nodejs 4782 kB/38.3 MB 12%] 9% [Waiting for headers] [5 nodejs 5240 kB/38.3 MB 14%] [Connected to deb.qubes                                                                               Get:21 http://deb.debian.org/debian bookworm/main amd64 python3.11-minimal amd64 3.11.2-6+deb12u7 [2066 kB]
-9% [21 python3.11-minimal 30.3 kB/2066 kB 1%] [5 nodejs 5240 kB/38.3 MB 14%] [C11% [Waiting for headers] [5 nodejs 6455 kB/38.3 MB 17%] [Connected to deb.qube                                                                               Get:22 http://deb.debian.org/debian bookworm/main amd64 python3-minimal amd64 3.11.2-1+b1 [26.3 kB]
-12% [22 python3-minimal 26.3 kB/26.3 kB 100%] [5 nodejs 8583 kB/38.3 MB 22%] [C12% [Waiting for headers] [5 nodejs 8648 kB/38.3 MB 23%] [Connected to deb.qube                                                                               Get:23 http://deb.debian.org/debian bookworm/main amd64 media-types all 10.0.0 [26.1 kB]
-                                                                               Get:24 http://deb.debian.org/debian bookworm/main amd64 libpython3.11-stdlib amd64 3.11.2-6+deb12u7 [1797 kB]
-12% [24 libpython3.11-stdlib 536 kB/1797 kB 30%] [5 nodejs 8648 kB/38.3 MB 23%]13% [Waiting for headers] [5 nodejs 9369 kB/38.3 MB 24%] [Connected to deb.qube                                                                               Get:25 http://deb.debian.org/debian bookworm/main amd64 python3.11 amd64 3.11.2-6+deb12u7 [574 kB]
-13% [25 python3.11 48.6 kB/574 kB 8%] [5 nodejs 9369 kB/38.3 MB 24%] [Connected14% [Waiting for headers] [5 nodejs 9631 kB/38.3 MB 25%] [Connected to deb.qube                                                                               Get:26 http://deb.debian.org/debian bookworm/main amd64 libpython3-stdlib amd64 3.11.2-1+b1 [9312 B]
-14% [26 libpython3-stdlib 9312 B/9312 B 100%] [5 nodejs 9631 kB/38.3 MB 25%] [C14% [5 nodejs 9697 kB/38.3 MB 25%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:27 http://deb.debian.org/debian bookworm/main amd64 python3 amd64 3.11.2-1+b1 [26.3 kB]
-14% [27 python3 26.3 kB/26.3 kB 100%] [5 nodejs 9697 kB/38.3 MB 25%] [Connected14% [Waiting for headers] [5 nodejs 9959 kB/38.3 MB 26%] [Connected to deb.qube                                                                               Get:28 http://deb.debian.org/debian bookworm/main amd64 libproc2-0 amd64 2:4.0.2-3 [62.8 kB]
-                                                                               Get:29 http://deb.debian.org/debian bookworm/main amd64 procps amd64 2:4.0.2-3 [709 kB]
-15% [29 procps 524 kB/709 kB 74%] [5 nodejs 10.0 MB/38.3 MB 26%] [Connected to 15% [Waiting for headers] [5 nodejs 10.2 MB/38.3 MB 27%] [Connected to deb.qube                                                                               Get:30 http://deb.debian.org/debian bookworm/main amd64 sensible-utils all 0.0.17+nmu1 [19.0 kB]
-15% [30 sensible-utils 19.0 kB/19.0 kB 100%] [5 nodejs 10.2 MB/38.3 MB 27%] [Co15% [Waiting for headers] [5 nodejs 10.2 MB/38.3 MB 27%] [Connected to deb.qube                                                                               Get:31 http://deb.debian.org/debian bookworm/main amd64 libmagic-mgc amd64 1:5.44-3 [305 kB]
-15% [31 libmagic-mgc 4284 B/305 kB 1%] [5 nodejs 10.6 MB/38.3 MB 28%] [Connecte16% [Waiting for headers] [5 nodejs 10.7 MB/38.3 MB 28%] [Connected to deb.qube                                                                               Get:32 http://deb.debian.org/debian bookworm/main amd64 libmagic1 amd64 1:5.44-3 [104 kB]
-16% [32 libmagic1 41.0 kB/104 kB 39%] [5 nodejs 10.7 MB/38.3 MB 28%] [Connected16% [Waiting for headers] [5 nodejs 10.8 MB/38.3 MB 28%] [Connected to deb.qube                                                                               Get:33 http://deb.debian.org/debian bookworm/main amd64 file amd64 1:5.44-3 [42.5 kB]
-16% [Waiting for headers] [5 nodejs 10.9 MB/38.3 MB 28%] [Connected to deb.qube                                                                               Get:34 http://deb.debian.org/debian bookworm/main amd64 gettext-base amd64 0.21-12 [160 kB]
-16% [34 gettext-base 0 B/160 kB 0%] [5 nodejs 11.1 MB/38.3 MB 29%] [Connected t17% [Waiting for headers] [5 nodejs 11.1 MB/38.3 MB 29%] [Connected to deb.qube                                                                               Get:35 http://deb.debian.org/debian bookworm/main amd64 libuchardet0 amd64 0.0.7-1 [67.8 kB]
-17% [35 libuchardet0 15.5 kB/67.8 kB 23%] [5 nodejs 11.3 MB/38.3 MB 29%] [Conne17% [Waiting for headers] [5 nodejs 11.3 MB/38.3 MB 30%] [Connected to deb.qube                                                                               Get:36 http://deb.debian.org/debian bookworm/main amd64 groff-base amd64 1.22.4-10 [916 kB]
-17% [36 groff-base 58.4 kB/916 kB 6%] [5 nodejs 11.3 MB/38.3 MB 30%] [Connected18% [Waiting for headers] [5 nodejs 11.8 MB/38.3 MB 31%] [Connected to deb.qube                                                                               Get:37 http://deb.debian.org/debian bookworm/main amd64 libpam-systemd amd64 252.39-1~deb12u2 [226 kB]
-18% [37 libpam-systemd 35.7 kB/226 kB 16%] [5 nodejs 13.4 MB/38.3 MB 35%] [Conn19% [Waiting for headers] [5 nodejs 13.6 MB/38.3 MB 35%] [Connected to deb.qube                                                                               Get:38 http://deb.debian.org/debian bookworm/main amd64 bsdextrautils amd64 2.38.1-5+deb12u3 [87.0 kB]
-19% [38 bsdextrautils 9996 B/87.0 kB 11%] [5 nodejs 13.6 MB/38.3 MB 35%] [Conne19% [Waiting for headers] [5 nodejs 13.8 MB/38.3 MB 36%] [Connected to deb.qube                                                                               Get:39 http://deb.debian.org/debian bookworm/main amd64 libpipeline1 amd64 1.5.7-1 [38.5 kB]
-19% [Waiting for headers] [5 nodejs 13.8 MB/38.3 MB 36%] [Connected to deb.qube                                                                               Get:40 http://deb.debian.org/debian bookworm/main amd64 man-db amd64 2.11.2-2 [1386 kB]
-19% [40 man-db 33.7 kB/1386 kB 2%] [5 nodejs 13.8 MB/38.3 MB 36%] [Connected to20% [Waiting for headers] [5 nodejs 14.3 MB/38.3 MB 37%] [Connected to deb.qube                                                                               Get:41 http://deb.debian.org/debian bookworm/main amd64 hicolor-icon-theme all 0.17-2 [11.4 kB]
-20% [41 hicolor-icon-theme 11.4 kB/11.4 kB 100%] [5 nodejs 14.3 MB/38.3 MB 37%]21% [5 nodejs 14.3 MB/38.3 MB 37%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:42 http://deb.debian.org/debian bookworm/main amd64 libgdk-pixbuf2.0-common all 2.42.10+dfsg-1+deb12u4 [307 kB]
-21% [42 libgdk-pixbuf2.0-common 64.8 kB/307 kB 21%] [5 nodejs 14.3 MB/38.3 MB 321% [Waiting for headers] [5 nodejs 14.5 MB/38.3 MB 38%] [Connected to deb.qube                                                                               Get:43 http://deb.debian.org/debian bookworm/main amd64 libglib2.0-0 amd64 2.74.6-2+deb12u9 [1403 kB]
-21% [43 libglib2.0-0 150 kB/1403 kB 11%] [5 nodejs 14.6 MB/38.3 MB 38%] [Connec                                                                               Get:44 http://deb.debian.org/debian bookworm/main amd64 libicu72 amd64 72.1-3+deb12u1 [9376 kB]
-22% [44 libicu72 188 kB/9376 kB 2%] [5 nodejs 15.3 MB/38.3 MB 40%] [Connected t29% [Waiting for headers] [5 nodejs 19.1 MB/38.3 MB 50%] [Connected to deb.qube                                                                               Get:45 http://deb.debian.org/debian bookworm/main amd64 libxml2 amd64 2.9.14+dfsg-1.3~deb12u5 [688 kB]
-29% [45 libxml2 51.8 kB/688 kB 8%] [5 nodejs 19.1 MB/38.3 MB 50%] [Connected to30% [Waiting for headers] [5 nodejs 19.5 MB/38.3 MB 51%] [Connected to deb.qube                                                                               Get:46 http://deb.debian.org/debian bookworm/main amd64 shared-mime-info amd64 2.2-1 [729 kB]
-30% [46 shared-mime-info 32.8 kB/729 kB 4%] [5 nodejs 19.5 MB/38.3 MB 51%] [Con30% [Waiting for headers] [5 nodejs 19.9 MB/38.3 MB 52%] [Connected to deb.qube                                                                               Get:47 http://deb.debian.org/debian bookworm/main amd64 libgdk-pixbuf-2.0-0 amd64 2.42.10+dfsg-1+deb12u4 [139 kB]
-30% [47 libgdk-pixbuf-2.0-0 65.5 kB/139 kB 47%] [5 nodejs 19.9 MB/38.3 MB 52%] 30% [5 nodejs 19.9 MB/38.3 MB 52%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:48 http://deb.debian.org/debian bookworm/main amd64 gtk-update-icon-cache amd64 3.24.38-2~deb12u3 [44.2 kB]
-                                                                               Get:49 http://deb.debian.org/debian bookworm/main amd64 adwaita-icon-theme all 43-1 [5124 kB]
-31% [49 adwaita-icon-theme 349 kB/5124 kB 7%] [5 nodejs 20.2 MB/38.3 MB 53%] [C35% [Waiting for headers] [5 nodejs 22.8 MB/38.3 MB 60%] [Connected to deb.qube                                                                               Get:50 http://deb.debian.org/debian bookworm/main amd64 at-spi2-common all 2.46.0-5 [162 kB]
-35% [50 at-spi2-common 20.5 kB/162 kB 13%] [5 nodejs 22.8 MB/38.3 MB 60%] [Conn35% [Waiting for headers] [5 nodejs 22.9 MB/38.3 MB 60%] [Connected to deb.qube                                                                               Get:51 http://deb.debian.org/debian bookworm/main amd64 m4 amd64 1.4.19-3 [287 kB]
-35% [51 m4 53.2 kB/287 kB 19%] [5 nodejs 22.9 MB/38.3 MB 60%] [Connected to deb35% [5 nodejs 23.1 MB/38.3 MB 60%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:52 http://deb.debian.org/debian bookworm/main amd64 autoconf all 2.71-3 [332 kB]
-35% [52 autoconf 65.5 kB/332 kB 20%] [5 nodejs 23.1 MB/38.3 MB 60%] [Waiting fo                                                                               36% [Waiting for headers] [5 nodejs 23.3 MB/38.3 MB 61%] [Waiting for headers]                                                                              Get:53 http://deb.debian.org/debian bookworm/main amd64 autotools-dev all 20220109.1 [51.6 kB]
-36% [53 autotools-dev 51.6 kB/51.6 kB 100%] [5 nodejs 23.3 MB/38.3 MB 61%] [Wai                                                                               Get:54 http://deb.debian.org/debian bookworm/main amd64 automake all 1:1.16.5-1.3 [823 kB]
-36% [54 automake 25.5 kB/823 kB 3%] [5 nodejs 23.3 MB/38.3 MB 61%] [Waiting for                                                                               37% [Waiting for headers] [5 nodejs 23.7 MB/38.3 MB 62%] [Waiting for headers]                                                                              Get:55 http://deb.debian.org/debian bookworm/main amd64 autopoint all 0.21-12 [495 kB]
-37% [55 autopoint 164 kB/495 kB 33%] [5 nodejs 23.9 MB/38.3 MB 62%] [Waiting fo                                                                               37% [Waiting for headers] [5 nodejs 24.1 MB/38.3 MB 63%] [Waiting for headers]                                                                              Get:56 http://deb.debian.org/debian bookworm/main amd64 dbus-user-session amd64 1.14.10-1~deb12u1 [78.1 kB]
-38% [56 dbus-user-session 28.2 kB/78.1 kB 36%] [5 nodejs 25.3 MB/38.3 MB 66%] [                                                                               38% [Waiting for headers] [5 nodejs 25.5 MB/38.3 MB 66%] [Waiting for headers]                                                                              Get:57 http://deb.debian.org/debian bookworm/main amd64 libdconf1 amd64 0.40.0-4 [40.9 kB]
-                                                                              Get:58 http://deb.debian.org/debian bookworm/main amd64 dconf-service amd64 0.40.0-4 [31.6 kB]
-38% [Waiting for headers] [5 nodejs 25.5 MB/38.3 MB 67%] [Waiting for headers]                                                                              Get:59 http://deb.debian.org/debian bookworm/main amd64 dconf-gsettings-backend amd64 0.40.0-4 [27.8 kB]
-39% [Waiting for headers] [5 nodejs 25.6 MB/38.3 MB 67%] [Waiting for headers]                                                                              Get:60 http://deb.debian.org/debian bookworm/main amd64 libdebhelper-perl all 13.11.4 [81.2 kB]
-39% [60 libdebhelper-perl 1428 B/81.2 kB 2%] [5 nodejs 26.8 MB/38.3 MB 70%] [Wa                                                                               39% [Waiting for headers] [5 nodejs 26.8 MB/38.3 MB 70%] [Waiting for headers]                                                                              Get:61 http://deb.debian.org/debian bookworm/main amd64 libtool all 2.4.7-7~deb12u1 [517 kB]
-39% [61 libtool 0 B/517 kB 0%] [5 nodejs 26.8 MB/38.3 MB 70%] [Waiting for head                                                                               40% [Waiting for headers] [5 nodejs 27.1 MB/38.3 MB 71%] [Waiting for headers]                                                                              Get:62 http://deb.debian.org/debian bookworm/main amd64 dh-autoreconf all 20 [17.1 kB]
-40% [62 dh-autoreconf 17.1 kB/17.1 kB 100%] [5 nodejs 27.1 MB/38.3 MB 71%] [Wai                                                                               40% [5 nodejs 27.1 MB/38.3 MB 71%] [Waiting for headers]                                                        Get:63 http://deb.debian.org/debian bookworm/main amd64 libarchive-zip-perl all 1.68-1 [104 kB]
-40% [63 libarchive-zip-perl 15.9 kB/104 kB 15%] [5 nodejs 27.1 MB/38.3 MB 71%]                                                                                Get:64 http://deb.debian.org/debian bookworm/main amd64 libsub-override-perl all 0.09-4 [9304 B]
-                                                                               Get:65 http://deb.debian.org/debian bookworm/main amd64 libfile-stripnondeterminism-perl all 1.13.1-1 [19.4 kB]
-                                                                               Get:66 http://deb.debian.org/debian bookworm/main amd64 dh-strip-nondeterminism all 1.13.1-1 [8620 B]
-                                                                               Get:67 http://deb.debian.org/debian bookworm/main amd64 libelf1 amd64 0.188-2.1 [174 kB]
-                                                                               41% [Waiting for headers] [5 nodejs 27.4 MB/38.3 MB 71%] [Waiting for headers]                                                                              Get:68 http://deb.debian.org/debian bookworm/main amd64 dwz amd64 0.15-1 [109 kB]
-42% [68 dwz 17.1 kB/109 kB 16%] [5 nodejs 28.6 MB/38.3 MB 75%] [Waiting for hea                                                                               42% [Waiting for headers] [5 nodejs 28.6 MB/38.3 MB 75%] [Waiting for headers]                                                                              Get:69 http://deb.debian.org/debian bookworm/main amd64 gettext amd64 0.21-12 [1300 kB]
-42% [69 gettext 32.1 kB/1300 kB 2%] [5 nodejs 28.6 MB/38.3 MB 75%] [Waiting for                                                                               43% [Waiting for headers] [5 nodejs 29.1 MB/38.3 MB 76%] [Waiting for headers]                                                                              Get:70 http://deb.debian.org/debian bookworm/main amd64 intltool-debian all 0.35.0+20060710.6 [22.9 kB]
-43% [70 intltool-debian 22.9 kB/22.9 kB 100%] [5 nodejs 29.1 MB/38.3 MB 76%] [W                                                                               43% [5 nodejs 29.1 MB/38.3 MB 76%] [Waiting for headers]                                                        Get:71 http://deb.debian.org/debian bookworm/main amd64 po-debconf all 1.0.21+nmu1 [248 kB]
-44% [71 po-debconf 12.9 kB/248 kB 5%] [5 nodejs 30.1 MB/38.3 MB 79%] [Waiting f                                                                               44% [Waiting for headers] [5 nodejs 30.2 MB/38.3 MB 79%] [Waiting for headers]                                                                              Get:72 http://deb.debian.org/debian bookworm/main amd64 debhelper all 13.11.4 [942 kB]
-44% [72 debhelper 39.6 kB/942 kB 4%] [5 nodejs 30.2 MB/38.3 MB 79%] [Waiting fo                                                                               45% [Waiting for headers] [5 nodejs 30.7 MB/38.3 MB 80%] [Waiting for headers]                                                                              Get:73 http://deb.debian.org/debian bookworm/main amd64 dh-apparmor all 3.0.8-3 [16.7 kB]
-45% [73 dh-apparmor 16.7 kB/16.7 kB 100%] [5 nodejs 30.7 MB/38.3 MB 80%] [Waiti                                                                               Get:74 http://deb.debian.org/debian bookworm/main amd64 dh-exec amd64 0.27 [27.8 kB]
-45% [74 dh-exec 27.8 kB/27.8 kB 100%] [5 nodejs 30.8 MB/38.3 MB 80%] [Waiting f                                                                               Get:75 http://deb.debian.org/debian bookworm/main amd64 fontconfig amd64 2.14.1-4 [449 kB]
-45% [75 fontconfig 196 kB/449 kB 44%] [5 nodejs 30.8 MB/38.3 MB 80%] [Waiting f                                                                               46% [Waiting for headers] [5 nodejs 31.0 MB/38.3 MB 81%] [Waiting for headers]                                                                              Get:76 http://deb.debian.org/debian bookworm/main amd64 libasound2-data all 1.2.8-1 [20.5 kB]
-46% [76 libasound2-data 20.5 kB/20.5 kB 100%] [5 nodejs 31.0 MB/38.3 MB 81%] [W                                                                               46% [Waiting for headers] [5 nodejs 31.0 MB/38.3 MB 81%] [Waiting for headers]                                                                              Get:77 http://deb.debian.org/debian bookworm/main amd64 libasound2 amd64 1.2.8-1+b1 [362 kB]
-46% [77 libasound2 18.6 kB/362 kB 5%] [5 nodejs 32.0 MB/38.3 MB 83%] [Waiting f                                                                               47% [Waiting for headers] [5 nodejs 32.1 MB/38.3 MB 84%] [Waiting for headers]                                                                              Get:78 http://deb.debian.org/debian bookworm/main amd64 libatk1.0-0 amd64 2.46.0-5 [49.6 kB]
-47% [78 libatk1.0-0 28.2 kB/49.6 kB 57%] [5 nodejs 32.1 MB/38.3 MB 84%] [Waitin                                                                               47% [5 nodejs 32.1 MB/38.3 MB 84%] [Waiting for headers]                                                        Get:79 http://deb.debian.org/debian bookworm/main amd64 libxext6 amd64 2:1.3.4-1+b1 [52.9 kB]
-47% [Waiting for headers] [5 nodejs 32.2 MB/38.3 MB 84%] [Waiting for headers]                                                                              Get:80 http://deb.debian.org/debian bookworm/main amd64 libxi6 amd64 2:1.8-1+b1 [84.2 kB]
-47% [80 libxi6 0 B/84.2 kB 0%] [5 nodejs 32.2 MB/38.3 MB 84%] [Waiting for head                                                                               47% [Waiting for headers] [5 nodejs 32.2 MB/38.3 MB 84%] [Waiting for headers]                                                                              Get:81 http://deb.debian.org/debian bookworm/main amd64 libatspi2.0-0 amd64 2.46.0-5 [75.4 kB]
-47% [81 libatspi2.0-0 35.9 kB/75.4 kB 48%] [5 nodejs 32.2 MB/38.3 MB 84%] [Wait                                                                               47% [5 nodejs 32.2 MB/38.3 MB 84%] [Waiting for headers]                                                        Get:82 http://deb.debian.org/debian bookworm/main amd64 libatk-bridge2.0-0 amd64 2.46.0-5 [64.6 kB]
-47% [82 libatk-bridge2.0-0 55.3 kB/64.6 kB 86%] [5 nodejs 32.3 MB/38.3 MB 84%]                                                                                48% [5 nodejs 32.3 MB/38.3 MB 84%] [Waiting for headers]                                                        Get:83 http://deb.debian.org/debian bookworm/main amd64 libavahi-common-data amd64 0.8-10+deb12u1 [107 kB]
-48% [83 libavahi-common-data 25.5 kB/107 kB 24%] [5 nodejs 32.4 MB/38.3 MB 84%]                                                                               48% [Waiting for headers] [5 nodejs 32.4 MB/38.3 MB 85%] [Waiting for headers]                                                                              Get:84 http://deb.debian.org/debian bookworm/main amd64 libavahi-common3 amd64 0.8-10+deb12u1 [42.1 kB]
-48% [84 libavahi-common3 42.1 kB/42.1 kB 100%] [5 nodejs 32.5 MB/38.3 MB 85%] [                                                                               Get:85 http://deb.debian.org/debian bookworm/main amd64 libavahi-client3 amd64 0.8-10+deb12u1 [45.8 kB]
-                                                                               48% [Waiting for headers] [5 nodejs 32.6 MB/38.3 MB 85%] [Waiting for headers]                                                                              Get:86 http://deb.debian.org/debian bookworm/main amd64 libpixman-1-0 amd64 0.42.2-1 [546 kB]
-48% [86 libpixman-1-0 121 kB/546 kB 22%] [5 nodejs 32.6 MB/38.3 MB 85%] [Waitin                                                                               49% [Waiting for headers] [5 nodejs 32.8 MB/38.3 MB 86%] [Waiting for headers]                                                                              Get:87 http://deb.debian.org/debian bookworm/main amd64 libxcb-render0 amd64 1.15-1 [115 kB]
-49% [87 libxcb-render0 8568 B/115 kB 7%] [5 nodejs 33.3 MB/38.3 MB 87%] [Waitin                                                                               49% [Waiting for headers] [5 nodejs 33.4 MB/38.3 MB 87%] [Waiting for headers]                                                                              Get:88 http://deb.debian.org/debian bookworm/main amd64 libxcb-shm0 amd64 1.15-1 [105 kB]
-49% [88 libxcb-shm0 0 B/105 kB 0%] [5 nodejs 33.4 MB/38.3 MB 87%] [Waiting for                                                                                49% [Waiting for headers] [5 nodejs 33.5 MB/38.3 MB 87%] [Waiting for headers]                                                                              Get:89 http://deb.debian.org/debian bookworm/main amd64 libxrender1 amd64 1:0.9.10-1.1 [33.2 kB]
-50% [Waiting for headers] [5 nodejs 33.6 MB/38.3 MB 88%] [Waiting for headers]                                                                              Get:90 http://deb.debian.org/debian bookworm/main amd64 libcairo2 amd64 1.16.0-7 [575 kB]
-50% [90 libcairo2 38.9 kB/575 kB 7%] [5 nodejs 33.6 MB/38.3 MB 88%] [Waiting fo                                                                               50% [Waiting for headers] [5 nodejs 33.8 MB/38.3 MB 88%] [Waiting for headers]                                                                              Get:91 http://deb.debian.org/debian bookworm/main amd64 libcairo-gobject2 amd64 1.16.0-7 [112 kB]
-50% [91 libcairo-gobject2 80.0 kB/112 kB 72%] [5 nodejs 33.8 MB/38.3 MB 88%] [W                                                                               50% [5 nodejs 33.8 MB/38.3 MB 88%] [Waiting for headers]                                                        Get:92 http://deb.debian.org/debian bookworm/main amd64 libgc1 amd64 1:8.2.2-3 [245 kB]
-50% [92 libgc1 0 B/245 kB 0%] [5 nodejs 33.8 MB/38.3 MB 88%] [Waiting for heade                                                                               51% [Waiting for headers] [5 nodejs 33.9 MB/38.3 MB 89%] [Waiting for headers]                                                                              Get:93 https://deb.qubes-os.org/r4.3/vm bookworm/main amd64 libqubesdb amd64 4.3.3-1+deb12u1 [9688 B]
-51% [Waiting for headers] [5 nodejs 35.3 MB/38.3 MB 92%] [93 libqubesdb 9688 B/                                                                               51% [Waiting for headers] [5 nodejs 35.3 MB/38.3 MB 92%] [Waiting for headers]                                                                              Get:94 http://deb.debian.org/debian bookworm/main amd64 libobjc4 amd64 12.2.0-14+deb12u1 [43.2 kB]
-52% [94 libobjc4 22.2 kB/43.2 kB 51%] [5 nodejs 36.0 MB/38.3 MB 94%] [Waiting f                                                                               52% [Waiting for headers] [5 nodejs 36.0 MB/38.3 MB 94%] [Waiting for headers]                                                                              Get:95 http://deb.debian.org/debian bookworm/main amd64 libobjc-12-dev amd64 12.2.0-14+deb12u1 [170 kB]
-53% [95 libobjc-12-dev 44.3 kB/170 kB 26%] [5 nodejs 37.6 MB/38.3 MB 98%] [Wait                                                                               53% [Waiting for headers] [5 nodejs 37.7 MB/38.3 MB 98%] [Waiting for headers]                                                                              Get:96 http://deb.debian.org/debian bookworm/main amd64 libedit2 amd64 3.1-20221030-2 [93.0 kB]
-53% [96 libedit2 59.8 kB/93.0 kB 64%] [5 nodejs 37.7 MB/38.3 MB 98%] [Waiting f                                                                               53% [5 nodejs 37.8 MB/38.3 MB 99%] [Waiting for headers]                                                        Get:97 http://deb.debian.org/debian bookworm/main amd64 libz3-4 amd64 4.8.12-3.1 [7216 kB]
-53% [97 libz3-4 0 B/7216 kB 0%] [5 nodejs 37.8 MB/38.3 MB 99%] [Waiting for hea                                                                               55% [97 libz3-4 2389 kB/7216 kB 33%] [Waiting for headers]                                                          57% [Waiting for headers] [Waiting for headers]                                               Get:98 http://deb.debian.org/debian bookworm/main amd64 libllvm14 amd64 1:14.0.6-12 [21.8 MB]
-57% [98 libllvm14 99.8 kB/21.8 MB 0%] [Waiting for headers]                                                           Get:99 https://deb.qubes-os.org/r4.3/vm bookworm/main amd64 qubesdb-dev amd64 4.3.3-1+deb12u1 [7804 B]
-68% [98 libllvm14 21.8 MB/21.8 MB 100%] [99 qubesdb-dev 7804 B/7804 B 100%]                                                                           69% [98 libllvm14 21.8 MB/21.8 MB 100%]                                       69% [Working]             Get:100 http://deb.debian.org/debian bookworm/main amd64 libclang1-14 amd64 1:14.0.6-12 [6157 kB]
-69% [100 libclang1-14 69.6 kB/6157 kB 1%]                                         72% [Waiting for headers]                         Get:101 http://deb.debian.org/debian bookworm/main amd64 libclang-common-14-dev all 1:14.0.6-12 [890 kB]
-72% [101 libclang-common-14-dev 98.3 kB/890 kB 11%]                                                   72% [Waiting for headers]                         Get:102 http://deb.debian.org/debian bookworm/main amd64 libclang-14-dev amd64 1:14.0.6-12 [23.1 MB]
-72% [102 libclang-14-dev 34.0 kB/23.1 MB 0%]                                            84% [Waiting for headers]                         Get:103 http://deb.debian.org/debian bookworm/main amd64 libclang-dev amd64 1:14.0-55.7~deb12u1 [4728 B]
+                                                                               Get:20 http://deb.debian.org/debian bookworm/main amd64 libpython3.11-minimal amd64 3.11.2-6+deb12u7 [818 kB]
+13% [20 libpython3.11-minimal 818 kB/818 kB 100%] [3 nodejs 13.2 MB/38.3 MB 34%                                                                               Get:21 http://deb.debian.org/debian bookworm/main amd64 python3.11-minimal amd64 3.11.2-6+deb12u7 [2066 kB]
+13% [21 python3.11-minimal 429 kB/2066 kB 21%] [3 nodejs 13.3 MB/38.3 MB 35%] [15% [Waiting for headers] [3 nodejs 14.4 MB/38.3 MB 38%] [Connecting to deb.qub                                                                               Get:22 http://deb.debian.org/debian bookworm/main amd64 python3-minimal amd64 3.11.2-1+b1 [26.3 kB]
+15% [Waiting for headers] [3 nodejs 14.5 MB/38.3 MB 38%] [Connecting to deb.qub                                                                               Get:23 http://deb.debian.org/debian bookworm/main amd64 media-types all 10.0.0 [26.1 kB]
+15% [23 media-types 26.1 kB/26.1 kB 100%] [3 nodejs 14.5 MB/38.3 MB 38%] [Conne15% [Waiting for headers] [3 nodejs 14.5 MB/38.3 MB 38%] [Connecting to deb.qub                                                                               Get:24 http://deb.debian.org/debian bookworm/main amd64 libpython3.11-stdlib amd64 3.11.2-6+deb12u7 [1797 kB]
+15% [24 libpython3.11-stdlib 64.8 kB/1797 kB 4%] [3 nodejs 14.5 MB/38.3 MB 38%]16% [Waiting for headers] [3 nodejs 15.6 MB/38.3 MB 41%] [Connected to deb.qube                                                                               Get:25 http://deb.debian.org/debian bookworm/main amd64 python3.11 amd64 3.11.2-6+deb12u7 [574 kB]
+17% [25 python3.11 36.1 kB/574 kB 6%] [3 nodejs 15.6 MB/38.3 MB 41%] [Connected17% [Waiting for headers] [3 nodejs 16.0 MB/38.3 MB 42%] [Connected to deb.qube                                                                               Get:26 http://deb.debian.org/debian bookworm/main amd64 libpython3-stdlib amd64 3.11.2-1+b1 [9312 B]
+17% [26 libpython3-stdlib 9312 B/9312 B 100%] [3 nodejs 16.0 MB/38.3 MB 42%] [C17% [3 nodejs 16.0 MB/38.3 MB 42%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:27 http://deb.debian.org/debian bookworm/main amd64 python3 amd64 3.11.2-1+b1 [26.3 kB]
+17% [27 python3 26.3 kB/26.3 kB 100%] [3 nodejs 16.1 MB/38.3 MB 42%] [Connected                                                                               Get:28 http://deb.debian.org/debian bookworm/main amd64 libproc2-0 amd64 2:4.0.2-3 [62.8 kB]
+17% [28 libproc2-0 62.8 kB/62.8 kB 100%] [3 nodejs 16.1 MB/38.3 MB 42%] [Connec18% [Waiting for headers] [3 nodejs 16.1 MB/38.3 MB 42%] [Connected to deb.qube                                                                               Get:29 http://deb.debian.org/debian bookworm/main amd64 procps amd64 2:4.0.2-3 [709 kB]
+18% [29 procps 5024 B/709 kB 1%] [3 nodejs 16.6 MB/38.3 MB 43%] [Connected to d19% [Waiting for headers] [3 nodejs 17.1 MB/38.3 MB 45%] [Connected to deb.qube                                                                               Get:30 http://deb.debian.org/debian bookworm/main amd64 sensible-utils all 0.0.17+nmu1 [19.0 kB]
+19% [30 sensible-utils 19.0 kB/19.0 kB 100%] [3 nodejs 17.1 MB/38.3 MB 45%] [Co19% [Waiting for headers] [3 nodejs 17.2 MB/38.3 MB 45%] [Connected to deb.qube                                                                               Get:31 http://deb.debian.org/debian bookworm/main amd64 libmagic-mgc amd64 1:5.44-3 [305 kB]
+19% [31 libmagic-mgc 4096 B/305 kB 1%] [3 nodejs 18.1 MB/38.3 MB 47%] [Connecte20% [Waiting for headers] [3 nodejs 18.4 MB/38.3 MB 48%] [Connected to deb.qube                                                                               Get:32 http://deb.debian.org/debian bookworm/main amd64 libmagic1 amd64 1:5.44-3 [104 kB]
+20% [32 libmagic1 42.7 kB/104 kB 41%] [3 nodejs 18.4 MB/38.3 MB 48%] [Connected20% [Waiting for headers] [3 nodejs 18.5 MB/38.3 MB 48%] [Connected to deb.qube                                                                               Get:33 http://deb.debian.org/debian bookworm/main amd64 file amd64 1:5.44-3 [42.5 kB]
+20% [33 file 10.7 kB/42.5 kB 25%] [3 nodejs 19.5 MB/38.3 MB 51%] [Connected to 21% [Waiting for headers] [3 nodejs 19.6 MB/38.3 MB 51%] [Connected to deb.qube                                                                               Get:34 http://deb.debian.org/debian bookworm/main amd64 gettext-base amd64 0.21-12 [160 kB]
+21% [34 gettext-base 18.6 kB/160 kB 12%] [3 nodejs 19.7 MB/38.3 MB 51%] [Connec21% [Waiting for headers] [3 nodejs 19.9 MB/38.3 MB 52%] [Connected to deb.qube                                                                               Get:35 http://deb.debian.org/debian bookworm/main amd64 libuchardet0 amd64 0.0.7-1 [67.8 kB]
+22% [35 libuchardet0 8192 B/67.8 kB 12%] [3 nodejs 21.0 MB/38.3 MB 55%] [Connec22% [Waiting for headers] [3 nodejs 21.1 MB/38.3 MB 55%] [Connected to deb.qube                                                                               Get:36 http://deb.debian.org/debian bookworm/main amd64 groff-base amd64 1.22.4-10 [916 kB]
+22% [36 groff-base 4950 B/916 kB 1%] [3 nodejs 22.2 MB/38.3 MB 58%] [Connected 23% [Waiting for headers] [3 nodejs 22.7 MB/38.3 MB 59%] [Connected to deb.qube                                                                               Get:37 http://deb.debian.org/debian bookworm/main amd64 libpam-systemd amd64 252.39-1~deb12u2 [226 kB]
+23% [37 libpam-systemd 12.9 kB/226 kB 6%] [3 nodejs 23.1 MB/38.3 MB 60%] [Conne24% [Waiting for headers] [3 nodejs 23.2 MB/38.3 MB 61%] [Connected to deb.qube                                                                               Get:38 http://deb.debian.org/debian bookworm/main amd64 bsdextrautils amd64 2.38.1-5+deb12u3 [87.0 kB]
+24% [38 bsdextrautils 6404 B/87.0 kB 7%] [3 nodejs 23.6 MB/38.3 MB 62%] [Connec24% [Waiting for headers] [3 nodejs 23.6 MB/38.3 MB 62%] [Connected to deb.qube                                                                               Get:39 http://deb.debian.org/debian bookworm/main amd64 libpipeline1 amd64 1.5.7-1 [38.5 kB]
+24% [39 libpipeline1 742 B/38.5 kB 2%] [3 nodejs 24.0 MB/38.3 MB 63%] [Connecte24% [Waiting for headers] [3 nodejs 24.1 MB/38.3 MB 63%] [Connected to deb.qube                                                                               Get:40 http://deb.debian.org/debian bookworm/main amd64 man-db amd64 2.11.2-2 [1386 kB]
+25% [40 man-db 7140 B/1386 kB 1%] [3 nodejs 24.4 MB/38.3 MB 64%] [Connected to 26% [Waiting for headers] [3 nodejs 24.6 MB/38.3 MB 64%] [Connected to deb.qube                                                                               Get:41 http://deb.debian.org/debian bookworm/main amd64 hicolor-icon-theme all 0.17-2 [11.4 kB]
+26% [41 hicolor-icon-theme 11.4 kB/11.4 kB 100%] [3 nodejs 24.6 MB/38.3 MB 64%]26% [3 nodejs 24.6 MB/38.3 MB 64%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:42 http://deb.debian.org/debian bookworm/main amd64 libgdk-pixbuf2.0-common all 2.42.10+dfsg-1+deb12u4 [307 kB]
+26% [42 libgdk-pixbuf2.0-common 5712 B/307 kB 2%] [3 nodejs 24.8 MB/38.3 MB 65%26% [Waiting for headers] [3 nodejs 25.0 MB/38.3 MB 65%] [Connected to deb.qube                                                                               Get:43 http://deb.debian.org/debian bookworm/main amd64 libglib2.0-0 amd64 2.74.6-2+deb12u9 [1403 kB]
+26% [43 libglib2.0-0 57.0 kB/1403 kB 4%] [3 nodejs 25.0 MB/38.3 MB 65%] [Connec27% [Waiting for headers] [3 nodejs 25.4 MB/38.3 MB 66%] [Connected to deb.qube                                                                               Get:44 http://deb.debian.org/debian bookworm/main amd64 libicu72 amd64 72.1-3+deb12u1 [9376 kB]
+27% [44 libicu72 49.1 kB/9376 kB 1%] [3 nodejs 25.4 MB/38.3 MB 66%] [Connected                                                                                Get:45 http://deb.debian.org/debian bookworm/main amd64 libxml2 amd64 2.9.14+dfsg-1.3~deb12u5 [688 kB]
+33% [45 libxml2 109 kB/688 kB 16%] [3 nodejs 26.6 MB/38.3 MB 69%] [Waiting for                                                                                33% [Waiting for headers] [3 nodejs 26.6 MB/38.3 MB 70%] [Waiting for headers]                                                                              Get:46 http://deb.debian.org/debian bookworm/main amd64 shared-mime-info amd64 2.2-1 [729 kB]
+33% [46 shared-mime-info 96.7 kB/729 kB 13%] [3 nodejs 26.6 MB/38.3 MB 70%] [Wa                                                                               Get:47 http://deb.debian.org/debian bookworm/main amd64 libgdk-pixbuf-2.0-0 amd64 2.42.10+dfsg-1+deb12u4 [139 kB]
+34% [47 libgdk-pixbuf-2.0-0 139 kB/139 kB 100%] [3 nodejs 26.8 MB/38.3 MB 70%]                                                                                34% [Waiting for headers] [3 nodejs 26.8 MB/38.3 MB 70%] [Waiting for headers]                                                                              Get:48 http://deb.debian.org/debian bookworm/main amd64 gtk-update-icon-cache amd64 3.24.38-2~deb12u3 [44.2 kB]
+34% [48 gtk-update-icon-cache 44.2 kB/44.2 kB 100%] [3 nodejs 26.8 MB/38.3 MB 7                                                                               34% [3 nodejs 26.8 MB/38.3 MB 70%] [Waiting for headers]                                                        Get:49 http://deb.debian.org/debian bookworm/main amd64 adwaita-icon-theme all 43-1 [5124 kB]
+34% [49 adwaita-icon-theme 99.8 kB/5124 kB 2%] [3 nodejs 26.8 MB/38.3 MB 70%] [                                                                               37% [Waiting for headers] [3 nodejs 27.7 MB/38.3 MB 72%] [Waiting for headers]                                                                              Get:50 http://deb.debian.org/debian bookworm/main amd64 at-spi2-common all 2.46.0-5 [162 kB]
+37% [50 at-spi2-common 51.8 kB/162 kB 32%] [3 nodejs 27.7 MB/38.3 MB 72%] [Wait                                                                               37% [Waiting for headers] [3 nodejs 27.8 MB/38.3 MB 72%] [Waiting for headers]                                                                              Get:51 http://deb.debian.org/debian bookworm/main amd64 m4 amd64 1.4.19-3 [287 kB]
+38% [51 m4 8192 B/287 kB 3%] [3 nodejs 27.9 MB/38.3 MB 73%] [Waiting for header                                                                               38% [Waiting for headers] [3 nodejs 28.0 MB/38.3 MB 73%] [Waiting for headers]                                                                              Get:52 http://deb.debian.org/debian bookworm/main amd64 autoconf all 2.71-3 [332 kB]
+38% [52 autoconf 22.8 kB/332 kB 7%] [3 nodejs 28.3 MB/38.3 MB 74%] [Waiting for                                                                               38% [Waiting for headers] [3 nodejs 28.5 MB/38.3 MB 74%] [Waiting for headers]                                                                              Get:53 http://deb.debian.org/debian bookworm/main amd64 autotools-dev all 20220109.1 [51.6 kB]
+38% [53 autotools-dev 51.6 kB/51.6 kB 100%] [3 nodejs 28.5 MB/38.3 MB 74%] [Wai                                                                               39% [3 nodejs 28.5 MB/38.3 MB 74%] [Waiting for headers]                                                        Get:54 http://deb.debian.org/debian bookworm/main amd64 automake all 1:1.16.5-1.3 [823 kB]
+39% [54 automake 38.0 kB/823 kB 5%] [3 nodejs 28.5 MB/38.3 MB 74%] [Waiting for                                                                               39% [Waiting for headers] [3 nodejs 28.7 MB/38.3 MB 75%] [Waiting for headers]                                                                              Get:55 http://deb.debian.org/debian bookworm/main amd64 autopoint all 0.21-12 [495 kB]
+39% [55 autopoint 14.3 kB/495 kB 3%] [3 nodejs 29.2 MB/38.3 MB 76%] [Waiting fo                                                                               40% [Waiting for headers] [3 nodejs 29.4 MB/38.3 MB 77%] [Waiting for headers]                                                                              Get:56 http://deb.debian.org/debian bookworm/main amd64 dbus-user-session amd64 1.14.10-1~deb12u1 [78.1 kB]
+40% [56 dbus-user-session 78.1 kB/78.1 kB 100%] [3 nodejs 29.4 MB/38.3 MB 77%]                                                                                40% [3 nodejs 29.4 MB/38.3 MB 77%] [Waiting for headers]                                                        Get:57 http://deb.debian.org/debian bookworm/main amd64 libdconf1 amd64 0.40.0-4 [40.9 kB]
+                                                        Get:58 http://deb.debian.org/debian bookworm/main amd64 dconf-service amd64 0.40.0-4 [31.6 kB]
+                                                        Get:59 http://deb.debian.org/debian bookworm/main amd64 dconf-gsettings-backend amd64 0.40.0-4 [27.8 kB]
+                                                        Get:60 http://deb.debian.org/debian bookworm/main amd64 libdebhelper-perl all 13.11.4 [81.2 kB]
+                                                        Get:61 http://deb.debian.org/debian bookworm/main amd64 libtool all 2.4.7-7~deb12u1 [517 kB]
+41% [61 libtool 325 kB/517 kB 63%] [3 nodejs 29.5 MB/38.3 MB 77%] [Waiting for                                                                                41% [Waiting for headers] [3 nodejs 29.5 MB/38.3 MB 77%] [Waiting for headers]                                                                              Get:62 http://deb.debian.org/debian bookworm/main amd64 dh-autoreconf all 20 [17.1 kB]
+41% [62 dh-autoreconf 17.1 kB/17.1 kB 100%] [3 nodejs 29.5 MB/38.3 MB 77%] [Wai                                                                               41% [3 nodejs 29.5 MB/38.3 MB 77%] [Waiting for headers]                                                        Get:63 http://deb.debian.org/debian bookworm/main amd64 libarchive-zip-perl all 1.68-1 [104 kB]
+41% [63 libarchive-zip-perl 16.0 kB/104 kB 15%] [3 nodejs 29.5 MB/38.3 MB 77%]                                                                                42% [3 nodejs 29.5 MB/38.3 MB 77%] [Waiting for headers]                                                        Get:64 http://deb.debian.org/debian bookworm/main amd64 libsub-override-perl all 0.09-4 [9304 B]
+42% [64 libsub-override-perl 9304 B/9304 B 100%] [3 nodejs 29.6 MB/38.3 MB 77%]                                                                               42% [Waiting for headers] [3 nodejs 29.6 MB/38.3 MB 77%] [Waiting for headers]                                                                              Get:65 http://deb.debian.org/debian bookworm/main amd64 libfile-stripnondeterminism-perl all 1.13.1-1 [19.4 kB]
+42% [65 libfile-stripnondeterminism-perl 19.4 kB/19.4 kB 100%] [3 nodejs 29.7 M                                                                               42% [Waiting for headers] [3 nodejs 29.7 MB/38.3 MB 77%] [Waiting for headers]                                                                              Get:66 http://deb.debian.org/debian bookworm/main amd64 dh-strip-nondeterminism all 1.13.1-1 [8620 B]
+42% [66 dh-strip-nondeterminism 8620 B/8620 B 100%] [3 nodejs 29.8 MB/38.3 MB 7                                                                               42% [Waiting for headers] [3 nodejs 29.8 MB/38.3 MB 78%] [Waiting for headers]                                                                              Get:67 http://deb.debian.org/debian bookworm/main amd64 libelf1 amd64 0.188-2.1 [174 kB]
+42% [67 libelf1 4284 B/174 kB 2%] [3 nodejs 29.9 MB/38.3 MB 78%] [Waiting for h                                                                               42% [Waiting for headers] [3 nodejs 30.0 MB/38.3 MB 78%] [Waiting for headers]                                                                              Get:68 http://deb.debian.org/debian bookworm/main amd64 dwz amd64 0.15-1 [109 kB]
+42% [68 dwz 89.0 kB/109 kB 82%] [3 nodejs 30.0 MB/38.3 MB 78%] [Waiting for hea                                                                               Get:69 http://deb.debian.org/debian bookworm/main amd64 gettext amd64 0.21-12 [1300 kB]
+43% [69 gettext 110 kB/1300 kB 8%] [3 nodejs 30.0 MB/38.3 MB 78%] [Waiting for                                                                                44% [Waiting for headers] [3 nodejs 30.3 MB/38.3 MB 79%] [Waiting for headers]                                                                              Get:70 http://deb.debian.org/debian bookworm/main amd64 intltool-debian all 0.35.0+20060710.6 [22.9 kB]
+44% [70 intltool-debian 22.9 kB/22.9 kB 100%] [3 nodejs 30.3 MB/38.3 MB 79%] [W                                                                               Get:71 http://deb.debian.org/debian bookworm/main amd64 po-debconf all 1.0.21+nmu1 [248 kB]
+44% [71 po-debconf 196 kB/248 kB 79%] [3 nodejs 30.3 MB/38.3 MB 79%] [Waiting f                                                                               44% [Waiting for headers] [3 nodejs 30.3 MB/38.3 MB 79%] [Waiting for headers]                                                                              Get:72 http://deb.debian.org/debian bookworm/main amd64 debhelper all 13.11.4 [942 kB]
+44% [72 debhelper 9996 B/942 kB 1%] [3 nodejs 30.7 MB/38.3 MB 80%] [Waiting for                                                                               45% [Waiting for headers] [3 nodejs 31.0 MB/38.3 MB 81%] [Waiting for headers]                                                                              Get:73 http://deb.debian.org/debian bookworm/main amd64 dh-apparmor all 3.0.8-3 [16.7 kB]
+45% [73 dh-apparmor 16.7 kB/16.7 kB 100%] [3 nodejs 31.0 MB/38.3 MB 81%] [Waiti                                                                               45% [3 nodejs 31.0 MB/38.3 MB 81%] [Waiting for headers]                                                        Get:74 http://deb.debian.org/debian bookworm/main amd64 dh-exec amd64 0.27 [27.8 kB]
+45% [74 dh-exec 3268 B/27.8 kB 12%] [3 nodejs 31.3 MB/38.3 MB 82%] [Waiting for                                                                               45% [Waiting for headers] [3 nodejs 31.3 MB/38.3 MB 82%] [Waiting for headers]                                                                              Get:75 https://deb.qubes-os.org/r4.3/vm bookworm/main amd64 libqubesdb amd64 4.3.3-1+deb12u1 [9688 B]
+46% [Waiting for headers] [3 nodejs 31.9 MB/38.3 MB 83%] [75 libqubesdb 9688 B/                                                                               46% [Waiting for headers] [3 nodejs 31.9 MB/38.3 MB 83%] [Waiting for headers]                                                                              Get:76 http://deb.debian.org/debian bookworm/main amd64 fontconfig amd64 2.14.1-4 [449 kB]
+46% [76 fontconfig 5712 B/449 kB 1%] [3 nodejs 32.8 MB/38.3 MB 86%] [Waiting fo                                                                               47% [Waiting for headers] [3 nodejs 32.9 MB/38.3 MB 86%] [Waiting for headers]                                                                              Get:77 http://deb.debian.org/debian bookworm/main amd64 libasound2-data all 1.2.8-1 [20.5 kB]
+47% [77 libasound2-data 20.5 kB/20.5 kB 100%] [3 nodejs 33.5 MB/38.3 MB 87%] [W                                                                               47% [Waiting for headers] [3 nodejs 33.5 MB/38.3 MB 87%] [Waiting for headers]                                                                              Get:78 http://deb.debian.org/debian bookworm/main amd64 libasound2 amd64 1.2.8-1+b1 [362 kB]
+47% [78 libasound2 49.2 kB/362 kB 14%] [3 nodejs 33.5 MB/38.3 MB 87%] [Waiting                                                                                47% [Waiting for headers] [3 nodejs 33.6 MB/38.3 MB 88%] [Waiting for headers]                                                                              Get:79 http://deb.debian.org/debian bookworm/main amd64 libatk1.0-0 amd64 2.46.0-5 [49.6 kB]
+48% [79 libatk1.0-0 49.6 kB/49.6 kB 100%] [3 nodejs 33.6 MB/38.3 MB 88%] [Waiti                                                                               48% [Waiting for headers] [3 nodejs 33.7 MB/38.3 MB 88%] [Waiting for headers]                                                                              Get:80 http://deb.debian.org/debian bookworm/main amd64 libxext6 amd64 2:1.3.4-1+b1 [52.9 kB]
+48% [80 libxext6 5026 B/52.9 kB 9%] [3 nodejs 34.0 MB/38.3 MB 89%] [Waiting for                                                                               48% [Waiting for headers] [3 nodejs 34.0 MB/38.3 MB 89%] [Waiting for headers]                                                                              Get:81 http://deb.debian.org/debian bookworm/main amd64 libxi6 amd64 2:1.8-1+b1 [84.2 kB]
+48% [81 libxi6 8192 B/84.2 kB 10%] [3 nodejs 34.5 MB/38.3 MB 90%] [Waiting for                                                                                48% [Waiting for headers] [3 nodejs 34.6 MB/38.3 MB 90%] [Waiting for headers]                                                                              Get:82 http://deb.debian.org/debian bookworm/main amd64 libatspi2.0-0 amd64 2.46.0-5 [75.4 kB]
+48% [82 libatspi2.0-0 24.6 kB/75.4 kB 33%] [3 nodejs 34.6 MB/38.3 MB 90%] [Wait                                                                               49% [Waiting for headers] [3 nodejs 34.6 MB/38.3 MB 90%] [Waiting for headers]                                                                              Get:83 http://deb.debian.org/debian bookworm/main amd64 libatk-bridge2.0-0 amd64 2.46.0-5 [64.6 kB]
+49% [83 libatk-bridge2.0-0 23.6 kB/64.6 kB 37%] [3 nodejs 34.7 MB/38.3 MB 91%]                                                                                49% [Waiting for headers] [3 nodejs 34.8 MB/38.3 MB 91%] [Waiting for headers]                                                                              Get:84 http://deb.debian.org/debian bookworm/main amd64 libavahi-common-data amd64 0.8-10+deb12u1 [107 kB]
+                                                                              Get:85 http://deb.debian.org/debian bookworm/main amd64 libavahi-common3 amd64 0.8-10+deb12u1 [42.1 kB]
+49% [Waiting for headers] [3 nodejs 34.9 MB/38.3 MB 91%] [Waiting for headers]                                                                              Get:86 http://deb.debian.org/debian bookworm/main amd64 libavahi-client3 amd64 0.8-10+deb12u1 [45.8 kB]
+49% [86 libavahi-client3 0 B/45.8 kB 0%] [3 nodejs 34.9 MB/38.3 MB 91%] [Waitin                                                                               49% [Waiting for headers] [3 nodejs 34.9 MB/38.3 MB 91%] [Waiting for headers]                                                                              Get:87 http://deb.debian.org/debian bookworm/main amd64 libpixman-1-0 amd64 0.42.2-1 [546 kB]
+50% [87 libpixman-1-0 55.3 kB/546 kB 10%] [3 nodejs 34.9 MB/38.3 MB 91%] [Waiti                                                                               50% [Waiting for headers] [3 nodejs 35.0 MB/38.3 MB 91%] [Waiting for headers]                                                                              Get:88 http://deb.debian.org/debian bookworm/main amd64 libxcb-render0 amd64 1.15-1 [115 kB]
+50% [88 libxcb-render0 98.8 kB/115 kB 86%] [3 nodejs 35.0 MB/38.3 MB 91%] [Wait                                                                               50% [Waiting for headers] [3 nodejs 35.1 MB/38.3 MB 92%] [Waiting for headers]                                                                              Get:89 http://deb.debian.org/debian bookworm/main amd64 libxcb-shm0 amd64 1.15-1 [105 kB]
+50% [89 libxcb-shm0 48.6 kB/105 kB 46%] [3 nodejs 35.1 MB/38.3 MB 92%] [Waiting                                                                               50% [3 nodejs 35.1 MB/38.3 MB 92%] [Waiting for headers]                                                        Get:90 http://deb.debian.org/debian bookworm/main amd64 libxrender1 amd64 1:0.9.10-1.1 [33.2 kB]
+50% [90 libxrender1 33.2 kB/33.2 kB 100%] [3 nodejs 35.1 MB/38.3 MB 92%] [Waiti                                                                               51% [Waiting for headers] [3 nodejs 35.1 MB/38.3 MB 92%] [Waiting for headers]                                                                              Get:91 http://deb.debian.org/debian bookworm/main amd64 libcairo2 amd64 1.16.0-7 [575 kB]
+51% [91 libcairo2 0 B/575 kB 0%] [3 nodejs 35.2 MB/38.3 MB 92%] [Waiting for he                                                                               51% [Waiting for headers] [3 nodejs 35.5 MB/38.3 MB 93%] [Waiting for headers]                                                                              Get:92 http://deb.debian.org/debian bookworm/main amd64 libcairo-gobject2 amd64 1.16.0-7 [112 kB]
+51% [92 libcairo-gobject2 53.9 kB/112 kB 48%] [3 nodejs 35.5 MB/38.3 MB 93%] [W                                                                               51% [Waiting for headers] [3 nodejs 35.5 MB/38.3 MB 93%] [Waiting for headers]                                                                              Get:93 http://deb.debian.org/debian bookworm/main amd64 libgc1 amd64 1:8.2.2-3 [245 kB]
+51% [93 libgc1 6980 B/245 kB 3%] [3 nodejs 35.8 MB/38.3 MB 93%] [Waiting for he                                                                               52% [Waiting for headers] [3 nodejs 35.9 MB/38.3 MB 94%] [Waiting for headers]                                                                              Get:94 http://deb.debian.org/debian bookworm/main amd64 libobjc4 amd64 12.2.0-14+deb12u1 [43.2 kB]
+52% [94 libobjc4 43.2 kB/43.2 kB 100%] [3 nodejs 35.9 MB/38.3 MB 94%] [Waiting                                                                                52% [3 nodejs 36.0 MB/38.3 MB 94%] [Waiting for headers]                                                        Get:95 http://deb.debian.org/debian bookworm/main amd64 libobjc-12-dev amd64 12.2.0-14+deb12u1 [170 kB]
+52% [95 libobjc-12-dev 1428 B/170 kB 1%] [3 nodejs 36.3 MB/38.3 MB 95%] [Waitin                                                                               52% [Waiting for headers] [3 nodejs 36.4 MB/38.3 MB 95%] [Waiting for headers]                                                                              Get:96 http://deb.debian.org/debian bookworm/main amd64 libedit2 amd64 3.1-20221030-2 [93.0 kB]
+52% [96 libedit2 93.0 kB/93.0 kB 100%] [3 nodejs 36.4 MB/38.3 MB 95%] [Waiting                                                                                53% [Waiting for headers] [3 nodejs 36.5 MB/38.3 MB 95%] [Waiting for headers]                                                                              Get:97 http://deb.debian.org/debian bookworm/main amd64 libz3-4 amd64 4.8.12-3.1 [7216 kB]
+53% [97 libz3-4 8192 B/7216 kB 0%] [3 nodejs 36.8 MB/38.3 MB 96%] [Waiting for                                                                                Get:98 https://deb.qubes-os.org/r4.3/vm bookworm/main amd64 qubesdb-dev amd64 4.3.3-1+deb12u1 [7804 B]
+54% [97 libz3-4 1360 kB/7216 kB 19%] [3 nodejs 37.1 MB/38.3 MB 97%] [98 qubesdb                                                                               54% [97 libz3-4 1547 kB/7216 kB 21%] [3 nodejs 37.2 MB/38.3 MB 97%]                                                                   57% [Waiting for headers] [3 nodejs 38.3 MB/38.3 MB 100%]                                                         Get:99 http://deb.debian.org/debian bookworm/main amd64 libllvm14 amd64 1:14.0.6-12 [21.8 MB]
+57% [99 libllvm14 62.4 kB/21.8 MB 0%] [3 nodejs 38.3 MB/38.3 MB 100%]                                                                     58% [99 libllvm14 652 kB/21.8 MB 3%]                                    69% [Waiting for headers]                         Get:100 http://deb.debian.org/debian bookworm/main amd64 libclang1-14 amd64 1:14.0.6-12 [6157 kB]
+69% [100 libclang1-14 82.7 kB/6157 kB 1%]                                         72% [Waiting for headers]                         Get:101 http://deb.debian.org/debian bookworm/main amd64 libclang-common-14-dev all 1:14.0.6-12 [890 kB]
+72% [101 libclang-common-14-dev 0 B/890 kB 0%]                                              72% [Waiting for headers]                         Get:102 http://deb.debian.org/debian bookworm/main amd64 libclang-14-dev amd64 1:14.0.6-12 [23.1 MB]
+72% [102 libclang-14-dev 15.7 kB/23.1 MB 0%]                                            84% [Waiting for headers]                         Get:103 http://deb.debian.org/debian bookworm/main amd64 libclang-dev amd64 1:14.0-55.7~deb12u1 [4728 B]
 84% [Waiting for headers]                         Get:104 http://deb.debian.org/debian bookworm/main amd64 liblcms2-2 amd64 2.14-2+deb12u1 [154 kB]
 84% [104 liblcms2-2 64.8 kB/154 kB 42%]                                       85% [Waiting for headers]                         Get:105 http://deb.debian.org/debian bookworm/main amd64 libcolord2 amd64 1.4.6-2.2 [137 kB]
-                         Get:106 http://deb.debian.org/debian bookworm/main amd64 libcups2 amd64 2.4.2-3+deb12u9 [245 kB]
-85% [106 libcups2 166 kB/245 kB 68%]                                    85% [Waiting for headers]                         Get:107 http://deb.debian.org/debian bookworm/main amd64 libdatrie1 amd64 0.2.13-2+b1 [43.3 kB]
-85% [107 libdatrie1 43.3 kB/43.3 kB 100%]                                         85% [Working]             Get:108 http://deb.debian.org/debian bookworm/main amd64 libdrm-common all 2.4.114-1 [7112 B]
-85% [108 libdrm-common 7112 B/7112 B 100%]                                          85% [Working]             Get:109 http://deb.debian.org/debian bookworm/main amd64 libdrm2 amd64 2.4.114-1+b1 [37.5 kB]
-85% [109 libdrm2 37.5 kB/37.5 kB 100%]                                      85% [Working]             Get:110 http://deb.debian.org/debian bookworm/main amd64 libepoxy0 amd64 1.5.10-1 [189 kB]
-85% [110 libepoxy0 64.8 kB/189 kB 34%]                                      86% [Waiting for headers]                         Get:111 http://deb.debian.org/debian bookworm/main amd64 libfribidi0 amd64 1.0.8-2.1 [65.0 kB]
-86% [111 libfribidi0 40.5 kB/65.0 kB 62%]                                         86% [Working]             Get:112 http://deb.debian.org/debian bookworm/main amd64 libwayland-server0 amd64 1.21.0-1 [35.9 kB]
-86% [112 libwayland-server0 13.4 kB/35.9 kB 37%]                                                Get:113 http://deb.debian.org/debian bookworm/main amd64 libgbm1 amd64 22.3.6-1+deb12u1 [38.0 kB]
-                                                86% [113 libgbm1 3532 B/38.0 kB 9%]                                   86% [Waiting for headers]                         Get:114 http://deb.debian.org/debian bookworm/main amd64 libgraphite2-3 amd64 1.3.14-1 [81.2 kB]
-86% [114 libgraphite2-3 0 B/81.2 kB 0%]                                       86% [Working]             Get:115 http://deb.debian.org/debian bookworm/main amd64 libharfbuzz0b amd64 6.0.0+dfsg-3 [1945 kB]
-86% [115 libharfbuzz0b 74.1 kB/1945 kB 4%]                                          87% [Waiting for headers]                         Get:116 http://deb.debian.org/debian bookworm/main amd64 libthai-data all 0.1.29-1 [176 kB]
-87% [116 libthai-data 36.9 kB/176 kB 21%]                                         88% [Waiting for headers]                         Get:117 http://deb.debian.org/debian bookworm/main amd64 libthai0 amd64 0.1.29-1 [57.5 kB]
-88% [117 libthai0 48.2 kB/57.5 kB 84%]                                      88% [Working]             Get:118 http://deb.debian.org/debian bookworm/main amd64 libpango-1.0-0 amd64 1.50.12+ds-1 [212 kB]
-88% [118 libpango-1.0-0 49.2 kB/212 kB 23%]                                           88% [Waiting for headers]                         Get:119 http://deb.debian.org/debian bookworm/main amd64 libpangoft2-1.0-0 amd64 1.50.12+ds-1 [47.4 kB]
-88% [119 libpangoft2-1.0-0 39.7 kB/47.4 kB 84%]                                               88% [Working]             Get:120 http://deb.debian.org/debian bookworm/main amd64 libpangocairo-1.0-0 amd64 1.50.12+ds-1 [34.2 kB]
-88% [120 libpangocairo-1.0-0 34.2 kB/34.2 kB 100%]                                                  Get:121 http://deb.debian.org/debian bookworm/main amd64 libwayland-client0 amd64 1.21.0-1 [28.3 kB]
-                                                  89% [Working]             Get:122 http://deb.debian.org/debian bookworm/main amd64 libwayland-cursor0 amd64 1.21.0-1 [14.4 kB]
-89% [122 libwayland-cursor0 0 B/14.4 kB 0%]                                           89% [Waiting for headers]                         Get:123 http://deb.debian.org/debian bookworm/main amd64 libwayland-egl1 amd64 1.21.0-1 [8640 B]
-89% [123 libwayland-egl1 0 B/8640 B 0%]                                       89% [Waiting for headers]                         Get:124 http://deb.debian.org/debian bookworm/main amd64 libxcomposite1 amd64 1:0.4.5-1 [16.6 kB]
-89% [124 libxcomposite1 0 B/16.6 kB 0%]                                       89% [Waiting for headers]                         Get:125 http://deb.debian.org/debian bookworm/main amd64 libxfixes3 amd64 1:6.0.0-2 [22.7 kB]
-89% [125 libxfixes3 7140 B/22.7 kB 31%]                                       89% [Waiting for headers]                         Get:126 http://deb.debian.org/debian bookworm/main amd64 libxcursor1 amd64 1:1.2.1-1 [40.9 kB]
-89% [126 libxcursor1 16.4 kB/40.9 kB 40%]                                         89% [Waiting for headers]                         Get:127 http://deb.debian.org/debian bookworm/main amd64 libxdamage1 amd64 1:1.1.6-1 [15.1 kB]
-                         Get:128 http://deb.debian.org/debian bookworm/main amd64 libxinerama1 amd64 2:1.1.4-3 [17.8 kB]
-89% [128 libxinerama1 0 B/17.8 kB 0%]                                     90% [Waiting for headers]                         Get:129 http://deb.debian.org/debian bookworm/main amd64 xkb-data all 2.35.1-1 [764 kB]
-90% [129 xkb-data 44.3 kB/764 kB 6%]                                    90% [Waiting for headers]                         Get:130 http://deb.debian.org/debian bookworm/main amd64 libxkbcommon0 amd64 1.5.0-1 [106 kB]
-90% [130 libxkbcommon0 66.4 kB/106 kB 63%]                                          90% [Waiting for headers]                         Get:131 http://deb.debian.org/debian bookworm/main amd64 libxrandr2 amd64 2:1.5.2-2+b1 [39.2 kB]
-90% [131 libxrandr2 25.2 kB/39.2 kB 64%]                                        90% [Waiting for headers]                         Get:132 http://deb.debian.org/debian bookworm/main amd64 libgtk-3-common all 3.24.38-2~deb12u3 [3895 kB]
-90% [132 libgtk-3-common 18.0 kB/3895 kB 0%]                                            92% [Waiting for headers]                         Get:133 http://deb.debian.org/debian bookworm/main amd64 libgtk-3-0 amd64 3.24.38-2~deb12u3 [2847 kB]
-93% [133 libgtk-3-0 86.0 kB/2847 kB 3%]                                       94% [Waiting for headers]                         Get:134 http://deb.debian.org/debian bookworm/main amd64 libnspr4 amd64 2:4.35-1 [113 kB]
-94% [134 libnspr4 57.9 kB/113 kB 51%]                                     94% [Working]             Get:135 http://deb.debian.org/debian bookworm/main amd64 libnss3 amd64 2:3.87.1-1+deb12u2 [1332 kB]
-94% [135 libnss3 9592 B/1332 kB 1%]                                   95% [Waiting for headers]                         Get:136 http://deb.debian.org/debian bookworm/main amd64 libpkgconf3 amd64 1.8.1-1 [36.1 kB]
+85% [105 libcolord2 41.6 kB/137 kB 30%]                                       85% [Waiting for headers]                         Get:106 http://deb.debian.org/debian bookworm/main amd64 libcups2 amd64 2.4.2-3+deb12u9 [245 kB]
+85% [106 libcups2 35.4 kB/245 kB 14%]                                     85% [Waiting for headers]                         Get:107 http://deb.debian.org/debian bookworm/main amd64 libdatrie1 amd64 0.2.13-2+b1 [43.3 kB]
+85% [107 libdatrie1 43.3 kB/43.3 kB 100%]                                         Get:108 http://deb.debian.org/debian bookworm/main amd64 libdrm-common all 2.4.114-1 [7112 B]
+                                         Get:109 http://deb.debian.org/debian bookworm/main amd64 libdrm2 amd64 2.4.114-1+b1 [37.5 kB]
+                                         85% [Waiting for headers]                         Get:110 http://deb.debian.org/debian bookworm/main amd64 libepoxy0 amd64 1.5.10-1 [189 kB]
+85% [110 libepoxy0 2168 B/189 kB 1%]                                    86% [Waiting for headers]                         Get:111 http://deb.debian.org/debian bookworm/main amd64 libfribidi0 amd64 1.0.8-2.1 [65.0 kB]
+86% [111 libfribidi0 41.3 kB/65.0 kB 64%]                                         86% [Working]             Get:112 http://deb.debian.org/debian bookworm/main amd64 libwayland-server0 amd64 1.21.0-1 [35.9 kB]
+86% [112 libwayland-server0 9996 B/35.9 kB 28%]                                               86% [Waiting for headers]                         Get:113 http://deb.debian.org/debian bookworm/main amd64 libgbm1 amd64 22.3.6-1+deb12u1 [38.0 kB]
+86% [113 libgbm1 38.0 kB/38.0 kB 100%]                                      86% [Waiting for headers]                         Get:114 http://deb.debian.org/debian bookworm/main amd64 libgraphite2-3 amd64 1.3.14-1 [81.2 kB]
+86% [114 libgraphite2-3 0 B/81.2 kB 0%]                                       86% [Waiting for headers]                         Get:115 http://deb.debian.org/debian bookworm/main amd64 libharfbuzz0b amd64 6.0.0+dfsg-3 [1945 kB]
+86% [115 libharfbuzz0b 0 B/1945 kB 0%]                                      87% [Waiting for headers]                         Get:116 http://deb.debian.org/debian bookworm/main amd64 libthai-data all 0.1.29-1 [176 kB]
+87% [116 libthai-data 34.8 kB/176 kB 20%]                                         88% [Waiting for headers]                         Get:117 http://deb.debian.org/debian bookworm/main amd64 libthai0 amd64 0.1.29-1 [57.5 kB]
+88% [117 libthai0 49.2 kB/57.5 kB 86%]                                      88% [Working]             Get:118 http://deb.debian.org/debian bookworm/main amd64 libpango-1.0-0 amd64 1.50.12+ds-1 [212 kB]
+88% [118 libpango-1.0-0 53.3 kB/212 kB 25%]                                           88% [Waiting for headers]                         Get:119 http://deb.debian.org/debian bookworm/main amd64 libpangoft2-1.0-0 amd64 1.50.12+ds-1 [47.4 kB]
+88% [119 libpangoft2-1.0-0 37.4 kB/47.4 kB 79%]                                               88% [Working]             Get:120 http://deb.debian.org/debian bookworm/main amd64 libpangocairo-1.0-0 amd64 1.50.12+ds-1 [34.2 kB]
+88% [120 libpangocairo-1.0-0 34.2 kB/34.2 kB 100%]                                                  88% [Waiting for headers]                         Get:121 http://deb.debian.org/debian bookworm/main amd64 libwayland-client0 amd64 1.21.0-1 [28.3 kB]
+88% [121 libwayland-client0 28.3 kB/28.3 kB 100%]                                                 89% [Working]             Get:122 http://deb.debian.org/debian bookworm/main amd64 libwayland-cursor0 amd64 1.21.0-1 [14.4 kB]
+89% [122 libwayland-cursor0 14.4 kB/14.4 kB 100%]                                                 89% [Working]             Get:123 http://deb.debian.org/debian bookworm/main amd64 libwayland-egl1 amd64 1.21.0-1 [8640 B]
+89% [Waiting for headers]                         Get:124 http://deb.debian.org/debian bookworm/main amd64 libxcomposite1 amd64 1:0.4.5-1 [16.6 kB]
+89% [124 libxcomposite1 16.6 kB/16.6 kB 100%]                                             89% [Working]             Get:125 http://deb.debian.org/debian bookworm/main amd64 libxfixes3 amd64 1:6.0.0-2 [22.7 kB]
+89% [125 libxfixes3 5712 B/22.7 kB 25%]                                       89% [Waiting for headers]                         Get:126 http://deb.debian.org/debian bookworm/main amd64 libxcursor1 amd64 1:1.2.1-1 [40.9 kB]
+89% [126 libxcursor1 11.4 kB/40.9 kB 28%]                                         89% [Waiting for headers]                         Get:127 http://deb.debian.org/debian bookworm/main amd64 libxdamage1 amd64 1:1.1.6-1 [15.1 kB]
+89% [127 libxdamage1 15.1 kB/15.1 kB 100%]                                          89% [Working]             Get:128 http://deb.debian.org/debian bookworm/main amd64 libxinerama1 amd64 2:1.1.4-3 [17.8 kB]
+89% [128 libxinerama1 8192 B/17.8 kB 46%]                                         90% [Waiting for headers]                         Get:129 http://deb.debian.org/debian bookworm/main amd64 xkb-data all 2.35.1-1 [764 kB]
+90% [129 xkb-data 0 B/764 kB 0%]                                90% [Waiting for headers]                         Get:130 http://deb.debian.org/debian bookworm/main amd64 libxkbcommon0 amd64 1.5.0-1 [106 kB]
+90% [130 libxkbcommon0 6376 B/106 kB 6%]                                        90% [Waiting for headers]                         Get:131 http://deb.debian.org/debian bookworm/main amd64 libxrandr2 amd64 2:1.5.2-2+b1 [39.2 kB]
+90% [131 libxrandr2 39.2 kB/39.2 kB 100%]                                         90% [Waiting for headers]                         Get:132 http://deb.debian.org/debian bookworm/main amd64 libgtk-3-common all 3.24.38-2~deb12u3 [3895 kB]
+90% [132 libgtk-3-common 27.1 kB/3895 kB 1%]                                            92% [Waiting for headers]                         Get:133 http://deb.debian.org/debian bookworm/main amd64 libgtk-3-0 amd64 3.24.38-2~deb12u3 [2847 kB]
+92% [133 libgtk-3-0 31.7 kB/2847 kB 1%]                                       94% [Waiting for headers]                         Get:134 http://deb.debian.org/debian bookworm/main amd64 libnspr4 amd64 2:4.35-1 [113 kB]
+94% [134 libnspr4 64.0 kB/113 kB 57%]                                     94% [Waiting for headers]                         Get:135 http://deb.debian.org/debian bookworm/main amd64 libnss3 amd64 2:3.87.1-1+deb12u2 [1332 kB]
+94% [135 libnss3 0 B/1332 kB 0%]                                95% [Waiting for headers]                         Get:136 http://deb.debian.org/debian bookworm/main amd64 libpkgconf3 amd64 1.8.1-1 [36.1 kB]
 95% [136 libpkgconf3 36.1 kB/36.1 kB 100%]                                          95% [Working]             Get:137 http://deb.debian.org/debian-security bookworm-security/main amd64 libssl-dev amd64 3.0.20-1~deb12u2 [2443 kB]
-95% [137 libssl-dev 196 kB/2443 kB 8%]                                      97% [Waiting for headers]                         Get:138 http://deb.debian.org/debian bookworm/main amd64 pkgconf-bin amd64 1.8.1-1 [29.5 kB]
-97% [138 pkgconf-bin 22.1 kB/29.5 kB 75%]                                         97% [Waiting for headers]                         Get:139 http://deb.debian.org/debian bookworm/main amd64 pkgconf amd64 1.8.1-1 [25.9 kB]
-97% [139 pkgconf 25.9 kB/25.9 kB 100%]                                      97% [Working]             Get:140 http://deb.debian.org/debian bookworm/main amd64 python3-lib2to3 all 3.11.2-3 [76.3 kB]
-97% [140 python3-lib2to3 16.4 kB/76.3 kB 21%]                                             97% [Waiting for headers]                         Get:141 http://deb.debian.org/debian bookworm/main amd64 python3-distutils all 3.11.2-3 [131 kB]
-97% [141 python3-distutils 53.3 kB/131 kB 41%]                                              97% [Waiting for headers]                         Get:142 http://deb.debian.org/debian bookworm/main amd64 python3-pip-whl all 23.0.1+dfsg-1 [1717 kB]
-97% [142 python3-pip-whl 0 B/1717 kB 0%]                                        98% [Waiting for headers]                         Get:143 http://deb.debian.org/debian bookworm/main amd64 python3-pkg-resources all 66.1.1-1+deb12u2 [297 kB]
-98% [143 python3-pkg-resources 164 kB/297 kB 55%]                                                 98% [Waiting for headers]                         Get:144 http://deb.debian.org/debian bookworm/main amd64 python3-setuptools all 66.1.1-1+deb12u2 [522 kB]
-99% [144 python3-setuptools 32.8 kB/522 kB 6%]                                              99% [Waiting for headers]                         Get:145 http://deb.debian.org/debian bookworm/main amd64 python3-setuptools-whl all 66.1.1-1+deb12u2 [1112 kB]
-99% [145 python3-setuptools-whl 18.6 kB/1112 kB 2%]                                                   100% [Waiting for headers]                          Get:146 http://deb.debian.org/debian bookworm/main amd64 python3.11-venv amd64 3.11.2-6+deb12u7 [5892 B]
-100% [Waiting for headers]                          Get:147 http://deb.debian.org/debian bookworm/main amd64 python3-venv amd64 3.11.2-1+b1 [1200 B]
-                          Get:148 http://deb.debian.org/debian bookworm/main amd64 python3-wheel all 0.38.4-2 [30.8 kB]
-100% [148 python3-wheel 30.8 kB/30.8 kB 100%]                                             100% [Working]              Fetched 160 MB in 1s (174 MB/s)
+95% [137 libssl-dev 10.6 kB/2443 kB 0%]                                       97% [Waiting for headers]                         Get:138 http://deb.debian.org/debian bookworm/main amd64 pkgconf-bin amd64 1.8.1-1 [29.5 kB]
+97% [138 pkgconf-bin 29.5 kB/29.5 kB 100%]                                          Get:139 http://deb.debian.org/debian bookworm/main amd64 pkgconf amd64 1.8.1-1 [25.9 kB]
+                                          97% [Waiting for headers]                         Get:140 http://deb.debian.org/debian bookworm/main amd64 python3-lib2to3 all 3.11.2-3 [76.3 kB]
+97% [140 python3-lib2to3 8192 B/76.3 kB 11%]                                            97% [Waiting for headers]                         Get:141 http://deb.debian.org/debian bookworm/main amd64 python3-distutils all 3.11.2-3 [131 kB]
+97% [141 python3-distutils 4096 B/131 kB 3%]                                            97% [Waiting for headers]                         Get:142 http://deb.debian.org/debian bookworm/main amd64 python3-pip-whl all 23.0.1+dfsg-1 [1717 kB]
+97% [142 python3-pip-whl 1428 B/1717 kB 0%]                                           98% [Waiting for headers]                         Get:143 http://deb.debian.org/debian bookworm/main amd64 python3-pkg-resources all 66.1.1-1+deb12u2 [297 kB]
+98% [143 python3-pkg-resources 7616 B/297 kB 3%]                                                98% [Waiting for headers]                         Get:144 http://deb.debian.org/debian bookworm/main amd64 python3-setuptools all 66.1.1-1+deb12u2 [522 kB]
+98% [144 python3-setuptools 5712 B/522 kB 1%]                                             99% [Waiting for headers]                         Get:145 http://deb.debian.org/debian bookworm/main amd64 python3-setuptools-whl all 66.1.1-1+deb12u2 [1112 kB]
+99% [145 python3-setuptools-whl 6372 B/1112 kB 1%]                                                  100% [Waiting for headers]                          Get:146 http://deb.debian.org/debian bookworm/main amd64 python3.11-venv amd64 3.11.2-6+deb12u7 [5892 B]
+100% [146 python3.11-venv 5892 B/5892 B 100%]                                             100% [Waiting for headers]                          Get:147 http://deb.debian.org/debian bookworm/main amd64 python3-venv amd64 3.11.2-1+b1 [1200 B]
+                          100% [Working]              Get:148 http://deb.debian.org/debian bookworm/main amd64 python3-wheel all 0.38.4-2 [30.8 kB]
+100% [148 python3-wheel 3546 B/30.8 kB 12%]                                           100% [Working]              Fetched 160 MB in 1s (180 MB/s)
 debconf: delaying package configuration, since apt-utils is not installed
 Selecting previously unselected package libargon2-1:amd64.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 16559 files and directories currently installed.)
@@ -2421,11 +2419,11 @@ Processing triggers for libc-bin (2.36-9+deb12u14) ...
 + NIGHTLY=1
 + [[ -n 1 ]]
 ++ date +%Y%m%d%H%M%S
-+ NEW_VERSION=1.5.0~rc1.dev20260702070910
-+ sed -i '0,/1.5.0~rc1/ s//1.5.0~rc1.dev20260702070910+bookworm/' debian/changelog
++ NEW_VERSION=1.5.0~rc1.dev20260702183300
++ sed -i '0,/1.5.0~rc1/ s//1.5.0~rc1.dev20260702183300+bookworm/' debian/changelog
 + dpkg-buildpackage --no-sign
 [1mdpkg-buildpackage: [0m[32minfo[0m: source package securedrop-client
-[1mdpkg-buildpackage: [0m[32minfo[0m: source version 1.5.0~rc1.dev20260702070910+bookworm
+[1mdpkg-buildpackage: [0m[32minfo[0m: source version 1.5.0~rc1.dev20260702183300+bookworm
 [1mdpkg-buildpackage: [0m[32minfo[0m: source distribution unstable
 [1mdpkg-buildpackage: [0m[32minfo[0m: source changed by SecureDrop Team <securedrop@freedom.press>
 [1mdpkg-buildpackage: [0m[32minfo[0m: host architecture amd64
@@ -2438,8 +2436,8 @@ Processing triggers for libc-bin (2.36-9+deb12u14) ...
 [1;35m dpkg-source -b .
 [0m[1mdpkg-source: [0m[32minfo[0m: using options from securedrop-client/debian/source/options: --compression=gzip --tar-ignore=build --tar-ignore=.* --tar-ignore=__pycache__ --tar-ignore=htmlcov --tar-ignore=target --tar-ignore=node_modules
 [1mdpkg-source: [0m[32minfo[0m: using source format '3.0 (native)'
-[1mdpkg-source: [0m[32minfo[0m: building securedrop-client in securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.tar.gz
-[1mdpkg-source: [0m[32minfo[0m: building securedrop-client in securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.dsc
+[1mdpkg-source: [0m[32minfo[0m: building securedrop-client in securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.tar.gz
+[1mdpkg-source: [0m[32minfo[0m: building securedrop-client in securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.dsc
 [1;35m debian/rules build
 [0mdh build
    dh_update_autotools_config
@@ -2493,7 +2491,7 @@ Processing ./export
 [?25hBuilding wheels for collected packages: securedrop-export
   Building wheel for securedrop-export (pyproject.toml) ... [?25l- done
 [?25h  Created wheel for securedrop-export: filename=securedrop_export-0.0.0-py3-none-any.whl size=55487 sha256=0bb2e3230c2ef7199ba036be91aa536860a6e9fecd575a19a188813dbdaa355e
-  Stored in directory: /tmp/pip-ephem-wheel-cache-gau1vj39/wheels/ba/88/d5/d9366435de7fa19135d72b183b26beb70fb70fd36bcd9d7b86
+  Stored in directory: /tmp/pip-ephem-wheel-cache-ppeqaqfy/wheels/ba/88/d5/d9366435de7fa19135d72b183b26beb70fb70fd36bcd9d7b86
 Successfully built securedrop-export
 Installing collected packages: securedrop-export
 Successfully installed securedrop-export-0.0.0
@@ -2514,7 +2512,7 @@ Processing ./log
 [?25hBuilding wheels for collected packages: securedrop-log
   Building wheel for securedrop-log (pyproject.toml) ... [?25l- done
 [?25h  Created wheel for securedrop-log: filename=securedrop_log-0.0.0-py3-none-any.whl size=19894 sha256=b792082dffa70c54569dc890af1168f7a04fc47f01fe571d11e1952897d9ab7f
-  Stored in directory: /tmp/pip-ephem-wheel-cache-3awnab6p/wheels/f2/78/84/0cf11b31a4045b8499144752838e1a7e5447a2d41b2eccb4f4
+  Stored in directory: /tmp/pip-ephem-wheel-cache-x6zacklx/wheels/f2/78/84/0cf11b31a4045b8499144752838e1a7e5447a2d41b2eccb4f4
 Successfully built securedrop-log
 Installing collected packages: securedrop-log
 Successfully installed securedrop-log-0.0.0
@@ -2525,270 +2523,270 @@ cargo build --release --locked --features qubesdb
     Updating crates.io index
  Downloading crates ...
   Downloaded adler2 v2.0.1
-  Downloaded bitflags v2.4.2
-  Downloaded autocfg v1.1.0
-  Downloaded atomic-waker v1.1.2
-  Downloaded anyhow v1.0.75
+  Downloaded cexpr v0.6.0
+  Downloaded idna v1.0.3
   Downloaded icu_provider_macros v1.5.0
-  Downloaded hyper-tls v0.6.0
-  Downloaded futures-task v0.3.31
-  Downloaded serde_urlencoded v0.7.1
-  Downloaded sync_wrapper v0.1.2
-  Downloaded fnv v1.0.7
-  Downloaded async-compression v0.4.6
-  Downloaded tinystr v0.7.6
-  Downloaded stable_deref_trait v1.2.0
-  Downloaded tower-layer v0.3.2
-  Downloaded tokio-macros v2.5.0
-  Downloaded mime v0.3.17
-  Downloaded thiserror-impl v1.0.65
-  Downloaded zerofrom-derive v0.1.5
-  Downloaded which v4.4.2
-  Downloaded write16 v1.0.0
-  Downloaded log v0.4.20
+  Downloaded lazy_static v1.4.0
+  Downloaded ipnet v2.9.0
+  Downloaded tokio-native-tls v0.3.1
   Downloaded zerofrom v0.1.5
-  Downloaded synstructure v0.13.1
-  Downloaded pin-project v1.1.5
-  Downloaded yoke v0.7.5
-  Downloaded zerovec-derive v0.10.3
-  Downloaded tower v0.4.13
+  Downloaded stable_deref_trait v1.2.0
+  Downloaded native-tls v0.2.11
   Downloaded tracing-core v0.1.32
-  Downloaded url v2.5.4
+  Downloaded zerofrom-derive v0.1.5
+  Downloaded unicode-ident v1.0.12
+  Downloaded yoke-derive v0.7.5
+  Downloaded zerovec-derive v0.10.3
   Downloaded tracing v0.1.40
-  Downloaded tokio-util v0.7.10
-  Downloaded reqwest v0.12.4
   Downloaded zerovec v0.10.4
-  Downloaded icu_properties_data v1.5.0
-  Downloaded regex v1.10.3
-  Downloaded bindgen v0.69.4
-  Downloaded itertools v0.12.1
-  Downloaded syn v2.0.58
+  Downloaded url v2.5.4
+  Downloaded serde v1.0.196
+  Downloaded tower v0.4.13
+  Downloaded icu_collections v1.5.0
+  Downloaded nom v7.1.3
+  Downloaded serde_json v1.0.113
+  Downloaded reqwest v0.12.4
+  Downloaded futures-util v0.3.31
   Downloaded vcpkg v0.2.15
   Downloaded regex-syntax v0.8.2
-  Downloaded openssl v0.10.80
-  Downloaded rustix v0.38.31
-  Downloaded idna v1.0.3
-  Downloaded h2 v0.4.5
-  Downloaded futures-util v0.3.31
-  Downloaded serde_json v1.0.113
-  Downloaded nom v7.1.3
-  Downloaded hyper v1.3.1
-  Downloaded hashbrown v0.14.3
-  Downloaded aho-corasick v1.1.2
+  Downloaded icu_properties_data v1.5.0
+  Downloaded regex v1.10.3
+  Downloaded itertools v0.12.1
   Downloaded openssl-sys v0.9.116
-  Downloaded mio v1.0.3
+  Downloaded openssl v0.10.80
   Downloaded memchr v2.7.1
-  Downloaded regex-automata v0.4.5
-  Downloaded http v1.1.0
-  Downloaded flate2 v1.1.2
-  Downloaded cc v1.2.36
-  Downloaded bytes v1.11.1
-  Downloaded unicode-ident v1.0.12
-  Downloaded tokio-socks v0.5.2
-  Downloaded tokio-native-tls v0.3.1
-  Downloaded libc v0.2.171
-  Downloaded thiserror v1.0.65
-  Downloaded serde v1.0.196
-  Downloaded minimal-lexical v0.2.1
-  Downloaded icu_collections v1.5.0
-  Downloaded writeable v0.5.5
-  Downloaded want v0.3.1
   Downloaded socket2 v0.5.5
-  Downloaded miniz_oxide v0.8.9
-  Downloaded indexmap v2.2.3
-  Downloaded icu_properties v1.5.1
-  Downloaded icu_locid v1.5.0
-  Downloaded tokio v1.44.2
-  Downloaded crc32fast v1.4.0
-  Downloaded clang-sys v1.7.0
-  Downloaded base64 v0.22.1
-  Downloaded smallvec v1.13.2
+  Downloaded rustix v0.38.31
   Downloaded serde_derive v1.0.196
-  Downloaded ryu v1.0.16
-  Downloaded prettyplease v0.2.16
-  Downloaded icu_provider v1.5.0
-  Downloaded icu_normalizer_data v1.5.0
-  Downloaded icu_normalizer v1.5.0
-  Downloaded hyper-util v0.1.3
-  Downloaded proc-macro2 v1.0.78
-  Downloaded pin-project-internal v1.1.5
-  Downloaded once_cell v1.19.0
-  Downloaded icu_locid_transform_data v1.5.0
-  Downloaded httparse v1.8.0
-  Downloaded futures-channel v0.3.31
-  Downloaded either v1.10.0
-  Downloaded displaydoc v0.2.5
-  Downloaded cexpr v0.6.0
-  Downloaded encoding_rs v0.8.33
-  Downloaded utf8_iter v1.0.4
-  Downloaded tower-service v0.3.2
-  Downloaded slab v0.4.9
-  Downloaded shlex v1.3.0
   Downloaded rustls-pki-types v1.7.0
-  Downloaded linux-raw-sys v0.4.13
-  Downloaded rustls-pemfile v2.1.2
+  Downloaded pin-project v1.1.5
+  Downloaded tokio-util v0.7.10
+  Downloaded smallvec v1.13.2
+  Downloaded shlex v1.3.0
+  Downloaded ryu v1.0.16
   Downloaded quote v1.0.35
-  Downloaded pkg-config v0.3.29
+  Downloaded proc-macro2 v1.0.78
+  Downloaded prettyplease v0.2.16
+  Downloaded regex-automata v0.4.5
+  Downloaded miniz_oxide v0.8.9
+  Downloaded hyper-util v0.1.3
+  Downloaded hyper v1.3.1
+  Downloaded tinystr v0.7.6
+  Downloaded synstructure v0.13.1
+  Downloaded syn v2.0.58
+  Downloaded rustls-pemfile v2.1.2
   Downloaded pin-project-lite v0.2.13
-  Downloaded native-tls v0.2.11
-  Downloaded litemap v0.7.4
-  Downloaded libloading v0.8.1
-  Downloaded ipnet v2.9.0
-  Downloaded icu_locid_transform v1.5.0
-  Downloaded futures-core v0.3.31
-  Downloaded form_urlencoded v1.2.1
-  Downloaded yoke-derive v0.7.5
-  Downloaded utf16_iter v1.0.5
-  Downloaded try-lock v0.2.5
-  Downloaded glob v0.3.1
-  Downloaded find-msvc-tools v0.1.1
-  Downloaded idna_adapter v1.2.0
-  Downloaded cfg-if v1.0.0
+  Downloaded mio v1.0.3
+  Downloaded log v0.4.20
+  Downloaded libc v0.2.171
+  Downloaded futures-sink v0.3.31
+  Downloaded yoke v0.7.5
+  Downloaded writeable v0.5.5
+  Downloaded tower-service v0.3.2
+  Downloaded tokio-macros v2.5.0
+  Downloaded serde_urlencoded v0.7.1
   Downloaded rustc-hash v1.1.0
-  Downloaded pin-utils v0.1.0
+  Downloaded pkg-config v0.3.29
   Downloaded percent-encoding v2.3.1
   Downloaded openssl-probe v0.1.5
-  Downloaded openssl-macros v0.1.1
-  Downloaded lazycell v1.3.0
-  Downloaded lazy_static v1.4.0
+  Downloaded tokio v1.44.2
+  Downloaded write16 v1.0.0
+  Downloaded which v4.4.2
+  Downloaded want v0.3.1
+  Downloaded utf16_iter v1.0.5
+  Downloaded tower-layer v0.3.2
+  Downloaded thiserror v1.0.65
+  Downloaded sync_wrapper v0.1.2
+  Downloaded encoding_rs v0.8.33
+  Downloaded pin-utils v0.1.0
   Downloaded itoa v1.0.10
-  Downloaded futures-macro v0.3.31
-  Downloaded http-body-util v0.1.1
+  Downloaded lazycell v1.3.0
+  Downloaded hyper-tls v0.6.0
+  Downloaded utf8_iter v1.0.4
+  Downloaded try-lock v0.2.5
+  Downloaded pin-project-internal v1.1.5
+  Downloaded once_cell v1.19.0
+  Downloaded libloading v0.8.1
+  Downloaded icu_locid_transform_data v1.5.0
   Downloaded http-body v1.0.0
-  Downloaded home v0.5.9
-  Downloaded errno v0.3.8
-  Downloaded foreign-types-shared v0.1.1
-  Downloaded futures-sink v0.3.31
+  Downloaded http v1.1.0
+  Downloaded tokio-socks v0.5.2
+  Downloaded minimal-lexical v0.2.1
+  Downloaded idna_adapter v1.2.0
+  Downloaded icu_provider v1.5.0
+  Downloaded http-body-util v0.1.1
+  Downloaded futures-macro v0.3.31
+  Downloaded h2 v0.4.5
   Downloaded futures-io v0.3.31
+  Downloaded linux-raw-sys v0.4.13
+  Downloaded futures-core v0.3.31
+  Downloaded openssl-macros v0.1.1
+  Downloaded icu_locid_transform v1.5.0
+  Downloaded either v1.10.0
+  Downloaded slab v0.4.9
+  Downloaded indexmap v2.2.3
+  Downloaded glob v0.3.1
+  Downloaded futures-task v0.3.31
+  Downloaded find-msvc-tools v0.1.1
+  Downloaded cc v1.2.36
+  Downloaded thiserror-impl v1.0.65
+  Downloaded mime v0.3.17
+  Downloaded litemap v0.7.4
+  Downloaded icu_properties v1.5.1
+  Downloaded icu_normalizer v1.5.0
+  Downloaded httparse v1.8.0
+  Downloaded home v0.5.9
+  Downloaded hashbrown v0.14.3
+  Downloaded futures-channel v0.3.31
+  Downloaded flate2 v1.1.2
+  Downloaded icu_locid v1.5.0
+  Downloaded form_urlencoded v1.2.1
+  Downloaded fnv v1.0.7
+  Downloaded crc32fast v1.4.0
+  Downloaded clang-sys v1.7.0
+  Downloaded cfg-if v1.0.0
+  Downloaded bytes v1.11.1
+  Downloaded bindgen v0.69.4
+  Downloaded base64 v0.22.1
+  Downloaded atomic-waker v1.1.2
+  Downloaded icu_normalizer_data v1.5.0
+  Downloaded foreign-types-shared v0.1.1
+  Downloaded displaydoc v0.2.5
+  Downloaded autocfg v1.1.0
+  Downloaded aho-corasick v1.1.2
+  Downloaded async-compression v0.4.6
+  Downloaded anyhow v1.0.75
   Downloaded foreign-types v0.3.2
+  Downloaded errno v0.3.8
   Downloaded equivalent v1.0.1
+  Downloaded bitflags v2.4.2
    Compiling proc-macro2 v1.0.78
    Compiling unicode-ident v1.0.12
    Compiling libc v0.2.171
-   Compiling shlex v1.3.0
    Compiling pin-project-lite v0.2.13
    Compiling bytes v1.11.1
+   Compiling shlex v1.3.0
    Compiling stable_deref_trait v1.2.0
    Compiling futures-core v0.3.31
    Compiling autocfg v1.1.0
-   Compiling find-msvc-tools v0.1.1
    Compiling quote v1.0.35
-   Compiling cc v1.2.36
    Compiling syn v2.0.58
+   Compiling find-msvc-tools v0.1.1
    Compiling socket2 v0.5.5
    Compiling mio v1.0.3
+   Compiling cc v1.2.36
    Compiling slab v0.4.9
-   Compiling pkg-config v0.3.29
    Compiling itoa v1.0.10
+   Compiling pkg-config v0.3.29
    Compiling vcpkg v0.2.15
    Compiling log v0.4.20
-   Compiling once_cell v1.19.0
-   Compiling cfg-if v1.0.0
    Compiling litemap v0.7.4
+   Compiling cfg-if v1.0.0
    Compiling writeable v0.5.5
-   Compiling tracing-core v0.1.32
+   Compiling once_cell v1.19.0
    Compiling openssl-sys v0.9.116
+   Compiling tracing-core v0.1.32
    Compiling smallvec v1.13.2
    Compiling fnv v1.0.7
    Compiling http v1.1.0
    Compiling tracing v0.1.40
-   Compiling futures-task v0.3.31
-   Compiling icu_locid_transform_data v1.5.0
-   Compiling glob v0.3.1
    Compiling synstructure v0.13.1
+   Compiling futures-task v0.3.31
    Compiling pin-utils v0.1.0
-   Compiling clang-sys v1.7.0
-   Compiling hashbrown v0.14.3
-   Compiling equivalent v1.0.1
-   Compiling openssl v0.10.80
-   Compiling icu_properties_data v1.5.0
-   Compiling rustix v0.38.31
-   Compiling httparse v1.8.0
+   Compiling glob v0.3.1
+   Compiling icu_locid_transform_data v1.5.0
    Compiling foreign-types-shared v0.1.1
+   Compiling equivalent v1.0.1
+   Compiling rustix v0.38.31
+   Compiling clang-sys v1.7.0
+   Compiling httparse v1.8.0
+   Compiling hashbrown v0.14.3
+   Compiling icu_properties_data v1.5.0
    Compiling prettyplease v0.2.16
    Compiling futures-sink v0.3.31
-   Compiling foreign-types v0.3.2
+   Compiling openssl v0.10.80
    Compiling indexmap v2.2.3
-   Compiling http-body v1.0.0
    Compiling zerofrom-derive v0.1.5
    Compiling yoke-derive v0.7.5
    Compiling zerovec-derive v0.10.3
-   Compiling tokio-macros v2.5.0
    Compiling displaydoc v0.2.5
-   Compiling tokio v1.44.2
+   Compiling tokio-macros v2.5.0
    Compiling icu_provider_macros v1.5.0
    Compiling futures-macro v0.3.31
    Compiling pin-project-internal v1.1.5
+   Compiling tokio v1.44.2
    Compiling zerofrom v0.1.5
+   Compiling futures-util v0.3.31
    Compiling yoke v0.7.5
    Compiling zerovec v0.10.4
-   Compiling futures-util v0.3.31
    Compiling openssl-macros v0.1.1
-   Compiling bitflags v2.4.2
+   Compiling foreign-types v0.3.2
+   Compiling http-body v1.0.0
    Compiling tinystr v0.7.6
    Compiling icu_locid v1.5.0
    Compiling icu_collections v1.5.0
    Compiling icu_provider v1.5.0
    Compiling icu_locid_transform v1.5.0
+   Compiling bitflags v2.4.2
    Compiling tokio-util v0.7.10
    Compiling icu_properties v1.5.1
-   Compiling utf16_iter v1.0.5
-   Compiling utf8_iter v1.0.4
-   Compiling native-tls v0.2.11
-   Compiling linux-raw-sys v0.4.13
    Compiling either v1.10.0
-   Compiling minimal-lexical v0.2.1
+   Compiling utf8_iter v1.0.4
+   Compiling regex-syntax v0.8.2
+   Compiling memchr v2.7.1
    Compiling write16 v1.0.0
+   Compiling linux-raw-sys v0.4.13
    Compiling crc32fast v1.4.0
    Compiling serde v1.0.196
-   Compiling regex-syntax v0.8.2
+   Compiling utf16_iter v1.0.5
+   Compiling native-tls v0.2.11
+   Compiling minimal-lexical v0.2.1
    Compiling try-lock v0.2.5
-   Compiling icu_normalizer_data v1.5.0
-   Compiling memchr v2.7.1
    Compiling atomic-waker v1.1.2
-   Compiling regex-automata v0.4.5
+   Compiling icu_normalizer_data v1.5.0
    Compiling h2 v0.4.5
    Compiling nom v7.1.3
    Compiling icu_normalizer v1.5.0
    Compiling want v0.3.1
    Compiling libloading v0.8.1
+   Compiling regex-automata v0.4.5
    Compiling pin-project v1.1.5
    Compiling serde_derive v1.0.196
    Compiling futures-channel v0.3.31
-   Compiling tower-service v0.3.2
-   Compiling adler2 v2.0.1
    Compiling percent-encoding v2.3.1
-   Compiling bindgen v0.69.4
-   Compiling openssl-probe v0.1.5
-   Compiling thiserror v1.0.65
    Compiling home v0.5.9
+   Compiling adler2 v2.0.1
+   Compiling tower-service v0.3.2
+   Compiling thiserror v1.0.65
    Compiling tower-layer v0.3.2
-   Compiling which v4.4.2
+   Compiling openssl-probe v0.1.5
+   Compiling bindgen v0.69.4
    Compiling tower v0.4.13
-   Compiling form_urlencoded v1.2.1
    Compiling miniz_oxide v0.8.9
+   Compiling which v4.4.2
+   Compiling form_urlencoded v1.2.1
    Compiling hyper v1.3.1
+   Compiling regex v1.10.3
    Compiling idna_adapter v1.2.0
    Compiling cexpr v0.6.0
-   Compiling regex v1.10.3
    Compiling itertools v0.12.1
    Compiling thiserror-impl v1.0.65
-   Compiling rustc-hash v1.1.0
-   Compiling lazycell v1.3.0
-   Compiling lazy_static v1.4.0
    Compiling ryu v1.0.16
+   Compiling lazycell v1.3.0
+   Compiling rustc-hash v1.1.0
+   Compiling lazy_static v1.4.0
    Compiling idna v1.0.3
    Compiling flate2 v1.1.2
    Compiling hyper-util v0.1.3
    Compiling tokio-native-tls v0.3.1
    Compiling http-body-util v0.1.1
-   Compiling serde_json v1.0.113
-   Compiling base64 v0.22.1
-   Compiling anyhow v1.0.75
    Compiling rustls-pki-types v1.7.0
+   Compiling anyhow v1.0.75
+   Compiling base64 v0.22.1
+   Compiling serde_json v1.0.113
+   Compiling async-compression v0.4.6
    Compiling tokio-socks v0.5.2
    Compiling rustls-pemfile v2.1.2
-   Compiling async-compression v0.4.6
    Compiling hyper-tls v0.6.0
    Compiling url v2.5.4
    Compiling serde_urlencoded v0.7.1
@@ -2798,93 +2796,97 @@ cargo build --release --locked --features qubesdb
    Compiling sync_wrapper v0.1.2
    Compiling mime v0.3.17
    Compiling reqwest v0.12.4
-    Finished `release` profile [optimized + debuginfo] target(s) in 54.33s
+    Finished `release` profile [optimized + debuginfo] target(s) in 52.48s
 bash ./debian/build-app.sh
 + npm install -g pnpm@10
 \[1G[0K|[1G[0K/[1G[0K-[1G[0K\[1G[0K|[1G[0K/[1G[0K-[1G[0K
 added 1 package in 1s
 -[1G[0K
 -[1G[0K1 package is looking for funding
--[1G[0K  run `npm fund` for details
--[1G[0K[1mnpm[22m [96mnotice[39m
+\[1G[0K  run `npm fund` for details
+\[1G[0K[1mnpm[22m [96mnotice[39m
 [1mnpm[22m [96mnotice[39m New [33mminor[39m version of npm available! [33m11.12.1[39m -> [34m11.18.0[39m
 [1mnpm[22m [96mnotice[39m Changelog: [34mhttps://github.com/npm/cli/releases/tag/v11.18.0[39m
 [1mnpm[22m [96mnotice[39m To update run: [4mnpm install -g npm@11.18.0[24m
 [1mnpm[22m [96mnotice[39m
--[1G[0K+ cd app
+\[1G[0K+ cd app
 + pnpm install --frozen-lockfile
 Lockfile is up to date, resolution step is skipped
 Packages: [32m+1109[39m
 
 Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m0[39m, added [96m0[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m10[39m, added [96m2[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m22[39m, added [96m10[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m10[39m, added [96m1[39m
 Downloading antd@5.29.3: [96m0.00 B[39m/[96m10.27 MB[39m
-[1ADownloading antd@5.29.3: [96m725.00 B[39m/[96m10.27 MB[39m
-[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m36[39m, added [96m14[39m
-[1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m50[39m, added [96m21[39m
-[1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m59[39m, added [96m24[39m
+[1ADownloading antd@5.29.3: [96m15.74 kB[39m/[96m10.27 MB[39m
+[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m24[39m, added [96m5[39m
+[1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m37[39m, added [96m9[39m
+[1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m44[39m, added [96m13[39m
 [1B[2ADownloading antd@5.29.3: [96m10.27 MB[39m/[96m10.27 MB[39m, done[0K
-Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m59[39m, added [96m24[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m70[39m, added [96m28[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m74[39m, added [96m30[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m82[39m, added [96m32[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m85[39m, added [96m33[39m
+Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m44[39m, added [96m13[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m45[39m, added [96m13[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m51[39m, added [96m17[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m54[39m, added [96m17[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m62[39m, added [96m21[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m74[39m, added [96m25[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m83[39m, added [96m29[39m
 Downloading @dbmate/linux-x64@2.29.3: [96m0.00 B[39m/[96m11.94 MB[39m
-[1ADownloading @dbmate/linux-x64@2.29.3: [96m15.74 kB[39m/[96m11.94 MB[39m
-[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m99[39m, added [96m40[39m
-[1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m103[39m, added [96m40[39m
+[1ADownloading @dbmate/linux-x64@2.29.3: [96m8.19 kB[39m/[96m11.94 MB[39m
+[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m92[39m, added [96m30[39m
+[1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m103[39m, added [96m34[39m
 [1B[2ADownloading @dbmate/linux-x64@2.29.3: [96m11.94 MB[39m/[96m11.94 MB[39m, done
-Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m103[39m, added [96m40[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m122[39m, added [96m48[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m148[39m, added [96m55[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m170[39m, added [96m66[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m185[39m, added [96m69[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m209[39m, added [96m80[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m254[39m, added [96m99[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m308[39m, added [96m148[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m362[39m, added [96m184[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m384[39m, added [96m194[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m413[39m, added [96m212[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m463[39m, added [96m255[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m507[39m, added [96m305[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m566[39m, added [96m408[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m596[39m, added [96m423[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m630[39m, added [96m435[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m671[39m, added [96m467[39m
+Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m103[39m, added [96m34[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m106[39m, added [96m37[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m121[39m, added [96m42[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m129[39m, added [96m42[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m155[39m, added [96m51[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m168[39m, added [96m55[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m188[39m, added [96m62[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m220[39m, added [96m75[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m268[39m, added [96m103[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m319[39m, added [96m134[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m370[39m, added [96m168[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m386[39m, added [96m176[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m406[39m, added [96m187[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m459[39m, added [96m233[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m497[39m, added [96m279[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m563[39m, added [96m363[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m591[39m, added [96m383[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m620[39m, added [96m393[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m648[39m, added [96m405[39m
 Downloading electron-winstaller@5.4.0: [96m0.00 B[39m/[96m9.14 MB[39m
-[1ADownloading electron-winstaller@5.4.0: [96m15.74 kB[39m/[96m9.14 MB[39m
-[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m711[39m, added [96m523[39m
-[1BDownloading 7zip-bin@5.2.0: [96m0.00 B[39m/[96m5.63 MB[39m
-[1ADownloading 7zip-bin@5.2.0: [96m15.74 kB[39m/[96m5.63 MB[39m
-Downloading app-builder-bin@5.0.0-alpha.12: [96m0.00 B[39m/[96m72.51 MB[39m
-[1ADownloading app-builder-bin@5.0.0-alpha.12: [96m15.74 kB[39m/[96m72.51 MB[39m
-[4AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m741[39m, added [96m561[39m
-[3B[4APackages are hard linked from the content-addressable store to the virtual store.
+[1ADownloading electron-winstaller@5.4.0: [96m15.94 kB[39m/[96m9.14 MB[39m
+[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m708[39m, added [96m482[39m
+[1BDownloading app-builder-bin@5.0.0-alpha.12: [96m0.00 B[39m/[96m72.51 MB[39m
+[1ADownloading app-builder-bin@5.0.0-alpha.12: [96m15.58 kB[39m/[96m72.51 MB[39m
+Downloading 7zip-bin@5.2.0: [96m0.00 B[39m/[96m5.63 MB[39m
+[1ADownloading 7zip-bin@5.2.0: [96m15.94 kB[39m/[96m5.63 MB[39m
+[4APackages are hard linked from the content-addressable store to the virtual store.
   Content-addressable store is at: /root/.local/share/pnpm/store/v10
-  Virtual store is at:             node_modules/.pnpm
-Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m741[39m, added [96m561[39m[0K
-Downloading electron-winstaller@5.4.0: [96m15.74 kB[39m/[96m9.14 MB[39m
-Downloading 7zip-bin@5.2.0: [96m15.74 kB[39m/[96m5.63 MB[39m
-Downloading app-builder-bin@5.0.0-alpha.12: [96m15.74 kB[39m/[96m72.51 MB[39m
-[4ADownloading electron-winstaller@5.4.0: [96m9.14 MB[39m/[96m9.14 MB[39m, done
-Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m741[39m, added [96m561[39m
-[2B[3AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m773[39m, added [96m580[39m
-[2B[3ADownloading 7zip-bin@5.2.0: [96m5.63 MB[39m/[96m5.63 MB[39m, done[0K
-Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m773[39m, added [96m580[39m
-[1B[1ADownloading app-builder-bin@5.0.0-alpha.12: [96m36.93 MB[39m/[96m72.51 MB[39m
-[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m817[39m, added [96m631[39m
-[1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m867[39m, added [96m728[39m
-[1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m933[39m, added [96m849[39m
+  Virtual store is at:             node_modules/.pnpm[0K
+Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m708[39m, added [96m482[39m
+Downloading electron-winstaller@5.4.0: [96m15.94 kB[39m/[96m9.14 MB[39m
+Downloading app-builder-bin@5.0.0-alpha.12: [96m15.58 kB[39m/[96m72.51 MB[39m
+Downloading 7zip-bin@5.2.0: [96m15.94 kB[39m/[96m5.63 MB[39m
+[4AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m739[39m, added [96m502[39m
+[3B[4AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m778[39m, added [96m547[39m
+[3B[4ADownloading electron-winstaller@5.4.0: [96m9.14 MB[39m/[96m9.14 MB[39m, done
+Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m778[39m, added [96m547[39m
+[2B[3AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m825[39m, added [96m599[39m
+[2B[2ADownloading app-builder-bin@5.0.0-alpha.12: [96m35.64 MB[39m/[96m72.51 MB[39m
+[1B[3ADownloading 7zip-bin@5.2.0: [96m5.63 MB[39m/[96m5.63 MB[39m, done[0K
+Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m825[39m, added [96m599[39m[0K
+Downloading app-builder-bin@5.0.0-alpha.12: [96m35.64 MB[39m/[96m72.51 MB[39m
+[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m888[39m, added [96m675[39m
+[1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m947[39m, added [96m744[39m
 [1B[2ADownloading app-builder-bin@5.0.0-alpha.12: [96m72.51 MB[39m/[96m72.51 MB[39m, done
-Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m933[39m, added [96m849[39m[0K
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m989[39m, added [96m942[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1019[39m, added [96m967[39m
+Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m947[39m, added [96m744[39m[0K
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m991[39m, added [96m811[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1020[39m, added [96m957[39m
 [1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1020[39m, added [96m1108[39m
 [1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1021[39m, added [96m1108[39m
 [1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1021[39m, added [96m1109[39m, done
 [90mnode_modules/[39melectron: Running postinstall script...
-[1A[90mnode_modules/[39melectron: Running postinstall script, done in 3s
+[1A[90mnode_modules/[39melectron: Running postinstall script, done in 2.9s
 . [96mpostinstall[39m$ 
 [95m└─[39m [95mRunning...[39m
 [1A[95m│[39m [0K
@@ -2910,8 +2912,8 @@ Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m933[39m, ad
 [11A[1 lines collapsed]
 [9B[95m│[39m [0K
 [95m└─[39m [95mRunning...[39m
-[1C[12A2[2D[12B[1C[12A3[2D[12B[1A[95m└─[39m [95mDone in 528ms[39m
-Done in 13.1s using pnpm v10.14.0
+[1C[12A2[2D[12B[1C[12A3[2D[12B[1A[95m└─[39m [95mDone in 357ms[39m
+Done in 13.5s using pnpm v10.14.0
 + pnpm run build:unpack
 
 > securedrop-app@1.5.0-rc1 build:unpack /srv/securedrop-client/app
@@ -2931,22 +2933,22 @@ Using main vars: {
 }
 [36mvite v7.0.8 [32mbuilding SSR bundle for production...[36m[39m
 [2K[1G[2K[1G[2K[1G[32m✓[39m 19 modules transformed.
-[2K[1G[2K[1G[2K[1G[2mout/main/[22m[32mworker-CXyDNdmf.js  [39m[1m[2m 93.44 kB[22m[1m[22m
-[2mout/main/[22m[36mindex.js            [39m[1m[2m125.77 kB[22m[1m[22m[2m │ map: 259.79 kB[22m
-[32m✓ built in 525ms[39m
+[2K[1G[2K[1G[2K[1G[2mout/main/[22m[32mworker-2F-BYRWB.js  [39m[1m[2m 93.62 kB[22m[1m[22m
+[2mout/main/[22m[36mindex.js            [39m[1m[2m125.76 kB[22m[1m[22m[2m │ map: 259.76 kB[22m
+[32m✓ built in 517ms[39m
 [36mvite v7.0.8 [32mbuilding SSR bundle for production...[36m[39m
 [2K[1G[2K[1G[32m✓[39m 1 modules transformed.
 [2K[1G[2K[1G[2K[1G[2mout/preload/[22m[36mindex.js  [39m[1m[2m6.11 kB[22m[1m[22m[2m │ map: 12.22 kB[22m
-[32m✓ built in 22ms[39m
+[32m✓ built in 24ms[39m
 [36mvite v7.0.8 [32mbuilding for production...[36m[39m
-[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[32m✓[39m 4869 modules transformed.
+[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[32m✓[39m 4869 modules transformed.
 [2K[1G[2K[1G[2K[1G[2m../../out/renderer/[22m[32mindex.html                              [39m[1m[2m    0.32 kB[22m[1m[22m
 [2m../../out/renderer/[22m[2massets/[22m[32minbox-empty-state-DHAdWWN3.svg   [39m[1m[2m    3.91 kB[22m[1m[22m
 [2m../../out/renderer/[22m[2massets/[22m[32mlogo-BQgemeIF.png                [39m[1m[2m   18.13 kB[22m[1m[22m
 [2m../../out/renderer/[22m[2massets/[22m[32msign-in-background-DPb9oMgs.svg  [39m[1m[2m   24.41 kB[22m[1m[22m
 [2m../../out/renderer/[22m[2massets/[22m[35mindex-BjYfSNQd.css               [39m[1m[2m   34.34 kB[22m[1m[22m
 [2m../../out/renderer/[22m[2massets/[22m[36mindex-ClGtf1HP.js                [39m[1m[33m2,312.55 kB[39m[22m[2m │ map: 4,770.90 kB[22m
-[32m✓ built in 7.95s[39m
+[32m✓ built in 7.65s[39m
   [34m•[39m electron-builder  [34mversion[39m=26.15.3 [34mos[39m=6.17.0-1018-azure
   [34m•[39m loaded configuration  [34mfile[39m=/srv/securedrop-client/app/electron-builder.yml
   [34m•[39m detected workspace root for project using packageManager field  [34mpm[39m=pnpm [34mconfig[39m=pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748 [34mresolved[39m=/srv/securedrop-client/app [34mprojectDir[39m=/srv/securedrop-client/app
@@ -3010,13 +3012,13 @@ make[1]: Leaving directory '/srv/securedrop-client'
    debian/rules override_dh_shlibdeps
 make[1]: Entering directory '/srv/securedrop-client'
 dh_shlibdeps -psecuredrop-app -ldebian/securedrop-app/usr/lib/securedrop-app
-[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: debian/securedrop-app/usr/lib/securedrop-app/resources/app.asar.unpacked/node_modules/better-sqlite3/build/Release-electron/better_sqlite3.node contains an unresolvable reference to symbol _ZN2v812api_internal17FromJustIsNothingEv: it's probably a plugin
+[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: can't extract name and version from library name 'libffmpeg.so'
+[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: can't extract name and version from library name 'libffmpeg.so'
+[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: can't extract name and version from library name 'libffmpeg.so'
+[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: debian/securedrop-app/usr/lib/securedrop-app/resources/app.asar.unpacked/node_modules/better-sqlite3/build/Release-electron/better_sqlite3.node contains an unresolvable reference to symbol _ZNK2v87Boolean5ValueEv: it's probably a plugin
 [1mdpkg-shlibdeps: [0m[1;33mwarning[0m: 72 other similar warnings have been skipped (use -v to see them all)
-[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: can't extract name and version from library name 'libffmpeg.so'
-[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: can't extract name and version from library name 'libffmpeg.so'
-[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: can't extract name and version from library name 'libffmpeg.so'
-[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: package could avoid a useless dependency if debian/securedrop-app/usr/lib/securedrop-app/libvk_swiftshader.so debian/securedrop-app/usr/lib/securedrop-app/libEGL.so debian/securedrop-app/usr/lib/securedrop-app/chrome_crashpad_handler debian/securedrop-app/usr/lib/securedrop-app/libffmpeg.so debian/securedrop-app/usr/lib/securedrop-app/libvulkan.so.1 debian/securedrop-app/usr/lib/securedrop-app/libGLESv2.so debian/securedrop-app/usr/lib/securedrop-app/securedrop-app debian/securedrop-app/usr/lib/securedrop-app/chrome-sandbox were not linked against libpthread.so.0 (they use none of the library's symbols)
-[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: package could avoid a useless dependency if debian/securedrop-app/usr/lib/securedrop-app/libvk_swiftshader.so debian/securedrop-app/usr/lib/securedrop-app/libEGL.so debian/securedrop-app/usr/lib/securedrop-app/chrome_crashpad_handler debian/securedrop-app/usr/lib/securedrop-app/libvulkan.so.1 debian/securedrop-app/usr/lib/securedrop-app/libGLESv2.so debian/securedrop-app/usr/lib/securedrop-app/securedrop-app were not linked against libdl.so.2 (they use none of the library's symbols)
+[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: package could avoid a useless dependency if debian/securedrop-app/usr/lib/securedrop-app/securedrop-app debian/securedrop-app/usr/lib/securedrop-app/libvk_swiftshader.so debian/securedrop-app/usr/lib/securedrop-app/chrome_crashpad_handler debian/securedrop-app/usr/lib/securedrop-app/libGLESv2.so debian/securedrop-app/usr/lib/securedrop-app/libvulkan.so.1 debian/securedrop-app/usr/lib/securedrop-app/libEGL.so were not linked against libdl.so.2 (they use none of the library's symbols)
+[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: package could avoid a useless dependency if debian/securedrop-app/usr/lib/securedrop-app/libffmpeg.so debian/securedrop-app/usr/lib/securedrop-app/securedrop-app debian/securedrop-app/usr/lib/securedrop-app/libvk_swiftshader.so debian/securedrop-app/usr/lib/securedrop-app/chrome_crashpad_handler debian/securedrop-app/usr/lib/securedrop-app/libGLESv2.so debian/securedrop-app/usr/lib/securedrop-app/libvulkan.so.1 debian/securedrop-app/usr/lib/securedrop-app/chrome-sandbox debian/securedrop-app/usr/lib/securedrop-app/libEGL.so were not linked against libpthread.so.0 (they use none of the library's symbols)
 dh_shlibdeps --remaining-packages --exclude=securedrop-app
 make[1]: Leaving directory '/srv/securedrop-client'
    debian/rules override_dh_installdeb
@@ -3029,94 +3031,94 @@ make[1]: Leaving directory '/srv/securedrop-client'
    dh_gencontrol
    dh_md5sums
    dh_builddeb
-[1mdpkg-deb:[0m building package 'securedrop-proxy-dbgsym' in '../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-keyring' in '../securedrop-keyring_1.5.0~rc1.dev20260702070910+bookworm_all.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-app' in '../securedrop-app_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-log' in '../securedrop-log_1.5.0~rc1.dev20260702070910+bookworm_all.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-proxy' in '../securedrop-proxy_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-workstation-config' in '../securedrop-workstation-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-workstation-viewer' in '../securedrop-workstation-viewer_1.5.0~rc1.dev20260702070910+bookworm_all.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-export' in '../securedrop-export_1.5.0~rc1.dev20260702070910+bookworm_all.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-gpg-config' in '../securedrop-gpg-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb'.
-[1;35m dpkg-genbuildinfo -O../securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.buildinfo
-[0m[1;35m dpkg-genchanges -O../securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.changes
+[1mdpkg-deb:[0m building package 'securedrop-app' in '../securedrop-app_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-keyring' in '../securedrop-keyring_1.5.0~rc1.dev20260702183300+bookworm_all.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-proxy-dbgsym' in '../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-log' in '../securedrop-log_1.5.0~rc1.dev20260702183300+bookworm_all.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-proxy' in '../securedrop-proxy_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-workstation-config' in '../securedrop-workstation-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-workstation-viewer' in '../securedrop-workstation-viewer_1.5.0~rc1.dev20260702183300+bookworm_all.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-export' in '../securedrop-export_1.5.0~rc1.dev20260702183300+bookworm_all.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-gpg-config' in '../securedrop-gpg-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb'.
+[1;35m dpkg-genbuildinfo -O../securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.buildinfo
+[0m[1;35m dpkg-genchanges -O../securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.changes
 [0m[1mdpkg-genchanges: [0m[32minfo[0m: including full source code in upload
 [1;35m dpkg-source --after-build .
 [0m[1mdpkg-source: [0m[32minfo[0m: using options from securedrop-client/debian/source/options: --compression=gzip --tar-ignore=build --tar-ignore=.* --tar-ignore=__pycache__ --tar-ignore=htmlcov --tar-ignore=target --tar-ignore=node_modules
 [1mdpkg-buildpackage: [0m[32minfo[0m: full upload; Debian-native package (full source is included)
 + ls ../
-securedrop-app_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb
+securedrop-app_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb
 securedrop-client
-securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.dsc
-securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.tar.gz
-securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.buildinfo
-securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.changes
-securedrop-export_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-securedrop-gpg-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-securedrop-keyring_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-securedrop-log_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb
-securedrop-proxy_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb
-securedrop-workstation-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-securedrop-workstation-viewer_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-+ mv -v ../securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.buildinfo ../securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.changes ../securedrop-app_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb ../securedrop-export_1.5.0~rc1.dev20260702070910+bookworm_all.deb ../securedrop-gpg-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb ../securedrop-keyring_1.5.0~rc1.dev20260702070910+bookworm_all.deb ../securedrop-log_1.5.0~rc1.dev20260702070910+bookworm_all.deb ../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb ../securedrop-proxy_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb ../securedrop-workstation-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb ../securedrop-workstation-viewer_1.5.0~rc1.dev20260702070910+bookworm_all.deb ../securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.dsc ../securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.tar.gz /build/
-copied '../securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.buildinfo' -> '/build/securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.buildinfo'
-removed '../securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.buildinfo'
-copied '../securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.changes' -> '/build/securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.changes'
-removed '../securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.changes'
-copied '../securedrop-app_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb' -> '/build/securedrop-app_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb'
-removed '../securedrop-app_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb'
-copied '../securedrop-export_1.5.0~rc1.dev20260702070910+bookworm_all.deb' -> '/build/securedrop-export_1.5.0~rc1.dev20260702070910+bookworm_all.deb'
-removed '../securedrop-export_1.5.0~rc1.dev20260702070910+bookworm_all.deb'
-copied '../securedrop-gpg-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb' -> '/build/securedrop-gpg-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb'
-removed '../securedrop-gpg-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb'
-copied '../securedrop-keyring_1.5.0~rc1.dev20260702070910+bookworm_all.deb' -> '/build/securedrop-keyring_1.5.0~rc1.dev20260702070910+bookworm_all.deb'
-removed '../securedrop-keyring_1.5.0~rc1.dev20260702070910+bookworm_all.deb'
-copied '../securedrop-log_1.5.0~rc1.dev20260702070910+bookworm_all.deb' -> '/build/securedrop-log_1.5.0~rc1.dev20260702070910+bookworm_all.deb'
-removed '../securedrop-log_1.5.0~rc1.dev20260702070910+bookworm_all.deb'
-copied '../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb' -> '/build/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb'
-removed '../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb'
-copied '../securedrop-proxy_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb' -> '/build/securedrop-proxy_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb'
-removed '../securedrop-proxy_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb'
-copied '../securedrop-workstation-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb' -> '/build/securedrop-workstation-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb'
-removed '../securedrop-workstation-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb'
-copied '../securedrop-workstation-viewer_1.5.0~rc1.dev20260702070910+bookworm_all.deb' -> '/build/securedrop-workstation-viewer_1.5.0~rc1.dev20260702070910+bookworm_all.deb'
-removed '../securedrop-workstation-viewer_1.5.0~rc1.dev20260702070910+bookworm_all.deb'
-copied '../securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.dsc' -> '/build/securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.dsc'
-removed '../securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.dsc'
-copied '../securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.tar.gz' -> '/build/securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.tar.gz'
-removed '../securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.tar.gz'
+securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.dsc
+securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.tar.gz
+securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.buildinfo
+securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.changes
+securedrop-export_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+securedrop-gpg-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+securedrop-keyring_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+securedrop-log_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb
+securedrop-proxy_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb
+securedrop-workstation-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+securedrop-workstation-viewer_1.5.0~rc1.dev20260702183300+bookworm_all.deb
++ mv -v ../securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.buildinfo ../securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.changes ../securedrop-app_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb ../securedrop-export_1.5.0~rc1.dev20260702183300+bookworm_all.deb ../securedrop-gpg-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb ../securedrop-keyring_1.5.0~rc1.dev20260702183300+bookworm_all.deb ../securedrop-log_1.5.0~rc1.dev20260702183300+bookworm_all.deb ../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb ../securedrop-proxy_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb ../securedrop-workstation-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb ../securedrop-workstation-viewer_1.5.0~rc1.dev20260702183300+bookworm_all.deb ../securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.dsc ../securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.tar.gz /build/
+copied '../securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.buildinfo' -> '/build/securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.buildinfo'
+removed '../securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.buildinfo'
+copied '../securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.changes' -> '/build/securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.changes'
+removed '../securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.changes'
+copied '../securedrop-app_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb' -> '/build/securedrop-app_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb'
+removed '../securedrop-app_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb'
+copied '../securedrop-export_1.5.0~rc1.dev20260702183300+bookworm_all.deb' -> '/build/securedrop-export_1.5.0~rc1.dev20260702183300+bookworm_all.deb'
+removed '../securedrop-export_1.5.0~rc1.dev20260702183300+bookworm_all.deb'
+copied '../securedrop-gpg-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb' -> '/build/securedrop-gpg-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb'
+removed '../securedrop-gpg-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb'
+copied '../securedrop-keyring_1.5.0~rc1.dev20260702183300+bookworm_all.deb' -> '/build/securedrop-keyring_1.5.0~rc1.dev20260702183300+bookworm_all.deb'
+removed '../securedrop-keyring_1.5.0~rc1.dev20260702183300+bookworm_all.deb'
+copied '../securedrop-log_1.5.0~rc1.dev20260702183300+bookworm_all.deb' -> '/build/securedrop-log_1.5.0~rc1.dev20260702183300+bookworm_all.deb'
+removed '../securedrop-log_1.5.0~rc1.dev20260702183300+bookworm_all.deb'
+copied '../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb' -> '/build/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb'
+removed '../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb'
+copied '../securedrop-proxy_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb' -> '/build/securedrop-proxy_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb'
+removed '../securedrop-proxy_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb'
+copied '../securedrop-workstation-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb' -> '/build/securedrop-workstation-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb'
+removed '../securedrop-workstation-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb'
+copied '../securedrop-workstation-viewer_1.5.0~rc1.dev20260702183300+bookworm_all.deb' -> '/build/securedrop-workstation-viewer_1.5.0~rc1.dev20260702183300+bookworm_all.deb'
+removed '../securedrop-workstation-viewer_1.5.0~rc1.dev20260702183300+bookworm_all.deb'
+copied '../securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.dsc' -> '/build/securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.dsc'
+removed '../securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.dsc'
+copied '../securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.tar.gz' -> '/build/securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.tar.gz'
+removed '../securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.tar.gz'
 + cd /build/
-+ sha256sum ./securedrop-app_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb ./securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.dsc ./securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.tar.gz ./securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.buildinfo ./securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.changes ./securedrop-export_1.5.0~rc1.dev20260702070910+bookworm_all.deb ./securedrop-gpg-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb ./securedrop-keyring_1.5.0~rc1.dev20260702070910+bookworm_all.deb ./securedrop-log_1.5.0~rc1.dev20260702070910+bookworm_all.deb ./securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb ./securedrop-proxy_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb ./securedrop-workstation-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb ./securedrop-workstation-viewer_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-02ab1d6e623e5141ad7785fe5ffb5d5bbd21689e792135cc26ad2feeb4fb8f0e  ./securedrop-app_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb
-40312e3914918cb14680fbe1dada02b421e74a3d9ab74e96b237677e952e4016  ./securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.dsc
-52e1d7b2120118ea88056c81a5b9573b76c656de223cc730bb0cd0cf5d3804dd  ./securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.tar.gz
-2821dc019da82db12c388ed46db5f4aad57253eaeee856512981afc676dac02a  ./securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.buildinfo
-3fe8734c3c2c83335a0e0a5135a3ceb2c62cd8c90bcbad757732a02303722323  ./securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.changes
-9e8d72d2e480d0ea32db7f1f30d7293f944803fb6bf63a471f0961cbe0372f09  ./securedrop-export_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-99ad474db1ef5f97556d2c887233fc55faa8636adb0cbf770d1b78620d78e52b  ./securedrop-gpg-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-ee2565d3fd6dc4ec291ebd0c71e9c46622734cbcb009f44576369a17840a106a  ./securedrop-keyring_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-450aa1262db1f7a49441454b6057c7cce94480fd5a018b18b4155ca89283923d  ./securedrop-log_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-b39f22826f3b332846cb07cc96d93051ea481015bc38aa0482ab2820d0814e79  ./securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb
-5feca722108ff71ef6d58e152ac610d76944e1548fd35a17714f16e1c383e22d  ./securedrop-proxy_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb
-669c40e0146a2fb602b68f225a9594dce78a9928139535ffa552a7a2f282ecff  ./securedrop-workstation-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-aa520f5ee4ad60749bfc2283b7596c973a1b0ef4dd3e874841e42069f79cf505  ./securedrop-workstation-viewer_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-+ ls /tmp/tmp.MIDoe1zswp
-securedrop-app_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb
-securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.dsc
-securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.tar.gz
-securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.buildinfo
-securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.changes
-securedrop-export_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-securedrop-gpg-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-securedrop-keyring_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-securedrop-log_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb
-securedrop-proxy_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb
-securedrop-workstation-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-securedrop-workstation-viewer_1.5.0~rc1.dev20260702070910+bookworm_all.deb
++ sha256sum ./securedrop-app_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb ./securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.dsc ./securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.tar.gz ./securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.buildinfo ./securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.changes ./securedrop-export_1.5.0~rc1.dev20260702183300+bookworm_all.deb ./securedrop-gpg-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb ./securedrop-keyring_1.5.0~rc1.dev20260702183300+bookworm_all.deb ./securedrop-log_1.5.0~rc1.dev20260702183300+bookworm_all.deb ./securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb ./securedrop-proxy_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb ./securedrop-workstation-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb ./securedrop-workstation-viewer_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+6c6f0b2ee79c33960d0d93b588c68f86c2cdc210ca0cb3137b8d654b45fce916  ./securedrop-app_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb
+2aa99bc2602b86a3b436ace5225fe2cedc0c92cf7dd88d5937482e6a866cf91a  ./securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.dsc
+d127b0c9a43e9b0924a7cf55a3625e19692905c0473a2fbabbc32319e337ea99  ./securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.tar.gz
+3afba8ccd669c8827af023a0d74692f22eb8eeafd7e6f6493e966f13eed077ea  ./securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.buildinfo
+6c34412b466e49122b52e60f38b958da32268e8e053f6d398c8dd121d4fd67ad  ./securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.changes
+d0ad3c883fbf9bf53809864caeeaead4603e30a5e4b7d8f322a8f52324d1f7ad  ./securedrop-export_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+2ac20bb48ca57a0c942db4db56a82e91a6d839ddc0e6ccb036c54706ce6a870d  ./securedrop-gpg-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+1a3737e7a22229f3a9fcbdb1824eba1d71ec3102c66a890cf1ad3aad11de57cd  ./securedrop-keyring_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+c052ca0f7157302f49731001505a199f7845fbc5d02d0b1bdb0e99d3532537a6  ./securedrop-log_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+756b77548f95a2279b371b6340199f9315288beda5b86307e650bfe4b4295ab4  ./securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb
+f3f37c1068a828a3f9d05624af8ef961419989ce0ae972fd5722e7f961fc6209  ./securedrop-proxy_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb
+e5e6c159714444f23a265f74cb70cd9a4f34e8ea32a7d6a500d62d4b26eefa5a  ./securedrop-workstation-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+be19efa01301b6e9ded0d712f0e86a566fed14a898a28f16bb6e406270d8f923  ./securedrop-workstation-viewer_1.5.0~rc1.dev20260702183300+bookworm_all.deb
++ ls /tmp/tmp.OuoYCGVzuP
+securedrop-app_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb
+securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.dsc
+securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.tar.gz
+securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.buildinfo
+securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.changes
+securedrop-export_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+securedrop-gpg-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+securedrop-keyring_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+securedrop-log_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb
+securedrop-proxy_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb
+securedrop-workstation-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+securedrop-workstation-viewer_1.5.0~rc1.dev20260702183300+bookworm_all.deb
 + mkdir -p build
-+ cp /tmp/tmp.MIDoe1zswp/securedrop-app_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb /tmp/tmp.MIDoe1zswp/securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.dsc /tmp/tmp.MIDoe1zswp/securedrop-client_1.5.0~rc1.dev20260702070910+bookworm.tar.gz /tmp/tmp.MIDoe1zswp/securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.buildinfo /tmp/tmp.MIDoe1zswp/securedrop-client_1.5.0~rc1.dev20260702070910+bookworm_amd64.changes /tmp/tmp.MIDoe1zswp/securedrop-export_1.5.0~rc1.dev20260702070910+bookworm_all.deb /tmp/tmp.MIDoe1zswp/securedrop-gpg-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb /tmp/tmp.MIDoe1zswp/securedrop-keyring_1.5.0~rc1.dev20260702070910+bookworm_all.deb /tmp/tmp.MIDoe1zswp/securedrop-log_1.5.0~rc1.dev20260702070910+bookworm_all.deb /tmp/tmp.MIDoe1zswp/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb /tmp/tmp.MIDoe1zswp/securedrop-proxy_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb /tmp/tmp.MIDoe1zswp/securedrop-workstation-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb /tmp/tmp.MIDoe1zswp/securedrop-workstation-viewer_1.5.0~rc1.dev20260702070910+bookworm_all.deb build/
++ cp /tmp/tmp.OuoYCGVzuP/securedrop-app_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb /tmp/tmp.OuoYCGVzuP/securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.dsc /tmp/tmp.OuoYCGVzuP/securedrop-client_1.5.0~rc1.dev20260702183300+bookworm.tar.gz /tmp/tmp.OuoYCGVzuP/securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.buildinfo /tmp/tmp.OuoYCGVzuP/securedrop-client_1.5.0~rc1.dev20260702183300+bookworm_amd64.changes /tmp/tmp.OuoYCGVzuP/securedrop-export_1.5.0~rc1.dev20260702183300+bookworm_all.deb /tmp/tmp.OuoYCGVzuP/securedrop-gpg-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb /tmp/tmp.OuoYCGVzuP/securedrop-keyring_1.5.0~rc1.dev20260702183300+bookworm_all.deb /tmp/tmp.OuoYCGVzuP/securedrop-log_1.5.0~rc1.dev20260702183300+bookworm_all.deb /tmp/tmp.OuoYCGVzuP/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb /tmp/tmp.OuoYCGVzuP/securedrop-proxy_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb /tmp/tmp.OuoYCGVzuP/securedrop-workstation-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb /tmp/tmp.OuoYCGVzuP/securedrop-workstation-viewer_1.5.0~rc1.dev20260702183300+bookworm_all.deb build/
 + [[ -z '' ]]
 + CONTAINER2=fpf.local/sd-client-lintian-bookworm
 + podman build scripts/lintian -t fpf.local/sd-client-lintian-bookworm --build-arg DISTRO=bookworm
@@ -3128,7 +3130,7 @@ Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB
 Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8790 kB]
 Get:5 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [6924 B]
 Get:6 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [314 kB]
-Fetched 9365 kB in 1s (8343 kB/s)
+Fetched 9365 kB in 1s (10.2 MB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -3588,7 +3590,7 @@ Get:292 http://deb.debian.org/debian bookworm/main amd64 lintian all 2.116.3+deb
 Get:293 http://deb.debian.org/debian bookworm/main amd64 manpages-dev all 6.03-2 [2030 kB]
 Get:294 http://deb.debian.org/debian bookworm/main amd64 publicsuffix all 20230209.2326-1 [126 kB]
 debconf: delaying package configuration, since apt-utils is not installed
-Fetched 131 MB in 1s (118 MB/s)
+Fetched 131 MB in 1s (204 MB/s)
 Selecting previously unselected package perl-modules-5.36.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6096 files and directories currently installed.)
 Preparing to unpack .../000-perl-modules-5.36_5.36.0-7+deb12u3_all.deb ...
@@ -4836,25 +4838,25 @@ Updating certificates in /etc/ssl/certs...
 Running hooks in /etc/ca-certificates/update.d...
 done.
 COMMIT fpf.local/sd-client-lintian-bookworm
---> e2c6b9f21fee
+--> 046f8f5a8beb
 Successfully tagged fpf.local/sd-client-lintian-bookworm:latest
-e2c6b9f21fee8ff37999bfcd6d1f779551413761bfe61ba8a0e31b042e1e420f
-+ podman run --rm --user=root -v /home/runner/work/securedrop-client/securedrop-client:/src:Z --userns=keep-id -it -v /tmp/tmp.MIDoe1zswp:/build:Z fpf.local/sd-client-lintian-bookworm bash -c 'lintian --version && lintian             --info --tag-display-limit 0             --fail-on warning --fail-on error             /build/*.changes             && echo OK'
+046f8f5a8beb4597aa7cee038ffe8dcfcd55118677925638410569d8d25489ae
++ podman run --rm --user=root -v /home/runner/work/securedrop-client/securedrop-client:/src:Z --userns=keep-id -it -v /tmp/tmp.OuoYCGVzuP:/build:Z fpf.local/sd-client-lintian-bookworm bash -c 'lintian --version && lintian             --info --tag-display-limit 0             --fail-on warning --fail-on error             /build/*.changes             && echo OK'
 Lintian v2.116.3+deb12u1
 running with root privileges is not recommended!
 OK
-+ rm -rf /tmp/tmp.MIDoe1zswp
++ rm -rf /tmp/tmp.OuoYCGVzuP
 + echo 'Build completed successfully. Artifacts and their checksums are:'
 Build completed successfully. Artifacts and their checksums are:
-+ sha256sum build/securedrop-app_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb build/securedrop-export_1.5.0~rc1.dev20260702070910+bookworm_all.deb build/securedrop-gpg-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb build/securedrop-keyring_1.5.0~rc1.dev20260702070910+bookworm_all.deb build/securedrop-log_1.5.0~rc1.dev20260702070910+bookworm_all.deb build/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb build/securedrop-proxy_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb build/securedrop-workstation-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb build/securedrop-workstation-viewer_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-02ab1d6e623e5141ad7785fe5ffb5d5bbd21689e792135cc26ad2feeb4fb8f0e  build/securedrop-app_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb
-9e8d72d2e480d0ea32db7f1f30d7293f944803fb6bf63a471f0961cbe0372f09  build/securedrop-export_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-99ad474db1ef5f97556d2c887233fc55faa8636adb0cbf770d1b78620d78e52b  build/securedrop-gpg-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-ee2565d3fd6dc4ec291ebd0c71e9c46622734cbcb009f44576369a17840a106a  build/securedrop-keyring_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-450aa1262db1f7a49441454b6057c7cce94480fd5a018b18b4155ca89283923d  build/securedrop-log_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-b39f22826f3b332846cb07cc96d93051ea481015bc38aa0482ab2820d0814e79  build/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb
-5feca722108ff71ef6d58e152ac610d76944e1548fd35a17714f16e1c383e22d  build/securedrop-proxy_1.5.0~rc1.dev20260702070910+bookworm_amd64.deb
-669c40e0146a2fb602b68f225a9594dce78a9928139535ffa552a7a2f282ecff  build/securedrop-workstation-config_1.5.0~rc1.dev20260702070910+bookworm_all.deb
-aa520f5ee4ad60749bfc2283b7596c973a1b0ef4dd3e874841e42069f79cf505  build/securedrop-workstation-viewer_1.5.0~rc1.dev20260702070910+bookworm_all.deb
++ sha256sum build/securedrop-app_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb build/securedrop-export_1.5.0~rc1.dev20260702183300+bookworm_all.deb build/securedrop-gpg-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb build/securedrop-keyring_1.5.0~rc1.dev20260702183300+bookworm_all.deb build/securedrop-log_1.5.0~rc1.dev20260702183300+bookworm_all.deb build/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb build/securedrop-proxy_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb build/securedrop-workstation-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb build/securedrop-workstation-viewer_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+6c6f0b2ee79c33960d0d93b588c68f86c2cdc210ca0cb3137b8d654b45fce916  build/securedrop-app_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb
+d0ad3c883fbf9bf53809864caeeaead4603e30a5e4b7d8f322a8f52324d1f7ad  build/securedrop-export_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+2ac20bb48ca57a0c942db4db56a82e91a6d839ddc0e6ccb036c54706ce6a870d  build/securedrop-gpg-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+1a3737e7a22229f3a9fcbdb1824eba1d71ec3102c66a890cf1ad3aad11de57cd  build/securedrop-keyring_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+c052ca0f7157302f49731001505a199f7845fbc5d02d0b1bdb0e99d3532537a6  build/securedrop-log_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+756b77548f95a2279b371b6340199f9315288beda5b86307e650bfe4b4295ab4  build/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb
+f3f37c1068a828a3f9d05624af8ef961419989ce0ae972fd5722e7f961fc6209  build/securedrop-proxy_1.5.0~rc1.dev20260702183300+bookworm_amd64.deb
+e5e6c159714444f23a265f74cb70cd9a4f34e8ea32a7d6a500d62d4b26eefa5a  build/securedrop-workstation-config_1.5.0~rc1.dev20260702183300+bookworm_all.deb
+be19efa01301b6e9ded0d712f0e86a566fed14a898a28f16bb6e406270d8f923  build/securedrop-workstation-viewer_1.5.0~rc1.dev20260702183300+bookworm_all.deb
 
-Script done on 2026-07-02 07:13:32+00:00 [COMMAND_EXIT_CODE="0"]
+Script done on 2026-07-02 18:37:05+00:00 [COMMAND_EXIT_CODE="0"]
