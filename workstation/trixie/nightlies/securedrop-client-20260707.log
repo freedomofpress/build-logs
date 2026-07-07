@@ -1,12 +1,12 @@
-Script started on 2026-07-07 07:11:18+00:00 [COMMAND="scripts/build-debs.sh" <not executed on terminal>]
+Script started on 2026-07-07 15:02:11+00:00 [COMMAND="scripts/build-debs.sh" <not executed on terminal>]
 + ./scripts/print-and-verify-git-tag.py
 $ git log -1 --oneline --show-signature
-0af553b (grafted, HEAD -> main, origin/main) gpg: directory '/home/runner/.gnupg' created
+4e660c6 (grafted, HEAD -> main, origin/main) gpg: directory '/home/runner/.gnupg' created
 gpg: keybox '/home/runner/.gnupg/pubring.kbx' created
-gpg: Signature made Mon Jul  6 14:53:23 2026 UTC
+gpg: Signature made Tue Jul  7 14:55:29 2026 UTC
 gpg:                using RSA key B5690EEEBB952194
 gpg: Can't check signature: No public key
-Merge pull request #3548 from freedomofpress/dependabot/github_actions/actions/checkout-7
+Merge pull request #3553 from freedomofpress/state-machine-queues
 $ git status --short
 ?? securedrop-builder/
 ++ pwd
@@ -41,15 +41,15 @@ Trying to pull docker.io/library/debian:trixie...
 Getting image source signatures
 Writing manifest to image destination
 STEP 2/17: ARG DISTRO
---> 832e8a4f3656
+--> 27b18b320e20
 STEP 3/17: ENV PIP_DISABLE_PIP_VERSION_CHECK=1
---> 2332719c62ab
+--> c964d2ef85f9
 STEP 4/17: ENV PIP_PROGRESS_BAR=off
---> ebde0e047b1b
+--> 9e82f7fdd971
 STEP 5/17: ENV CARGO_TERM_COLOR=never
---> 39209e276ad1
+--> 1e48a434c453
 STEP 6/17: ENV CARGO_TERM_PROGRESS_WHEN=never
---> 10e3907a7349
+--> fb867e4a037c
 STEP 7/17: RUN apt-get update && apt-get --yes upgrade && apt-get install --yes build-essential curl rsync
 Get:1 http://deb.debian.org/debian trixie InRelease [140 kB]
 Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
@@ -57,7 +57,7 @@ Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
 Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9671 kB]
 Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [5412 B]
 Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [224 kB]
-Fetched 10.1 MB in 1s (14.1 MB/s)
+Fetched 10.1 MB in 1s (10.3 MB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -225,7 +225,7 @@ debconf: unable to initialize frontend: Teletype
 debconf: (This frontend requires a controlling tty.)
 debconf: falling back to frontend: Noninteractive
 Preconfiguring packages ...
-Fetched 99.8 MB in 0s (275 MB/s)
+Fetched 99.8 MB in 1s (103 MB/s)
 Selecting previously unselected package liblocale-gettext-perl.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4936 files and directories currently installed.)
 Preparing to unpack .../00-liblocale-gettext-perl_1.07-7+b1_amd64.deb ...
@@ -633,23 +633,23 @@ Updating certificates in /etc/ssl/certs...
 0 added, 0 removed; done.
 Running hooks in /etc/ca-certificates/update.d...
 done.
---> 7dd7617d770f
+--> b478a2bcab50
 STEP 8/17: COPY qubes_43.sources /etc/apt/sources.list.d/
---> 3a15c2bf21dd
+--> 4ad3552e0dd4
 STEP 9/17: RUN sed -i s/##VERSION_CODENAME##/${DISTRO}/ /etc/apt/sources.list.d/qubes_43.sources
---> 819faf6f6cae
+--> 23efc4ec41a2
 STEP 10/17: COPY nodesource-node24.sources /etc/apt/sources.list.d/
---> 739f0cd79fb1
+--> 433cf9fba22c
 STEP 11/17: ENV RUST_VERSION 1.90.0
---> 95c8c5443772
+--> 5e94bb94d0a0
 STEP 12/17: ENV RUSTUP_VERSION 1.28.2
---> 6794be2c3b74
+--> 693c5cf80f5b
 STEP 13/17: ENV RUSTUP_INIT_SHA256 20a06e644b0d9bd2fbdbfd52d42540bdde820ea7df86e92e533c073da0cdd43c
---> 2b857a92f843
+--> 77fb828a7144
 STEP 14/17: ENV RUSTUP_HOME /opt/rustup
---> 0db383d1106e
+--> 26b7e0fb46b5
 STEP 15/17: ENV CARGO_HOME /opt/cargo
---> b493fdff8e29
+--> ef3597ae1ce4
 STEP 16/17: RUN TMPDIR=`mktemp -d` && cd ${TMPDIR}         && curl --proto '=https' --tlsv1.2 -OO -sSf https://static.rust-lang.org/rustup/archive/${RUSTUP_VERSION}/x86_64-unknown-linux-gnu/rustup-init         && echo "${RUSTUP_INIT_SHA256} *rustup-init" | sha256sum -c -         && chmod +x rustup-init         && ./rustup-init --default-toolchain=${RUST_VERSION} --profile minimal -y         && cd && rm -rf ${TMPDIR}
 rustup-init: OK
 info: profile set to 'minimal'
@@ -680,32 +680,32 @@ This is usually done by running one of the following (note the leading DOT):
 . "/opt/cargo/env"            # For sh/bash/zsh/ash/dash/pdksh
 source "/opt/cargo/env.fish"  # For fish
 source $"/opt/cargo/env.nu"  # For nushell
---> 57a45d176ddf
+--> 6f0bb6810cdb
 STEP 17/17: ENV PATH "$PATH:/opt/cargo/bin/"
 COMMIT fpf.local/sd-client-builder-trixie
---> 3a69f998ee11
+--> 13c7c5438245
 Successfully tagged fpf.local/sd-client-builder-trixie:latest
-3a69f998ee11c1852ae867158a65a1674fcf126a0e145ea1ecfaba38614b2058
+13c7c5438245d5f1eec754355d69bc273d40bb4ee9176d11fd478e3e18024d02
 ++ status=0
 ++ podman run --rm --user=root -v /home/runner/work/securedrop-client/securedrop-client:/src:Z --userns=keep-id -it --entrypoint /src/scripts/dep-check.sh fpf.local/sd-client-builder-trixie
 ^@0% [Working]            Hit:1 http://deb.debian.org/debian trixie InRelease
-0% [Connecting to deb.nodesource.com]                                     Hit:2 http://deb.debian.org/debian trixie-updates InRelease
-                                     Hit:3 http://deb.debian.org/debian-security trixie-security InRelease
-0% [Connected to deb.nodesource.com (172.66.150.169)] [Connecting to deb.qubes-0% [Connected to deb.nodesource.com (172.66.150.169)] [Connecting to deb.qubes-                                                                               0% [Waiting for headers] [Connecting to deb.qubes-os.org (193.219.28.150)]                                                                          Get:4 https://deb.nodesource.com/node_24.x nodistro InRelease [12.1 kB]
+0% [Connected to deb.nodesource.com (172.66.150.169)] [Connecting to deb.qubes-                                                                               Hit:2 http://deb.debian.org/debian trixie-updates InRelease
+0% [Waiting for headers] [Connected to deb.nodesource.com (172.66.150.169)] [Co                                                                               Hit:3 http://deb.debian.org/debian-security trixie-security InRelease
+0% [Connected to deb.nodesource.com (172.66.150.169)] [Connecting to deb.qubes-                                                                               0% [Waiting for headers] [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Waiting for headers] [Connecting to deb.qubes-os.org (193.219.28.150)]                                                                          Get:4 https://deb.nodesource.com/node_24.x nodistro InRelease [12.1 kB]
 0% [4 InRelease 12.1 kB/12.1 kB 100%] [Connecting to deb.qubes-os.org (193.219.                                                                               0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connecting to deb.qubes-os.org (193.219.28.150)]                                                    Get:5 https://deb.nodesource.com/node_24.x nodistro/main amd64 Packages [7732 B]
-0% [5 Packages 712 B/7732 B 9%] [Connecting to deb.qubes-os.org (193.219.28.150                                                                               0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [5 Packages store 0 B] [Connecting to deb.qubes-os.org (193.219.28.150)]                                                                           0% [Connecting to deb.qubes-os.org (193.219.28.150)]                                                    Get:6 https://deb.qubes-os.org/r4.3/vm trixie InRelease [4735 B]
+0% [5 Packages 4819 B/7732 B 62%] [Connecting to deb.qubes-os.org (193.219.28.1                                                                               0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [5 Packages store 0 B] [Connecting to deb.qubes-os.org (193.219.28.150)]                                                                           0% [Connecting to deb.qubes-os.org (193.219.28.150)]                                                    Get:6 https://deb.qubes-os.org/r4.3/vm trixie InRelease [4735 B]
                                                     0% [6 InRelease 4735 B/4735 B 100%]                                   0% [Working]48% [Working]             Get:7 https://deb.qubes-os.org/r4.3/vm trixie/main amd64 Packages [42.0 kB]
-68% [7 Packages 16.1 kB/42.0 kB 38%]                                    99% [Working]99% [7 Packages store 0 B]                          100% [Working]              Fetched 66.6 kB in 1s (112 kB/s)
+68% [7 Packages 16.1 kB/42.0 kB 38%]                                    99% [Working]99% [7 Packages store 0 B]                          100% [Working]              Fetched 66.6 kB in 1s (101 kB/s)
 Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
 ++ [[ 0 == 42 ]]
 ++ [[ 0 != 0 ]]
 ++ mktemp -d
-+ BUILD_DEST=/tmp/tmp.4DOHESDoYA
++ BUILD_DEST=/tmp/tmp.5mkJkUjCbx
 + WHAT=main
 + FAST=
 + FAST_CACHE_ARGUMENTS=
 + [[ -n '' ]]
-+ podman run --rm --user=root -v /home/runner/work/securedrop-client/securedrop-client:/src:Z --userns=keep-id -it -v /home/runner/work/securedrop-client/securedrop-client/securedrop-builder:/builder:Z -v /tmp/tmp.4DOHESDoYA:/build:Z --env NIGHTLY=1 --env FAST= --env WHAT=main --entrypoint /src/scripts/build-debs-main.sh fpf.local/sd-client-builder-trixie
++ podman run --rm --user=root -v /home/runner/work/securedrop-client/securedrop-client:/src:Z --userns=keep-id -it -v /home/runner/work/securedrop-client/securedrop-client/securedrop-builder:/builder:Z -v /tmp/tmp.5mkJkUjCbx:/build:Z --env NIGHTLY=1 --env FAST= --env WHAT=main --entrypoint /src/scripts/build-debs-main.sh fpf.local/sd-client-builder-trixie
 + export PIP_DISABLE_PIP_VERSION_CHECK=1
 + PIP_DISABLE_PIP_VERSION_CHECK=1
 + export PIP_PROGRESS_BAR=off
@@ -716,17 +716,17 @@ Successfully tagged fpf.local/sd-client-builder-trixie:latest
 + CARGO_TERM_PROGRESS_WHEN=never
 + apt-get update
 0% [Working]            Hit:1 http://deb.debian.org/debian trixie InRelease
-0% [Connecting to deb.nodesource.com (104.20.45.190)]                                                     Hit:2 http://deb.debian.org/debian trixie-updates InRelease
-                                                     Hit:3 http://deb.debian.org/debian-security trixie-security InRelease
-0% [Connected to deb.nodesource.com (104.20.45.190)] [Connecting to deb.qubes-o                                                                               0% [Waiting for headers] [Connecting to deb.qubes-os.org (193.219.28.150)]                                                                          Get:4 https://deb.nodesource.com/node_24.x nodistro InRelease [12.1 kB]
-0% [4 InRelease 12.1 kB/12.1 kB 100%] [Connecting to deb.qubes-os.org (193.219.                                                                               0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connecting to deb.qubes-os.org (193.219.28.150)]                                                    Get:5 https://deb.nodesource.com/node_24.x nodistro/main amd64 Packages [7732 B]
-0% [5 Packages 712 B/7732 B 9%] [Connecting to deb.qubes-os.org (193.219.28.150                                                                               0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [5 Packages store 0 B] [Connecting to deb.qubes-os.org (193.219.28.150)]                                                                           0% [Connecting to deb.qubes-os.org (193.219.28.150)]                                                    Get:6 https://deb.qubes-os.org/r4.3/vm trixie InRelease [4735 B]
+0% [Connected to deb.nodesource.com (104.20.45.190)]                                                    Hit:2 http://deb.debian.org/debian trixie-updates InRelease
+                                                    Hit:3 http://deb.debian.org/debian-security trixie-security InRelease
+0% [Connected to deb.nodesource.com (104.20.45.190)] [Connecting to deb.qubes-o                                                                               0% [Waiting for headers] [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Waiting for headers] [Connecting to deb.qubes-os.org (193.219.28.150)]                                                                          Get:4 https://deb.nodesource.com/node_24.x nodistro InRelease [12.1 kB]
+0% [4 InRelease 11.8 kB/12.1 kB 97%] [Connecting to deb.qubes-os.org (193.219.2                                                                               0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [Connecting to deb.qubes-os.org (193.219.28.150)]                                                    Get:5 https://deb.nodesource.com/node_24.x nodistro/main amd64 Packages [7732 B]
+0% [5 Packages 2081 B/7732 B 27%] [Connecting to deb.qubes-os.org (193.219.28.1                                                                               0% [Connecting to deb.qubes-os.org (193.219.28.150)]0% [5 Packages store 0 B] [Connecting to deb.qubes-os.org (193.219.28.150)]                                                                           0% [Connecting to deb.qubes-os.org (193.219.28.150)]                                                    Get:6 https://deb.qubes-os.org/r4.3/vm trixie InRelease [4735 B]
                                                     0% [6 InRelease 4735 B/4735 B 100%]                                   0% [Working]48% [Working]             Get:7 https://deb.qubes-os.org/r4.3/vm trixie/main amd64 Packages [42.0 kB]
-63% [7 Packages 12.3 kB/42.0 kB 29%]                                    99% [Working]99% [7 Packages store 0 B]                          100% [Working]              Fetched 66.6 kB in 1s (113 kB/s)
+68% [7 Packages 16.1 kB/42.0 kB 38%]                                    99% [Working]99% [7 Packages store 0 B]                          100% [Working]              Fetched 66.6 kB in 1s (103 kB/s)
 Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
 + apt-get upgrade --yes
 Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
-Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... 76%Building dependency tree... Done
 Reading state information... 0% Reading state information... 0%Reading state information... Done
 Calculating upgrade... 0%Calculating upgrade... 50%Calculating upgrade... Done
 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
@@ -1387,14 +1387,14 @@ workstation-config/open-in-dvm.desktop
 workstation-config/paxctld.conf
 workstation-config/securedrop-mime-handling.py
 
-sent 33,874,265 bytes  received 11,141 bytes  67,770,812.00 bytes/sec
-total size is 33,822,706  speedup is 1.00
+sent 33,874,381 bytes  received 11,161 bytes  67,771,084.00 bytes/sec
+total size is 33,822,822  speedup is 1.00
 + cd /srv/securedrop-client
 + cat
 + apt-get build-dep . --yes
 Note, using directory '.' to get the build dependencies
 Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
-Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... 81%Building dependency tree... Done
 Reading state information... 0% Reading state information... 0%Reading state information... Done
 The following NEW packages will be installed:
   adwaita-icon-theme at-spi2-common autoconf automake autopoint autotools-dev
@@ -1438,186 +1438,186 @@ The following NEW packages will be installed:
 Need to get 176 MB of archives.
 After this operation, 1028 MB of additional disk space will be used.
 0% [Working]            Get:1 http://deb.debian.org/debian trixie/main amd64 libsystemd-shared amd64 257.13-1~deb13u1 [2155 kB]
-0% [1 libsystemd-shared 0 B/2155 kB 0%] [Connected to deb.nodesource.com (104.21% [Connected to deb.nodesource.com (104.20.45.190)] [Connecting to deb.qubes-o                                                                               Get:2 http://deb.debian.org/debian trixie/main amd64 libapparmor1 amd64 4.1.0-1 [43.7 kB]
-1% [2 libapparmor1 16.4 kB/43.7 kB 38%] [Connected to deb.nodesource.com (104.21% [Waiting for headers] [Connected to deb.nodesource.com (104.20.45.190)] [Con                                                                               Get:3 http://deb.debian.org/debian trixie/main amd64 systemd amd64 257.13-1~deb13u1 [3094 kB]
-1% [3 systemd 27.5 kB/3094 kB 1%] [Connected to deb.nodesource.com (104.20.45.13% [Waiting for headers] [Waiting for headers] [Connecting to deb.qubes-os.org                                                                                Get:4 http://deb.debian.org/debian trixie/main amd64 systemd-sysv amd64 257.13-1~deb13u1 [64.9 kB]
-3% [4 systemd-sysv 64.9 kB/64.9 kB 100%] [Waiting for headers] [Connecting to d                                                                               3% [Waiting for headers] [Connecting to deb.qubes-os.org (193.219.28.150)]                                                                          Get:5 http://deb.debian.org/debian trixie/main amd64 libdbus-1-3 amd64 1.16.2-2 [178 kB]
-3% [5 libdbus-1-3 8192 B/178 kB 5%] [Waiting for headers] [Connecting to deb.qu3% [Waiting for headers] [Waiting for headers] [Connecting to deb.qubes-os.org                                                                                Get:6 http://deb.debian.org/debian trixie/main amd64 dbus-bin amd64 1.16.2-2 [80.0 kB]
-3% [6 dbus-bin 19.6 kB/80.0 kB 25%] [Waiting for headers] [Connecting to deb.qu                                                                               3% [Waiting for headers] [Connecting to deb.qubes-os.org (193.219.28.150)]                                                                          Get:7 http://deb.debian.org/debian trixie/main amd64 dbus-session-bus-common all 1.16.2-2 [52.3 kB]
-3% [7 dbus-session-bus-common 4493 B/52.3 kB 9%] [Waiting for headers] [Connect3% [Waiting for headers] [Waiting for headers] [Connecting to deb.qubes-os.org                                                                                Get:8 http://deb.debian.org/debian trixie/main amd64 libexpat1 amd64 2.7.1-2 [108 kB]
-3% [8 libexpat1 20.5 kB/108 kB 19%] [Waiting for headers] [Connecting to deb.qu4% [Waiting for headers] [Waiting for headers] [Connecting to deb.qubes-os.org                                                                                Get:9 http://deb.debian.org/debian trixie/main amd64 dbus-daemon amd64 1.16.2-2 [159 kB]
-4% [9 dbus-daemon 28.0 kB/159 kB 18%] [Waiting for headers] [Connecting to deb.4% [Waiting for headers] [Waiting for headers] [Connecting to deb.qubes-os.org                                                                                Get:10 http://deb.debian.org/debian trixie/main amd64 dbus-system-bus-common all 1.16.2-2 [53.5 kB]
-4% [10 dbus-system-bus-common 32.5 kB/53.5 kB 61%] [Waiting for headers] [Conne4% [Waiting for headers] [Waiting for headers] [Connecting to deb.qubes-os.org                                                                                Get:11 http://deb.debian.org/debian trixie/main amd64 dbus amd64 1.16.2-2 [71.6 kB]
-4% [11 dbus 65.5 kB/71.6 kB 91%] [Waiting for headers] [Connecting to deb.qubes                                                                               4% [Waiting for headers] [Connecting to deb.qubes-os.org (193.219.28.150)]                                                                          Get:12 http://deb.debian.org/debian trixie/main amd64 libpython3.13-minimal amd64 3.13.5-2+deb13u2 [862 kB]
-4% [12 libpython3.13-minimal 26.7 kB/862 kB 3%] [Waiting for headers] [Connecti4% [Waiting for headers] [Waiting for headers] [Connecting to deb.qubes-os.org                                                                                Get:13 http://deb.debian.org/debian trixie/main amd64 python3.13-minimal amd64 3.13.5-2+deb13u2 [2217 kB]
-5% [13 python3.13-minimal 58.4 kB/2217 kB 3%] [Waiting for headers] [Connecting                                                                               Get:14 https://deb.nodesource.com/node_24.x nodistro/main amd64 nodejs amd64 24.15.0-1nodesource1 [38.3 MB]
-5% [13 python3.13-minimal 648 kB/2217 kB 29%] [14 nodejs 658 B/38.3 MB 0%] [Con6% [Waiting for headers] [14 nodejs 256 kB/38.3 MB 1%] [Connecting to deb.qubes                                                                               Get:15 http://deb.debian.org/debian trixie/main amd64 python3-minimal amd64 3.13.5-1 [27.2 kB]
-6% [15 python3-minimal 27.2 kB/27.2 kB 100%] [14 nodejs 256 kB/38.3 MB 1%] [Con6% [14 nodejs 256 kB/38.3 MB 1%] [Connecting to deb.qubes-os.org (193.219.28.15                                                                               Get:16 http://deb.debian.org/debian trixie/main amd64 media-types all 13.0.0 [29.3 kB]
-6% [16 media-types 29.3 kB/29.3 kB 100%] [14 nodejs 256 kB/38.3 MB 1%] [Connect6% [14 nodejs 256 kB/38.3 MB 1%] [Connecting to deb.qubes-os.org (193.219.28.15                                                                               Get:17 http://deb.debian.org/debian trixie/main amd64 libncursesw6 amd64 6.5+20250216-2 [135 kB]
-                                                                               Get:18 http://deb.debian.org/debian trixie/main amd64 readline-common all 8.2-6 [69.4 kB]
+0% [1 libsystemd-shared 16.4 kB/2155 kB 1%] [Waiting for headers] [Connecting t                                                                               Get:2 https://deb.nodesource.com/node_24.x nodistro/main amd64 nodejs amd64 24.15.0-1nodesource1 [38.3 MB]
+0% [1 libsystemd-shared 323 kB/2155 kB 15%] [2 nodejs 22.6 kB/38.3 MB 0%] [Conn1% [2 nodejs 835 kB/38.3 MB 2%] [Connecting to deb.qubes-os.org (193.219.28.150                                                                               Get:3 http://deb.debian.org/debian trixie/main amd64 libapparmor1 amd64 4.1.0-1 [43.7 kB]
+2% [3 libapparmor1 8192 B/43.7 kB 19%] [2 nodejs 1310 kB/38.3 MB 3%] [Connectin2% [Waiting for headers] [2 nodejs 1403 kB/38.3 MB 4%] [Connecting to deb.qubes                                                                               Get:4 http://deb.debian.org/debian trixie/main amd64 systemd amd64 257.13-1~deb13u1 [3094 kB]
+2% [4 systemd 27.5 kB/3094 kB 1%] [2 nodejs 1507 kB/38.3 MB 4%] [Connecting to 4% [Waiting for headers] [2 nodejs 3354 kB/38.3 MB 9%] [Connecting to deb.qubes                                                                               Get:5 http://deb.debian.org/debian trixie/main amd64 systemd-sysv amd64 257.13-1~deb13u1 [64.9 kB]
+4% [Waiting for headers] [2 nodejs 3473 kB/38.3 MB 9%] [Connecting to deb.qubes                                                                               Get:6 http://deb.debian.org/debian trixie/main amd64 libdbus-1-3 amd64 1.16.2-2 [178 kB]
+5% [6 libdbus-1-3 144 kB/178 kB 81%] [2 nodejs 3473 kB/38.3 MB 9%] [Connecting 5% [2 nodejs 3669 kB/38.3 MB 10%] [Connecting to deb.qubes-os.org (193.219.28.1                                                                               Get:7 http://deb.debian.org/debian trixie/main amd64 dbus-bin amd64 1.16.2-2 [80.0 kB]
+5% [7 dbus-bin 80.0 kB/80.0 kB 100%] [2 nodejs 3669 kB/38.3 MB 10%] [Connecting                                                                               Get:8 http://deb.debian.org/debian trixie/main amd64 dbus-session-bus-common all 1.16.2-2 [52.3 kB]
+                                                                               Get:9 http://deb.debian.org/debian trixie/main amd64 libexpat1 amd64 2.7.1-2 [108 kB]
+                                                                               Get:10 http://deb.debian.org/debian trixie/main amd64 dbus-daemon amd64 1.16.2-2 [159 kB]
+5% [10 dbus-daemon 50.7 kB/159 kB 32%] [2 nodejs 3944 kB/38.3 MB 10%] [Connecti6% [2 nodejs 4128 kB/38.3 MB 11%] [Connecting to deb.qubes-os.org (193.219.28.1                                                                               Get:11 http://deb.debian.org/debian trixie/main amd64 dbus-system-bus-common all 1.16.2-2 [53.5 kB]
+6% [11 dbus-system-bus-common 53.5 kB/53.5 kB 100%] [2 nodejs 4141 kB/38.3 MB 16% [Waiting for headers] [2 nodejs 4206 kB/38.3 MB 11%] [Connecting to deb.qube                                                                               Get:12 http://deb.debian.org/debian trixie/main amd64 dbus amd64 1.16.2-2 [71.6 kB]
+6% [12 dbus 39.3 kB/71.6 kB 55%] [2 nodejs 4206 kB/38.3 MB 11%] [Connecting to 6% [Waiting for headers] [2 nodejs 4259 kB/38.3 MB 11%] [Connecting to deb.qube                                                                               Get:13 http://deb.debian.org/debian trixie/main amd64 libpython3.13-minimal amd64 3.13.5-2+deb13u2 [862 kB]
+6% [13 libpython3.13-minimal 97.9 kB/862 kB 11%] [2 nodejs 4276 kB/38.3 MB 11%]7% [Waiting for headers] [2 nodejs 4997 kB/38.3 MB 13%] [Connecting to deb.qube                                                                               Get:14 http://deb.debian.org/debian trixie/main amd64 python3.13-minimal amd64 3.13.5-2+deb13u2 [2217 kB]
+7% [14 python3.13-minimal 81.0 kB/2217 kB 4%] [2 nodejs 5046 kB/38.3 MB 13%] [C9% [2 nodejs 6487 kB/38.3 MB 17%] [Connecting to deb.qubes-os.org (193.219.28.1                                                                               Get:15 http://deb.debian.org/debian trixie/main amd64 python3-minimal amd64 3.13.5-1 [27.2 kB]
+9% [15 python3-minimal 27.2 kB/27.2 kB 100%] [2 nodejs 6487 kB/38.3 MB 17%] [Co9% [2 nodejs 6553 kB/38.3 MB 17%] [Connecting to deb.qubes-os.org (193.219.28.1                                                                               Get:16 http://deb.debian.org/debian trixie/main amd64 media-types all 13.0.0 [29.3 kB]
+                                                                               Get:17 http://deb.debian.org/debian trixie/main amd64 libncursesw6 amd64 6.5+20250216-2 [135 kB]
+9% [17 libncursesw6 135 kB/135 kB 100%] [2 nodejs 6893 kB/38.3 MB 18%] [Connect                                                                               Get:18 http://deb.debian.org/debian trixie/main amd64 readline-common all 8.2-6 [69.4 kB]
                                                                                Get:19 http://deb.debian.org/debian trixie/main amd64 libreadline8t64 amd64 8.2-6 [169 kB]
-6% [19 libreadline8t64 131 kB/169 kB 78%] [14 nodejs 393 kB/38.3 MB 1%] [Connec                                                                               Get:20 http://deb.debian.org/debian trixie/main amd64 libpython3.13-stdlib amd64 3.13.5-2+deb13u2 [1958 kB]
-7% [20 libpython3.13-stdlib 0 B/1958 kB 0%] [14 nodejs 459 kB/38.3 MB 1%] [Conn8% [Waiting for headers] [14 nodejs 978 kB/38.3 MB 3%] [Connecting to deb.qubes                                                                               Get:21 http://deb.debian.org/debian trixie/main amd64 python3.13 amd64 3.13.5-2+deb13u2 [757 kB]
-8% [21 python3.13 31.6 kB/757 kB 4%] [14 nodejs 978 kB/38.3 MB 3%] [Connecting 8% [Waiting for headers] [14 nodejs 1306 kB/38.3 MB 3%] [Connecting to deb.qube                                                                               Get:22 http://deb.debian.org/debian trixie/main amd64 libpython3-stdlib amd64 3.13.5-1 [10.2 kB]
-8% [22 libpython3-stdlib 10.2 kB/10.2 kB 100%] [14 nodejs 1306 kB/38.3 MB 3%] [9% [14 nodejs 1306 kB/38.3 MB 3%] [Connecting to deb.qubes-os.org (193.219.28.1                                                                               Get:23 http://deb.debian.org/debian trixie/main amd64 python3 amd64 3.13.5-1 [28.2 kB]
-9% [23 python3 28.2 kB/28.2 kB 100%] [14 nodejs 1310 kB/38.3 MB 3%] [Connecting9% [Waiting for headers] [14 nodejs 1371 kB/38.3 MB 4%] [Connecting to deb.qube                                                                               Get:24 http://deb.debian.org/debian trixie/main amd64 libproc2-0 amd64 2:4.0.4-9 [65.6 kB]
-9% [24 libproc2-0 46.9 kB/65.6 kB 72%] [14 nodejs 1371 kB/38.3 MB 4%] [Connecti                                                                               Get:25 http://deb.debian.org/debian trixie/main amd64 procps amd64 2:4.0.4-9 [882 kB]
-9% [25 procps 129 kB/882 kB 15%] [14 nodejs 1437 kB/38.3 MB 4%] [Connecting to 10% [Waiting for headers] [14 nodejs 1830 kB/38.3 MB 5%] [Connecting to deb.qub                                                                               Get:26 http://deb.debian.org/debian trixie/main amd64 sensible-utils all 0.0.25 [25.0 kB]
-10% [26 sensible-utils 25.0 kB/25.0 kB 100%] [14 nodejs 1896 kB/38.3 MB 5%] [Co                                                                               Get:27 http://deb.debian.org/debian trixie/main amd64 libmagic-mgc amd64 1:5.46-5 [338 kB]
-                                                                               Get:28 http://deb.debian.org/debian trixie/main amd64 libmagic1t64 amd64 1:5.46-5 [109 kB]
-10% [28 libmagic1t64 109 kB/109 kB 100%] [14 nodejs 2027 kB/38.3 MB 5%] [Connec10% [Waiting for headers] [14 nodejs 2028 kB/38.3 MB 5%] [Connecting to deb.qub                                                                               Get:29 http://deb.debian.org/debian trixie/main amd64 file amd64 1:5.46-5 [43.6 kB]
-10% [14 nodejs 2092 kB/38.3 MB 5%] [Connecting to deb.qubes-os.org (193.219.28.                                                                               Get:30 http://deb.debian.org/debian trixie/main amd64 gettext-base amd64 0.23.1-2 [243 kB]
-10% [30 gettext-base 37.3 kB/243 kB 15%] [14 nodejs 2092 kB/38.3 MB 5%] [Connec11% [Waiting for headers] [14 nodejs 2223 kB/38.3 MB 6%] [Connecting to deb.qub                                                                               Get:31 http://deb.debian.org/debian trixie/main amd64 libuchardet0 amd64 0.0.8-1+b2 [68.9 kB]
-11% [31 libuchardet0 39.3 kB/68.9 kB 57%] [14 nodejs 2223 kB/38.3 MB 6%] [Conne                                                                               Get:32 http://deb.debian.org/debian trixie/main amd64 groff-base amd64 1.23.0-9 [1187 kB]
-11% [32 groff-base 117 kB/1187 kB 10%] [14 nodejs 2354 kB/38.3 MB 6%] [Connecti12% [Waiting for headers] [14 nodejs 2682 kB/38.3 MB 7%] [Connecting to deb.qub                                                                               Get:33 http://deb.debian.org/debian trixie/main amd64 libpam-systemd amd64 257.13-1~deb13u1 [297 kB]
-12% [33 libpam-systemd 43.0 kB/297 kB 14%] [14 nodejs 2686 kB/38.3 MB 7%] [Conn12% [Waiting for headers] [14 nodejs 2875 kB/38.3 MB 8%] [Connecting to deb.qub                                                                               Get:34 http://deb.debian.org/debian trixie/main amd64 bsdextrautils amd64 2.41-5 [94.6 kB]
-12% [34 bsdextrautils 56.4 kB/94.6 kB 60%] [14 nodejs 2883 kB/38.3 MB 8%] [Conn                                                                               Get:35 http://deb.debian.org/debian trixie/main amd64 libpipeline1 amd64 1.5.8-1 [42.0 kB]
-12% [35 libpipeline1 42.0 kB/42.0 kB 100%] [14 nodejs 2944 kB/38.3 MB 8%] [Conn                                                                               Get:36 http://deb.debian.org/debian trixie/main amd64 man-db amd64 2.13.1-1 [1469 kB]
-12% [36 man-db 115 kB/1469 kB 8%] [14 nodejs 2944 kB/38.3 MB 8%] [Connecting to13% [Waiting for headers] [14 nodejs 3670 kB/38.3 MB 10%] [Connecting to deb.qu                                                                               Get:37 http://deb.debian.org/debian trixie/main amd64 libgdk-pixbuf2.0-common all 2.42.12+dfsg-4+deb13u1 [312 kB]
-13% [37 libgdk-pixbuf2.0-common 63.5 kB/312 kB 20%] [14 nodejs 3731 kB/38.3 MB 14% [Waiting for headers] [14 nodejs 3731 kB/38.3 MB 10%] [Connecting to deb.qu                                                                               Get:38 http://deb.debian.org/debian trixie/main amd64 libglib2.0-0t64 amd64 2.84.4-3~deb13u3 [1519 kB]
-14% [38 libglib2.0-0t64 32.8 kB/1519 kB 2%] [14 nodejs 3731 kB/38.3 MB 10%] [Co15% [Waiting for headers] [14 nodejs 4190 kB/38.3 MB 11%] [Connecting to deb.qu                                                                               Get:39 http://deb.debian.org/debian trixie/main amd64 libxml2 amd64 2.12.7+dfsg+really2.9.14-2.1+deb13u2 [698 kB]
-15% [39 libxml2 65.5 kB/698 kB 9%] [14 nodejs 4190 kB/38.3 MB 11%] [Connecting 15% [Waiting for headers] [14 nodejs 4452 kB/38.3 MB 12%] [Connecting to deb.qu                                                                               Get:40 http://deb.debian.org/debian trixie/main amd64 shared-mime-info amd64 2.4-5+b2 [760 kB]
-15% [40 shared-mime-info 22.6 kB/760 kB 3%] [14 nodejs 4452 kB/38.3 MB 12%] [Co16% [Waiting for headers] [14 nodejs 4714 kB/38.3 MB 12%] [Connecting to deb.qu                                                                               Get:41 http://deb.debian.org/debian trixie/main amd64 libjpeg62-turbo amd64 1:2.1.5-4 [168 kB]
-16% [41 libjpeg62-turbo 48.4 kB/168 kB 29%] [14 nodejs 4714 kB/38.3 MB 12%] [Co16% [Waiting for headers] [14 nodejs 4779 kB/38.3 MB 12%] [Connecting to deb.qu                                                                               Get:42 http://deb.debian.org/debian trixie/main amd64 libpng16-16t64 amd64 1.6.48-1+deb13u5 [283 kB]
-16% [42 libpng16-16t64 131 kB/283 kB 46%] [14 nodejs 4845 kB/38.3 MB 13%] [Conn16% [Waiting for headers] [14 nodejs 5041 kB/38.3 MB 13%] [Connecting to deb.qu                                                                               Get:43 http://deb.debian.org/debian trixie/main amd64 libdeflate0 amd64 1.23-2 [47.3 kB]
-16% [43 libdeflate0 47.3 kB/47.3 kB 100%] [14 nodejs 5041 kB/38.3 MB 13%] [Conn17% [14 nodejs 5107 kB/38.3 MB 13%] [Connecting to deb.qubes-os.org (193.219.28                                                                               Get:44 http://deb.debian.org/debian trixie/main amd64 libjbig0 amd64 2.1-6.1+b2 [32.1 kB]
-                                                                               Get:45 http://deb.debian.org/debian trixie/main amd64 liblerc4 amd64 4.0.0+ds-5 [183 kB]
-17% [45 liblerc4 183 kB/183 kB 100%] [14 nodejs 5107 kB/38.3 MB 13%] [Connectin                                                                               Get:46 http://deb.debian.org/debian trixie/main amd64 libsharpyuv0 amd64 1.5.0-0.1 [116 kB]
+                                                                               Get:20 http://deb.debian.org/debian trixie/main amd64 libpython3.13-stdlib amd64 3.13.5-2+deb13u2 [1958 kB]
+10% [20 libpython3.13-stdlib 541 kB/1958 kB 28%] [2 nodejs 7274 kB/38.3 MB 19%]11% [2 nodejs 8453 kB/38.3 MB 22%] [Connecting to deb.qubes-os.org (193.219.28.                                                                               Get:21 http://deb.debian.org/debian trixie/main amd64 python3.13 amd64 3.13.5-2+deb13u2 [757 kB]
+11% [21 python3.13 24.5 kB/757 kB 3%] [2 nodejs 8453 kB/38.3 MB 22%] [Connectin12% [Waiting for headers] [2 nodejs 8978 kB/38.3 MB 23%] [Connecting to deb.qub                                                                               Get:22 http://deb.debian.org/debian trixie/main amd64 libpython3-stdlib amd64 3.13.5-1 [10.2 kB]
+                                                                               Get:23 http://deb.debian.org/debian trixie/main amd64 python3 amd64 3.13.5-1 [28.2 kB]
+12% [23 python3 28.2 kB/28.2 kB 100%] [2 nodejs 9240 kB/38.3 MB 24%] [Connectin                                                                               Get:24 http://deb.debian.org/debian trixie/main amd64 libproc2-0 amd64 2:4.0.4-9 [65.6 kB]
+                                                                               Get:25 http://deb.debian.org/debian trixie/main amd64 procps amd64 2:4.0.4-9 [882 kB]
+13% [25 procps 393 kB/882 kB 45%] [2 nodejs 9305 kB/38.3 MB 24%] [Connecting to13% [Waiting for headers] [2 nodejs 9580 kB/38.3 MB 25%] [Connecting to deb.qub                                                                               Get:26 http://deb.debian.org/debian trixie/main amd64 sensible-utils all 0.0.25 [25.0 kB]
+                                                                               Get:27 http://deb.debian.org/debian trixie/main amd64 libmagic-mgc amd64 1:5.46-5 [338 kB]
+13% [27 libmagic-mgc 338 kB/338 kB 100%] [2 nodejs 9711 kB/38.3 MB 25%] [Connec14% [Waiting for headers] [2 nodejs 9830 kB/38.3 MB 26%] [Connecting to deb.qub                                                                               Get:28 http://deb.debian.org/debian trixie/main amd64 libmagic1t64 amd64 1:5.46-5 [109 kB]
+                                                                               Get:29 http://deb.debian.org/debian trixie/main amd64 file amd64 1:5.46-5 [43.6 kB]
+14% [29 file 43.6 kB/43.6 kB 100%] [2 nodejs 10.0 MB/38.3 MB 26%] [Connecting t                                                                               Get:30 http://deb.debian.org/debian trixie/main amd64 gettext-base amd64 0.23.1-2 [243 kB]
+14% [2 nodejs 10.1 MB/38.3 MB 26%] [Connecting to deb.qubes-os.org (193.219.28.                                                                               Get:31 http://deb.debian.org/debian trixie/main amd64 libuchardet0 amd64 0.0.8-1+b2 [68.9 kB]
+14% [31 libuchardet0 64.9 kB/68.9 kB 94%] [2 nodejs 10.2 MB/38.3 MB 27%] [Conne14% [2 nodejs 10.2 MB/38.3 MB 27%] [Connecting to deb.qubes-os.org (193.219.28.                                                                               Get:32 http://deb.debian.org/debian trixie/main amd64 groff-base amd64 1.23.0-9 [1187 kB]
+14% [32 groff-base 0 B/1187 kB 0%] [2 nodejs 10.3 MB/38.3 MB 27%] [Connecting t15% [Waiting for headers] [2 nodejs 11.1 MB/38.3 MB 29%] [Connecting to deb.qub                                                                               Get:33 http://deb.debian.org/debian trixie/main amd64 libpam-systemd amd64 257.13-1~deb13u1 [297 kB]
+15% [33 libpam-systemd 26.7 kB/297 kB 9%] [2 nodejs 11.1 MB/38.3 MB 29%] [Conne16% [2 nodejs 11.4 MB/38.3 MB 30%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:34 http://deb.debian.org/debian trixie/main amd64 bsdextrautils amd64 2.41-5 [94.6 kB]
+16% [34 bsdextrautils 0 B/94.6 kB 0%] [2 nodejs 11.5 MB/38.3 MB 30%] [Connected                                                                               Get:35 http://deb.debian.org/debian trixie/main amd64 libpipeline1 amd64 1.5.8-1 [42.0 kB]
+16% [35 libpipeline1 42.0 kB/42.0 kB 100%] [2 nodejs 11.8 MB/38.3 MB 31%] [Conn                                                                               Get:36 http://deb.debian.org/debian trixie/main amd64 man-db amd64 2.13.1-1 [1469 kB]
+17% [36 man-db 306 kB/1469 kB 21%] [2 nodejs 12.0 MB/38.3 MB 31%] [Connected to17% [Waiting for headers] [2 nodejs 12.7 MB/38.3 MB 33%] [Connected to deb.qube                                                                               Get:37 http://deb.debian.org/debian trixie/main amd64 libgdk-pixbuf2.0-common all 2.42.12+dfsg-4+deb13u1 [312 kB]
+17% [37 libgdk-pixbuf2.0-common 15.6 kB/312 kB 5%] [2 nodejs 12.7 MB/38.3 MB 3318% [Waiting for headers] [2 nodejs 13.0 MB/38.3 MB 34%] [Connected to deb.qube                                                                               Get:38 http://deb.debian.org/debian trixie/main amd64 libglib2.0-0t64 amd64 2.84.4-3~deb13u3 [1519 kB]
+18% [38 libglib2.0-0t64 36.3 kB/1519 kB 2%] [2 nodejs 13.0 MB/38.3 MB 34%] [Con19% [2 nodejs 14.0 MB/38.3 MB 36%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:39 http://deb.debian.org/debian trixie/main amd64 libxml2 amd64 2.12.7+dfsg+really2.9.14-2.1+deb13u2 [698 kB]
+19% [39 libxml2 149 kB/698 kB 21%] [2 nodejs 14.2 MB/38.3 MB 37%] [Connected to20% [Waiting for headers] [2 nodejs 14.6 MB/38.3 MB 38%] [Connected to deb.qube                                                                               Get:40 http://deb.debian.org/debian trixie/main amd64 shared-mime-info amd64 2.4-5+b2 [760 kB]
+20% [40 shared-mime-info 106 kB/760 kB 14%] [2 nodejs 14.6 MB/38.3 MB 38%] [Con                                                                               Get:41 http://deb.debian.org/debian trixie/main amd64 libjpeg62-turbo amd64 1:2.1.5-4 [168 kB]
+21% [41 libjpeg62-turbo 132 kB/168 kB 78%] [2 nodejs 15.1 MB/38.3 MB 39%] [Conn                                                                               Get:42 http://deb.debian.org/debian trixie/main amd64 libpng16-16t64 amd64 1.6.48-1+deb13u5 [283 kB]
+21% [42 libpng16-16t64 159 kB/283 kB 56%] [2 nodejs 15.3 MB/38.3 MB 40%] [Conne21% [Waiting for headers] [2 nodejs 15.4 MB/38.3 MB 40%] [Connected to deb.qube                                                                               Get:43 http://deb.debian.org/debian trixie/main amd64 libdeflate0 amd64 1.23-2 [47.3 kB]
+21% [43 libdeflate0 47.3 kB/47.3 kB 100%] [2 nodejs 15.4 MB/38.3 MB 40%] [Conne                                                                               Get:44 http://deb.debian.org/debian trixie/main amd64 libjbig0 amd64 2.1-6.1+b2 [32.1 kB]
+21% [44 libjbig0 32.1 kB/32.1 kB 100%] [2 nodejs 15.5 MB/38.3 MB 41%] [Connecte                                                                               Get:45 http://deb.debian.org/debian trixie/main amd64 liblerc4 amd64 4.0.0+ds-5 [183 kB]
+21% [45 liblerc4 122 kB/183 kB 67%] [2 nodejs 15.5 MB/38.3 MB 41%] [Connected t                                                                               Get:46 http://deb.debian.org/debian trixie/main amd64 libsharpyuv0 amd64 1.5.0-0.1 [116 kB]
                                                                                Get:47 http://deb.debian.org/debian trixie/main amd64 libwebp7 amd64 1.5.0-0.1 [318 kB]
-17% [47 libwebp7 287 kB/318 kB 90%] [14 nodejs 5369 kB/38.3 MB 14%] [Connecting17% [14 nodejs 5369 kB/38.3 MB 14%] [Connecting to deb.qubes-os.org (193.219.28                                                                               Get:48 http://deb.debian.org/debian trixie/main amd64 libtiff6 amd64 4.7.0-3+deb13u2 [345 kB]
-17% [48 libtiff6 0 B/345 kB 0%] [14 nodejs 5435 kB/38.3 MB 14%] [Connecting to 18% [Waiting for headers] [14 nodejs 5631 kB/38.3 MB 15%] [Connecting to deb.qu                                                                               Get:49 http://deb.debian.org/debian trixie/main amd64 libgdk-pixbuf-2.0-0 amd64 2.42.12+dfsg-4+deb13u1 [141 kB]
-18% [49 libgdk-pixbuf-2.0-0 17.6 kB/141 kB 12%] [14 nodejs 5631 kB/38.3 MB 15%]18% [Waiting for headers] [14 nodejs 5697 kB/38.3 MB 15%] [Connecting to deb.qu                                                                               Get:50 http://deb.debian.org/debian trixie/main amd64 gtk-update-icon-cache amd64 4.18.6+ds-2 [52.7 kB]
-18% [50 gtk-update-icon-cache 52.7 kB/52.7 kB 100%] [14 nodejs 5697 kB/38.3 MB                                                                                Get:51 http://deb.debian.org/debian trixie/main amd64 hicolor-icon-theme all 0.18-2 [11.8 kB]
+22% [47 libwebp7 221 kB/318 kB 70%] [2 nodejs 15.8 MB/38.3 MB 41%] [Connected t                                                                               Get:48 http://deb.debian.org/debian trixie/main amd64 libtiff6 amd64 4.7.0-3+deb13u2 [345 kB]
+22% [48 libtiff6 159 kB/345 kB 46%] [2 nodejs 16.0 MB/38.3 MB 42%] [Connected t23% [2 nodejs 16.1 MB/38.3 MB 42%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:49 http://deb.debian.org/debian trixie/main amd64 libgdk-pixbuf-2.0-0 amd64 2.42.12+dfsg-4+deb13u1 [141 kB]
+23% [49 libgdk-pixbuf-2.0-0 141 kB/141 kB 100%] [2 nodejs 16.3 MB/38.3 MB 42%] 23% [Waiting for headers] [2 nodejs 16.3 MB/38.3 MB 43%] [Connected to deb.qube                                                                               Get:50 http://deb.debian.org/debian trixie/main amd64 gtk-update-icon-cache amd64 4.18.6+ds-2 [52.7 kB]
+23% [50 gtk-update-icon-cache 52.7 kB/52.7 kB 100%] [2 nodejs 16.3 MB/38.3 MB 423% [2 nodejs 16.6 MB/38.3 MB 43%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:51 http://deb.debian.org/debian trixie/main amd64 hicolor-icon-theme all 0.18-2 [11.8 kB]
                                                                                Get:52 http://deb.debian.org/debian trixie/main amd64 adwaita-icon-theme all 48.1-1 [504 kB]
-18% [52 adwaita-icon-theme 327 kB/504 kB 65%] [14 nodejs 5828 kB/38.3 MB 15%] [19% [Waiting for headers] [14 nodejs 5959 kB/38.3 MB 16%] [Connecting to deb.qu                                                                               Get:53 http://deb.debian.org/debian trixie/main amd64 at-spi2-common all 2.56.2-1+deb13u1 [171 kB]
-19% [53 at-spi2-common 18.2 kB/171 kB 11%] [14 nodejs 5959 kB/38.3 MB 16%] [Con19% [Waiting for headers] [14 nodejs 6025 kB/38.3 MB 16%] [Connecting to deb.qu                                                                               Get:54 http://deb.debian.org/debian trixie/main amd64 m4 amd64 1.4.19-8 [294 kB]
-19% [54 m4 43.4 kB/294 kB 15%] [14 nodejs 6025 kB/38.3 MB 16%] [Connecting to d19% [Waiting for headers] [14 nodejs 6156 kB/38.3 MB 16%] [Connecting to deb.qu                                                                               Get:55 http://deb.debian.org/debian trixie/main amd64 autoconf all 2.72-3.1 [494 kB]
-19% [55 autoconf 76.4 kB/494 kB 15%] [14 nodejs 6156 kB/38.3 MB 16%] [Connectin20% [Waiting for headers] [14 nodejs 6357 kB/38.3 MB 17%] [Connecting to deb.qu                                                                               Get:56 http://deb.debian.org/debian trixie/main amd64 autotools-dev all 20240727.1 [60.2 kB]
-20% [56 autotools-dev 40.2 kB/60.2 kB 67%] [14 nodejs 6418 kB/38.3 MB 17%] [Con                                                                               Get:57 http://deb.debian.org/debian trixie/main amd64 automake all 1:1.17-4 [862 kB]
-20% [57 automake 307 kB/862 kB 36%] [14 nodejs 6483 kB/38.3 MB 17%] [Connecting20% [Waiting for headers] [14 nodejs 6745 kB/38.3 MB 18%] [Connecting to deb.qu                                                                               Get:58 http://deb.debian.org/debian trixie/main amd64 autopoint all 0.23.1-2 [770 kB]
-20% [58 autopoint 34.4 kB/770 kB 4%] [14 nodejs 6745 kB/38.3 MB 18%] [Connectin21% [14 nodejs 7070 kB/38.3 MB 18%] [Connected to deb.qubes-os.org (193.219.28.                                                                               Get:59 http://deb.debian.org/debian trixie/main amd64 dbus-user-session amd64 1.16.2-2 [52.1 kB]
-21% [59 dbus-user-session 0 B/52.1 kB 0%] [14 nodejs 7073 kB/38.3 MB 18%] [Conn21% [14 nodejs 7139 kB/38.3 MB 19%] [Connected to deb.qubes-os.org (193.219.28.                                                                               Get:60 http://deb.debian.org/debian trixie/main amd64 libdconf1 amd64 0.40.0-5 [41.8 kB]
+23% [52 adwaita-icon-theme 327 kB/504 kB 65%] [2 nodejs 16.7 MB/38.3 MB 44%] [C24% [Waiting for headers] [2 nodejs 16.9 MB/38.3 MB 44%] [Connected to deb.qube                                                                               Get:53 http://deb.debian.org/debian trixie/main amd64 at-spi2-common all 2.56.2-1+deb13u1 [171 kB]
+24% [53 at-spi2-common 149 kB/171 kB 87%] [2 nodejs 16.9 MB/38.3 MB 44%] [Conne24% [Waiting for headers] [2 nodejs 17.0 MB/38.3 MB 44%] [Connected to deb.qube                                                                               Get:54 http://deb.debian.org/debian trixie/main amd64 m4 amd64 1.4.19-8 [294 kB]
+24% [54 m4 113 kB/294 kB 39%] [2 nodejs 17.1 MB/38.3 MB 45%] [Connected to deb.24% [Waiting for headers] [2 nodejs 17.3 MB/38.3 MB 45%] [Connected to deb.qube                                                                               Get:55 http://deb.debian.org/debian trixie/main amd64 autoconf all 2.72-3.1 [494 kB]
+24% [55 autoconf 15.5 kB/494 kB 3%] [2 nodejs 17.6 MB/38.3 MB 46%] [Connected t25% [Waiting for headers] [2 nodejs 18.2 MB/38.3 MB 48%] [Connected to deb.qube                                                                               Get:56 http://deb.debian.org/debian trixie/main amd64 autotools-dev all 20240727.1 [60.2 kB]
+25% [56 autotools-dev 42.4 kB/60.2 kB 71%] [2 nodejs 18.2 MB/38.3 MB 48%] [Conn25% [2 nodejs 18.3 MB/38.3 MB 48%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:57 http://deb.debian.org/debian trixie/main amd64 automake all 1:1.17-4 [862 kB]
+25% [57 automake 47.1 kB/862 kB 5%] [2 nodejs 18.3 MB/38.3 MB 48%] [Connected t26% [Waiting for headers] [2 nodejs 18.9 MB/38.3 MB 49%] [Connected to deb.qube                                                                               Get:58 http://deb.debian.org/debian trixie/main amd64 autopoint all 0.23.1-2 [770 kB]
+26% [58 autopoint 102 kB/770 kB 13%] [2 nodejs 18.9 MB/38.3 MB 49%] [Connected 27% [2 nodejs 19.4 MB/38.3 MB 51%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:59 http://deb.debian.org/debian trixie/main amd64 dbus-user-session amd64 1.16.2-2 [52.1 kB]
+                                                                               Get:60 http://deb.debian.org/debian trixie/main amd64 libdconf1 amd64 0.40.0-5 [41.8 kB]
                                                                                Get:61 http://deb.debian.org/debian trixie/main amd64 dconf-service amd64 0.40.0-5 [32.4 kB]
                                                                                Get:62 http://deb.debian.org/debian trixie/main amd64 dconf-gsettings-backend amd64 0.40.0-5 [28.6 kB]
                                                                                Get:63 http://deb.debian.org/debian trixie/main amd64 libdebhelper-perl all 13.24.2 [90.9 kB]
-                                                                               Get:64 http://deb.debian.org/debian trixie/main amd64 libtool all 2.5.4-4 [539 kB]
-22% [64 libtool 539 kB/539 kB 100%] [14 nodejs 7532 kB/38.3 MB 20%] [Connected                                                                                Get:65 http://deb.debian.org/debian trixie/main amd64 dh-autoreconf all 20 [17.1 kB]
+28% [63 libdebhelper-perl 90.9 kB/90.9 kB 100%] [2 nodejs 20.1 MB/38.3 MB 52%]                                                                                Get:64 http://deb.debian.org/debian trixie/main amd64 libtool all 2.5.4-4 [539 kB]
+                                                                               Get:65 http://deb.debian.org/debian trixie/main amd64 dh-autoreconf all 20 [17.1 kB]
                                                                                Get:66 http://deb.debian.org/debian trixie/main amd64 libarchive-zip-perl all 1.68-1 [104 kB]
-22% [66 libarchive-zip-perl 104 kB/104 kB 100%] [14 nodejs 7532 kB/38.3 MB 20%]23% [Waiting for headers] [14 nodejs 7597 kB/38.3 MB 20%] [Connected to deb.qub                                                                               Get:67 http://deb.debian.org/debian trixie/main amd64 libfile-stripnondeterminism-perl all 1.14.1-2 [19.7 kB]
-23% [67 libfile-stripnondeterminism-perl 19.7 kB/19.7 kB 100%] [14 nodejs 7597                                                                                Get:68 http://deb.debian.org/debian trixie/main amd64 dh-strip-nondeterminism all 1.14.1-2 [8620 B]
-                                                                               Get:69 http://deb.debian.org/debian trixie/main amd64 libelf1t64 amd64 0.192-4 [189 kB]
-23% [69 libelf1t64 64.8 kB/189 kB 34%] [14 nodejs 7663 kB/38.3 MB 20%] [Connect23% [14 nodejs 7794 kB/38.3 MB 20%] [Connected to deb.qubes-os.org (193.219.28.                                                                               Get:70 http://deb.debian.org/debian trixie/main amd64 dwz amd64 0.15-1+b1 [110 kB]
-23% [70 dwz 11.4 kB/110 kB 10%] [14 nodejs 7991 kB/38.3 MB 21%] [Connected to d23% [14 nodejs 8056 kB/38.3 MB 21%] [Connected to deb.qubes-os.org (193.219.28.                                                                               Get:71 http://deb.debian.org/debian trixie/main amd64 gettext amd64 0.23.1-2 [1680 kB]
-24% [71 gettext 32.8 kB/1680 kB 2%] [14 nodejs 8580 kB/38.3 MB 22%] [Connected 25% [14 nodejs 9826 kB/38.3 MB 26%] [Connected to deb.qubes-os.org (193.219.28.                                                                               Get:72 http://deb.debian.org/debian trixie/main amd64 intltool-debian all 0.35.0+20060710.6 [22.9 kB]
-25% [72 intltool-debian 14.0 kB/22.9 kB 61%] [14 nodejs 9826 kB/38.3 MB 26%] [C                                                                               Get:73 http://deb.debian.org/debian trixie/main amd64 po-debconf all 1.0.21+nmu1 [248 kB]
-25% [73 po-debconf 0 B/248 kB 0%] [14 nodejs 9957 kB/38.3 MB 26%] [Connected to26% [Waiting for headers] [14 nodejs 10.2 MB/38.3 MB 26%] [Connected to deb.qub                                                                               Get:74 http://deb.debian.org/debian trixie/main amd64 debhelper all 13.24.2 [919 kB]
-26% [74 debhelper 12.3 kB/919 kB 1%] [14 nodejs 10.2 MB/38.3 MB 26%] [Connected26% [Waiting for headers] [14 nodejs 10.8 MB/38.3 MB 28%] [Connected to deb.qub                                                                               Get:75 http://deb.debian.org/debian trixie/main amd64 dh-apparmor all 4.1.0-1 [17.3 kB]
-26% [75 dh-apparmor 9616 B/17.3 kB 56%] [14 nodejs 10.8 MB/38.3 MB 28%] [Connec                                                                               Get:76 http://deb.debian.org/debian trixie/main amd64 dh-exec amd64 0.30 [25.6 kB]
-27% [76 dh-exec 25.6 kB/25.6 kB 100%] [14 nodejs 10.9 MB/38.3 MB 29%] [Connecte                                                                               Get:77 http://deb.debian.org/debian trixie/main amd64 libfreetype6 amd64 2.13.3+dfsg-1+deb13u1 [452 kB]
-27% [77 libfreetype6 285 kB/452 kB 63%] [14 nodejs 11.2 MB/38.3 MB 29%] [Connec27% [Waiting for headers] [14 nodejs 11.3 MB/38.3 MB 30%] [Connected to deb.qub                                                                               Get:78 http://deb.debian.org/debian trixie/main amd64 fonts-dejavu-mono all 2.37-8 [489 kB]
-27% [78 fonts-dejavu-mono 69.6 kB/489 kB 14%] [14 nodejs 11.4 MB/38.3 MB 30%] [28% [Waiting for headers] [14 nodejs 11.7 MB/38.3 MB 30%] [Connected to deb.qub                                                                               Get:79 http://deb.debian.org/debian trixie/main amd64 fonts-dejavu-core all 2.37-8 [840 kB]
-28% [79 fonts-dejavu-core 39.7 kB/840 kB 5%] [14 nodejs 11.7 MB/38.3 MB 30%] [C28% [14 nodejs 12.3 MB/38.3 MB 32%] [Connected to deb.qubes-os.org (193.219.28.                                                                               Get:80 http://deb.debian.org/debian trixie/main amd64 fontconfig-config amd64 2.15.0-2.3 [318 kB]
-28% [80 fontconfig-config 32.8 kB/318 kB 10%] [14 nodejs 12.3 MB/38.3 MB 32%] [29% [Waiting for headers] [14 nodejs 12.6 MB/38.3 MB 33%] [Connected to deb.qub                                                                               Get:81 http://deb.debian.org/debian trixie/main amd64 libfontconfig1 amd64 2.15.0-2.3 [392 kB]
-29% [81 libfontconfig1 59.2 kB/392 kB 15%] [14 nodejs 12.6 MB/38.3 MB 33%] [Con29% [14 nodejs 12.8 MB/38.3 MB 34%] [Connected to deb.qubes-os.org (193.219.28.                                                                               Get:82 http://deb.debian.org/debian trixie/main amd64 fontconfig amd64 2.15.0-2.3 [463 kB]
-29% [82 fontconfig 24.6 kB/463 kB 5%] [14 nodejs 12.8 MB/38.3 MB 34%] [Connecte30% [Waiting for headers] [14 nodejs 13.2 MB/38.3 MB 35%] [Connected to deb.qub                                                                               Get:83 http://deb.debian.org/debian trixie/main amd64 libasound2-data all 1.2.14-1 [21.1 kB]
-30% [83 libasound2-data 21.1 kB/21.1 kB 100%] [14 nodejs 13.2 MB/38.3 MB 35%] [                                                                               Get:84 http://deb.debian.org/debian trixie/main amd64 libasound2t64 amd64 1.2.14-1 [381 kB]
-30% [84 libasound2t64 65.5 kB/381 kB 17%] [14 nodejs 13.4 MB/38.3 MB 35%] [Conn30% [Waiting for headers] [14 nodejs 13.6 MB/38.3 MB 36%] [Connected to deb.qub                                                                               Get:85 http://deb.debian.org/debian trixie/main amd64 libatk1.0-0t64 amd64 2.56.2-1+deb13u1 [52.0 kB]
-30% [85 libatk1.0-0t64 52.0 kB/52.0 kB 100%] [14 nodejs 13.6 MB/38.3 MB 36%] [C31% [Waiting for headers] [14 nodejs 13.7 MB/38.3 MB 36%] [Connected to deb.qub                                                                               Get:86 http://deb.debian.org/debian trixie/main amd64 libxau6 amd64 1:1.0.11-1 [20.4 kB]
-31% [86 libxau6 20.4 kB/20.4 kB 100%] [14 nodejs 13.7 MB/38.3 MB 36%] [Connecte                                                                               Get:87 http://deb.debian.org/debian trixie/main amd64 libxdmcp6 amd64 1:1.1.5-1 [27.8 kB]
+                                                                               Get:67 http://deb.debian.org/debian trixie/main amd64 libfile-stripnondeterminism-perl all 1.14.1-2 [19.7 kB]
+28% [Waiting for headers] [2 nodejs 20.1 MB/38.3 MB 52%] [Connected to deb.qube                                                                               Get:68 http://deb.debian.org/debian trixie/main amd64 dh-strip-nondeterminism all 1.14.1-2 [8620 B]
+29% [Waiting for headers] [2 nodejs 20.1 MB/38.3 MB 53%] [Connected to deb.qube                                                                               Get:69 http://deb.debian.org/debian trixie/main amd64 libelf1t64 amd64 0.192-4 [189 kB]
+29% [69 libelf1t64 29.8 kB/189 kB 16%] [2 nodejs 21.6 MB/38.3 MB 56%] [Connecte29% [Waiting for headers] [2 nodejs 21.7 MB/38.3 MB 57%] [Connected to deb.qube                                                                               Get:70 http://deb.debian.org/debian trixie/main amd64 dwz amd64 0.15-1+b1 [110 kB]
+30% [70 dwz 102 kB/110 kB 93%] [2 nodejs 21.9 MB/38.3 MB 57%] [Connected to deb30% [Waiting for headers] [2 nodejs 22.0 MB/38.3 MB 57%] [Connected to deb.qube                                                                               Get:71 http://deb.debian.org/debian trixie/main amd64 gettext amd64 0.23.1-2 [1680 kB]
+30% [71 gettext 161 kB/1680 kB 10%] [2 nodejs 22.0 MB/38.3 MB 57%] [Connected t31% [2 nodejs 22.7 MB/38.3 MB 59%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:72 http://deb.debian.org/debian trixie/main amd64 intltool-debian all 0.35.0+20060710.6 [22.9 kB]
+31% [72 intltool-debian 22.9 kB/22.9 kB 100%] [2 nodejs 22.7 MB/38.3 MB 59%] [C31% [2 nodejs 22.7 MB/38.3 MB 59%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:73 http://deb.debian.org/debian trixie/main amd64 po-debconf all 1.0.21+nmu1 [248 kB]
+31% [73 po-debconf 55.8 kB/248 kB 23%] [2 nodejs 22.7 MB/38.3 MB 59%] [Connecte31% [Waiting for headers] [2 nodejs 22.7 MB/38.3 MB 59%] [Connected to deb.qube                                                                               Get:74 http://deb.debian.org/debian trixie/main amd64 debhelper all 13.24.2 [919 kB]
+31% [74 debhelper 0 B/919 kB 0%] [2 nodejs 22.7 MB/38.3 MB 59%] [Connected to d32% [Waiting for headers] [2 nodejs 22.9 MB/38.3 MB 60%] [Connected to deb.qube                                                                               Get:75 http://deb.debian.org/debian trixie/main amd64 dh-apparmor all 4.1.0-1 [17.3 kB]
+32% [75 dh-apparmor 17.3 kB/17.3 kB 100%] [2 nodejs 22.9 MB/38.3 MB 60%] [Conne32% [2 nodejs 22.9 MB/38.3 MB 60%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:76 http://deb.debian.org/debian trixie/main amd64 dh-exec amd64 0.30 [25.6 kB]
+32% [76 dh-exec 25.6 kB/25.6 kB 100%] [2 nodejs 22.9 MB/38.3 MB 60%] [Connected32% [2 nodejs 22.9 MB/38.3 MB 60%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:77 http://deb.debian.org/debian trixie/main amd64 libfreetype6 amd64 2.13.3+dfsg-1+deb13u1 [452 kB]
+32% [77 libfreetype6 22.4 kB/452 kB 5%] [2 nodejs 22.9 MB/38.3 MB 60%] [Connect33% [Waiting for headers] [2 nodejs 23.1 MB/38.3 MB 60%] [Connected to deb.qube                                                                               Get:78 http://deb.debian.org/debian trixie/main amd64 fonts-dejavu-mono all 2.37-8 [489 kB]
+33% [78 fonts-dejavu-mono 65.5 kB/489 kB 13%] [2 nodejs 23.1 MB/38.3 MB 60%] [C33% [Waiting for headers] [2 nodejs 23.2 MB/38.3 MB 61%] [Connected to deb.qube                                                                               Get:79 http://deb.debian.org/debian trixie/main amd64 fonts-dejavu-core all 2.37-8 [840 kB]
+33% [79 fonts-dejavu-core 39.7 kB/840 kB 5%] [2 nodejs 23.2 MB/38.3 MB 61%] [Co33% [Waiting for headers] [2 nodejs 23.3 MB/38.3 MB 61%] [Connected to deb.qube                                                                               Get:80 http://deb.debian.org/debian trixie/main amd64 fontconfig-config amd64 2.15.0-2.3 [318 kB]
+34% [80 fontconfig-config 50.5 kB/318 kB 16%] [2 nodejs 23.3 MB/38.3 MB 61%] [C34% [Waiting for headers] [2 nodejs 23.4 MB/38.3 MB 61%] [Connected to deb.qube                                                                               Get:81 http://deb.debian.org/debian trixie/main amd64 libfontconfig1 amd64 2.15.0-2.3 [392 kB]
+34% [81 libfontconfig1 82.4 kB/392 kB 21%] [2 nodejs 23.4 MB/38.3 MB 61%] [Conn34% [Waiting for headers] [2 nodejs 23.5 MB/38.3 MB 61%] [Connected to deb.qube                                                                               Get:82 http://deb.debian.org/debian trixie/main amd64 fontconfig amd64 2.15.0-2.3 [463 kB]
+34% [82 fontconfig 60.1 kB/463 kB 13%] [2 nodejs 23.5 MB/38.3 MB 61%] [Connecte34% [Waiting for headers] [2 nodejs 23.6 MB/38.3 MB 61%] [Connected to deb.qube                                                                               Get:83 http://deb.debian.org/debian trixie/main amd64 libasound2-data all 1.2.14-1 [21.1 kB]
+34% [83 libasound2-data 21.1 kB/21.1 kB 100%] [2 nodejs 23.6 MB/38.3 MB 61%] [C35% [2 nodejs 23.6 MB/38.3 MB 61%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:84 http://deb.debian.org/debian trixie/main amd64 libasound2t64 amd64 1.2.14-1 [381 kB]
+35% [84 libasound2t64 64.6 kB/381 kB 17%] [2 nodejs 23.6 MB/38.3 MB 61%] [Conne35% [Waiting for headers] [2 nodejs 23.6 MB/38.3 MB 61%] [Connected to deb.qube                                                                               Get:85 http://deb.debian.org/debian trixie/main amd64 libatk1.0-0t64 amd64 2.56.2-1+deb13u1 [52.0 kB]
+35% [85 libatk1.0-0t64 52.0 kB/52.0 kB 100%] [2 nodejs 23.6 MB/38.3 MB 61%] [Co35% [2 nodejs 23.6 MB/38.3 MB 61%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:86 http://deb.debian.org/debian trixie/main amd64 libxau6 amd64 1:1.0.11-1 [20.4 kB]
+                                                                               Get:87 http://deb.debian.org/debian trixie/main amd64 libxdmcp6 amd64 1:1.1.5-1 [27.8 kB]
                                                                                Get:88 http://deb.debian.org/debian trixie/main amd64 libxcb1 amd64 1.17.0-2+b1 [144 kB]
                                                                                Get:89 http://deb.debian.org/debian trixie/main amd64 libx11-data all 2:1.8.12-1 [343 kB]
-31% [89 libx11-data 343 kB/343 kB 100%] [14 nodejs 14.2 MB/38.3 MB 37%] [Connec                                                                               Get:90 http://deb.debian.org/debian trixie/main amd64 libx11-6 amd64 2:1.8.12-1 [815 kB]
-32% [90 libx11-6 166 kB/815 kB 20%] [14 nodejs 14.2 MB/38.3 MB 37%] [Connected 32% [Waiting for headers] [14 nodejs 14.7 MB/38.3 MB 38%] [Connected to deb.qub                                                                               Get:91 http://deb.debian.org/debian trixie/main amd64 libxext6 amd64 2:1.3.4-1+b3 [50.4 kB]
-32% [91 libxext6 50.4 kB/50.4 kB 100%] [14 nodejs 14.7 MB/38.3 MB 38%] [Connect32% [Waiting for headers] [14 nodejs 14.7 MB/38.3 MB 38%] [Connected to deb.qub                                                                               Get:92 http://deb.debian.org/debian trixie/main amd64 libxi6 amd64 2:1.8.2-1 [78.9 kB]
-32% [92 libxi6 51.4 kB/78.9 kB 65%] [14 nodejs 14.7 MB/38.3 MB 38%] [Connected                                                                                Get:93 http://deb.debian.org/debian trixie/main amd64 libatspi2.0-0t64 amd64 2.56.2-1+deb13u1 [80.7 kB]
-                                                                               Get:94 http://deb.debian.org/debian trixie/main amd64 libatk-bridge2.0-0t64 amd64 2.56.2-1+deb13u1 [68.4 kB]
-                                                                               Get:95 http://deb.debian.org/debian trixie/main amd64 libavahi-common-data amd64 0.8-16 [112 kB]
-33% [95 libavahi-common-data 112 kB/112 kB 100%] [14 nodejs 15.2 MB/38.3 MB 40%                                                                               Get:96 http://deb.debian.org/debian trixie/main amd64 libavahi-common3 amd64 0.8-16 [44.2 kB]
+36% [89 libx11-data 213 kB/343 kB 62%] [2 nodejs 23.6 MB/38.3 MB 62%] [Connecte36% [Waiting for headers] [2 nodejs 23.6 MB/38.3 MB 62%] [Connected to deb.qube                                                                               Get:90 http://deb.debian.org/debian trixie/main amd64 libx11-6 amd64 2:1.8.12-1 [815 kB]
+36% [90 libx11-6 34.8 kB/815 kB 4%] [2 nodejs 23.6 MB/38.3 MB 62%] [Connected t36% [Waiting for headers] [2 nodejs 23.8 MB/38.3 MB 62%] [Connected to deb.qube                                                                               Get:91 http://deb.debian.org/debian trixie/main amd64 libxext6 amd64 2:1.3.4-1+b3 [50.4 kB]
+36% [91 libxext6 50.4 kB/50.4 kB 100%] [2 nodejs 23.8 MB/38.3 MB 62%] [Connecte36% [2 nodejs 23.8 MB/38.3 MB 62%] [Connected to deb.qubes-os.org (193.219.28.1                                                                               Get:92 http://deb.debian.org/debian trixie/main amd64 libxi6 amd64 2:1.8.2-1 [78.9 kB]
+36% [92 libxi6 78.9 kB/78.9 kB 100%] [2 nodejs 23.9 MB/38.3 MB 62%] [Connected                                                                                Get:93 http://deb.debian.org/debian trixie/main amd64 libatspi2.0-0t64 amd64 2.56.2-1+deb13u1 [80.7 kB]
+37% [93 libatspi2.0-0t64 80.7 kB/80.7 kB 100%] [2 nodejs 23.9 MB/38.3 MB 62%] [                                                                               Get:94 http://deb.debian.org/debian trixie/main amd64 libatk-bridge2.0-0t64 amd64 2.56.2-1+deb13u1 [68.4 kB]
+37% [94 libatk-bridge2.0-0t64 68.4 kB/68.4 kB 100%] [2 nodejs 23.9 MB/38.3 MB 6                                                                               Get:95 http://deb.debian.org/debian trixie/main amd64 libavahi-common-data amd64 0.8-16 [112 kB]
+37% [95 libavahi-common-data 112 kB/112 kB 100%] [2 nodejs 23.9 MB/38.3 MB 62%]                                                                               Get:96 http://deb.debian.org/debian trixie/main amd64 libavahi-common3 amd64 0.8-16 [44.2 kB]
                                                                                Get:97 http://deb.debian.org/debian trixie/main amd64 libavahi-client3 amd64 0.8-16 [48.4 kB]
-                                                                               Get:98 http://deb.debian.org/debian trixie/main amd64 libpixman-1-0 amd64 0.44.0-3 [248 kB]
-34% [98 libpixman-1-0 248 kB/248 kB 100%] [14 nodejs 15.4 MB/38.3 MB 40%] [Conn                                                                               Get:99 http://deb.debian.org/debian trixie/main amd64 libxcb-render0 amd64 1.17.0-2+b1 [115 kB]
-34% [99 libxcb-render0 115 kB/115 kB 100%] [14 nodejs 15.5 MB/38.3 MB 40%] [Con                                                                               Get:100 http://deb.debian.org/debian trixie/main amd64 libxcb-shm0 amd64 1.17.0-2+b1 [105 kB]
-34% [100 libxcb-shm0 105 kB/105 kB 100%] [14 nodejs 15.5 MB/38.3 MB 41%] [Conne                                                                               Get:101 http://deb.debian.org/debian trixie/main amd64 libxrender1 amd64 1:0.9.12-1 [27.9 kB]
-34% [101 libxrender1 27.9 kB/27.9 kB 100%] [14 nodejs 15.7 MB/38.3 MB 41%] [Con34% [Waiting for headers] [14 nodejs 15.7 MB/38.3 MB 41%] [Connected to deb.qub                                                                               Get:102 http://deb.debian.org/debian trixie/main amd64 libcairo2 amd64 1.18.4-1+b1 [538 kB]
-34% [102 libcairo2 32.4 kB/538 kB 6%] [14 nodejs 15.8 MB/38.3 MB 41%] [Connecte35% [Waiting for headers] [14 nodejs 16.1 MB/38.3 MB 42%] [Connected to deb.qub                                                                               Get:103 http://deb.debian.org/debian trixie/main amd64 libcairo-gobject2 amd64 1.18.4-1+b1 [130 kB]
-35% [103 libcairo-gobject2 43.8 kB/130 kB 34%] [14 nodejs 16.1 MB/38.3 MB 42%]                                                                                Get:104 http://deb.debian.org/debian trixie/main amd64 libgc1 amd64 1:8.2.8-1 [247 kB]
-35% [104 libgc1 215 kB/247 kB 87%] [14 nodejs 16.2 MB/38.3 MB 42%] [Connected t                                                                               Get:105 http://deb.debian.org/debian trixie/main amd64 libobjc4 amd64 14.2.0-19 [43.3 kB]
-                                                                               Get:106 http://deb.debian.org/debian trixie/main amd64 libobjc-14-dev amd64 14.2.0-19 [173 kB]
-35% [106 libobjc-14-dev 173 kB/173 kB 100%] [14 nodejs 16.3 MB/38.3 MB 43%] [Co36% [14 nodejs 16.4 MB/38.3 MB 43%] [Connected to deb.qubes-os.org (193.219.28.                                                                               Get:107 http://deb.debian.org/debian trixie/main amd64 libedit2 amd64 3.1-20250104-1 [93.8 kB]
-36% [107 libedit2 93.8 kB/93.8 kB 100%] [14 nodejs 16.4 MB/38.3 MB 43%] [Connec36% [14 nodejs 16.4 MB/38.3 MB 43%] [Connected to deb.qubes-os.org (193.219.28.                                                                               Get:108 http://deb.debian.org/debian trixie/main amd64 libz3-4 amd64 4.13.3-1 [8560 kB]
-36% [108 libz3-4 125 kB/8560 kB 1%] [14 nodejs 16.4 MB/38.3 MB 43%] [Connected 42% [Waiting for headers] [14 nodejs 21.2 MB/38.3 MB 55%] [Connected to deb.qub                                                                               Get:109 http://deb.debian.org/debian trixie/main amd64 libllvm19 amd64 1:19.1.7-3+b1 [26.0 MB]
-42% [109 libllvm19 73.1 kB/26.0 MB 0%] [14 nodejs 21.2 MB/38.3 MB 55%] [Connect56% [Waiting for headers] [14 nodejs 26.4 MB/38.3 MB 69%] [Waiting for headers]                                                                               Get:110 http://deb.debian.org/debian trixie/main amd64 libclang1-19 amd64 1:19.1.7-3+b1 [7623 kB]
-56% [110 libclang1-19 177 kB/7623 kB 2%] [14 nodejs 26.5 MB/38.3 MB 69%] [Waiti60% [Waiting for headers] [14 nodejs 27.9 MB/38.3 MB 73%] [Waiting for headers]                                                                               Get:111 http://deb.debian.org/debian trixie/main amd64 libclang-common-19-dev amd64 1:19.1.7-3+b1 [740 kB]
-61% [111 libclang-common-19-dev 60.8 kB/740 kB 8%] [14 nodejs 27.9 MB/38.3 MB 761% [Waiting for headers] [14 nodejs 28.0 MB/38.3 MB 73%] [Waiting for headers]                                                                               Get:112 http://deb.debian.org/debian trixie/main amd64 libclang-19-dev amd64 1:19.1.7-3+b1 [28.3 MB]
-61% [112 libclang-19-dev 717 kB/28.3 MB 3%] [14 nodejs 28.2 MB/38.3 MB 74%] [Wa                                                                               Get:113 https://deb.qubes-os.org/r4.3/vm trixie/main amd64 libqubesdb amd64 4.3.3-1+deb13u1 [9804 B]
-65% [112 libclang-19-dev 7729 kB/28.3 MB 27%] [14 nodejs 29.3 MB/38.3 MB 76%] [65% [112 libclang-19-dev 8188 kB/28.3 MB 29%] [14 nodejs 29.4 MB/38.3 MB 77%] [77% [Waiting for headers] [14 nodejs 34.1 MB/38.3 MB 89%] [Waiting for headers]                                                                               Get:114 http://deb.debian.org/debian trixie/main amd64 libclang-dev amd64 1:19.0-63 [5828 B]
-77% [Waiting for headers] [14 nodejs 34.1 MB/38.3 MB 89%] [Waiting for headers]                                                                               Get:115 http://deb.debian.org/debian trixie/main amd64 libcloudproviders0 amd64 0.3.6-2 [29.2 kB]
-77% [115 libcloudproviders0 29.2 kB/29.2 kB 100%] [14 nodejs 34.1 MB/38.3 MB 89                                                                               77% [14 nodejs 34.1 MB/38.3 MB 89%] [Waiting for headers]                                                         Get:116 http://deb.debian.org/debian trixie/main amd64 liblcms2-2 amd64 2.16-2+deb13u2 [160 kB]
-77% [116 liblcms2-2 130 kB/160 kB 81%] [14 nodejs 34.2 MB/38.3 MB 89%] [Waiting                                                                               Get:117 http://deb.debian.org/debian trixie/main amd64 libcolord2 amd64 1.4.7-3 [139 kB]
-77% [117 libcolord2 139 kB/139 kB 100%] [14 nodejs 34.2 MB/38.3 MB 89%] [Waitin                                                                               Get:118 http://deb.debian.org/debian trixie/main amd64 libcups2t64 amd64 2.4.10-3+deb13u2 [252 kB]
-78% [118 libcups2t64 252 kB/252 kB 100%] [14 nodejs 34.2 MB/38.3 MB 89%] [Waiti                                                                               78% [14 nodejs 34.2 MB/38.3 MB 89%] [Waiting for headers]                                                         Get:119 http://deb.debian.org/debian trixie/main amd64 libdatrie1 amd64 0.2.13-3+b1 [38.1 kB]
-                                                         Get:120 http://deb.debian.org/debian trixie/main amd64 libdrm-common all 2.4.124-2 [8288 B]
-78% [120 libdrm-common 8288 B/8288 B 100%] [14 nodejs 34.2 MB/38.3 MB 89%] [Wai                                                                               Get:121 http://deb.debian.org/debian trixie/main amd64 libdrm2 amd64 2.4.124-2 [39.0 kB]
-                                                                               Get:122 http://deb.debian.org/debian trixie/main amd64 libdrm-amdgpu1 amd64 2.4.124-2 [22.6 kB]
-                                                                               78% [14 nodejs 34.2 MB/38.3 MB 89%] [Waiting for headers]                                                         Get:123 http://deb.debian.org/debian trixie/main amd64 libpciaccess0 amd64 0.17-3+b3 [51.9 kB]
-                                                         Get:124 http://deb.debian.org/debian trixie/main amd64 libdrm-intel1 amd64 2.4.124-2 [64.1 kB]
-                                                         Get:125 http://deb.debian.org/debian trixie/main amd64 libepoxy0 amd64 1.5.10-2 [193 kB]
-79% [125 libepoxy0 193 kB/193 kB 100%] [14 nodejs 34.2 MB/38.3 MB 89%] [Waiting                                                                               Get:126 http://deb.debian.org/debian trixie/main amd64 libfribidi0 amd64 1.0.16-1 [26.5 kB]
-                                                                               Get:127 http://deb.debian.org/debian trixie/main amd64 libwayland-server0 amd64 1.23.1-3 [34.4 kB]
-                                                                               Get:128 http://deb.debian.org/debian trixie/main amd64 libsensors-config all 1:3.6.2-2 [16.2 kB]
-79% [128 libsensors-config 16.2 kB/16.2 kB 100%] [14 nodejs 34.3 MB/38.3 MB 89%                                                                               Get:129 http://deb.debian.org/debian trixie/main amd64 libsensors5 amd64 1:3.6.2-2 [37.5 kB]
-79% [Waiting for headers] [14 nodejs 34.3 MB/38.3 MB 90%] [Waiting for headers]                                                                               Get:130 http://deb.debian.org/debian trixie/main amd64 libx11-xcb1 amd64 2:1.8.12-1 [247 kB]
-                                                                               80% [14 nodejs 34.5 MB/38.3 MB 90%] [Waiting for headers]                                                         Get:131 http://deb.debian.org/debian trixie/main amd64 libxcb-dri3-0 amd64 1.17.0-2+b1 [107 kB]
-80% [131 libxcb-dri3-0 107 kB/107 kB 100%] [14 nodejs 34.6 MB/38.3 MB 90%] [Wai                                                                               Get:132 http://deb.debian.org/debian trixie/main amd64 libxcb-present0 amd64 1.17.0-2+b1 [106 kB]
-80% [132 libxcb-present0 75.4 kB/106 kB 71%] [14 nodejs 34.7 MB/38.3 MB 90%] [W80% [Waiting for headers] [14 nodejs 34.7 MB/38.3 MB 91%] [Waiting for headers]                                                                               Get:133 http://deb.debian.org/debian trixie/main amd64 libxcb-randr0 amd64 1.17.0-2+b1 [117 kB]
-80% [133 libxcb-randr0 100 kB/117 kB 86%] [14 nodejs 34.7 MB/38.3 MB 91%] [Wait                                                                               80% [14 nodejs 34.8 MB/38.3 MB 91%] [Waiting for headers]                                                         Get:134 http://deb.debian.org/debian trixie/main amd64 libxcb-sync1 amd64 1.17.0-2+b1 [109 kB]
-80% [134 libxcb-sync1 74.7 kB/109 kB 69%] [14 nodejs 34.9 MB/38.3 MB 91%] [Wait80% [Waiting for headers] [14 nodejs 34.9 MB/38.3 MB 91%] [Waiting for headers]                                                                               Get:135 http://deb.debian.org/debian trixie/main amd64 libxcb-xfixes0 amd64 1.17.0-2+b1 [109 kB]
-80% [135 libxcb-xfixes0 30.9 kB/109 kB 28%] [14 nodejs 34.9 MB/38.3 MB 91%] [Wa                                                                               81% [14 nodejs 34.9 MB/38.3 MB 91%] [Waiting for headers]                                                         Get:136 http://deb.debian.org/debian trixie/main amd64 libxshmfence1 amd64 1.3.3-1 [10.9 kB]
-81% [136 libxshmfence1 10.9 kB/10.9 kB 100%] [14 nodejs 34.9 MB/38.3 MB 91%] [W                                                                               81% [14 nodejs 34.9 MB/38.3 MB 91%] [Waiting for headers]                                                         Get:137 http://deb.debian.org/debian trixie/main amd64 mesa-libgallium amd64 25.0.7-2 [9629 kB]
-81% [137 mesa-libgallium 589 kB/9629 kB 6%] [14 nodejs 35.1 MB/38.3 MB 92%] [Wa                                                                               Get:138 https://deb.qubes-os.org/r4.3/vm trixie/main amd64 qubesdb-dev amd64 4.3.3-1+deb13u1 [7800 B]
-                                                                               82% [137 mesa-libgallium 2162 kB/9629 kB 22%] [14 nodejs 35.5 MB/38.3 MB 93%]                                                                             86% [Waiting for headers] [14 nodejs 37.0 MB/38.3 MB 97%]                                                         Get:139 http://deb.debian.org/debian trixie/main amd64 libgbm1 amd64 25.0.7-2 [44.4 kB]
-86% [139 libgbm1 18.1 kB/44.4 kB 41%] [14 nodejs 37.0 MB/38.3 MB 97%]                                                                     86% [14 nodejs 37.0 MB/38.3 MB 97%]                                   Get:140 http://deb.debian.org/debian trixie/main amd64 libgraphite2-3 amd64 1.3.14-2+b1 [75.4 kB]
-86% [140 libgraphite2-3 75.4 kB/75.4 kB 100%] [14 nodejs 37.1 MB/38.3 MB 97%]                                                                             Get:141 http://deb.debian.org/debian trixie/main amd64 libharfbuzz0b amd64 10.2.0-1+deb13u1 [479 kB]
-                                                                             87% [141 libharfbuzz0b 145 kB/479 kB 30%] [14 nodejs 37.1 MB/38.3 MB 97%]                                                                         87% [Waiting for headers] [14 nodejs 37.2 MB/38.3 MB 97%]                                                         Get:142 http://deb.debian.org/debian trixie/main amd64 libthai-data all 0.1.29-2 [168 kB]
-87% [142 libthai-data 124 kB/168 kB 74%] [14 nodejs 37.2 MB/38.3 MB 97%]                                                                        87% [14 nodejs 37.3 MB/38.3 MB 97%]                                   Get:143 http://deb.debian.org/debian trixie/main amd64 libthai0 amd64 0.1.29-2+b1 [49.4 kB]
-87% [Waiting for headers] [14 nodejs 37.3 MB/38.3 MB 97%]                                                         Get:144 http://deb.debian.org/debian trixie/main amd64 libpango-1.0-0 amd64 1.56.3-1 [226 kB]
-                                                         88% [14 nodejs 37.3 MB/38.3 MB 97%]                                   Get:145 http://deb.debian.org/debian trixie/main amd64 libpangoft2-1.0-0 amd64 1.56.3-1 [55.6 kB]
-88% [145 libpangoft2-1.0-0 55.6 kB/55.6 kB 100%] [14 nodejs 37.3 MB/38.3 MB 97%                                                                               88% [14 nodejs 37.3 MB/38.3 MB 97%]                                   Get:146 http://deb.debian.org/debian trixie/main amd64 libpangocairo-1.0-0 amd64 1.56.3-1 [35.7 kB]
-88% [146 libpangocairo-1.0-0 29.6 kB/35.7 kB 83%] [14 nodejs 37.3 MB/38.3 MB 97                                                                               Get:147 http://deb.debian.org/debian trixie/main amd64 libwayland-client0 amd64 1.23.1-3 [26.8 kB]
-                                                                               Get:148 http://deb.debian.org/debian trixie/main amd64 libwayland-cursor0 amd64 1.23.1-3 [11.9 kB]
-88% [148 libwayland-cursor0 11.9 kB/11.9 kB 100%] [14 nodejs 37.5 MB/38.3 MB 98                                                                               Get:149 http://deb.debian.org/debian trixie/main amd64 libwayland-egl1 amd64 1.23.1-3 [5860 B]
-                                                                               Get:150 http://deb.debian.org/debian trixie/main amd64 libxcomposite1 amd64 1:0.4.6-1 [16.3 kB]
-                                                                               Get:151 http://deb.debian.org/debian trixie/main amd64 libxfixes3 amd64 1:6.0.0-2+b4 [20.2 kB]
-                                                                               88% [151 libxfixes3 20.2 kB/20.2 kB 100%] [14 nodejs 37.5 MB/38.3 MB 98%]                                                                         Get:152 http://deb.debian.org/debian trixie/main amd64 libxcursor1 amd64 1:1.2.3-1 [39.7 kB]
-                                                                         Get:153 http://deb.debian.org/debian trixie/main amd64 libxdamage1 amd64 1:1.1.6-1+b2 [15.5 kB]
-                                                                         Get:154 http://deb.debian.org/debian trixie/main amd64 libxinerama1 amd64 2:1.1.4-3+b4 [16.0 kB]
-89% [154 libxinerama1 16.0 kB/16.0 kB 100%] [14 nodejs 37.6 MB/38.3 MB 98%]                                                                           89% [Waiting for headers] [14 nodejs 37.6 MB/38.3 MB 98%]                                                         Get:155 http://deb.debian.org/debian trixie/main amd64 xkb-data all 2.42-1 [790 kB]
-89% [155 xkb-data 37.1 kB/790 kB 5%] [14 nodejs 37.7 MB/38.3 MB 98%]                                                                    89% [Waiting for headers] [14 nodejs 37.8 MB/38.3 MB 99%]                                                         Get:156 http://deb.debian.org/debian trixie/main amd64 libxkbcommon0 amd64 1.7.0-2 [113 kB]
-89% [156 libxkbcommon0 27.9 kB/113 kB 25%] [14 nodejs 37.8 MB/38.3 MB 99%]                                                                          90% [Waiting for headers] [14 nodejs 37.9 MB/38.3 MB 99%]                                                         Get:157 http://deb.debian.org/debian trixie/main amd64 libxrandr2 amd64 2:1.5.4-1+b3 [36.3 kB]
-90% [157 libxrandr2 36.3 kB/36.3 kB 100%] [14 nodejs 37.9 MB/38.3 MB 99%]                                                                         90% [14 nodejs 37.9 MB/38.3 MB 99%]                                   Get:158 http://deb.debian.org/debian trixie/main amd64 libgtk-3-common all 3.24.49-3 [4908 kB]
-90% [158 libgtk-3-common 64.8 kB/4908 kB 1%] [14 nodejs 37.9 MB/38.3 MB 99%]                                                                            92% [158 libgtk-3-common 3224 kB/4908 kB 66%]                                             92% [Waiting for headers]                         Get:159 http://deb.debian.org/debian trixie/main amd64 libgtk-3-0t64 amd64 3.24.49-3 [2769 kB]
-92% [159 libgtk-3-0t64 14.6 kB/2769 kB 1%]                                          94% [Waiting for headers]                         Get:160 http://deb.debian.org/debian trixie/main amd64 libnspr4 amd64 2:4.36-1 [110 kB]
-94% [160 libnspr4 53.9 kB/110 kB 49%]                                     94% [Working]             Get:161 http://deb.debian.org/debian-security trixie-security/main amd64 libnss3 amd64 2:3.110-1+deb13u2 [1395 kB]
-94% [161 libnss3 74.3 kB/1395 kB 5%]                                    95% [Waiting for headers]                         Get:162 http://deb.debian.org/debian trixie/main amd64 libpkgconf3 amd64 1.8.1-4 [36.4 kB]
-95% [162 libpkgconf3 36.4 kB/36.4 kB 100%]                                          95% [Working]             Get:163 http://deb.debian.org/debian-security trixie-security/main amd64 libssl-dev amd64 3.5.6-1~deb13u2 [2959 kB]
-95% [163 libssl-dev 28.7 kB/2959 kB 1%]                                       96% [Waiting for headers]                         Get:164 http://deb.debian.org/debian trixie/main amd64 pkgconf-bin amd64 1.8.1-4 [30.2 kB]
-96% [164 pkgconf-bin 30.2 kB/30.2 kB 100%]                                          Get:165 http://deb.debian.org/debian trixie/main amd64 pkgconf amd64 1.8.1-4 [26.2 kB]
-                                          Get:166 http://deb.debian.org/debian trixie/main amd64 python3-autocommand all 2.2.2-3 [13.6 kB]
-                                          Get:167 http://deb.debian.org/debian trixie/main amd64 python3-more-itertools all 10.7.0-1 [67.4 kB]
-97% [167 python3-more-itertools 67.4 kB/67.4 kB 100%]                                                     Get:168 http://deb.debian.org/debian trixie/main amd64 python3-typing-extensions all 4.13.2-1 [90.5 kB]
-97% [168 python3-typing-extensions 62.3 kB/90.5 kB 69%]                                                       97% [Working]             Get:169 http://deb.debian.org/debian trixie/main amd64 python3-typeguard all 4.4.2-1 [37.3 kB]
-97% [169 python3-typeguard 36.4 kB/37.3 kB 98%]                                               97% [Working]             Get:170 http://deb.debian.org/debian trixie/main amd64 python3-inflect all 7.3.1-2 [32.4 kB]
-97% [170 python3-inflect 16.4 kB/32.4 kB 51%]                                             97% [Working]             Get:171 http://deb.debian.org/debian trixie/main amd64 python3-jaraco.functools all 4.1.0-1 [12.0 kB]
-97% [171 python3-jaraco.functools 12.0 kB/12.0 kB 100%]                                                       97% [Working]             Get:172 http://deb.debian.org/debian trixie/main amd64 python3-pkg-resources all 78.1.1-0.1 [224 kB]
-97% [172 python3-pkg-resources 28.8 kB/224 kB 13%]                                                  97% [Waiting for headers]                         Get:173 http://deb.debian.org/debian trixie/main amd64 python3-jaraco.text all 4.0.0-1 [11.4 kB]
-98% [173 python3-jaraco.text 11.4 kB/11.4 kB 100%]                                                  98% [Waiting for headers]                         Get:174 http://deb.debian.org/debian trixie/main amd64 python3-zipp all 3.21.0-1 [10.6 kB]
-98% [174 python3-zipp 8192 B/10.6 kB 77%]                                         98% [Waiting for headers]                         Get:175 http://deb.debian.org/debian trixie/main amd64 python3-setuptools all 78.1.1-0.1 [738 kB]
-98% [175 python3-setuptools 0 B/738 kB 0%]                                          98% [Waiting for headers]                         Get:176 http://deb.debian.org/debian trixie/main amd64 python3-jaraco.context all 6.0.1-1+deb13u1 [8492 B]
-98% [176 python3-jaraco.context 8492 B/8492 B 100%]                                                   98% [Waiting for headers]                         Get:177 http://deb.debian.org/debian trixie/main amd64 python3-pip-whl all 25.1.1+dfsg-1 [1507 kB]
-98% [177 python3-pip-whl 12.3 kB/1507 kB 1%]                                            99% [Waiting for headers]                         Get:178 http://deb.debian.org/debian trixie/main amd64 python3-setuptools-whl all 78.1.1-0.1 [1268 kB]
-99% [178 python3-setuptools-whl 266 kB/1268 kB 21%]                                                   100% [Waiting for headers]                          Get:179 http://deb.debian.org/debian trixie/main amd64 python3.13-venv amd64 3.13.5-2+deb13u2 [5476 B]
+37% [97 libavahi-client3 48.4 kB/48.4 kB 100%] [2 nodejs 24.0 MB/38.3 MB 63%] [                                                                               Get:98 http://deb.debian.org/debian trixie/main amd64 libpixman-1-0 amd64 0.44.0-3 [248 kB]
+37% [98 libpixman-1-0 248 kB/248 kB 100%] [2 nodejs 24.1 MB/38.3 MB 63%] [Conne                                                                               Get:99 http://deb.debian.org/debian trixie/main amd64 libxcb-render0 amd64 1.17.0-2+b1 [115 kB]
+38% [99 libxcb-render0 115 kB/115 kB 100%] [2 nodejs 24.1 MB/38.3 MB 63%] [Conn38% [Waiting for headers] [2 nodejs 24.1 MB/38.3 MB 63%] [Connected to deb.qube                                                                               Get:100 http://deb.debian.org/debian trixie/main amd64 libxcb-shm0 amd64 1.17.0-2+b1 [105 kB]
+38% [100 libxcb-shm0 35.7 kB/105 kB 34%] [2 nodejs 24.2 MB/38.3 MB 63%] [Connec38% [Waiting for headers] [2 nodejs 24.2 MB/38.3 MB 63%] [Connected to deb.qube                                                                               Get:101 http://deb.debian.org/debian trixie/main amd64 libxrender1 amd64 1:0.9.12-1 [27.9 kB]
+38% [101 libxrender1 0 B/27.9 kB 0%] [2 nodejs 24.6 MB/38.3 MB 64%] [Connected 38% [Waiting for headers] [2 nodejs 24.6 MB/38.3 MB 64%] [Connected to deb.qube                                                                               Get:102 http://deb.debian.org/debian trixie/main amd64 libcairo2 amd64 1.18.4-1+b1 [538 kB]
+38% [102 libcairo2 0 B/538 kB 0%] [2 nodejs 24.7 MB/38.3 MB 64%] [Connected to 39% [Waiting for headers] [2 nodejs 24.9 MB/38.3 MB 65%] [Connected to deb.qube                                                                               Get:103 http://deb.debian.org/debian trixie/main amd64 libcairo-gobject2 amd64 1.18.4-1+b1 [130 kB]
+39% [103 libcairo-gobject2 60.2 kB/130 kB 46%] [2 nodejs 24.9 MB/38.3 MB 65%] [                                                                               Get:104 http://deb.debian.org/debian trixie/main amd64 libgc1 amd64 1:8.2.8-1 [247 kB]
+39% [104 libgc1 60.3 kB/247 kB 24%] [2 nodejs 24.9 MB/38.3 MB 65%] [Waiting for                                                                               39% [Waiting for headers] [2 nodejs 25.0 MB/38.3 MB 65%] [Waiting for headers]                                                                              Get:105 http://deb.debian.org/debian trixie/main amd64 libobjc4 amd64 14.2.0-19 [43.3 kB]
+39% [105 libobjc4 9003 B/43.3 kB 21%] [2 nodejs 25.0 MB/38.3 MB 65%] [Waiting f                                                                               Get:106 http://deb.debian.org/debian trixie/main amd64 libobjc-14-dev amd64 14.2.0-19 [173 kB]
+39% [106 libobjc-14-dev 30.6 kB/173 kB 18%] [2 nodejs 25.1 MB/38.3 MB 65%] [Wai                                                                               40% [2 nodejs 25.1 MB/38.3 MB 65%] [Waiting for headers]                                                        Get:107 http://deb.debian.org/debian trixie/main amd64 libedit2 amd64 3.1-20250104-1 [93.8 kB]
+40% [107 libedit2 54.0 kB/93.8 kB 58%] [2 nodejs 25.1 MB/38.3 MB 65%] [Waiting                                                                                Get:108 http://deb.debian.org/debian trixie/main amd64 libz3-4 amd64 4.13.3-1 [8560 kB]
+40% [108 libz3-4 704 kB/8560 kB 8%] [2 nodejs 25.2 MB/38.3 MB 66%] [Waiting for                                                                               44% [Waiting for headers] [2 nodejs 26.6 MB/38.3 MB 69%] [Waiting for headers]                                                                              Get:109 http://deb.debian.org/debian trixie/main amd64 libllvm19 amd64 1:19.1.7-3+b1 [26.0 MB]
+44% [109 libllvm19 72.9 kB/26.0 MB 0%] [2 nodejs 26.6 MB/38.3 MB 69%] [Waiting                                                                                Get:110 https://deb.qubes-os.org/r4.3/vm trixie/main amd64 libqubesdb amd64 4.3.3-1+deb13u1 [9804 B]
+53% [109 libllvm19 16.9 MB/26.0 MB 65%] [2 nodejs 29.4 MB/38.3 MB 77%] [110 lib54% [109 libllvm19 17.0 MB/26.0 MB 65%] [2 nodejs 29.4 MB/38.3 MB 77%] [Waiting                                                                               58% [Waiting for headers] [2 nodejs 30.4 MB/38.3 MB 79%] [Waiting for headers]                                                                              Get:111 http://deb.debian.org/debian trixie/main amd64 libclang1-19 amd64 1:19.1.7-3+b1 [7623 kB]
+58% [111 libclang1-19 45.9 kB/7623 kB 1%] [2 nodejs 30.4 MB/38.3 MB 79%] [Waiti                                                                               62% [Waiting for headers] [2 nodejs 31.7 MB/38.3 MB 83%] [Waiting for headers]                                                                              Get:112 http://deb.debian.org/debian trixie/main amd64 libclang-common-19-dev amd64 1:19.1.7-3+b1 [740 kB]
+62% [112 libclang-common-19-dev 65.9 kB/740 kB 9%] [2 nodejs 31.7 MB/38.3 MB 83                                                                               63% [Waiting for headers] [2 nodejs 31.8 MB/38.3 MB 83%] [Waiting for headers]                                                                              Get:113 http://deb.debian.org/debian trixie/main amd64 libclang-19-dev amd64 1:19.1.7-3+b1 [28.3 MB]
+63% [113 libclang-19-dev 69.6 kB/28.3 MB 0%] [2 nodejs 31.8 MB/38.3 MB 83%] [Wa                                                                               Get:114 https://deb.qubes-os.org/r4.3/vm trixie/main amd64 qubesdb-dev amd64 4.3.3-1+deb13u1 [7800 B]
+69% [113 libclang-19-dev 11.9 MB/28.3 MB 42%] [2 nodejs 33.2 MB/38.3 MB 87%] [1                                                                               69% [113 libclang-19-dev 12.0 MB/28.3 MB 42%] [2 nodejs 33.2 MB/38.3 MB 87%]                                                                            77% [Waiting for headers] [2 nodejs 34.8 MB/38.3 MB 91%]                                                        Get:115 http://deb.debian.org/debian trixie/main amd64 libclang-dev amd64 1:19.0-63 [5828 B]
+77% [Waiting for headers] [2 nodejs 34.8 MB/38.3 MB 91%]                                                        Get:116 http://deb.debian.org/debian trixie/main amd64 libcloudproviders0 amd64 0.3.6-2 [29.2 kB]
+78% [Waiting for headers] [2 nodejs 34.8 MB/38.3 MB 91%]                                                        Get:117 http://deb.debian.org/debian trixie/main amd64 liblcms2-2 amd64 2.16-2+deb13u2 [160 kB]
+                                                        Get:118 http://deb.debian.org/debian trixie/main amd64 libcolord2 amd64 1.4.7-3 [139 kB]
+78% [118 libcolord2 139 kB/139 kB 100%] [2 nodejs 34.8 MB/38.3 MB 91%]                                                                      78% [2 nodejs 34.9 MB/38.3 MB 91%]                                  Get:119 http://deb.debian.org/debian trixie/main amd64 libcups2t64 amd64 2.4.10-3+deb13u2 [252 kB]
+78% [119 libcups2t64 42.8 kB/252 kB 17%] [2 nodejs 34.9 MB/38.3 MB 91%]                                                                       78% [Waiting for headers] [2 nodejs 34.9 MB/38.3 MB 91%]                                                        Get:120 http://deb.debian.org/debian trixie/main amd64 libdatrie1 amd64 0.2.13-3+b1 [38.1 kB]
+78% [120 libdatrie1 38.1 kB/38.1 kB 100%] [2 nodejs 34.9 MB/38.3 MB 91%]                                                                        78% [Waiting for headers] [2 nodejs 34.9 MB/38.3 MB 91%]                                                        Get:121 http://deb.debian.org/debian trixie/main amd64 libdrm-common all 2.4.124-2 [8288 B]
+78% [121 libdrm-common 8288 B/8288 B 100%] [2 nodejs 34.9 MB/38.3 MB 91%]                                                                         78% [2 nodejs 34.9 MB/38.3 MB 91%]                                  Get:122 http://deb.debian.org/debian trixie/main amd64 libdrm2 amd64 2.4.124-2 [39.0 kB]
+78% [122 libdrm2 39.0 kB/39.0 kB 100%] [2 nodejs 34.9 MB/38.3 MB 91%]                                                                     79% [Waiting for headers] [2 nodejs 35.0 MB/38.3 MB 91%]                                                        Get:123 http://deb.debian.org/debian trixie/main amd64 libdrm-amdgpu1 amd64 2.4.124-2 [22.6 kB]
+79% [Waiting for headers] [2 nodejs 35.0 MB/38.3 MB 91%]                                                        Get:124 http://deb.debian.org/debian trixie/main amd64 libpciaccess0 amd64 0.17-3+b3 [51.9 kB]
+79% [124 libpciaccess0 0 B/51.9 kB 0%] [2 nodejs 35.0 MB/38.3 MB 91%]                                                                     79% [Waiting for headers] [2 nodejs 35.0 MB/38.3 MB 91%]                                                        Get:125 http://deb.debian.org/debian trixie/main amd64 libdrm-intel1 amd64 2.4.124-2 [64.1 kB]
+79% [125 libdrm-intel1 0 B/64.1 kB 0%] [2 nodejs 35.0 MB/38.3 MB 91%]                                                                     79% [Waiting for headers] [2 nodejs 35.0 MB/38.3 MB 91%]                                                        Get:126 http://deb.debian.org/debian trixie/main amd64 libepoxy0 amd64 1.5.10-2 [193 kB]
+79% [126 libepoxy0 20.9 kB/193 kB 11%] [2 nodejs 35.0 MB/38.3 MB 91%]                                                                     79% [Waiting for headers] [2 nodejs 35.0 MB/38.3 MB 91%]                                                        Get:127 http://deb.debian.org/debian trixie/main amd64 libfribidi0 amd64 1.0.16-1 [26.5 kB]
+79% [127 libfribidi0 24.6 kB/26.5 kB 93%] [2 nodejs 35.0 MB/38.3 MB 91%]                                                                        79% [Waiting for headers] [2 nodejs 35.0 MB/38.3 MB 91%]                                                        Get:128 http://deb.debian.org/debian trixie/main amd64 libwayland-server0 amd64 1.23.1-3 [34.4 kB]
+79% [128 libwayland-server0 34.4 kB/34.4 kB 100%] [2 nodejs 35.0 MB/38.3 MB 91%                                                                               Get:129 http://deb.debian.org/debian trixie/main amd64 libsensors-config all 1:3.6.2-2 [16.2 kB]
+                                                                               Get:130 http://deb.debian.org/debian trixie/main amd64 libsensors5 amd64 1:3.6.2-2 [37.5 kB]
+                                                                               Get:131 http://deb.debian.org/debian trixie/main amd64 libx11-xcb1 amd64 2:1.8.12-1 [247 kB]
+                                                                               80% [131 libx11-xcb1 0 B/247 kB 0%] [2 nodejs 35.0 MB/38.3 MB 91%]                                                                  80% [Waiting for headers] [2 nodejs 35.1 MB/38.3 MB 92%]                                                        Get:132 http://deb.debian.org/debian trixie/main amd64 libxcb-dri3-0 amd64 1.17.0-2+b1 [107 kB]
+80% [132 libxcb-dri3-0 28.7 kB/107 kB 27%] [2 nodejs 35.1 MB/38.3 MB 92%]                                                                         80% [Waiting for headers] [2 nodejs 35.1 MB/38.3 MB 92%]                                                        Get:133 http://deb.debian.org/debian trixie/main amd64 libxcb-present0 amd64 1.17.0-2+b1 [106 kB]
+80% [133 libxcb-present0 48.1 kB/106 kB 46%] [2 nodejs 35.1 MB/38.3 MB 92%]                                                                           80% [2 nodejs 35.1 MB/38.3 MB 92%]                                  Get:134 http://deb.debian.org/debian trixie/main amd64 libxcb-randr0 amd64 1.17.0-2+b1 [117 kB]
+80% [134 libxcb-randr0 72.9 kB/117 kB 62%] [2 nodejs 35.1 MB/38.3 MB 92%]                                                                         Get:135 http://deb.debian.org/debian trixie/main amd64 libxcb-sync1 amd64 1.17.0-2+b1 [109 kB]
+                                                                         81% [135 libxcb-sync1 86.3 kB/109 kB 79%] [2 nodejs 35.2 MB/38.3 MB 92%]                                                                        81% [Waiting for headers] [2 nodejs 35.2 MB/38.3 MB 92%]                                                        Get:136 http://deb.debian.org/debian trixie/main amd64 libxcb-xfixes0 amd64 1.17.0-2+b1 [109 kB]
+81% [136 libxcb-xfixes0 31.4 kB/109 kB 29%] [2 nodejs 35.2 MB/38.3 MB 92%]                                                                          81% [Waiting for headers] [2 nodejs 35.2 MB/38.3 MB 92%]                                                        Get:137 http://deb.debian.org/debian trixie/main amd64 libxshmfence1 amd64 1.3.3-1 [10.9 kB]
+81% [137 libxshmfence1 10.9 kB/10.9 kB 100%] [2 nodejs 35.2 MB/38.3 MB 92%]                                                                           81% [Waiting for headers] [2 nodejs 35.2 MB/38.3 MB 92%]                                                        Get:138 http://deb.debian.org/debian trixie/main amd64 mesa-libgallium amd64 25.0.7-2 [9629 kB]
+81% [138 mesa-libgallium 657 B/9629 kB 0%] [2 nodejs 35.2 MB/38.3 MB 92%]                                                                         86% [Waiting for headers] [2 nodejs 36.1 MB/38.3 MB 94%]                                                        Get:139 http://deb.debian.org/debian trixie/main amd64 libgbm1 amd64 25.0.7-2 [44.4 kB]
+86% [139 libgbm1 44.4 kB/44.4 kB 100%] [2 nodejs 36.1 MB/38.3 MB 94%]                                                                     86% [2 nodejs 36.1 MB/38.3 MB 94%]                                  Get:140 http://deb.debian.org/debian trixie/main amd64 libgraphite2-3 amd64 1.3.14-2+b1 [75.4 kB]
+86% [140 libgraphite2-3 38.3 kB/75.4 kB 51%] [2 nodejs 36.1 MB/38.3 MB 94%]                                                                           86% [2 nodejs 36.1 MB/38.3 MB 94%]                                  Get:141 http://deb.debian.org/debian trixie/main amd64 libharfbuzz0b amd64 10.2.0-1+deb13u1 [479 kB]
+86% [141 libharfbuzz0b 54.3 kB/479 kB 11%] [2 nodejs 36.1 MB/38.3 MB 94%]                                                                         86% [Waiting for headers] [2 nodejs 36.1 MB/38.3 MB 94%]                                                        Get:142 http://deb.debian.org/debian trixie/main amd64 libthai-data all 0.1.29-2 [168 kB]
+86% [142 libthai-data 72.4 kB/168 kB 43%] [2 nodejs 36.1 MB/38.3 MB 94%]                                                                        87% [Waiting for headers] [2 nodejs 36.1 MB/38.3 MB 94%]                                                        Get:143 http://deb.debian.org/debian trixie/main amd64 libthai0 amd64 0.1.29-2+b1 [49.4 kB]
+87% [143 libthai0 41.0 kB/49.4 kB 83%] [2 nodejs 36.1 MB/38.3 MB 94%]                                                                     87% [2 nodejs 36.1 MB/38.3 MB 94%]                                  Get:144 http://deb.debian.org/debian trixie/main amd64 libpango-1.0-0 amd64 1.56.3-1 [226 kB]
+87% [144 libpango-1.0-0 50.5 kB/226 kB 22%] [2 nodejs 36.1 MB/38.3 MB 94%]                                                                          87% [Waiting for headers] [2 nodejs 36.2 MB/38.3 MB 94%]                                                        Get:145 http://deb.debian.org/debian trixie/main amd64 libpangoft2-1.0-0 amd64 1.56.3-1 [55.6 kB]
+87% [145 libpangoft2-1.0-0 55.6 kB/55.6 kB 100%] [2 nodejs 36.2 MB/38.3 MB 94%]                                                                               87% [2 nodejs 36.2 MB/38.3 MB 94%]                                  Get:146 http://deb.debian.org/debian trixie/main amd64 libpangocairo-1.0-0 amd64 1.56.3-1 [35.7 kB]
+                                  Get:147 http://deb.debian.org/debian trixie/main amd64 libwayland-client0 amd64 1.23.1-3 [26.8 kB]
+87% [Waiting for headers] [2 nodejs 36.3 MB/38.3 MB 95%]                                                        Get:148 http://deb.debian.org/debian trixie/main amd64 libwayland-cursor0 amd64 1.23.1-3 [11.9 kB]
+88% [Waiting for headers] [2 nodejs 36.3 MB/38.3 MB 95%]                                                        Get:149 http://deb.debian.org/debian trixie/main amd64 libwayland-egl1 amd64 1.23.1-3 [5860 B]
+88% [149 libwayland-egl1 5860 B/5860 B 100%] [2 nodejs 36.3 MB/38.3 MB 95%]                                                                           88% [Waiting for headers] [2 nodejs 36.3 MB/38.3 MB 95%]                                                        Get:150 http://deb.debian.org/debian trixie/main amd64 libxcomposite1 amd64 1:0.4.6-1 [16.3 kB]
+88% [150 libxcomposite1 0 B/16.3 kB 0%] [2 nodejs 36.3 MB/38.3 MB 95%]                                                                      88% [2 nodejs 36.3 MB/38.3 MB 95%]                                  Get:151 http://deb.debian.org/debian trixie/main amd64 libxfixes3 amd64 1:6.0.0-2+b4 [20.2 kB]
+88% [Waiting for headers] [2 nodejs 36.3 MB/38.3 MB 95%]                                                        Get:152 http://deb.debian.org/debian trixie/main amd64 libxcursor1 amd64 1:1.2.3-1 [39.7 kB]
+88% [152 libxcursor1 0 B/39.7 kB 0%] [2 nodejs 36.4 MB/38.3 MB 95%]                                                                   88% [Waiting for headers] [2 nodejs 36.4 MB/38.3 MB 95%]                                                        Get:153 http://deb.debian.org/debian trixie/main amd64 libxdamage1 amd64 1:1.1.6-1+b2 [15.5 kB]
+88% [153 libxdamage1 15.5 kB/15.5 kB 100%] [2 nodejs 36.4 MB/38.3 MB 95%]                                                                         88% [2 nodejs 36.4 MB/38.3 MB 95%]                                  Get:154 http://deb.debian.org/debian trixie/main amd64 libxinerama1 amd64 2:1.1.4-3+b4 [16.0 kB]
+88% [154 libxinerama1 7880 B/16.0 kB 49%] [2 nodejs 36.4 MB/38.3 MB 95%]                                                                        88% [Waiting for headers] [2 nodejs 36.5 MB/38.3 MB 95%]                                                        Get:155 http://deb.debian.org/debian trixie/main amd64 xkb-data all 2.42-1 [790 kB]
+88% [155 xkb-data 0 B/790 kB 0%] [2 nodejs 36.5 MB/38.3 MB 95%]                                                               89% [Waiting for headers] [2 nodejs 36.6 MB/38.3 MB 95%]                                                        Get:156 http://deb.debian.org/debian trixie/main amd64 libxkbcommon0 amd64 1.7.0-2 [113 kB]
+89% [156 libxkbcommon0 38.1 kB/113 kB 34%] [2 nodejs 36.6 MB/38.3 MB 95%]                                                                         89% [Waiting for headers] [2 nodejs 36.7 MB/38.3 MB 96%]                                                        Get:157 http://deb.debian.org/debian trixie/main amd64 libxrandr2 amd64 2:1.5.4-1+b3 [36.3 kB]
+89% [157 libxrandr2 36.3 kB/36.3 kB 100%] [2 nodejs 36.7 MB/38.3 MB 96%]                                                                        89% [2 nodejs 36.7 MB/38.3 MB 96%]                                  Get:158 http://deb.debian.org/debian trixie/main amd64 libgtk-3-common all 3.24.49-3 [4908 kB]
+89% [158 libgtk-3-common 64.8 kB/4908 kB 1%] [2 nodejs 36.7 MB/38.3 MB 96%]                                                                           92% [Waiting for headers] [2 nodejs 37.2 MB/38.3 MB 97%]                                                        Get:159 http://deb.debian.org/debian trixie/main amd64 libgtk-3-0t64 amd64 3.24.49-3 [2769 kB]
+92% [159 libgtk-3-0t64 69.6 kB/2769 kB 3%] [2 nodejs 37.2 MB/38.3 MB 97%]                                                                         93% [Waiting for headers] [2 nodejs 37.8 MB/38.3 MB 99%]                                                        Get:160 http://deb.debian.org/debian trixie/main amd64 libnspr4 amd64 2:4.36-1 [110 kB]
+93% [160 libnspr4 53.9 kB/110 kB 49%] [2 nodejs 37.8 MB/38.3 MB 99%]                                                                    94% [2 nodejs 37.8 MB/38.3 MB 99%]                                  Get:161 http://deb.debian.org/debian-security trixie-security/main amd64 libnss3 amd64 2:3.110-1+deb13u2 [1395 kB]
+94% [161 libnss3 8790 B/1395 kB 1%] [2 nodejs 37.8 MB/38.3 MB 99%]                                                                  94% [Waiting for headers] [2 nodejs 37.8 MB/38.3 MB 99%]                                                        Get:162 http://deb.debian.org/debian trixie/main amd64 libpkgconf3 amd64 1.8.1-4 [36.4 kB]
+94% [162 libpkgconf3 36.4 kB/36.4 kB 100%] [2 nodejs 37.8 MB/38.3 MB 99%]                                                                         Get:163 http://deb.debian.org/debian-security trixie-security/main amd64 libssl-dev amd64 3.5.6-1~deb13u2 [2959 kB]
+                                                                         95% [163 libssl-dev 262 kB/2959 kB 9%] [2 nodejs 37.9 MB/38.3 MB 99%]                                                                     96% [Waiting for headers] [2 nodejs 38.1 MB/38.3 MB 100%]                                                         Get:164 http://deb.debian.org/debian trixie/main amd64 pkgconf-bin amd64 1.8.1-4 [30.2 kB]
+96% [164 pkgconf-bin 30.2 kB/30.2 kB 100%] [2 nodejs 38.1 MB/38.3 MB 100%]                                                                          96% [2 nodejs 38.1 MB/38.3 MB 100%]                                   Get:165 http://deb.debian.org/debian trixie/main amd64 pkgconf amd64 1.8.1-4 [26.2 kB]
+                                   Get:166 http://deb.debian.org/debian trixie/main amd64 python3-autocommand all 2.2.2-3 [13.6 kB]
+                                   Get:167 http://deb.debian.org/debian trixie/main amd64 python3-more-itertools all 10.7.0-1 [67.4 kB]
+                                   Get:168 http://deb.debian.org/debian trixie/main amd64 python3-typing-extensions all 4.13.2-1 [90.5 kB]
+97% [168 python3-typing-extensions 90.5 kB/90.5 kB 100%] [2 nodejs 38.2 MB/38.3                                                                               Get:169 http://deb.debian.org/debian trixie/main amd64 python3-typeguard all 4.4.2-1 [37.3 kB]
+97% [169 python3-typeguard 37.3 kB/37.3 kB 100%] [2 nodejs 38.2 MB/38.3 MB 100%                                                                               97% [2 nodejs 38.2 MB/38.3 MB 100%]                                   Get:170 http://deb.debian.org/debian trixie/main amd64 python3-inflect all 7.3.1-2 [32.4 kB]
+97% [170 python3-inflect 32.4 kB/32.4 kB 100%] [2 nodejs 38.2 MB/38.3 MB 100%]                                                                              97% [2 nodejs 38.2 MB/38.3 MB 100%]                                   Get:171 http://deb.debian.org/debian trixie/main amd64 python3-jaraco.functools all 4.1.0-1 [12.0 kB]
+97% [2 nodejs 38.2 MB/38.3 MB 100%]                                   Get:172 http://deb.debian.org/debian trixie/main amd64 python3-pkg-resources all 78.1.1-0.1 [224 kB]
+97% [172 python3-pkg-resources 28.5 kB/224 kB 13%] [2 nodejs 38.3 MB/38.3 MB 10                                                                               97% [Waiting for headers] [2 nodejs 38.3 MB/38.3 MB 100%]                                                         Get:173 http://deb.debian.org/debian trixie/main amd64 python3-jaraco.text all 4.0.0-1 [11.4 kB]
+97% [173 python3-jaraco.text 11.4 kB/11.4 kB 100%] [2 nodejs 38.3 MB/38.3 MB 10                                                                               97% [Waiting for headers] [2 nodejs 38.3 MB/38.3 MB 100%]                                                         Get:174 http://deb.debian.org/debian trixie/main amd64 python3-zipp all 3.21.0-1 [10.6 kB]
+98% [174 python3-zipp 10.6 kB/10.6 kB 100%] [2 nodejs 38.3 MB/38.3 MB 100%]                                                                           98% [Waiting for headers] [2 nodejs 38.3 MB/38.3 MB 100%]                                                         Get:175 http://deb.debian.org/debian trixie/main amd64 python3-setuptools all 78.1.1-0.1 [738 kB]
+98% [175 python3-setuptools 32.8 kB/738 kB 4%] [2 nodejs 38.3 MB/38.3 MB 100%]                                                                              98% [175 python3-setuptools 328 kB/738 kB 44%]                                              98% [Waiting for headers]                         Get:176 http://deb.debian.org/debian trixie/main amd64 python3-jaraco.context all 6.0.1-1+deb13u1 [8492 B]
+98% [Waiting for headers]                         Get:177 http://deb.debian.org/debian trixie/main amd64 python3-pip-whl all 25.1.1+dfsg-1 [1507 kB]
+98% [177 python3-pip-whl 80.0 kB/1507 kB 5%]                                            99% [Waiting for headers]                         Get:178 http://deb.debian.org/debian trixie/main amd64 python3-setuptools-whl all 78.1.1-0.1 [1268 kB]
+99% [178 python3-setuptools-whl 13.7 kB/1268 kB 1%]                                                   100% [Waiting for headers]                          Get:179 http://deb.debian.org/debian trixie/main amd64 python3.13-venv amd64 3.13.5-2+deb13u2 [5476 B]
 100% [Waiting for headers]                          Get:180 http://deb.debian.org/debian trixie/main amd64 python3-venv amd64 3.13.5-1 [1180 B]
-100% [180 python3-venv 1180 B/1180 B 100%]                                          100% [Working]              Fetched 176 MB in 1s (297 MB/s)
+                          100% [Working]              Fetched 176 MB in 1s (229 MB/s)
 debconf: unable to initialize frontend: Dialog
 debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 79, <STDIN> line 180.)
 debconf: falling back to frontend: Readline
@@ -2402,11 +2402,11 @@ Processing triggers for libc-bin (2.41-12+deb13u3) ...
 + NIGHTLY=1
 + [[ -n 1 ]]
 ++ date +%Y%m%d%H%M%S
-+ NEW_VERSION=1.5.0~rc1.dev20260707071223
-+ sed -i '0,/1.5.0~rc1/ s//1.5.0~rc1.dev20260707071223+trixie/' debian/changelog
++ NEW_VERSION=1.5.0~rc1.dev20260707150325
++ sed -i '0,/1.5.0~rc1/ s//1.5.0~rc1.dev20260707150325+trixie/' debian/changelog
 + dpkg-buildpackage --no-sign
 [1mdpkg-buildpackage: [0m[32minfo[0m: source package securedrop-client
-[1mdpkg-buildpackage: [0m[32minfo[0m: source version 1.5.0~rc1.dev20260707071223+trixie
+[1mdpkg-buildpackage: [0m[32minfo[0m: source version 1.5.0~rc1.dev20260707150325+trixie
 [1mdpkg-buildpackage: [0m[32minfo[0m: source distribution unstable
 [1mdpkg-buildpackage: [0m[32minfo[0m: source changed by SecureDrop Team <securedrop@freedom.press>
 [1mdpkg-buildpackage: [0m[32minfo[0m: host architecture amd64
@@ -2419,8 +2419,8 @@ Processing triggers for libc-bin (2.41-12+deb13u3) ...
 [1;35m dpkg-source -b .
 [0m[1mdpkg-source: [0m[32minfo[0m: using options from securedrop-client/debian/source/options: --compression=gzip --tar-ignore=build --tar-ignore=.* --tar-ignore=__pycache__ --tar-ignore=htmlcov --tar-ignore=target --tar-ignore=node_modules
 [1mdpkg-source: [0m[32minfo[0m: using source format '3.0 (native)'
-[1mdpkg-source: [0m[32minfo[0m: building securedrop-client in securedrop-client_1.5.0~rc1.dev20260707071223+trixie.tar.gz
-[1mdpkg-source: [0m[32minfo[0m: building securedrop-client in securedrop-client_1.5.0~rc1.dev20260707071223+trixie.dsc
+[1mdpkg-source: [0m[32minfo[0m: building securedrop-client in securedrop-client_1.5.0~rc1.dev20260707150325+trixie.tar.gz
+[1mdpkg-source: [0m[32minfo[0m: building securedrop-client in securedrop-client_1.5.0~rc1.dev20260707150325+trixie.dsc
 [1;35m debian/rules binary
 [0mdh binary
    dh_update_autotools_config
@@ -2471,7 +2471,7 @@ Processing ./export
 [?25hBuilding wheels for collected packages: securedrop-export
   Building wheel for securedrop-export (pyproject.toml) ... [?25l- done
 [?25h  Created wheel for securedrop-export: filename=securedrop_export-0.0.0-py3-none-any.whl size=55520 sha256=3f5c7a47eed20b62e31193db662fc512ddac8fa4b718214d4014b3b9faa78276
-  Stored in directory: /tmp/pip-ephem-wheel-cache-9ew4u4xt/wheels/1e/52/81/afbf1faf4f91e7f1c2233576161ef202cccceb9bddd776a73b
+  Stored in directory: /tmp/pip-ephem-wheel-cache-wnoa_5wg/wheels/1e/52/81/afbf1faf4f91e7f1c2233576161ef202cccceb9bddd776a73b
 Successfully built securedrop-export
 Installing collected packages: securedrop-export
 Successfully installed securedrop-export-0.0.0
@@ -2492,7 +2492,7 @@ Processing ./log
 [?25hBuilding wheels for collected packages: securedrop-log
   Building wheel for securedrop-log (pyproject.toml) ... [?25l- done
 [?25h  Created wheel for securedrop-log: filename=securedrop_log-0.0.0-py3-none-any.whl size=19932 sha256=44ec808f0154b8f23a5f9c3b0c24ae6f19035286bf378844a5cebfe3423683c6
-  Stored in directory: /tmp/pip-ephem-wheel-cache-bxxheswf/wheels/c2/0e/2b/e2691c97b5c70a737898a010a7948b066c829fc89439df0a9d
+  Stored in directory: /tmp/pip-ephem-wheel-cache-f52m0v8a/wheels/c2/0e/2b/e2691c97b5c70a737898a010a7948b066c829fc89439df0a9d
 Successfully built securedrop-log
 Installing collected packages: securedrop-log
 Successfully installed securedrop-log-0.0.0
@@ -2502,144 +2502,144 @@ Successfully installed securedrop-log-0.0.0
 cargo build --release --locked --features qubesdb
     Updating crates.io index
  Downloading crates ...
-  Downloaded autocfg v1.1.0
-  Downloaded atomic-waker v1.1.2
   Downloaded adler2 v2.0.1
-  Downloaded bitflags v2.4.2
-  Downloaded anyhow v1.0.75
-  Downloaded base64 v0.22.1
+  Downloaded atomic-waker v1.1.2
+  Downloaded autocfg v1.1.0
   Downloaded serde_urlencoded v0.7.1
   Downloaded stable_deref_trait v1.2.0
+  Downloaded shlex v1.3.0
+  Downloaded rustls-pemfile v2.1.2
   Downloaded smallvec v1.13.2
-  Downloaded thiserror-impl v1.0.65
   Downloaded synstructure v0.13.1
-  Downloaded zerofrom v0.1.5
-  Downloaded utf16_iter v1.0.5
   Downloaded zerofrom-derive v0.1.5
-  Downloaded zerovec-derive v0.10.3
   Downloaded write16 v1.0.0
-  Downloaded yoke v0.7.5
-  Downloaded tinystr v0.7.6
-  Downloaded unicode-ident v1.0.12
+  Downloaded zerofrom v0.1.5
+  Downloaded zerovec-derive v0.10.3
+  Downloaded tower-service v0.3.2
   Downloaded tracing-core v0.1.32
-  Downloaded serde v1.0.196
-  Downloaded url v2.5.4
   Downloaded tracing v0.1.40
-  Downloaded tower v0.4.13
   Downloaded zerovec v0.10.4
+  Downloaded serde v1.0.196
+  Downloaded nom v7.1.3
+  Downloaded regex v1.10.3
+  Downloaded regex-syntax v0.8.2
+  Downloaded openssl-macros v0.1.1
+  Downloaded miniz_oxide v0.8.9
+  Downloaded serde_derive v1.0.196
+  Downloaded rustix v0.38.31
+  Downloaded itertools v0.12.1
+  Downloaded pin-utils v0.1.0
+  Downloaded cexpr v0.6.0
+  Downloaded idna v1.0.3
+  Downloaded litemap v0.7.4
+  Downloaded url v2.5.4
+  Downloaded tokio v1.44.2
+  Downloaded libc v0.2.171
   Downloaded hashbrown v0.14.3
   Downloaded reqwest v0.12.4
-  Downloaded h2 v0.4.5
-  Downloaded futures-util v0.3.31
-  Downloaded vcpkg v0.2.15
-  Downloaded regex v1.10.3
-  Downloaded icu_properties_data v1.5.0
-  Downloaded tokio-util v0.7.10
-  Downloaded openssl v0.10.80
-  Downloaded idna v1.0.3
-  Downloaded regex-syntax v0.8.2
-  Downloaded rustix v0.38.31
-  Downloaded hyper v1.3.1
-  Downloaded syn v2.0.58
-  Downloaded serde_json v1.0.113
-  Downloaded nom v7.1.3
-  Downloaded bindgen v0.69.4
-  Downloaded itertools v0.12.1
-  Downloaded http v1.1.0
-  Downloaded cc v1.2.36
   Downloaded mio v1.0.3
-  Downloaded minimal-lexical v0.2.1
-  Downloaded memchr v2.7.1
-  Downloaded icu_collections v1.5.0
-  Downloaded regex-automata v0.4.5
-  Downloaded flate2 v1.1.2
-  Downloaded aho-corasick v1.1.2
-  Downloaded miniz_oxide v0.8.9
-  Downloaded icu_normalizer v1.5.0
-  Downloaded icu_locid_transform_data v1.5.0
-  Downloaded icu_locid v1.5.0
-  Downloaded bytes v1.11.1
-  Downloaded libc v0.2.171
-  Downloaded serde_derive v1.0.196
-  Downloaded pin-project v1.1.5
-  Downloaded once_cell v1.19.0
   Downloaded indexmap v2.2.3
-  Downloaded icu_provider v1.5.0
-  Downloaded icu_properties v1.5.1
-  Downloaded icu_normalizer_data v1.5.0
-  Downloaded tokio v1.44.2
-  Downloaded hyper-util v0.1.3
+  Downloaded minimal-lexical v0.2.1
+  Downloaded encoding_rs v0.8.33
+  Downloaded vcpkg v0.2.15
+  Downloaded serde_json v1.0.113
+  Downloaded icu_properties_data v1.5.0
+  Downloaded errno v0.3.8
   Downloaded either v1.10.0
-  Downloaded crc32fast v1.4.0
-  Downloaded clang-sys v1.7.0
-  Downloaded ryu v1.0.16
-  Downloaded proc-macro2 v1.0.78
+  Downloaded once_cell v1.19.0
+  Downloaded regex-automata v0.4.5
   Downloaded openssl-sys v0.9.116
-  Downloaded log v0.4.20
-  Downloaded litemap v0.7.4
-  Downloaded futures-channel v0.3.31
-  Downloaded thiserror v1.0.65
-  Downloaded libloading v0.8.1
-  Downloaded glob v0.3.1
+  Downloaded itoa v1.0.10
+  Downloaded clang-sys v1.7.0
+  Downloaded memchr v2.7.1
+  Downloaded linux-raw-sys v0.4.13
+  Downloaded icu_collections v1.5.0
+  Downloaded cc v1.2.36
+  Downloaded h2 v0.4.5
+  Downloaded futures-sink v0.3.31
+  Downloaded tower v0.4.13
+  Downloaded pin-project-internal v1.1.5
+  Downloaded hyper v1.3.1
+  Downloaded http-body v1.0.0
   Downloaded displaydoc v0.2.5
-  Downloaded writeable v0.5.5
-  Downloaded utf8_iter v1.0.4
-  Downloaded tower-layer v0.3.2
-  Downloaded tokio-socks v0.5.2
+  Downloaded tokio-util v0.7.10
+  Downloaded rustls-pki-types v1.7.0
+  Downloaded libloading v0.8.1
+  Downloaded ipnet v2.9.0
+  Downloaded http v1.1.0
+  Downloaded futures-util v0.3.31
+  Downloaded futures-channel v0.3.31
   Downloaded tokio-native-tls v0.3.1
   Downloaded quote v1.0.35
-  Downloaded pin-project-lite v0.2.13
-  Downloaded native-tls v0.2.11
-  Downloaded httparse v1.8.0
-  Downloaded foreign-types v0.3.2
-  Downloaded cfg-if v1.0.0
-  Downloaded encoding_rs v0.8.33
-  Downloaded cexpr v0.6.0
-  Downloaded rustls-pki-types v1.7.0
-  Downloaded rustls-pemfile v2.1.2
-  Downloaded pkg-config v0.3.29
-  Downloaded linux-raw-sys v0.4.13
-  Downloaded icu_locid_transform v1.5.0
-  Downloaded try-lock v0.2.5
-  Downloaded pin-project-internal v1.1.5
-  Downloaded futures-sink v0.3.31
-  Downloaded futures-macro v0.3.31
-  Downloaded fnv v1.0.7
-  Downloaded yoke-derive v0.7.5
-  Downloaded which v4.4.2
-  Downloaded want v0.3.1
-  Downloaded icu_provider_macros v1.5.0
-  Downloaded hyper-tls v0.6.0
-  Downloaded http-body-util v0.1.1
-  Downloaded futures-task v0.3.31
-  Downloaded equivalent v1.0.1
-  Downloaded tower-service v0.3.2
-  Downloaded tokio-macros v2.5.0
-  Downloaded slab v0.4.9
+  Downloaded proc-macro2 v1.0.78
   Downloaded percent-encoding v2.3.1
-  Downloaded ipnet v2.9.0
-  Downloaded home v0.5.9
-  Downloaded futures-core v0.3.31
-  Downloaded form_urlencoded v1.2.1
-  Downloaded foreign-types-shared v0.1.1
-  Downloaded find-msvc-tools v0.1.1
-  Downloaded sync_wrapper v0.1.2
-  Downloaded socket2 v0.5.5
-  Downloaded shlex v1.3.0
   Downloaded openssl-probe v0.1.5
-  Downloaded openssl-macros v0.1.1
+  Downloaded native-tls v0.2.11
   Downloaded mime v0.3.17
+  Downloaded log v0.4.20
   Downloaded lazycell v1.3.0
   Downloaded lazy_static v1.4.0
-  Downloaded http-body v1.0.0
-  Downloaded futures-io v0.3.31
-  Downloaded errno v0.3.8
-  Downloaded async-compression v0.4.6
-  Downloaded prettyplease v0.2.16
-  Downloaded rustc-hash v1.1.0
-  Downloaded pin-utils v0.1.0
-  Downloaded itoa v1.0.10
   Downloaded idna_adapter v1.2.0
+  Downloaded icu_normalizer v1.5.0
+  Downloaded flate2 v1.1.2
+  Downloaded crc32fast v1.4.0
+  Downloaded bytes v1.11.1
+  Downloaded tokio-socks v0.5.2
+  Downloaded tinystr v0.7.6
+  Downloaded prettyplease v0.2.16
+  Downloaded pkg-config v0.3.29
+  Downloaded pin-project-lite v0.2.13
+  Downloaded http-body-util v0.1.1
+  Downloaded home v0.5.9
+  Downloaded futures-macro v0.3.31
+  Downloaded form_urlencoded v1.2.1
+  Downloaded foreign-types v0.3.2
+  Downloaded equivalent v1.0.1
+  Downloaded cfg-if v1.0.0
+  Downloaded yoke v0.7.5
+  Downloaded writeable v0.5.5
+  Downloaded utf16_iter v1.0.5
+  Downloaded tokio-macros v2.5.0
+  Downloaded thiserror-impl v1.0.65
+  Downloaded thiserror v1.0.65
+  Downloaded ryu v1.0.16
+  Downloaded rustc-hash v1.1.0
+  Downloaded icu_properties v1.5.1
+  Downloaded icu_normalizer_data v1.5.0
+  Downloaded find-msvc-tools v0.1.1
+  Downloaded yoke-derive v0.7.5
+  Downloaded which v4.4.2
+  Downloaded try-lock v0.2.5
+  Downloaded tower-layer v0.3.2
+  Downloaded pin-project v1.1.5
+  Downloaded openssl v0.10.80
+  Downloaded icu_locid_transform v1.5.0
+  Downloaded icu_locid v1.5.0
+  Downloaded hyper-util v0.1.3
+  Downloaded hyper-tls v0.6.0
+  Downloaded httparse v1.8.0
+  Downloaded glob v0.3.1
+  Downloaded futures-task v0.3.31
+  Downloaded want v0.3.1
+  Downloaded unicode-ident v1.0.12
+  Downloaded syn v2.0.58
+  Downloaded icu_provider_macros v1.5.0
+  Downloaded icu_provider v1.5.0
+  Downloaded icu_locid_transform_data v1.5.0
+  Downloaded futures-io v0.3.31
+  Downloaded futures-core v0.3.31
+  Downloaded bindgen v0.69.4
+  Downloaded utf8_iter v1.0.4
+  Downloaded foreign-types-shared v0.1.1
+  Downloaded aho-corasick v1.1.2
+  Downloaded sync_wrapper v0.1.2
+  Downloaded socket2 v0.5.5
+  Downloaded fnv v1.0.7
+  Downloaded bitflags v2.4.2
+  Downloaded async-compression v0.4.6
+  Downloaded base64 v0.22.1
+  Downloaded slab v0.4.9
+  Downloaded anyhow v1.0.75
    Compiling proc-macro2 v1.0.78
    Compiling unicode-ident v1.0.12
    Compiling libc v0.2.171
@@ -2648,46 +2648,45 @@ cargo build --release --locked --features qubesdb
    Compiling bytes v1.11.1
    Compiling stable_deref_trait v1.2.0
    Compiling futures-core v0.3.31
-   Compiling find-msvc-tools v0.1.1
    Compiling autocfg v1.1.0
+   Compiling find-msvc-tools v0.1.1
    Compiling quote v1.0.35
-   Compiling slab v0.4.9
-   Compiling syn v2.0.58
    Compiling cc v1.2.36
-   Compiling socket2 v0.5.5
+   Compiling syn v2.0.58
    Compiling mio v1.0.3
-   Compiling log v0.4.20
+   Compiling socket2 v0.5.5
+   Compiling slab v0.4.9
    Compiling vcpkg v0.2.15
-   Compiling pkg-config v0.3.29
    Compiling itoa v1.0.10
-   Compiling litemap v0.7.4
-   Compiling writeable v0.5.5
-   Compiling cfg-if v1.0.0
-   Compiling once_cell v1.19.0
+   Compiling pkg-config v0.3.29
+   Compiling log v0.4.20
    Compiling openssl-sys v0.9.116
+   Compiling once_cell v1.19.0
+   Compiling writeable v0.5.5
+   Compiling litemap v0.7.4
+   Compiling cfg-if v1.0.0
    Compiling tracing-core v0.1.32
-   Compiling smallvec v1.13.2
    Compiling fnv v1.0.7
+   Compiling smallvec v1.13.2
    Compiling http v1.1.0
    Compiling tracing v0.1.40
+   Compiling pin-utils v0.1.0
+   Compiling icu_locid_transform_data v1.5.0
    Compiling futures-task v0.3.31
    Compiling glob v0.3.1
    Compiling synstructure v0.13.1
-   Compiling pin-utils v0.1.0
-   Compiling icu_locid_transform_data v1.5.0
    Compiling clang-sys v1.7.0
-   Compiling foreign-types-shared v0.1.1
-   Compiling openssl v0.10.80
-   Compiling hashbrown v0.14.3
-   Compiling rustix v0.38.31
+   Compiling httparse v1.8.0
    Compiling equivalent v1.0.1
    Compiling icu_properties_data v1.5.0
+   Compiling hashbrown v0.14.3
+   Compiling rustix v0.38.31
+   Compiling foreign-types-shared v0.1.1
+   Compiling openssl v0.10.80
    Compiling futures-sink v0.3.31
    Compiling prettyplease v0.2.16
-   Compiling httparse v1.8.0
    Compiling indexmap v2.2.3
    Compiling foreign-types v0.3.2
-   Compiling http-body v1.0.0
    Compiling zerofrom-derive v0.1.5
    Compiling yoke-derive v0.7.5
    Compiling zerovec-derive v0.10.3
@@ -2695,88 +2694,89 @@ cargo build --release --locked --features qubesdb
    Compiling tokio-macros v2.5.0
    Compiling icu_provider_macros v1.5.0
    Compiling futures-macro v0.3.31
+   Compiling openssl-macros v0.1.1
    Compiling tokio v1.44.2
    Compiling pin-project-internal v1.1.5
    Compiling zerofrom v0.1.5
-   Compiling futures-util v0.3.31
    Compiling yoke v0.7.5
+   Compiling futures-util v0.3.31
    Compiling zerovec v0.10.4
-   Compiling openssl-macros v0.1.1
-   Compiling serde v1.0.196
-   Compiling native-tls v0.2.11
-   Compiling icu_normalizer_data v1.5.0
-   Compiling utf8_iter v1.0.4
+   Compiling http-body v1.0.0
    Compiling tinystr v0.7.6
    Compiling icu_locid v1.5.0
    Compiling icu_collections v1.5.0
+   Compiling bitflags v2.4.2
    Compiling icu_provider v1.5.0
    Compiling icu_locid_transform v1.5.0
    Compiling tokio-util v0.7.10
    Compiling icu_properties v1.5.1
-   Compiling minimal-lexical v0.2.1
-   Compiling regex-syntax v0.8.2
-   Compiling atomic-waker v1.1.2
    Compiling crc32fast v1.4.0
-   Compiling memchr v2.7.1
+   Compiling serde v1.0.196
+   Compiling atomic-waker v1.1.2
    Compiling try-lock v0.2.5
-   Compiling bitflags v2.4.2
-   Compiling either v1.10.0
-   Compiling write16 v1.0.0
+   Compiling utf8_iter v1.0.4
+   Compiling minimal-lexical v0.2.1
    Compiling utf16_iter v1.0.5
+   Compiling icu_normalizer_data v1.5.0
+   Compiling write16 v1.0.0
+   Compiling memchr v2.7.1
    Compiling linux-raw-sys v0.4.13
+   Compiling native-tls v0.2.11
+   Compiling either v1.10.0
+   Compiling regex-syntax v0.8.2
+   Compiling libloading v0.8.1
+   Compiling nom v7.1.3
+   Compiling regex-automata v0.4.5
    Compiling icu_normalizer v1.5.0
    Compiling want v0.3.1
-   Compiling nom v7.1.3
-   Compiling libloading v0.8.1
    Compiling h2 v0.4.5
-   Compiling regex-automata v0.4.5
    Compiling pin-project v1.1.5
    Compiling serde_derive v1.0.196
    Compiling futures-channel v0.3.31
-   Compiling home v0.5.9
-   Compiling tower-layer v0.3.2
    Compiling openssl-probe v0.1.5
-   Compiling percent-encoding v2.3.1
-   Compiling adler2 v2.0.1
-   Compiling bindgen v0.69.4
-   Compiling thiserror v1.0.65
+   Compiling home v0.5.9
    Compiling tower-service v0.3.2
-   Compiling tower v0.4.13
+   Compiling bindgen v0.69.4
+   Compiling percent-encoding v2.3.1
+   Compiling thiserror v1.0.65
+   Compiling tower-layer v0.3.2
+   Compiling adler2 v2.0.1
    Compiling miniz_oxide v0.8.9
+   Compiling tower v0.4.13
    Compiling form_urlencoded v1.2.1
-   Compiling hyper v1.3.1
    Compiling which v4.4.2
+   Compiling hyper v1.3.1
    Compiling regex v1.10.3
-   Compiling cexpr v0.6.0
    Compiling idna_adapter v1.2.0
+   Compiling cexpr v0.6.0
    Compiling itertools v0.12.1
    Compiling thiserror-impl v1.0.65
    Compiling rustc-hash v1.1.0
    Compiling ryu v1.0.16
    Compiling lazycell v1.3.0
    Compiling lazy_static v1.4.0
+   Compiling hyper-util v0.1.3
    Compiling idna v1.0.3
    Compiling flate2 v1.1.2
    Compiling tokio-native-tls v0.3.1
-   Compiling hyper-util v0.1.3
    Compiling http-body-util v0.1.1
    Compiling serde_json v1.0.113
-   Compiling base64 v0.22.1
-   Compiling rustls-pki-types v1.7.0
    Compiling anyhow v1.0.75
+   Compiling rustls-pki-types v1.7.0
+   Compiling base64 v0.22.1
+   Compiling rustls-pemfile v2.1.2
    Compiling async-compression v0.4.6
    Compiling tokio-socks v0.5.2
-   Compiling rustls-pemfile v2.1.2
    Compiling hyper-tls v0.6.0
    Compiling url v2.5.4
    Compiling serde_urlencoded v0.7.1
    Compiling encoding_rs v0.8.33
-   Compiling mime v0.3.17
    Compiling sync_wrapper v0.1.2
-   Compiling ipnet v2.9.0
+   Compiling mime v0.3.17
    Compiling securedrop-proxy v0.1.0 (/srv/securedrop-client/proxy)
+   Compiling ipnet v2.9.0
    Compiling reqwest v0.12.4
-    Finished `release` profile [optimized + debuginfo] target(s) in 52.35s
+    Finished `release` profile [optimized + debuginfo] target(s) in 57.97s
 bash ./debian/build-app.sh
 + npm install -g pnpm@10
 \[1G[0K|[1G[0K/[1G[0K-[1G[0K\[1G[0K|[1G[0K/[1G[0K-[1G[0K
@@ -2796,65 +2796,73 @@ Packages: [32m+1109[39m
 
 Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m0[39m, added [96m0[39m
 [1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m10[39m, added [96m1[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m22[39m, added [96m5[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m18[39m, added [96m5[39m
 Downloading antd@5.29.3: [96m0.00 B[39m/[96m10.27 MB[39m
-[1ADownloading antd@5.29.3: [96m726.00 B[39m/[96m10.27 MB[39m
-[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m40[39m, added [96m12[39m
-[1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m46[39m, added [96m13[39m
+[1ADownloading antd@5.29.3: [96m15.55 kB[39m/[96m10.27 MB[39m
+[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m31[39m, added [96m9[39m
+[1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m43[39m, added [96m13[39m
 [1B[2ADownloading antd@5.29.3: [96m10.27 MB[39m/[96m10.27 MB[39m, done[0K
-Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m46[39m, added [96m13[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m50[39m, added [96m15[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m65[39m, added [96m21[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m76[39m, added [96m24[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m97[39m, added [96m31[39m
+Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m43[39m, added [96m13[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m46[39m, added [96m13[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m50[39m, added [96m13[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m71[39m, added [96m21[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m76[39m, added [96m25[39m
 Downloading @dbmate/linux-x64@2.29.3: [96m0.00 B[39m/[96m11.94 MB[39m
-[1ADownloading @dbmate/linux-x64@2.29.3: [96m15.74 kB[39m/[96m11.94 MB[39m
-[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m110[39m, added [96m36[39m
+[1ADownloading @dbmate/linux-x64@2.29.3: [96m15.73 kB[39m/[96m11.94 MB[39m
+[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m91[39m, added [96m31[39m
+[1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m103[39m, added [96m35[39m
 [1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m114[39m, added [96m39[39m
 [1B[2ADownloading @dbmate/linux-x64@2.29.3: [96m11.94 MB[39m/[96m11.94 MB[39m, done
 Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m114[39m, added [96m39[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m145[39m, added [96m48[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m166[39m, added [96m55[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m196[39m, added [96m64[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m246[39m, added [96m87[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m315[39m, added [96m110[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m374[39m, added [96m151[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m408[39m, added [96m161[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m467[39m, added [96m198[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m550[39m, added [96m253[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m592[39m, added [96m281[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m634[39m, added [96m301[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m686[39m, added [96m344[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m127[39m, added [96m44[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m158[39m, added [96m55[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m176[39m, added [96m63[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m203[39m, added [96m76[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m240[39m, added [96m101[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m286[39m, added [96m131[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m341[39m, added [96m164[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m372[39m, added [96m183[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m407[39m, added [96m199[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m448[39m, added [96m226[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m494[39m, added [96m280[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m556[39m, added [96m350[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m590[39m, added [96m376[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m615[39m, added [96m388[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m649[39m, added [96m407[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m697[39m, added [96m449[39m
 Downloading electron-winstaller@5.4.0: [96m0.00 B[39m/[96m9.14 MB[39m
-[1ADownloading electron-winstaller@5.4.0: [96m15.57 kB[39m/[96m9.14 MB[39m
+[1ADownloading electron-winstaller@5.4.0: [96m15.74 kB[39m/[96m9.14 MB[39m
+[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m728[39m, added [96m468[39m
+[1BDownloading app-builder-bin@5.0.0-alpha.12: [96m0.00 B[39m/[96m72.51 MB[39m
+[1ADownloading app-builder-bin@5.0.0-alpha.12: [96m7.61 kB[39m/[96m72.51 MB[39m
 Downloading 7zip-bin@5.2.0: [96m0.00 B[39m/[96m5.63 MB[39m
-[1ADownloading 7zip-bin@5.2.0: [96m15.94 kB[39m/[96m5.63 MB[39m
-[3AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m722[39m, added [96m360[39m
-[2BDownloading app-builder-bin@5.0.0-alpha.12: [96m0.00 B[39m/[96m72.51 MB[39m
-[1ADownloading app-builder-bin@5.0.0-alpha.12: [96m15.94 kB[39m/[96m72.51 MB[39m
+[1ADownloading 7zip-bin@5.2.0: [96m15.74 kB[39m/[96m5.63 MB[39m
 [4APackages are hard linked from the content-addressable store to the virtual store.
   Content-addressable store is at: /root/.local/share/pnpm/store/v10
-  Virtual store is at:             node_modules/.pnpm
-Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m722[39m, added [96m360[39m[0K
-Downloading electron-winstaller@5.4.0: [96m15.57 kB[39m/[96m9.14 MB[39m
-Downloading 7zip-bin@5.2.0: [96m15.94 kB[39m/[96m5.63 MB[39m
-Downloading app-builder-bin@5.0.0-alpha.12: [96m15.94 kB[39m/[96m72.51 MB[39m
-[4AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m754[39m, added [96m376[39m
+  Virtual store is at:             node_modules/.pnpm[0K
+Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m728[39m, added [96m468[39m
+Downloading electron-winstaller@5.4.0: [96m15.74 kB[39m/[96m9.14 MB[39m
+Downloading app-builder-bin@5.0.0-alpha.12: [96m7.61 kB[39m/[96m72.51 MB[39m
+Downloading 7zip-bin@5.2.0: [96m15.74 kB[39m/[96m5.63 MB[39m
+[4AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m745[39m, added [96m482[39m
 [3B[4ADownloading electron-winstaller@5.4.0: [96m9.14 MB[39m/[96m9.14 MB[39m, done
-Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m754[39m, added [96m376[39m
-[2B[3AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m810[39m, added [96m411[39m
-[2B[3ADownloading 7zip-bin@5.2.0: [96m5.63 MB[39m/[96m5.63 MB[39m, done[0K
-Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m810[39m, added [96m411[39m
-[1B[1ADownloading app-builder-bin@5.0.0-alpha.12: [96m62.15 MB[39m/[96m72.51 MB[39m
-[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m880[39m, added [96m486[39m
-[1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m964[39m, added [96m570[39m
+Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m745[39m, added [96m482[39m
+[2B[3AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m775[39m, added [96m496[39m
+[2B[2ADownloading app-builder-bin@5.0.0-alpha.12: [96m36.53 MB[39m/[96m72.51 MB[39m
+[1B[3ADownloading 7zip-bin@5.2.0: [96m5.63 MB[39m/[96m5.63 MB[39m, done[0K
+Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m775[39m, added [96m496[39m[0K
+Downloading app-builder-bin@5.0.0-alpha.12: [96m36.53 MB[39m/[96m72.51 MB[39m
+[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m829[39m, added [96m562[39m
+[1B[2AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m876[39m, added [96m594[39m
 [1B[2ADownloading app-builder-bin@5.0.0-alpha.12: [96m72.51 MB[39m/[96m72.51 MB[39m, done
-Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m964[39m, added [96m570[39m[0K
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1001[39m, added [96m584[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1020[39m, added [96m686[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1020[39m, added [96m962[39m
+Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m876[39m, added [96m594[39m[0K
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m940[39m, added [96m643[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m985[39m, added [96m687[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1020[39m, added [96m711[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1020[39m, added [96m897[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1020[39m, added [96m1103[39m
 [1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1020[39m, added [96m1108[39m
-[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1021[39m, added [96m1109[39m
+[1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1021[39m, added [96m1108[39m
 [1AProgress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m1021[39m, added [96m1109[39m, done
 [90mnode_modules/[39melectron: Running postinstall script...
 [1A[90mnode_modules/[39melectron: Running postinstall script, done in 2.6s
@@ -2883,8 +2891,8 @@ Progress: resolved [96m0[39m, reused [96m1[39m, downloaded [96m964[39m, ad
 [11A[1 lines collapsed]
 [9B[95m│[39m [0K
 [95m└─[39m [95mRunning...[39m
-[1C[12A2[2D[12B[1C[12A3[2D[12B[1C[12A4[2D[12B[1C[12A5[2D[12B[1A[95m└─[39m [95mDone in 370ms[39m
-Done in 11.2s using pnpm v10.14.0
+[1C[12A2[2D[12B[1C[12A3[2D[12B[1C[12A4[2D[12B[1C[12A5[2D[12B[1A[95m└─[39m [95mDone in 375ms[39m
+Done in 12.8s using pnpm v10.14.0
 + pnpm run build:unpack
 
 > securedrop-app@1.5.0-rc1 build:unpack /srv/securedrop-client/app
@@ -2906,20 +2914,20 @@ Using main vars: {
 [2K[1G[2K[1G[2K[1G[32m✓[39m 19 modules transformed.
 [2K[1G[2K[1G[2K[1G[2mout/main/[22m[32mworker-2F-BYRWB.js  [39m[1m[2m 93.62 kB[22m[1m[22m
 [2mout/main/[22m[36mindex.js            [39m[1m[2m125.76 kB[22m[1m[22m[2m │ map: 259.76 kB[22m
-[32m✓ built in 506ms[39m
+[32m✓ built in 557ms[39m
 [36mvite v7.0.8 [32mbuilding SSR bundle for production...[36m[39m
 [2K[1G[2K[1G[32m✓[39m 1 modules transformed.
 [2K[1G[2K[1G[2K[1G[2mout/preload/[22m[36mindex.js  [39m[1m[2m6.11 kB[22m[1m[22m[2m │ map: 12.22 kB[22m
-[32m✓ built in 30ms[39m
+[32m✓ built in 27ms[39m
 [36mvite v7.0.8 [32mbuilding for production...[36m[39m
-[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[32m✓[39m 4869 modules transformed.
+[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[32m✓[39m 4869 modules transformed.
 [2K[1G[2K[1G[2K[1G[2m../../out/renderer/[22m[32mindex.html                              [39m[1m[2m    0.32 kB[22m[1m[22m
 [2m../../out/renderer/[22m[2massets/[22m[32minbox-empty-state-DHAdWWN3.svg   [39m[1m[2m    3.91 kB[22m[1m[22m
 [2m../../out/renderer/[22m[2massets/[22m[32mlogo-BQgemeIF.png                [39m[1m[2m   18.13 kB[22m[1m[22m
 [2m../../out/renderer/[22m[2massets/[22m[32msign-in-background-DPb9oMgs.svg  [39m[1m[2m   24.41 kB[22m[1m[22m
 [2m../../out/renderer/[22m[2massets/[22m[35mindex-BjYfSNQd.css               [39m[1m[2m   34.34 kB[22m[1m[22m
 [2m../../out/renderer/[22m[2massets/[22m[36mindex-ClGtf1HP.js                [39m[1m[33m2,312.55 kB[39m[22m[2m │ map: 4,770.90 kB[22m
-[32m✓ built in 7.26s[39m
+[32m✓ built in 8.14s[39m
   [34m•[39m electron-builder  [34mversion[39m=26.15.3 [34mos[39m=6.17.0-1018-azure
   [34m•[39m loaded configuration  [34mfile[39m=/srv/securedrop-client/app/electron-builder.yml
   [34m•[39m detected workspace root for project using packageManager field  [34mpm[39m=pnpm [34mconfig[39m=pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748 [34mresolved[39m=/srv/securedrop-client/app [34mprojectDir[39m=/srv/securedrop-client/app
@@ -2987,11 +2995,11 @@ dh_shlibdeps -psecuredrop-app -ldebian/securedrop-app/usr/lib/securedrop-app
  diversion by libc6 from: /lib64/ld-linux-x86-64.so.2
 [1mdpkg-shlibdeps: [0m[1;33mwarning[0m: diversions involved - output may be incorrect
  diversion by libc6 to: /lib64/ld-linux-x86-64.so.2.usr-is-merged
-[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: debian/securedrop-app/usr/lib/securedrop-app/resources/app.asar.unpacked/node_modules/better-sqlite3/build/Release-electron/better_sqlite3.node contains an unresolvable reference to symbol _ZNK2v85Value8IsNumberEv: it's probably a plugin
+[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: can't extract name and version from library name 'libffmpeg.so'
+[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: can't extract name and version from library name 'libffmpeg.so'
+[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: can't extract name and version from library name 'libffmpeg.so'
+[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: debian/securedrop-app/usr/lib/securedrop-app/resources/app.asar.unpacked/node_modules/better-sqlite3/build/Release-electron/better_sqlite3.node contains an unresolvable reference to symbol _ZNK2v85Value7IsInt32Ev: it's probably a plugin
 [1mdpkg-shlibdeps: [0m[1;33mwarning[0m: 72 other similar warnings have been skipped (use -v to see them all)
-[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: can't extract name and version from library name 'libffmpeg.so'
-[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: can't extract name and version from library name 'libffmpeg.so'
-[1mdpkg-shlibdeps: [0m[1;33mwarning[0m: can't extract name and version from library name 'libffmpeg.so'
 dh_shlibdeps --remaining-packages --exclude=securedrop-app
 [1mdpkg-shlibdeps: [0m[1;33mwarning[0m: diversions involved - output may be incorrect
  diversion by libc6 from: /lib64/ld-linux-x86-64.so.2
@@ -3008,94 +3016,94 @@ make[1]: Leaving directory '/srv/securedrop-client'
    dh_gencontrol
    dh_md5sums
    dh_builddeb
-[1mdpkg-deb:[0m building package 'securedrop-app' in '../securedrop-app_1.5.0~rc1.dev20260707071223+trixie_amd64.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-keyring' in '../securedrop-keyring_1.5.0~rc1.dev20260707071223+trixie_all.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-proxy-dbgsym' in '../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707071223+trixie_amd64.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-log' in '../securedrop-log_1.5.0~rc1.dev20260707071223+trixie_all.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-proxy' in '../securedrop-proxy_1.5.0~rc1.dev20260707071223+trixie_amd64.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-workstation-config' in '../securedrop-workstation-config_1.5.0~rc1.dev20260707071223+trixie_all.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-workstation-viewer' in '../securedrop-workstation-viewer_1.5.0~rc1.dev20260707071223+trixie_all.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-export' in '../securedrop-export_1.5.0~rc1.dev20260707071223+trixie_all.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-gpg-config' in '../securedrop-gpg-config_1.5.0~rc1.dev20260707071223+trixie_all.deb'.
-[1;35m dpkg-genbuildinfo -O../securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.buildinfo
-[0m[1;35m dpkg-genchanges -O../securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.changes
+[1mdpkg-deb:[0m building package 'securedrop-proxy-dbgsym' in '../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707150325+trixie_a[1mdpkg-deb:[0m building package 'securedrop-keyring' in '../securedrop-keyring_1.5.0~rc1.dev20260707150325+trixie_all.deb'.
+md64.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-app' in '../securedrop-app_1.5.0~rc1.dev20260707150325+trixie_amd64.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-log' in '../securedrop-log_1.5.0~rc1.dev20260707150325+trixie_all.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-proxy' in '../securedrop-proxy_1.5.0~rc1.dev20260707150325+trixie_amd64.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-workstation-config' in '../securedrop-workstation-config_1.5.0~rc1.dev20260707150325+trixie_all.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-workstation-viewer' in '../securedrop-workstation-viewer_1.5.0~rc1.dev20260707150325+trixie_all.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-export' in '../securedrop-export_1.5.0~rc1.dev20260707150325+trixie_all.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-gpg-config' in '../securedrop-gpg-config_1.5.0~rc1.dev20260707150325+trixie_all.deb'.
+[1;35m dpkg-genbuildinfo -O../securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.buildinfo
+[0m[1;35m dpkg-genchanges -O../securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.changes
 [0m[1mdpkg-genchanges: [0m[32minfo[0m: including full source code in upload
 [1;35m dpkg-source --after-build .
 [0m[1mdpkg-source: [0m[32minfo[0m: using options from securedrop-client/debian/source/options: --compression=gzip --tar-ignore=build --tar-ignore=.* --tar-ignore=__pycache__ --tar-ignore=htmlcov --tar-ignore=target --tar-ignore=node_modules
 [1mdpkg-buildpackage: [0m[32minfo[0m: full upload; Debian-native package (full source is included)
 + ls ../
-securedrop-app_1.5.0~rc1.dev20260707071223+trixie_amd64.deb
+securedrop-app_1.5.0~rc1.dev20260707150325+trixie_amd64.deb
 securedrop-client
-securedrop-client_1.5.0~rc1.dev20260707071223+trixie.dsc
-securedrop-client_1.5.0~rc1.dev20260707071223+trixie.tar.gz
-securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.buildinfo
-securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.changes
-securedrop-export_1.5.0~rc1.dev20260707071223+trixie_all.deb
-securedrop-gpg-config_1.5.0~rc1.dev20260707071223+trixie_all.deb
-securedrop-keyring_1.5.0~rc1.dev20260707071223+trixie_all.deb
-securedrop-log_1.5.0~rc1.dev20260707071223+trixie_all.deb
-securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707071223+trixie_amd64.deb
-securedrop-proxy_1.5.0~rc1.dev20260707071223+trixie_amd64.deb
-securedrop-workstation-config_1.5.0~rc1.dev20260707071223+trixie_all.deb
-securedrop-workstation-viewer_1.5.0~rc1.dev20260707071223+trixie_all.deb
-+ mv -v ../securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.buildinfo ../securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.changes ../securedrop-app_1.5.0~rc1.dev20260707071223+trixie_amd64.deb ../securedrop-export_1.5.0~rc1.dev20260707071223+trixie_all.deb ../securedrop-gpg-config_1.5.0~rc1.dev20260707071223+trixie_all.deb ../securedrop-keyring_1.5.0~rc1.dev20260707071223+trixie_all.deb ../securedrop-log_1.5.0~rc1.dev20260707071223+trixie_all.deb ../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707071223+trixie_amd64.deb ../securedrop-proxy_1.5.0~rc1.dev20260707071223+trixie_amd64.deb ../securedrop-workstation-config_1.5.0~rc1.dev20260707071223+trixie_all.deb ../securedrop-workstation-viewer_1.5.0~rc1.dev20260707071223+trixie_all.deb ../securedrop-client_1.5.0~rc1.dev20260707071223+trixie.dsc ../securedrop-client_1.5.0~rc1.dev20260707071223+trixie.tar.gz /build/
-copied '../securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.buildinfo' -> '/build/securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.buildinfo'
-removed '../securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.buildinfo'
-copied '../securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.changes' -> '/build/securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.changes'
-removed '../securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.changes'
-copied '../securedrop-app_1.5.0~rc1.dev20260707071223+trixie_amd64.deb' -> '/build/securedrop-app_1.5.0~rc1.dev20260707071223+trixie_amd64.deb'
-removed '../securedrop-app_1.5.0~rc1.dev20260707071223+trixie_amd64.deb'
-copied '../securedrop-export_1.5.0~rc1.dev20260707071223+trixie_all.deb' -> '/build/securedrop-export_1.5.0~rc1.dev20260707071223+trixie_all.deb'
-removed '../securedrop-export_1.5.0~rc1.dev20260707071223+trixie_all.deb'
-copied '../securedrop-gpg-config_1.5.0~rc1.dev20260707071223+trixie_all.deb' -> '/build/securedrop-gpg-config_1.5.0~rc1.dev20260707071223+trixie_all.deb'
-removed '../securedrop-gpg-config_1.5.0~rc1.dev20260707071223+trixie_all.deb'
-copied '../securedrop-keyring_1.5.0~rc1.dev20260707071223+trixie_all.deb' -> '/build/securedrop-keyring_1.5.0~rc1.dev20260707071223+trixie_all.deb'
-removed '../securedrop-keyring_1.5.0~rc1.dev20260707071223+trixie_all.deb'
-copied '../securedrop-log_1.5.0~rc1.dev20260707071223+trixie_all.deb' -> '/build/securedrop-log_1.5.0~rc1.dev20260707071223+trixie_all.deb'
-removed '../securedrop-log_1.5.0~rc1.dev20260707071223+trixie_all.deb'
-copied '../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707071223+trixie_amd64.deb' -> '/build/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707071223+trixie_amd64.deb'
-removed '../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707071223+trixie_amd64.deb'
-copied '../securedrop-proxy_1.5.0~rc1.dev20260707071223+trixie_amd64.deb' -> '/build/securedrop-proxy_1.5.0~rc1.dev20260707071223+trixie_amd64.deb'
-removed '../securedrop-proxy_1.5.0~rc1.dev20260707071223+trixie_amd64.deb'
-copied '../securedrop-workstation-config_1.5.0~rc1.dev20260707071223+trixie_all.deb' -> '/build/securedrop-workstation-config_1.5.0~rc1.dev20260707071223+trixie_all.deb'
-removed '../securedrop-workstation-config_1.5.0~rc1.dev20260707071223+trixie_all.deb'
-copied '../securedrop-workstation-viewer_1.5.0~rc1.dev20260707071223+trixie_all.deb' -> '/build/securedrop-workstation-viewer_1.5.0~rc1.dev20260707071223+trixie_all.deb'
-removed '../securedrop-workstation-viewer_1.5.0~rc1.dev20260707071223+trixie_all.deb'
-copied '../securedrop-client_1.5.0~rc1.dev20260707071223+trixie.dsc' -> '/build/securedrop-client_1.5.0~rc1.dev20260707071223+trixie.dsc'
-removed '../securedrop-client_1.5.0~rc1.dev20260707071223+trixie.dsc'
-copied '../securedrop-client_1.5.0~rc1.dev20260707071223+trixie.tar.gz' -> '/build/securedrop-client_1.5.0~rc1.dev20260707071223+trixie.tar.gz'
-removed '../securedrop-client_1.5.0~rc1.dev20260707071223+trixie.tar.gz'
+securedrop-client_1.5.0~rc1.dev20260707150325+trixie.dsc
+securedrop-client_1.5.0~rc1.dev20260707150325+trixie.tar.gz
+securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.buildinfo
+securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.changes
+securedrop-export_1.5.0~rc1.dev20260707150325+trixie_all.deb
+securedrop-gpg-config_1.5.0~rc1.dev20260707150325+trixie_all.deb
+securedrop-keyring_1.5.0~rc1.dev20260707150325+trixie_all.deb
+securedrop-log_1.5.0~rc1.dev20260707150325+trixie_all.deb
+securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707150325+trixie_amd64.deb
+securedrop-proxy_1.5.0~rc1.dev20260707150325+trixie_amd64.deb
+securedrop-workstation-config_1.5.0~rc1.dev20260707150325+trixie_all.deb
+securedrop-workstation-viewer_1.5.0~rc1.dev20260707150325+trixie_all.deb
++ mv -v ../securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.buildinfo ../securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.changes ../securedrop-app_1.5.0~rc1.dev20260707150325+trixie_amd64.deb ../securedrop-export_1.5.0~rc1.dev20260707150325+trixie_all.deb ../securedrop-gpg-config_1.5.0~rc1.dev20260707150325+trixie_all.deb ../securedrop-keyring_1.5.0~rc1.dev20260707150325+trixie_all.deb ../securedrop-log_1.5.0~rc1.dev20260707150325+trixie_all.deb ../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707150325+trixie_amd64.deb ../securedrop-proxy_1.5.0~rc1.dev20260707150325+trixie_amd64.deb ../securedrop-workstation-config_1.5.0~rc1.dev20260707150325+trixie_all.deb ../securedrop-workstation-viewer_1.5.0~rc1.dev20260707150325+trixie_all.deb ../securedrop-client_1.5.0~rc1.dev20260707150325+trixie.dsc ../securedrop-client_1.5.0~rc1.dev20260707150325+trixie.tar.gz /build/
+copied '../securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.buildinfo' -> '/build/securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.buildinfo'
+removed '../securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.buildinfo'
+copied '../securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.changes' -> '/build/securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.changes'
+removed '../securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.changes'
+copied '../securedrop-app_1.5.0~rc1.dev20260707150325+trixie_amd64.deb' -> '/build/securedrop-app_1.5.0~rc1.dev20260707150325+trixie_amd64.deb'
+removed '../securedrop-app_1.5.0~rc1.dev20260707150325+trixie_amd64.deb'
+copied '../securedrop-export_1.5.0~rc1.dev20260707150325+trixie_all.deb' -> '/build/securedrop-export_1.5.0~rc1.dev20260707150325+trixie_all.deb'
+removed '../securedrop-export_1.5.0~rc1.dev20260707150325+trixie_all.deb'
+copied '../securedrop-gpg-config_1.5.0~rc1.dev20260707150325+trixie_all.deb' -> '/build/securedrop-gpg-config_1.5.0~rc1.dev20260707150325+trixie_all.deb'
+removed '../securedrop-gpg-config_1.5.0~rc1.dev20260707150325+trixie_all.deb'
+copied '../securedrop-keyring_1.5.0~rc1.dev20260707150325+trixie_all.deb' -> '/build/securedrop-keyring_1.5.0~rc1.dev20260707150325+trixie_all.deb'
+removed '../securedrop-keyring_1.5.0~rc1.dev20260707150325+trixie_all.deb'
+copied '../securedrop-log_1.5.0~rc1.dev20260707150325+trixie_all.deb' -> '/build/securedrop-log_1.5.0~rc1.dev20260707150325+trixie_all.deb'
+removed '../securedrop-log_1.5.0~rc1.dev20260707150325+trixie_all.deb'
+copied '../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707150325+trixie_amd64.deb' -> '/build/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707150325+trixie_amd64.deb'
+removed '../securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707150325+trixie_amd64.deb'
+copied '../securedrop-proxy_1.5.0~rc1.dev20260707150325+trixie_amd64.deb' -> '/build/securedrop-proxy_1.5.0~rc1.dev20260707150325+trixie_amd64.deb'
+removed '../securedrop-proxy_1.5.0~rc1.dev20260707150325+trixie_amd64.deb'
+copied '../securedrop-workstation-config_1.5.0~rc1.dev20260707150325+trixie_all.deb' -> '/build/securedrop-workstation-config_1.5.0~rc1.dev20260707150325+trixie_all.deb'
+removed '../securedrop-workstation-config_1.5.0~rc1.dev20260707150325+trixie_all.deb'
+copied '../securedrop-workstation-viewer_1.5.0~rc1.dev20260707150325+trixie_all.deb' -> '/build/securedrop-workstation-viewer_1.5.0~rc1.dev20260707150325+trixie_all.deb'
+removed '../securedrop-workstation-viewer_1.5.0~rc1.dev20260707150325+trixie_all.deb'
+copied '../securedrop-client_1.5.0~rc1.dev20260707150325+trixie.dsc' -> '/build/securedrop-client_1.5.0~rc1.dev20260707150325+trixie.dsc'
+removed '../securedrop-client_1.5.0~rc1.dev20260707150325+trixie.dsc'
+copied '../securedrop-client_1.5.0~rc1.dev20260707150325+trixie.tar.gz' -> '/build/securedrop-client_1.5.0~rc1.dev20260707150325+trixie.tar.gz'
+removed '../securedrop-client_1.5.0~rc1.dev20260707150325+trixie.tar.gz'
 + cd /build/
-+ sha256sum ./securedrop-app_1.5.0~rc1.dev20260707071223+trixie_amd64.deb ./securedrop-client_1.5.0~rc1.dev20260707071223+trixie.dsc ./securedrop-client_1.5.0~rc1.dev20260707071223+trixie.tar.gz ./securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.buildinfo ./securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.changes ./securedrop-export_1.5.0~rc1.dev20260707071223+trixie_all.deb ./securedrop-gpg-config_1.5.0~rc1.dev20260707071223+trixie_all.deb ./securedrop-keyring_1.5.0~rc1.dev20260707071223+trixie_all.deb ./securedrop-log_1.5.0~rc1.dev20260707071223+trixie_all.deb ./securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707071223+trixie_amd64.deb ./securedrop-proxy_1.5.0~rc1.dev20260707071223+trixie_amd64.deb ./securedrop-workstation-config_1.5.0~rc1.dev20260707071223+trixie_all.deb ./securedrop-workstation-viewer_1.5.0~rc1.dev20260707071223+trixie_all.deb
-f34bf33397fae1200e87dc924107879fa3b0e601c468ba9a84beadef3a231d37  ./securedrop-app_1.5.0~rc1.dev20260707071223+trixie_amd64.deb
-4292d6b1e340a1dbd846852dccb529a33831c65e3b4e8796bb8176b361237530  ./securedrop-client_1.5.0~rc1.dev20260707071223+trixie.dsc
-f988b67df89cb672eba70313c849d49ad14067d04fd1ada9c1073e6296e77a7e  ./securedrop-client_1.5.0~rc1.dev20260707071223+trixie.tar.gz
-1320cce5d6f73176d38979fb3d30f412075db5733bfac5077ea0916d4bcc58a7  ./securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.buildinfo
-d5f4f0eff1ea948e6c66e47847585ddf88aa1280f9ea9d617407e8c8645503cf  ./securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.changes
-728cfce680a5aa786c044293281a664f2f740762bded049c04fe3eebb2b23474  ./securedrop-export_1.5.0~rc1.dev20260707071223+trixie_all.deb
-e105e56f750566cd960f674bf0d61a21944b7a270fcda5c8ad1a9c7908c19a6f  ./securedrop-gpg-config_1.5.0~rc1.dev20260707071223+trixie_all.deb
-dcae2863edc21f30b6f0f4bf055a6d48d9ab4a518dab9c10014924e2f67c3f72  ./securedrop-keyring_1.5.0~rc1.dev20260707071223+trixie_all.deb
-dc7931ee84d754c0e7adedb096bf8972ddd4833458e53cd1549db61edafe8b50  ./securedrop-log_1.5.0~rc1.dev20260707071223+trixie_all.deb
-4a33335b5b92f97e5306557691466471e11878d06c7fabd4eddaa76e56d8bf89  ./securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707071223+trixie_amd64.deb
-5e73d7f64ed5cb20571adf92642aefcaf5c80bdceba2248d006e478772f5e51c  ./securedrop-proxy_1.5.0~rc1.dev20260707071223+trixie_amd64.deb
-bc44d94c282c45413a3b1160531461b5aeb66b9e618d72eaabacb50fe906cc0d  ./securedrop-workstation-config_1.5.0~rc1.dev20260707071223+trixie_all.deb
-14b2c17e45b5e94163937a49f0483269fc6414740f1aa81bdec78111b292ce3a  ./securedrop-workstation-viewer_1.5.0~rc1.dev20260707071223+trixie_all.deb
-+ ls /tmp/tmp.4DOHESDoYA
-securedrop-app_1.5.0~rc1.dev20260707071223+trixie_amd64.deb
-securedrop-client_1.5.0~rc1.dev20260707071223+trixie.dsc
-securedrop-client_1.5.0~rc1.dev20260707071223+trixie.tar.gz
-securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.buildinfo
-securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.changes
-securedrop-export_1.5.0~rc1.dev20260707071223+trixie_all.deb
-securedrop-gpg-config_1.5.0~rc1.dev20260707071223+trixie_all.deb
-securedrop-keyring_1.5.0~rc1.dev20260707071223+trixie_all.deb
-securedrop-log_1.5.0~rc1.dev20260707071223+trixie_all.deb
-securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707071223+trixie_amd64.deb
-securedrop-proxy_1.5.0~rc1.dev20260707071223+trixie_amd64.deb
-securedrop-workstation-config_1.5.0~rc1.dev20260707071223+trixie_all.deb
-securedrop-workstation-viewer_1.5.0~rc1.dev20260707071223+trixie_all.deb
++ sha256sum ./securedrop-app_1.5.0~rc1.dev20260707150325+trixie_amd64.deb ./securedrop-client_1.5.0~rc1.dev20260707150325+trixie.dsc ./securedrop-client_1.5.0~rc1.dev20260707150325+trixie.tar.gz ./securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.buildinfo ./securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.changes ./securedrop-export_1.5.0~rc1.dev20260707150325+trixie_all.deb ./securedrop-gpg-config_1.5.0~rc1.dev20260707150325+trixie_all.deb ./securedrop-keyring_1.5.0~rc1.dev20260707150325+trixie_all.deb ./securedrop-log_1.5.0~rc1.dev20260707150325+trixie_all.deb ./securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707150325+trixie_amd64.deb ./securedrop-proxy_1.5.0~rc1.dev20260707150325+trixie_amd64.deb ./securedrop-workstation-config_1.5.0~rc1.dev20260707150325+trixie_all.deb ./securedrop-workstation-viewer_1.5.0~rc1.dev20260707150325+trixie_all.deb
+1e48cc24a0ecbeff34f4101eae28c0fa1574284520f7800710934037bb57a078  ./securedrop-app_1.5.0~rc1.dev20260707150325+trixie_amd64.deb
+ca207d53558025665d832ce72d7722f2338213b64a052c2d510163ec2497cabb  ./securedrop-client_1.5.0~rc1.dev20260707150325+trixie.dsc
+48d82544562d6272985b86c4fbeac34da9408c6d65678c5867721a09da33b32e  ./securedrop-client_1.5.0~rc1.dev20260707150325+trixie.tar.gz
+fed090fa15f8992deebefb0391ee194b74627ec4f89d33f0c0405688b67dfb00  ./securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.buildinfo
+23206b6fd4f4a1e8cd8c07d9cecbaf7d2c1639dd7dfe97e229118a7f0112cb7d  ./securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.changes
+c9d04e3340278b4310ba942513d9a5ea7bf2365d5f163cc04cbfcdec486c73f6  ./securedrop-export_1.5.0~rc1.dev20260707150325+trixie_all.deb
+3741cf7c3a390e50eca308f9fc50d306fedc7ea094876fc200b27419e88a25ed  ./securedrop-gpg-config_1.5.0~rc1.dev20260707150325+trixie_all.deb
+9b548cd04ff9e07d4a4d20555ca458fa13cd443473e8be6786c4b598468ee13f  ./securedrop-keyring_1.5.0~rc1.dev20260707150325+trixie_all.deb
+131dc5453af127ca2d754b7e8b675cd8c43af1c25497926ed12006b3561e908b  ./securedrop-log_1.5.0~rc1.dev20260707150325+trixie_all.deb
+4b9632605af6af25b53cba7723102b2bece16472e0aac014ebd74048a8632145  ./securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707150325+trixie_amd64.deb
+b8af733e336de4e8b971f8f573502906477a34d69b333a9a547556d698ae9587  ./securedrop-proxy_1.5.0~rc1.dev20260707150325+trixie_amd64.deb
+71d7808791903b030676ac1e11ea51aafab55392286d6446b988765d0f5856c0  ./securedrop-workstation-config_1.5.0~rc1.dev20260707150325+trixie_all.deb
+7135aa7131736704532ff76d302846079099ba3cc4ef9b50fc143ec2cec64ba0  ./securedrop-workstation-viewer_1.5.0~rc1.dev20260707150325+trixie_all.deb
++ ls /tmp/tmp.5mkJkUjCbx
+securedrop-app_1.5.0~rc1.dev20260707150325+trixie_amd64.deb
+securedrop-client_1.5.0~rc1.dev20260707150325+trixie.dsc
+securedrop-client_1.5.0~rc1.dev20260707150325+trixie.tar.gz
+securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.buildinfo
+securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.changes
+securedrop-export_1.5.0~rc1.dev20260707150325+trixie_all.deb
+securedrop-gpg-config_1.5.0~rc1.dev20260707150325+trixie_all.deb
+securedrop-keyring_1.5.0~rc1.dev20260707150325+trixie_all.deb
+securedrop-log_1.5.0~rc1.dev20260707150325+trixie_all.deb
+securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707150325+trixie_amd64.deb
+securedrop-proxy_1.5.0~rc1.dev20260707150325+trixie_amd64.deb
+securedrop-workstation-config_1.5.0~rc1.dev20260707150325+trixie_all.deb
+securedrop-workstation-viewer_1.5.0~rc1.dev20260707150325+trixie_all.deb
 + mkdir -p build
-+ cp /tmp/tmp.4DOHESDoYA/securedrop-app_1.5.0~rc1.dev20260707071223+trixie_amd64.deb /tmp/tmp.4DOHESDoYA/securedrop-client_1.5.0~rc1.dev20260707071223+trixie.dsc /tmp/tmp.4DOHESDoYA/securedrop-client_1.5.0~rc1.dev20260707071223+trixie.tar.gz /tmp/tmp.4DOHESDoYA/securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.buildinfo /tmp/tmp.4DOHESDoYA/securedrop-client_1.5.0~rc1.dev20260707071223+trixie_amd64.changes /tmp/tmp.4DOHESDoYA/securedrop-export_1.5.0~rc1.dev20260707071223+trixie_all.deb /tmp/tmp.4DOHESDoYA/securedrop-gpg-config_1.5.0~rc1.dev20260707071223+trixie_all.deb /tmp/tmp.4DOHESDoYA/securedrop-keyring_1.5.0~rc1.dev20260707071223+trixie_all.deb /tmp/tmp.4DOHESDoYA/securedrop-log_1.5.0~rc1.dev20260707071223+trixie_all.deb /tmp/tmp.4DOHESDoYA/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707071223+trixie_amd64.deb /tmp/tmp.4DOHESDoYA/securedrop-proxy_1.5.0~rc1.dev20260707071223+trixie_amd64.deb /tmp/tmp.4DOHESDoYA/securedrop-workstation-config_1.5.0~rc1.dev20260707071223+trixie_all.deb /tmp/tmp.4DOHESDoYA/securedrop-workstation-viewer_1.5.0~rc1.dev20260707071223+trixie_all.deb build/
++ cp /tmp/tmp.5mkJkUjCbx/securedrop-app_1.5.0~rc1.dev20260707150325+trixie_amd64.deb /tmp/tmp.5mkJkUjCbx/securedrop-client_1.5.0~rc1.dev20260707150325+trixie.dsc /tmp/tmp.5mkJkUjCbx/securedrop-client_1.5.0~rc1.dev20260707150325+trixie.tar.gz /tmp/tmp.5mkJkUjCbx/securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.buildinfo /tmp/tmp.5mkJkUjCbx/securedrop-client_1.5.0~rc1.dev20260707150325+trixie_amd64.changes /tmp/tmp.5mkJkUjCbx/securedrop-export_1.5.0~rc1.dev20260707150325+trixie_all.deb /tmp/tmp.5mkJkUjCbx/securedrop-gpg-config_1.5.0~rc1.dev20260707150325+trixie_all.deb /tmp/tmp.5mkJkUjCbx/securedrop-keyring_1.5.0~rc1.dev20260707150325+trixie_all.deb /tmp/tmp.5mkJkUjCbx/securedrop-log_1.5.0~rc1.dev20260707150325+trixie_all.deb /tmp/tmp.5mkJkUjCbx/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707150325+trixie_amd64.deb /tmp/tmp.5mkJkUjCbx/securedrop-proxy_1.5.0~rc1.dev20260707150325+trixie_amd64.deb /tmp/tmp.5mkJkUjCbx/securedrop-workstation-config_1.5.0~rc1.dev20260707150325+trixie_all.deb /tmp/tmp.5mkJkUjCbx/securedrop-workstation-viewer_1.5.0~rc1.dev20260707150325+trixie_all.deb build/
 + [[ -z '' ]]
 + CONTAINER2=fpf.local/sd-client-lintian-trixie
 + podman build scripts/lintian -t fpf.local/sd-client-lintian-trixie --build-arg DISTRO=trixie
@@ -3107,7 +3115,7 @@ Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
 Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9671 kB]
 Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [5412 B]
 Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [224 kB]
-Fetched 10.1 MB in 1s (13.5 MB/s)
+Fetched 10.1 MB in 1s (11.4 MB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -3587,7 +3595,7 @@ debconf: unable to initialize frontend: Teletype
 debconf: (This frontend requires a controlling tty.)
 debconf: falling back to frontend: Noninteractive
 Preconfiguring packages ...
-Fetched 128 MB in 1s (232 MB/s)
+Fetched 128 MB in 1s (179 MB/s)
 Selecting previously unselected package libexpat1:amd64.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4936 files and directories currently installed.)
 Preparing to unpack .../libexpat1_2.7.1-2_amd64.deb ...
@@ -4848,25 +4856,25 @@ Updating certificates in /etc/ssl/certs...
 Running hooks in /etc/ca-certificates/update.d...
 done.
 COMMIT fpf.local/sd-client-lintian-trixie
---> aa8eb7a05120
+--> 23aaa50a8880
 Successfully tagged fpf.local/sd-client-lintian-trixie:latest
-aa8eb7a05120c7043c3c4cf5e2f8f82dfa6dab2ede29b6141ca706b7c36acd37
-+ podman run --rm --user=root -v /home/runner/work/securedrop-client/securedrop-client:/src:Z --userns=keep-id -it -v /tmp/tmp.4DOHESDoYA:/build:Z fpf.local/sd-client-lintian-trixie bash -c 'lintian --version && lintian             --info --tag-display-limit 0             --fail-on warning --fail-on error             /build/*.changes             && echo OK'
+23aaa50a8880fa2be56635ab08fd3c43970152e5418aa444b534f3f85b8385e0
++ podman run --rm --user=root -v /home/runner/work/securedrop-client/securedrop-client:/src:Z --userns=keep-id -it -v /tmp/tmp.5mkJkUjCbx:/build:Z fpf.local/sd-client-lintian-trixie bash -c 'lintian --version && lintian             --info --tag-display-limit 0             --fail-on warning --fail-on error             /build/*.changes             && echo OK'
 Lintian v2.122.0
 running with root privileges is not recommended!
 OK
-+ rm -rf /tmp/tmp.4DOHESDoYA
++ rm -rf /tmp/tmp.5mkJkUjCbx
 + echo 'Build completed successfully. Artifacts and their checksums are:'
 Build completed successfully. Artifacts and their checksums are:
-+ sha256sum build/securedrop-app_1.5.0~rc1.dev20260707071223+trixie_amd64.deb build/securedrop-export_1.5.0~rc1.dev20260707071223+trixie_all.deb build/securedrop-gpg-config_1.5.0~rc1.dev20260707071223+trixie_all.deb build/securedrop-keyring_1.5.0~rc1.dev20260707071223+trixie_all.deb build/securedrop-log_1.5.0~rc1.dev20260707071223+trixie_all.deb build/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707071223+trixie_amd64.deb build/securedrop-proxy_1.5.0~rc1.dev20260707071223+trixie_amd64.deb build/securedrop-workstation-config_1.5.0~rc1.dev20260707071223+trixie_all.deb build/securedrop-workstation-viewer_1.5.0~rc1.dev20260707071223+trixie_all.deb
-f34bf33397fae1200e87dc924107879fa3b0e601c468ba9a84beadef3a231d37  build/securedrop-app_1.5.0~rc1.dev20260707071223+trixie_amd64.deb
-728cfce680a5aa786c044293281a664f2f740762bded049c04fe3eebb2b23474  build/securedrop-export_1.5.0~rc1.dev20260707071223+trixie_all.deb
-e105e56f750566cd960f674bf0d61a21944b7a270fcda5c8ad1a9c7908c19a6f  build/securedrop-gpg-config_1.5.0~rc1.dev20260707071223+trixie_all.deb
-dcae2863edc21f30b6f0f4bf055a6d48d9ab4a518dab9c10014924e2f67c3f72  build/securedrop-keyring_1.5.0~rc1.dev20260707071223+trixie_all.deb
-dc7931ee84d754c0e7adedb096bf8972ddd4833458e53cd1549db61edafe8b50  build/securedrop-log_1.5.0~rc1.dev20260707071223+trixie_all.deb
-4a33335b5b92f97e5306557691466471e11878d06c7fabd4eddaa76e56d8bf89  build/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707071223+trixie_amd64.deb
-5e73d7f64ed5cb20571adf92642aefcaf5c80bdceba2248d006e478772f5e51c  build/securedrop-proxy_1.5.0~rc1.dev20260707071223+trixie_amd64.deb
-bc44d94c282c45413a3b1160531461b5aeb66b9e618d72eaabacb50fe906cc0d  build/securedrop-workstation-config_1.5.0~rc1.dev20260707071223+trixie_all.deb
-14b2c17e45b5e94163937a49f0483269fc6414740f1aa81bdec78111b292ce3a  build/securedrop-workstation-viewer_1.5.0~rc1.dev20260707071223+trixie_all.deb
++ sha256sum build/securedrop-app_1.5.0~rc1.dev20260707150325+trixie_amd64.deb build/securedrop-export_1.5.0~rc1.dev20260707150325+trixie_all.deb build/securedrop-gpg-config_1.5.0~rc1.dev20260707150325+trixie_all.deb build/securedrop-keyring_1.5.0~rc1.dev20260707150325+trixie_all.deb build/securedrop-log_1.5.0~rc1.dev20260707150325+trixie_all.deb build/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707150325+trixie_amd64.deb build/securedrop-proxy_1.5.0~rc1.dev20260707150325+trixie_amd64.deb build/securedrop-workstation-config_1.5.0~rc1.dev20260707150325+trixie_all.deb build/securedrop-workstation-viewer_1.5.0~rc1.dev20260707150325+trixie_all.deb
+1e48cc24a0ecbeff34f4101eae28c0fa1574284520f7800710934037bb57a078  build/securedrop-app_1.5.0~rc1.dev20260707150325+trixie_amd64.deb
+c9d04e3340278b4310ba942513d9a5ea7bf2365d5f163cc04cbfcdec486c73f6  build/securedrop-export_1.5.0~rc1.dev20260707150325+trixie_all.deb
+3741cf7c3a390e50eca308f9fc50d306fedc7ea094876fc200b27419e88a25ed  build/securedrop-gpg-config_1.5.0~rc1.dev20260707150325+trixie_all.deb
+9b548cd04ff9e07d4a4d20555ca458fa13cd443473e8be6786c4b598468ee13f  build/securedrop-keyring_1.5.0~rc1.dev20260707150325+trixie_all.deb
+131dc5453af127ca2d754b7e8b675cd8c43af1c25497926ed12006b3561e908b  build/securedrop-log_1.5.0~rc1.dev20260707150325+trixie_all.deb
+4b9632605af6af25b53cba7723102b2bece16472e0aac014ebd74048a8632145  build/securedrop-proxy-dbgsym_1.5.0~rc1.dev20260707150325+trixie_amd64.deb
+b8af733e336de4e8b971f8f573502906477a34d69b333a9a547556d698ae9587  build/securedrop-proxy_1.5.0~rc1.dev20260707150325+trixie_amd64.deb
+71d7808791903b030676ac1e11ea51aafab55392286d6446b988765d0f5856c0  build/securedrop-workstation-config_1.5.0~rc1.dev20260707150325+trixie_all.deb
+7135aa7131736704532ff76d302846079099ba3cc4ef9b50fc143ec2cec64ba0  build/securedrop-workstation-viewer_1.5.0~rc1.dev20260707150325+trixie_all.deb
 
-Script done on 2026-07-07 07:16:22+00:00 [COMMAND_EXIT_CODE="0"]
+Script done on 2026-07-07 15:08:00+00:00 [COMMAND_EXIT_CODE="0"]
