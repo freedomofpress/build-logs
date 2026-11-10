@@ -1,11 +1,11 @@
-Script started on 2026-11-10 07:09:25+00:00 [COMMAND="/home/runner/work/securedrop/securedrop/builder/build-debs.sh" <not executed on terminal>]
+Script started on 2026-11-10 17:16:38+00:00 [COMMAND="/home/runner/work/securedrop/securedrop/builder/build-debs.sh" <not executed on terminal>]
 + git --no-pager log -1 --oneline --show-signature --no-color
-822bafc (grafted, HEAD -> develop, origin/develop) gpg: directory '/home/runner/.gnupg' created
+c379a9b (grafted, HEAD -> develop, origin/develop) gpg: directory '/home/runner/.gnupg' created
 gpg: keybox '/home/runner/.gnupg/pubring.kbx' created
-gpg: Signature made Tue Nov  3 18:03:03 2026 UTC
+gpg: Signature made Tue Nov 10 17:12:18 2026 UTC
 gpg:                using RSA key B5690EEEBB952194
 gpg: Can't check signature: No public key
-Merge pull request #7976 from freedomofpress/admin-nautilus
+Merge pull request #7972 from freedomofpress/crypt-modules
 ++ git tag --points-at HEAD
 + git --no-pager tag -v
 + git status --short
@@ -66,7 +66,7 @@ Trying to pull docker.io/library/debian:trixie...
 Getting image source signatures
 Writing manifest to image destination
 STEP 2/6: ARG DEBIAN_FRONTEND=noninteractive
---> 3ab5012fca41
+--> 6339cd30ada5
 STEP 3/6: RUN apt-get -y update && apt-get upgrade -y && apt-get install -y         coreutils         debhelper         devscripts         dh-python         make         pkg-config         python3-all         python3-pip         python3-setuptools         python3-venv         rsync         sudo         tzdata         unzip         virtualenv
 Get:1 http://deb.debian.org/debian trixie InRelease [140 kB]
 Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
@@ -74,7 +74,7 @@ Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
 Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]
 Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [1108 B]
 Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [301 kB]
-Fetched 10.2 MB in 1s (15.0 MB/s)
+Fetched 10.2 MB in 1s (12.5 MB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -86,7 +86,7 @@ The following packages will be upgraded:
 Need to get 88.7 kB of archives.
 After this operation, 1024 B disk space will be freed.
 Get:1 http://deb.debian.org/debian-security trixie-security/main amd64 zlib1g amd64 1:1.3.dfsg+really1.3.1-1+deb13u1 [88.7 kB]
-Fetched 88.7 kB in 0s (6264 kB/s)
+Fetched 88.7 kB in 0s (5747 kB/s)
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4951 files and directories currently installed.)
 Preparing to unpack .../zlib1g_1%3a1.3.dfsg+really1.3.1-1+deb13u1_amd64.deb ...
 Unpacking zlib1g:amd64 (1:1.3.dfsg+really1.3.1-1+deb13u1) over (1:1.3.dfsg+really1.3.1-1+b1) ...
@@ -830,7 +830,7 @@ Get:470 http://deb.debian.org/debian trixie/main amd64 xauth amd64 1:1.1.2-1.1 [
 Get:471 http://deb.debian.org/debian trixie/main amd64 xdg-user-dirs amd64 0.18-2 [53.2 kB]
 Get:472 http://deb.debian.org/debian trixie/main amd64 gnupg-utils amd64 2.4.7-21+deb13u1+b5 [194 kB]
 Preconfiguring packages ...
-Fetched 214 MB in 2s (115 MB/s)
+Fetched 214 MB in 1s (229 MB/s)
 Selecting previously unselected package libexpat1:amd64.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4950 files and directories currently installed.)
 Preparing to unpack .../libexpat1_2.9.0-1~deb13u1_amd64.deb ...
@@ -2762,43 +2762,43 @@ Updating certificates in /etc/ssl/certs...
 0 added, 0 removed; done.
 Running hooks in /etc/ca-certificates/update.d...
 done.
---> e0a1e92b457d
+--> 6f898a01e46f
 STEP 4/6: COPY build-debs-admin.sh /build-debs-admin
---> 546ab18b2b6c
+--> 744b1a34d555
 STEP 5/6: COPY fixup-changelog.sh /fixup-changelog
---> 3c1683088f9b
+--> 5e7d9eac9abc
 STEP 6/6: COPY dep-check.sh /dep-check
 COMMIT fpf.local/sd-admin-builder-trixie
---> f5ae840e679a
+--> 4405c0140dd4
 Successfully tagged fpf.local/sd-admin-builder-trixie:latest
-f5ae840e679aef05b8f6fb5f99830bf8871b597a1ef3a53d12d2fb110d3c1412
+4405c0140dd4883a6791486ee2f069005974818e9564ed48ba8d3d5a9c5b6ede
 ++ podman build -f builder/adminDockerfile --build-arg=BASE_IMAGE=debian:trixie -t fpf.local/sd-admin-builder-trixie builder/
 STEP 1/6: FROM debian:trixie
 STEP 2/6: ARG DEBIAN_FRONTEND=noninteractive
---> Using cache 3ab5012fca41b4bcf87e048da53575c7e6ad50b8d4ad4b65820c9d9dd140af7e
---> 3ab5012fca41
+--> Using cache 6339cd30ada523ffe8d6e68757e916f53521eac61353e484126f377a4acc4fd9
+--> 6339cd30ada5
 STEP 3/6: RUN apt-get -y update && apt-get upgrade -y && apt-get install -y         coreutils         debhelper         devscripts         dh-python         make         pkg-config         python3-all         python3-pip         python3-setuptools         python3-venv         rsync         sudo         tzdata         unzip         virtualenv
---> Using cache e0a1e92b457da9c5bf4739f3fd5d4504ec10f34cca33669b6ec07601ae86489d
---> e0a1e92b457d
+--> Using cache 6f898a01e46f58fa857bf19084af67a1f2a601a630085bb31b5c0aebd8a756de
+--> 6f898a01e46f
 STEP 4/6: COPY build-debs-admin.sh /build-debs-admin
---> Using cache 546ab18b2b6cdbdb01495cf9284d3791aa5a4978904bfb10e028452c7c0409e9
---> 546ab18b2b6c
+--> Using cache 744b1a34d555057a83d66a70987e37f6e7e5d4898cadc8aeafa860ba15da82ab
+--> 744b1a34d555
 STEP 5/6: COPY fixup-changelog.sh /fixup-changelog
---> Using cache 3c1683088f9bd9939112ecdb0078a6e83458051a74c1fba29dbbbd9b867422bf
---> 3c1683088f9b
+--> Using cache 5e7d9eac9abc139c32101fba528a17f30d1ce6f45a95cc07f308bacfd175084c
+--> 5e7d9eac9abc
 STEP 6/6: COPY dep-check.sh /dep-check
---> Using cache f5ae840e679aef05b8f6fb5f99830bf8871b597a1ef3a53d12d2fb110d3c1412
+--> Using cache 4405c0140dd4883a6791486ee2f069005974818e9564ed48ba8d3d5a9c5b6ede
 COMMIT fpf.local/sd-admin-builder-trixie
---> f5ae840e679a
+--> 4405c0140dd4
 Successfully tagged fpf.local/sd-admin-builder-trixie:latest
-f5ae840e679aef05b8f6fb5f99830bf8871b597a1ef3a53d12d2fb110d3c1412
+4405c0140dd4883a6791486ee2f069005974818e9564ed48ba8d3d5a9c5b6ede
 ++ status=0
 ++ podman run --rm --user=root -v /home/runner/work/securedrop/securedrop:/src:Z -e HOST_UID=1001 -e HOST_GID=1001 -e FAST= -e NIGHTLY=1 --userns=keep-id -it --entrypoint /dep-check fpf.local/sd-admin-builder-trixie
-0% [Working]^@            Hit:1 http://deb.debian.org/debian trixie InRelease
+^@0% [Working]            Hit:1 http://deb.debian.org/debian trixie InRelease
 0% [Working]            Hit:2 http://deb.debian.org/debian trixie-updates InRelease
             Hit:3 http://deb.debian.org/debian-security trixie-security InRelease
-0% [Working]0% [Working]            Get:4 http://deb.debian.org/debian trixie/main amd64 Components [5175 kB]
-0% [4 Components-amd64 41.4 kB/5175 kB 1%]                                          0% [4 Components-amd64 176 kB/5175 kB 3%]45% [4 Components-amd64 1671 kB/5175 kB 32%]                                            99% [Working]99% [4 Components-amd64 store 0 B]99% [4 Components-amd64 store 0 B]                                  100% [Working]              Fetched 5175 kB in 1s (5264 kB/s)
+0% [Working]0% [Working]0% [Waiting for headers]19% [Waiting for headers]                         Get:4 http://deb.debian.org/debian trixie/main amd64 Components [5175 kB]
+20% [4 Components-amd64 78.5 kB/5175 kB 2%]                                           99% [Working]99% [4 Components-amd64 store 0 B]99% [4 Components-amd64 store 0 B]99% [4 Components-amd64 store 0 B]                                  100% [Working]              Fetched 5175 kB in 1s (4432 kB/s)
 Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 95%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
 ++ [[ 0 == 42 ]]
 ++ [[ 0 != 0 ]]
@@ -2846,11 +2846,11 @@ f5ae840e679aef05b8f6fb5f99830bf8871b597a1ef3a53d12d2fb110d3c1412
 + NIGHTLY=1
 + [[ -n 1 ]]
 ++ date +%Y%m%d%H%M%S
-+ NEW_VERSION=2.17.0~rc1.dev20261110071105
-+ sed -i '0,/2.17.0~rc1/ s//2.17.0~rc1.dev20261110071105+trixie/' debian/changelog
++ NEW_VERSION=2.17.0~rc1.dev20261110171748
++ sed -i '0,/2.17.0~rc1/ s//2.17.0~rc1.dev20261110171748+trixie/' debian/changelog
 + dpkg-buildpackage -us -uc
 [1mdpkg-buildpackage: [0m[32minfo[0m: source package securedrop-admin
-[1mdpkg-buildpackage: [0m[32minfo[0m: source version 2.17.0~rc1.dev20261110071105+trixie
+[1mdpkg-buildpackage: [0m[32minfo[0m: source version 2.17.0~rc1.dev20261110171748+trixie
 [1mdpkg-buildpackage: [0m[32minfo[0m: source distribution unstable
 [1mdpkg-buildpackage: [0m[32minfo[0m: source changed by SecureDrop Team <securedrop@freedom.press>
 [1mdpkg-buildpackage: [0m[32minfo[0m: host architecture amd64
@@ -2868,9 +2868,9 @@ removing '/srv/securedrop-admin/.pybuild/cpython3_3.13/build' (and everything un
 [1;35m dpkg-source -b .
 [0m[1mdpkg-source: [0m[1;33mwarning[0m: no source format specified in debian/source/format, see dpkg-source(1)
 [1mdpkg-source: [0m[32minfo[0m: using source format '1.0'
-[1mdpkg-source: [0m[1;33mwarning[0m: source directory 'securedrop-admin' is not <sourcepackage>-<upstreamversion> 'securedrop-admin-2.17.0~rc1.dev20261110071105+trixie'
-[1mdpkg-source: [0m[32minfo[0m: building securedrop-admin in securedrop-admin_2.17.0~rc1.dev20261110071105+trixie.tar.gz
-[1mdpkg-source: [0m[32minfo[0m: building securedrop-admin in securedrop-admin_2.17.0~rc1.dev20261110071105+trixie.dsc
+[1mdpkg-source: [0m[1;33mwarning[0m: source directory 'securedrop-admin' is not <sourcepackage>-<upstreamversion> 'securedrop-admin-2.17.0~rc1.dev20261110171748+trixie'
+[1mdpkg-source: [0m[32minfo[0m: building securedrop-admin in securedrop-admin_2.17.0~rc1.dev20261110171748+trixie.tar.gz
+[1mdpkg-source: [0m[32minfo[0m: building securedrop-admin in securedrop-admin_2.17.0~rc1.dev20261110171748+trixie.dsc
 [1;35m debian/rules binary
 [0mdh binary --buildsystem=pybuild
    dh_update_autotools_config -O--buildsystem=pybuild
@@ -2901,7 +2901,7 @@ Collecting pip==26.1
   Obtaining dependency information for pip==26.1 from https://files.pythonhosted.org/packages/70/7a/be4bd8bcbb24ea475856dd68159d78b03b2bb53dae369f69c9606b8888f5/pip-26.1-py3-none-any.whl.metadata
   Downloading pip-26.1-py3-none-any.whl.metadata (4.6 kB)
 Downloading pip-26.1-py3-none-any.whl (1.8 MB)
-[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/1.8 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m1.8/1.8 MB[0m [31m69.6 MB/s[0m eta [36m0:00:00[0m
+[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/1.8 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m1.8/1.8 MB[0m [31m121.7 MB/s[0m eta [36m0:00:00[0m
 [?25hInstalling collected packages: pip
   Attempting uninstall: pip
     Found existing installation: pip 25.1.1
@@ -2921,22 +2921,22 @@ Successfully installed pip-26.1
 Using pip 26.1 from /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/lib/python3.13/site-packages/pip (python 3.13)
 Collecting ansible==8.7.0 (from -r ./requirements.txt (line 3))
   Downloading ansible-8.7.0-py3-none-any.whl (48.4 MB)
-[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/48.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [91m━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━[0m [32m28.3/48.4 MB[0m [31m176.2 MB/s[0m eta [36m0:00:01[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m48.4/48.4 MB[0m [31m126.7 MB/s[0m  [33m0:00:00[0m
+[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/48.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━[0m [32m36.4/48.4 MB[0m [31m191.0 MB/s[0m eta [36m0:00:01[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m48.4/48.4 MB[0m [31m201.5 MB/s[0m  [33m0:00:00[0m
 [?25hCollecting ansible-core==2.15.13 (from -r ./requirements.txt (line 7))
   Downloading ansible_core-2.15.13-py3-none-any.whl (2.3 MB)
-[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/2.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m2.3/2.3 MB[0m [31m417.1 MB/s[0m  [33m0:00:00[0m
+[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/2.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m2.3/2.3 MB[0m [31m265.2 MB/s[0m  [33m0:00:00[0m
 [?25hCollecting cffi==2.0.0 (from -r ./requirements.txt (line 11))
   Downloading cffi-2.0.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (219 kB)
 Collecting cryptography==46.0.7 (from -r ./requirements.txt (line 99))
   Downloading cryptography-46.0.7-cp311-abi3-manylinux_2_34_x86_64.whl (4.5 MB)
-[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/4.5 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m4.5/4.5 MB[0m [31m582.9 MB/s[0m  [33m0:00:00[0m
+[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/4.5 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m4.5/4.5 MB[0m [31m674.7 MB/s[0m  [33m0:00:00[0m
 [?25hCollecting jinja2==3.1.6 (from -r ./requirements.txt (line 152))
   Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
 Collecting markupsafe==3.0.3 (from -r ./requirements.txt (line 158))
   Downloading markupsafe-3.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
 Collecting netaddr==1.3.0 (from -r ./requirements.txt (line 252))
   Downloading netaddr-1.3.0-py3-none-any.whl (2.3 MB)
-[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/2.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m2.3/2.3 MB[0m [31m370.6 MB/s[0m  [33m0:00:00[0m
+[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/2.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m2.3/2.3 MB[0m [31m673.6 MB/s[0m  [33m0:00:00[0m
 [?25hCollecting packaging==25.0 (from -r ./requirements.txt (line 256))
   Downloading packaging-25.0-py3-none-any.whl (66 kB)
 Collecting prompt-toolkit==2.0.9 (from -r ./requirements.txt (line 262))
@@ -2945,29 +2945,29 @@ Collecting pycparser==2.22 (from -r ./requirements.txt (line 267))
   Downloading pycparser-2.22-py3-none-any.whl (117 kB)
 Collecting pyyaml==6.0.2 (from -r ./requirements.txt (line 271))
   Downloading PyYAML-6.0.2-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (759 kB)
-[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/759.5 kB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m759.5/759.5 kB[0m [31m869.5 MB/s[0m  [33m0:00:00[0m
+[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/759.5 kB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m759.5/759.5 kB[0m [31m684.4 MB/s[0m  [33m0:00:00[0m
 [?25hCollecting resolvelib==0.8.1 (from -r ./requirements.txt (line 328))
   Downloading resolvelib-0.8.1-py2.py3-none-any.whl (16 kB)
 Collecting setuptools==80.9.0 (from -r ./requirements.txt (line 332))
   Downloading setuptools-80.9.0-py3-none-any.whl (1.2 MB)
-[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/1.2 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m1.2/1.2 MB[0m [31m903.3 MB/s[0m  [33m0:00:00[0m
+[?25l     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/1.2 MB[0m [31m?[0m eta [36m-:--:--[0m[2K     [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m1.2/1.2 MB[0m [31m894.3 MB/s[0m  [33m0:00:00[0m
 [?25hCollecting six==1.17.0 (from -r ./requirements.txt (line 336))
   Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
 Collecting wcwidth==0.1.7 (from -r ./requirements.txt (line 342))
   Downloading wcwidth-0.1.7-py2.py3-none-any.whl (21 kB)
 Installing collected packages: wcwidth, resolvelib, prompt-toolkit, six, setuptools, pyyaml, pycparser, packaging, netaddr, markupsafe, jinja2, cryptography, cffi, ansible-core, ansible
-[?25l[2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/netaddr to 755
-[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━[0m [32m11/15[0m [cryptography][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible to 755
-   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━[0m [32m11/15[0m [cryptography][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-config to 755
-   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━[0m [32m11/15[0m [cryptography][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-connection to 755
-   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━[0m [32m11/15[0m [cryptography][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-console to 755
-   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━[0m [32m11/15[0m [cryptography][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-doc to 755
-   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━[0m [32m11/15[0m [cryptography][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-galaxy to 755
-   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━[0m [32m11/15[0m [cryptography][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-inventory to 755
-   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━[0m [32m11/15[0m [cryptography][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-playbook to 755
-   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━[0m [32m11/15[0m [cryptography][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-pull to 755
-   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━[0m [32m11/15[0m [cryptography][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-vault to 755
-   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━[0m [32m11/15[0m [cryptography][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-community to 755
+[?25l[2K   [91m━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━[0m [32m 8/15[0m [netaddr][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/netaddr to 755
+   [91m━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━[0m [32m 8/15[0m [netaddr][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━[0m [32m13/15[0m [ansible-core][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible to 755
+   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━[0m [32m13/15[0m [ansible-core][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-config to 755
+   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━[0m [32m13/15[0m [ansible-core][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-connection to 755
+   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━[0m [32m13/15[0m [ansible-core][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-console to 755
+   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━[0m [32m13/15[0m [ansible-core][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-doc to 755
+   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━[0m [32m13/15[0m [ansible-core][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-galaxy to 755
+   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━[0m [32m13/15[0m [ansible-core][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-inventory to 755
+   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━[0m [32m13/15[0m [ansible-core][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-playbook to 755
+   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━[0m [32m13/15[0m [ansible-core][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-pull to 755
+   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━[0m [32m13/15[0m [ansible-core][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-vault to 755
+   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━[0m [32m13/15[0m [ansible-core][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K  changing mode of /srv/securedrop-admin/debian/securedrop-admin/usr/share/securedrop-admin/venv/bin/ansible-community to 755
    [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m14/15[0m [ansible][2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m15/15[0m [ansible]
 [?25h[1A[2KSuccessfully installed ansible-8.7.0 ansible-core-2.15.13 cffi-2.0.0 cryptography-46.0.7 jinja2-3.1.6 markupsafe-3.0.3 netaddr-1.3.0 packaging-25.0 prompt-toolkit-2.0.9 pycparser-2.22 pyyaml-6.0.2 resolvelib-0.8.1 setuptools-80.9.0 six-1.17.0 wcwidth-0.1.7
 
@@ -3084,11 +3084,11 @@ make[1]: Leaving directory '/srv/securedrop-admin'
    dh_gencontrol -O--buildsystem=pybuild
    dh_md5sums -O--buildsystem=pybuild
    dh_builddeb -O--buildsystem=pybuild
-[1mdpkg-deb:[0m building package 'securedrop-admin' in '../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-admin-dbgsym' in '../securedrop-admin-dbgsym_2.17.0~rc1.dev20261110071105+trixie_amd64.deb'.
-[1mdpkg-deb:[0m building package 'securedrop-admin-qubes' in '../securedrop-admin-qubes_2.17.0~rc1.dev20261110071105+trixie_amd64.deb'.
-[1;35m dpkg-genbuildinfo -O../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.buildinfo
-[0m[1;35m dpkg-genchanges -O../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.changes
+[1mdpkg-deb:[0m building package 'securedrop-admin' in '../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-admin-dbgsym' in '../securedrop-admin-dbgsym_2.17.0~rc1.dev20261110171748+trixie_amd64.deb'.
+[1mdpkg-deb:[0m building package 'securedrop-admin-qubes' in '../securedrop-admin-qubes_2.17.0~rc1.dev20261110171748+trixie_amd64.deb'.
+[1;35m dpkg-genbuildinfo -O../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.buildinfo
+[0m[1;35m dpkg-genchanges -O../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.changes
 [0m[1mdpkg-genchanges: [0m[32minfo[0m: including full source code in upload
 [1;35m dpkg-source --after-build .
 [0m[1mdpkg-buildpackage: [0m[32minfo[0m: full upload; Debian-native package (full source is included)
@@ -3104,27 +3104,27 @@ make[1]: Leaving directory '/srv/securedrop-admin'
 ++ SUPPORT_URL=https://www.debian.org/support
 ++ BUG_REPORT_URL=https://bugs.debian.org/
 + mkdir -p /src/build/trixie
-+ mv -v ../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.buildinfo ../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.changes ../securedrop-admin-dbgsym_2.17.0~rc1.dev20261110071105+trixie_amd64.deb ../securedrop-admin-qubes_2.17.0~rc1.dev20261110071105+trixie_amd64.deb ../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.deb ../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie.tar.gz /src/build/trixie
-copied '../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.buildinfo' -> '/src/build/trixie/securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.buildinfo'
-removed '../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.buildinfo'
-copied '../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.changes' -> '/src/build/trixie/securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.changes'
-removed '../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.changes'
-copied '../securedrop-admin-dbgsym_2.17.0~rc1.dev20261110071105+trixie_amd64.deb' -> '/src/build/trixie/securedrop-admin-dbgsym_2.17.0~rc1.dev20261110071105+trixie_amd64.deb'
-removed '../securedrop-admin-dbgsym_2.17.0~rc1.dev20261110071105+trixie_amd64.deb'
-copied '../securedrop-admin-qubes_2.17.0~rc1.dev20261110071105+trixie_amd64.deb' -> '/src/build/trixie/securedrop-admin-qubes_2.17.0~rc1.dev20261110071105+trixie_amd64.deb'
-removed '../securedrop-admin-qubes_2.17.0~rc1.dev20261110071105+trixie_amd64.deb'
-copied '../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.deb' -> '/src/build/trixie/securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.deb'
-removed '../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.deb'
-copied '../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie.tar.gz' -> '/src/build/trixie/securedrop-admin_2.17.0~rc1.dev20261110071105+trixie.tar.gz'
-removed '../securedrop-admin_2.17.0~rc1.dev20261110071105+trixie.tar.gz'
++ mv -v ../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.buildinfo ../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.changes ../securedrop-admin-dbgsym_2.17.0~rc1.dev20261110171748+trixie_amd64.deb ../securedrop-admin-qubes_2.17.0~rc1.dev20261110171748+trixie_amd64.deb ../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.deb ../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie.tar.gz /src/build/trixie
+copied '../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.buildinfo' -> '/src/build/trixie/securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.buildinfo'
+removed '../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.buildinfo'
+copied '../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.changes' -> '/src/build/trixie/securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.changes'
+removed '../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.changes'
+copied '../securedrop-admin-dbgsym_2.17.0~rc1.dev20261110171748+trixie_amd64.deb' -> '/src/build/trixie/securedrop-admin-dbgsym_2.17.0~rc1.dev20261110171748+trixie_amd64.deb'
+removed '../securedrop-admin-dbgsym_2.17.0~rc1.dev20261110171748+trixie_amd64.deb'
+copied '../securedrop-admin-qubes_2.17.0~rc1.dev20261110171748+trixie_amd64.deb' -> '/src/build/trixie/securedrop-admin-qubes_2.17.0~rc1.dev20261110171748+trixie_amd64.deb'
+removed '../securedrop-admin-qubes_2.17.0~rc1.dev20261110171748+trixie_amd64.deb'
+copied '../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.deb' -> '/src/build/trixie/securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.deb'
+removed '../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.deb'
+copied '../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie.tar.gz' -> '/src/build/trixie/securedrop-admin_2.17.0~rc1.dev20261110171748+trixie.tar.gz'
+removed '../securedrop-admin_2.17.0~rc1.dev20261110171748+trixie.tar.gz'
 + cd /src/build/trixie
-+ sha256sum ./securedrop-admin-dbgsym_2.17.0~rc1.dev20261110071105+trixie_amd64.deb ./securedrop-admin-qubes_2.17.0~rc1.dev20261110071105+trixie_amd64.deb ./securedrop-admin_2.17.0~rc1.dev20261110071105+trixie.tar.gz ./securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.buildinfo ./securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.changes ./securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.deb
-914d9943a317adbf8b82209789d6ab02a41678098fd77ddf2354b1483c2e649e  ./securedrop-admin-dbgsym_2.17.0~rc1.dev20261110071105+trixie_amd64.deb
-b03017570097c3f40a702fe447df13bfbf2b15fbac8916c0b0c6a6bcf3a78f12  ./securedrop-admin-qubes_2.17.0~rc1.dev20261110071105+trixie_amd64.deb
-5da44398d4b583f500010b7cd387160854c1d291f9134f1f27c8f64cb6649e9b  ./securedrop-admin_2.17.0~rc1.dev20261110071105+trixie.tar.gz
-1d45196a32b21f1fa0fb4d81b30cd8fb78c347b8f9c43f34c63883d624db888b  ./securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.buildinfo
-8d532d52a90930db6a033d2eea4d0d2c4416d00f0551ad0cd44873928647332e  ./securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.changes
-81eabfb29804f4262bdb53b79daed7a143cb3ed2f244450f49b974437f2ee265  ./securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.deb
++ sha256sum ./securedrop-admin-dbgsym_2.17.0~rc1.dev20261110171748+trixie_amd64.deb ./securedrop-admin-qubes_2.17.0~rc1.dev20261110171748+trixie_amd64.deb ./securedrop-admin_2.17.0~rc1.dev20261110171748+trixie.tar.gz ./securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.buildinfo ./securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.changes ./securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.deb
+a530c358287aca24adf4e6128f2f3c8cac611e43e405bc883106a2c417685ee3  ./securedrop-admin-dbgsym_2.17.0~rc1.dev20261110171748+trixie_amd64.deb
+cf2177e26d4869844b56f92deb9cb2cfc1e8f3c08750834033fa99edd0f0b248  ./securedrop-admin-qubes_2.17.0~rc1.dev20261110171748+trixie_amd64.deb
+0fc4217ef088c028917f925cc49e6398130e27ed1412063184fd34707b6f00fd  ./securedrop-admin_2.17.0~rc1.dev20261110171748+trixie.tar.gz
+bf3586311aaa0ab895a3e794ac80189375e68228d8dbb65b5bb7aa0758e7e9ca  ./securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.buildinfo
+eb39aa98830213b2deb64bf418020739188a1905f40e0e4b3c9eccab94e54c89  ./securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.changes
+be97731687eed088583e23ddfe6a51754e202b78975784e48014ed9f59bda0a4  ./securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.deb
 + HOST_UID=1001
 + HOST_GID=1001
 + chown -R 1001:1001 /src/build/trixie
@@ -3136,12 +3136,12 @@ b03017570097c3f40a702fe447df13bfbf2b15fbac8916c0b0c6a6bcf3a78f12  ./securedrop-a
 build
 build/20261110-securedrop-admin.log
 build/trixie
-build/trixie/securedrop-admin-dbgsym_2.17.0~rc1.dev20261110071105+trixie_amd64.deb
-build/trixie/securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.deb
-build/trixie/securedrop-admin_2.17.0~rc1.dev20261110071105+trixie.tar.gz
-build/trixie/securedrop-admin-qubes_2.17.0~rc1.dev20261110071105+trixie_amd64.deb
-build/trixie/securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.changes
-build/trixie/securedrop-admin_2.17.0~rc1.dev20261110071105+trixie_amd64.buildinfo
+build/trixie/securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.changes
+build/trixie/securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.deb
+build/trixie/securedrop-admin-qubes_2.17.0~rc1.dev20261110171748+trixie_amd64.deb
+build/trixie/securedrop-admin_2.17.0~rc1.dev20261110171748+trixie.tar.gz
+build/trixie/securedrop-admin_2.17.0~rc1.dev20261110171748+trixie_amd64.buildinfo
+build/trixie/securedrop-admin-dbgsym_2.17.0~rc1.dev20261110171748+trixie_amd64.deb
 + echo ::endgroup::
 ::endgroup::
 + NOTEST=
@@ -3247,8 +3247,8 @@ builder/tests/test_admin_package.py::test_admin_qubes_firefox_policies_contents 
     clear = ast.Assign(variables, ast.NameConstant(None))
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-[33m======================= [32m6 passed[0m, [33m[1m168 warnings[0m[33m in 1.48s[0m[33m ========================[0m
+[33m======================= [32m6 passed[0m, [33m[1m168 warnings[0m[33m in 1.73s[0m[33m ========================[0m
 + echo ::endgroup::
 ::endgroup::
 
-Script done on 2026-11-10 07:14:57+00:00 [COMMAND_EXIT_CODE="0"]
+Script done on 2026-11-10 17:22:11+00:00 [COMMAND_EXIT_CODE="0"]
